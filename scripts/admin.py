@@ -165,7 +165,7 @@ code{color:#d3deea}
 
       <label>Originálne logo</label>
       <input name="logo" type="file" accept=".png,.svg,.jpg,.jpeg,.webp" required>
-      <div class="status">Farebné alebo tmavé pozadie sa automaticky odstráni. Do piconu sa vloží iba samotné logo a výsledok dostane jednotné čierne pozadie.</div>
+      <div class="status">Farebné alebo tmavé pozadie sa automaticky odstráni. Samotné logo sa oreže podľa viditeľného obsahu a pri zachovaní pomeru strán vyplní takmer celý picon.</div>
 
       <label>Enigma2 service reference</label>
       <input id="serviceRef" name="service_reference" placeholder="1:0:19:334F:C93:3:EB0000:0:0:0:" required>
