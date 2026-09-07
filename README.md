@@ -133,3 +133,21 @@ Automatic mode keeps already-transparent artwork untouched, removes simple solid
 Original uploads are stored under `assets/source-logos/`. A processed transparent PNG is stored under `assets/logos/` and is the file used by the public build.
 
 Existing channels can be selected from the admin and their logo can be replaced without re-entering the service reference. `logo_version` and `updated_at` are updated, while Git history keeps prior revisions.
+
+
+## macOS one-click app
+
+To create a normal clickable macOS app for the maintainer admin, run once:
+
+```bash
+chmod +x install-macos-app.command
+./install-macos-app.command
+```
+
+The installer creates:
+
+```text
+~/Applications/Satellite Picons Admin.app
+```
+
+Clicking the app starts the local admin in the background (if it is not already running) and opens `http://127.0.0.1:8765`. The app can be dragged into the Dock.
