@@ -33,6 +33,9 @@ jobs:
       - name: Install Python dependencies
         run: pip install -r requirements.txt
 
+      - name: Syntax check
+        run: python -m py_compile scripts/build.py scripts/admin.py scripts/add_channel.py
+
       - name: Build picons
         run: python scripts/build.py
 
