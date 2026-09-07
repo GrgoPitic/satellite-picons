@@ -122,3 +122,14 @@ The form lets the maintainer:
 - optionally commit and push the change to GitHub automatically
 
 The admin binds only to `127.0.0.1`, so it is not publicly exposed.
+
+
+## Logo processing and replacement
+
+The local maintainer admin can now preview the final 150×90 picon before publishing and can remove backgrounds in four modes: automatic, simple edge-connected background, AI, or disabled.
+
+Automatic mode keeps already-transparent artwork untouched, removes simple solid backgrounds deterministically, and falls back to local `rembg` AI for complex backgrounds. The AI model is downloaded locally on first use.
+
+Original uploads are stored under `assets/source-logos/`. A processed transparent PNG is stored under `assets/logos/` and is the file used by the public build.
+
+Existing channels can be selected from the admin and their logo can be replaced without re-entering the service reference. `logo_version` and `updated_at` are updated, while Git history keeps prior revisions.
