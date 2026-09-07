@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="360" viewBox="0 0 1400 360" role="img" aria-labelledby="title desc">
+  <title id="title">Satellite Picons</title>
+  <desc id="desc">Curated Enigma2 satellite picon library</desc>
+  <defs>
+    <linearGradient id="bg" x1="80" y1="20" x2="1320" y2="340" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#16283a"/>
+      <stop offset="0.55" stop-color="#0b131d"/>
+      <stop offset="1" stop-color="#06090e"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientTransform="translate(1120 60) rotate(150) scale(620 330)">
+      <stop offset="0" stop-color="#6f9bc6" stop-opacity=".28"/>
+      <stop offset="1" stop-color="#6f9bc6" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="panel" x1="112" y1="86" x2="328" y2="282" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#243b52"/>
+      <stop offset="1" stop-color="#0a1119"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1400" height="360" rx="34" fill="url(#bg)"/>
+  <rect width="1400" height="360" rx="34" fill="url(#glow)"/>
+  <rect x="1" y="1" width="1398" height="358" rx="33" fill="none" stroke="#304255" stroke-opacity=".8"/>
+
+  <g transform="translate(78 55)">
+    <rect x="0" y="0" width="250" height="250" rx="58" fill="url(#panel)" stroke="#40566d" stroke-width="4"/>
+    <rect x="37" y="60" width="176" height="122" rx="28" fill="#05080c" stroke="#31465a" stroke-width="4"/>
+    <path d="M67 151c22-47 76-70 123-51-12 47-59 76-108 65-9-2-18-7-26-13 4 0 7 0 11-1z" fill="#eef4fa"/>
+    <path d="M99 158l-20 37" stroke="#eef4fa" stroke-width="13" stroke-linecap="round"/>
+    <path d="M77 195h64" stroke="#eef4fa" stroke-width="12" stroke-linecap="round"/>
+    <circle cx="173" cy="115" r="10" fill="#83a9cc"/>
+    <path d="M176 19c31 8 55 31 62 62" fill="none" stroke="#d8e6f3" stroke-width="11" stroke-linecap="round"/>
+    <path d="M178 46c18 5 32 19 37 37" fill="none" stroke="#9bb6d1" stroke-width="9" stroke-linecap="round"/>
+  </g>
+
+  <g transform="translate(390 0)">
+    <text x="0" y="142" fill="#f5f8fb" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="58" font-weight="760" letter-spacing="-1.8">Satellite Picons</text>
+    <text x="2" y="190" fill="#9dafc1" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="23" font-weight="500">Curated Enigma2 satellite picon library</text>
+
+    <g transform="translate(2 226)" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="15" font-weight="700">
+      <rect x="0" y="0" width="96" height="36" rx="18" fill="#111c27" stroke="#33485d"/>
+      <text x="48" y="23" text-anchor="middle" fill="#c9d6e3">150×90</text>
+
+      <rect x="110" y="0" width="105" height="36" rx="18" fill="#111c27" stroke="#33485d"/>
+      <text x="162.5" y="23" text-anchor="middle" fill="#c9d6e3">Enigma2</text>
+
+      <rect x="229" y="0" width="174" height="36" rx="18" fill="#111c27" stroke="#33485d"/>
+      <text x="316" y="23" text-anchor="middle" fill="#c9d6e3">Service Reference</text>
+
+      <rect x="417" y="0" width="184" height="36" rx="18" fill="#111c27" stroke="#33485d"/>
+      <text x="509" y="23" text-anchor="middle" fill="#c9d6e3">Community Maintained</text>
+    </g>
+  </g>
+</svg>
