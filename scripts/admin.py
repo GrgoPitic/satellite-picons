@@ -423,7 +423,11 @@ def search_kingofsat(query: str, orbit_filter: str = "") -> list[dict]:
 
 def load_uploaded_logo(data: bytes, ext: str) -> Image.Image:
     if ext == ".svg":
-        raise ValueError("SVG_LOCAL_DEFER")
+        try:
+            import cairosvg
+            data = cairosvg.svg2png(bytestring=data)
+        except Exception as exc:
+            raise RuntimeError("SVG_LOCAL_DEFER") from exc
     return Image.open(io.BytesIO(data)).convert("RGBA")
 
 def has_real_transparency(im: Image.Image) -> bool:
@@ -662,11 +666,17 @@ def index():
             raise ValueError("Logo je prázdne.")
 
         if ext == ".svg":
-            # SVG is kept as the original vector file. The GitHub Actions build
-            # rasterizes it in the Linux environment, where Cairo is available,
-            # then applies the same background cleanup/normalization as PNG.
-            dest = LOGOS / f"{channel_id}.svg"
-            dest.write_bytes(raw)
+            try:
+                processed = prepare_logo(raw, ext)
+                dest = LOGOS / f"{channel_id}.png"
+                processed.save(dest, format="PNG", optimize=True)
+            except RuntimeError as exc:
+                if str(exc) != "SVG_LOCAL_DEFER":
+                    raise
+                # Fallback: keep the SVG untouched and let GitHub Actions
+                # rasterize it in Linux if local Cairo still cannot be loaded.
+                dest = LOGOS / f"{channel_id}.svg"
+                dest.write_bytes(raw)
         else:
             processed = prepare_logo(raw, ext)
             dest = LOGOS / f"{channel_id}.png"
