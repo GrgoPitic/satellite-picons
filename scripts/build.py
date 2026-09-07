@@ -23,7 +23,7 @@ TEMPLATE = ROOT / "assets/templates/piconblack-150x90.png"
 BASE_PACK = ROOT / "seed/base-pack.zip"
 
 CANVAS = (150, 90)
-MAX_LOGO = (140, 80)
+MAX_LOGO = (148, 86)
 SUPPORTED_LOGO_EXTENSIONS = {".png", ".svg", ".jpg", ".jpeg", ".webp"}
 
 
@@ -169,10 +169,11 @@ def trim_alpha(im: Image.Image) -> Image.Image:
 
 
 def fit_logo(im: Image.Image, max_size=MAX_LOGO, optical_scale: float = 1.0) -> Image.Image:
-    """Scale artwork UP or DOWN to consistently fill the safe box.
+    """Fill almost the entire picon while preserving the logo aspect ratio.
 
-    The transparent/white outer margin is removed before this function runs,
-    so source pixel dimensions no longer influence the visual size.
+    The visible alpha bounds are trimmed first. The artwork then grows until
+    either 98% of the picon width or about 96% of its height is reached.
+    No stretching, squashing or cropping is performed.
     """
     w, h = im.size
     if w <= 0 or h <= 0:
