@@ -1,25 +1,26 @@
 # Satellite Picons
 
-Bezplatný komunitný projekt satelitných piconov pre **Enigma2**, ktorý vzniká vo voľnom čase pre ľudí, ktorí chcú mať svoje prijímače čisté, prehľadné a s aktuálnymi logami staníc.
+Curated satellite picon library for **Enigma2** with consistent 150×90 styling, current channel branding and service-reference compatibility.
 
-Projekt je nezávislý, bez reklám a bez plateného prístupu.
+**Catalogue:** https://grgopitic.github.io/satellite-picons/
 
-**Katalóg a stiahnutie:**  
-https://grgopitic.github.io/satellite-picons/
+## Overview
 
-## O projekte
+Satellite Picons is an independent community-maintained project focused on a clean and consistent picon collection for satellite receivers running Enigma2.
 
-Satellite Picons je hobby projekt zameraný výhradne na picony. Kolekcia sa priebežne dopĺňa a aktualizuje podľa zmien log, kanálov a satelitných služieb.
+- 150×90 picons
+- consistent visual treatment
+- current channel branding
+- Enigma2 service-reference filenames
+- individual downloads and complete package
+- continuously maintained catalogue
 
-- picony pre Enigma2
-- jednotný vizuálny štýl
-- rozlíšenie 150×90
-- aktuálne logá staníc
-- jednoduché stiahnutie jednotlivých piconov alebo celého balíka
-- bezplatné používanie
+## Project status
 
-## Licencia a značky
+The collection is actively expanded and updated as channel branding and satellite services change.
 
-Kód projektu je dostupný pod licenciou MIT. Názvy kanálov, logá a ochranné známky patria ich príslušným vlastníkom.
+## Licence
 
-Satellite Picons je nezávislý komunitný projekt a nie je oficiálne spojený so žiadnym vysielateľom ani satelitným operátorom.
+Project code is licensed under MIT. Channel names, logos and trademarks remain the property of their respective owners.
+
+Satellite Picons is an independent project and is not affiliated with or endorsed by any broadcaster or satellite operator.
