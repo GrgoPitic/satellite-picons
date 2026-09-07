@@ -15,7 +15,10 @@ channels:
   optical_scale: 1.0
   satellite_position: 23.5E
   provider_group: skylink
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 - id: joj-sport-2
   name: JOJ ŠPORT 2
   logo: assets/logos/joj-sport-2.png
@@ -24,7 +27,10 @@ channels:
   optical_scale: 1.0
   satellite_position: 23.5E
   provider_group: skylink
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 - id: joj-svet
   name: JOJ Svet
   logo: assets/logos/joj-svet.png
@@ -36,7 +42,10 @@ channels:
   dark_to_white: true
   satellite_position: 23.5E
   provider_group: skylink
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 - id: joj-cinema
   name: JOJ Cinema
   logo: assets/logos/joj-cinema.png
@@ -48,7 +57,10 @@ channels:
   dark_to_white: true
   satellite_position: 23.5E
   provider_group: skylink
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 - id: cs-mystery
   name: CS Mystery
   logo: assets/logos/cs-mystery.png
@@ -60,3 +72,20 @@ channels:
   dark_to_white: true
   satellite_position: 23.5E
   provider_group: skylink
+<<<<<<< Updated upstream
+=======
+- id: markiza
+  name: Markiza
+  logo: assets/logos/markiza.png
+  service_reference: '1:0:19:3731:C8E:3:EB0000:0:0:0:'
+  variant_types:
+  - '1'
+  - '16'
+  - '19'
+  dark_to_white: false
+  optical_scale: 1.0
+  edge_cleanup: false
+  background_cleanup: true
+  satellite_position: 23.5E
+  provider_group: skylink
+>>>>>>> Stashed changes
