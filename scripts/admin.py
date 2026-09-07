@@ -409,7 +409,11 @@ def publish_pending_changes() -> str:
         run_git("rebase", "--abort")
         raise RuntimeError(rebase.stderr.strip() or rebase.stdout.strip() or "Synchronizácia s origin/main zlyhala.")
 
-    add = run_git("add", "-A", "channels.yml", "assets/logos", "assets/source-logos")
+    add_paths = ["channels.yml", "assets/logos"]
+    if (ROOT / "assets" / "source-logos").exists():
+        add_paths.append("assets/source-logos")
+
+    add = run_git("add", "-A", *add_paths)
     if add.returncode != 0:
         raise RuntimeError(add.stderr.strip() or "git add zlyhal")
 
