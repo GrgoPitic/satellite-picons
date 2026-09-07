@@ -83,3 +83,80 @@ body.modal-open{overflow:hidden}
   .modal-card{grid-template-columns:1fr;gap:18px}
   .modal-copy h2{font-size:24px}
 }
+
+/* 2026 catalogue refresh */
+main{width:min(1280px,calc(100% - 36px));padding-top:46px}
+.hero{grid-template-columns:minmax(0,1fr) auto;align-items:center;padding:10px 0 34px;gap:32px}
+.hero h1{font-size:clamp(46px,6vw,72px);margin-bottom:14px}
+.lead{font-size:17px;line-height:1.5;color:#98a7b8;max-width:720px}
+.stats{margin:24px 0 22px;gap:10px}
+.stats div{padding:16px 18px;border-radius:13px;background:#0b1016}
+.stats strong{font-size:24px}
+.catalog{padding:18px;border-radius:18px;background:#090d12}
+.catalog-head{margin-bottom:14px;align-items:center}
+.catalog-head h2{font-size:25px}
+.catalog-head>p{font-size:12px;line-height:1.5}
+.catalog-tools{margin-bottom:16px}
+.catalog-tools input{height:46px;margin-bottom:10px;background:#05080c}
+.filters{gap:7px}
+.filter{padding:7px 11px;font-size:11px}
+
+/* Clean picon wall: the picon itself is the main object, not a bulky card. */
+.grid{grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:18px 14px}
+.card{
+  display:block;
+  padding:0;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  cursor:pointer;
+  min-width:0;
+  transition:transform .16s ease;
+}
+.card:hover{transform:translateY(-2px);background:transparent;border-color:transparent}
+.card .preview{
+  width:100%;
+  aspect-ratio:5/3;
+  height:auto;
+  border-radius:11px;
+  overflow:hidden;
+  background:#000;
+  border:1px solid #1b2430;
+  box-shadow:0 8px 24px rgba(0,0,0,.22);
+  transition:border-color .16s ease,box-shadow .16s ease;
+}
+.card:hover .preview{
+  border-color:#42556a;
+  box-shadow:0 12px 30px rgba(0,0,0,.32);
+}
+.card .preview img{width:100%;height:100%;object-fit:contain;display:block}
+.card .meta{padding:9px 2px 0}
+.card .meta h2{
+  font-size:13px;
+  line-height:1.25;
+  font-weight:700;
+  margin:0;
+  color:#e8edf3;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.card .card-sub{
+  margin-top:4px;
+  color:#68788a;
+  font-size:10px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.card:focus-visible .preview{outline:2px solid #91a9c2;outline-offset:3px}
+
+@media(max-width:760px){
+  main{width:min(100% - 24px,1280px);padding-top:28px}
+  .hero{grid-template-columns:1fr;gap:20px;padding-bottom:26px}
+  .stats{grid-template-columns:repeat(3,1fr)}
+  .stats div{padding:13px 10px}
+  .stats strong{font-size:20px}
+  .stats span{font-size:10px}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 10px}
+}
