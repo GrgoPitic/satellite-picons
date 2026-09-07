@@ -73,3 +73,17 @@ channels:
   background_cleanup: true
   satellite_position: 23.5E
   provider_group: skylink
+- id: prima-televize
+  name: Prima Televize
+  logo: assets/logos/prima-televize.svg
+  service_reference: '1:0:19:3392:C9D:3:EB0000:0:0:0:'
+  variant_types:
+  - '1'
+  - '16'
+  - '19'
+  dark_to_white: false
+  optical_scale: 1.0
+  edge_cleanup: false
+  background_cleanup: true
+  satellite_position: 23.5E
+  provider_group: skylink
