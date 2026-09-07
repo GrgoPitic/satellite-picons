@@ -154,7 +154,7 @@ def render_logo(
     template: Image.Image,
     dark_to_white: bool,
     optical_scale: float = 1.0,
-    ch_edge_cleanup: bool = True,
+    ch_edge_cleanup: bool = False,
 ) -> Image.Image:
     logo = load_logo_image(logo_path)
     if ch_edge_cleanup:
@@ -215,9 +215,9 @@ def main() -> int:
         rendered = render_logo(
             logo_path,
             template,
-            bool(ch.get("dark_to_white", True)),
+            bool(ch.get("dark_to_white", False)),
             float(ch.get("optical_scale", 1.0)),
-            bool(ch.get("edge_cleanup", True)),
+            bool(ch.get("edge_cleanup", False)),
         )
         files = []
 
