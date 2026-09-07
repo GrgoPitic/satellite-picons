@@ -46,3 +46,12 @@ channels:
   - '16'
   - '19'
   dark_to_white: true
+- id: cs-mystery
+  name: CS Mystery
+  logo: assets/logos/cs-mystery.png
+  service_reference: '1:0:1:334D:C93:3:EB0000:0:0:0:'
+  variant_types:
+  - '1'
+  - '16'
+  - '19'
+  dark_to_white: true
