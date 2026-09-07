@@ -1,0 +1,18 @@
+project:
+  package: satellite-picons
+  resolution: 150x90
+  style: piconblack
+  variant_types: ["1", "16", "19"]
+
+channels:
+  - id: joj-krimi
+    name: JOJ KRIMI
+    logo: assets/logos/joj-krimi.png
+    service_reference: "1:0:19:334F:C93:3:EB0000:0:0:0:"
+    dark_to_white: true
+
+  - id: joj-sport-2
+    name: JOJ ŠPORT 2
+    logo: assets/logos/joj-sport-2.png
+    service_reference: "1:0:19:30C:C94:3:EB0000:0:0:0:"
+    dark_to_white: true
