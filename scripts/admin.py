@@ -165,7 +165,7 @@ code{color:#d3deea}
 
       <label>Originálne logo</label>
       <input name="logo" type="file" accept=".png,.svg,.jpg,.jpeg,.webp" required>
-      <div class="status">Farebné alebo tmavé pozadie sa automaticky odstráni. Samotné logo sa oreže podľa viditeľného obsahu a pri zachovaní pomeru strán vyplní takmer celý picon.</div>
+      <div class="status">Farebné alebo tmavé pozadie sa automaticky odstráni. Samotné logo sa oreže podľa viditeľného obsahu a pri zachovaní pomeru strán vyplní takmer celý picon. SVG sa môže nahrať priamo — spracuje sa pri buildovaní na GitHube, bez potreby Cairo na Macu.</div>
 
       <label>Enigma2 service reference</label>
       <input id="serviceRef" name="service_reference" placeholder="1:0:19:334F:C93:3:EB0000:0:0:0:" required>
@@ -423,14 +423,7 @@ def search_kingofsat(query: str, orbit_filter: str = "") -> list[dict]:
 
 def load_uploaded_logo(data: bytes, ext: str) -> Image.Image:
     if ext == ".svg":
-        try:
-            import cairosvg
-        except Exception as exc:
-            raise ValueError(
-                "SVG logo sa na tomto Macu nedá spracovať bez knižnice Cairo. "
-                "Použi PNG/WEBP/JPG alebo doinštaluj cairo cez Homebrew."
-            ) from exc
-        data = cairosvg.svg2png(bytestring=data)
+        raise ValueError("SVG_LOCAL_DEFER")
     return Image.open(io.BytesIO(data)).convert("RGBA")
 
 def has_real_transparency(im: Image.Image) -> bool:
@@ -668,9 +661,16 @@ def index():
         if not raw:
             raise ValueError("Logo je prázdne.")
 
-        processed = prepare_logo(raw, ext)
-        dest = LOGOS / f"{channel_id}.png"
-        processed.save(dest, format="PNG", optimize=True)
+        if ext == ".svg":
+            # SVG is kept as the original vector file. The GitHub Actions build
+            # rasterizes it in the Linux environment, where Cairo is available,
+            # then applies the same background cleanup/normalization as PNG.
+            dest = LOGOS / f"{channel_id}.svg"
+            dest.write_bytes(raw)
+        else:
+            processed = prepare_logo(raw, ext)
+            dest = LOGOS / f"{channel_id}.png"
+            processed.save(dest, format="PNG", optimize=True)
 
         cfg = yaml.safe_load(DB.read_text(encoding="utf-8"))
         entry = {
