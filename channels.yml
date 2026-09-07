@@ -129,3 +129,17 @@ channels:
   background_cleanup: true
   satellite_position: 23.5E
   provider_group: skylink
+- id: viasat-nature
+  name: Viasat Nature
+  logo: assets/logos/viasat-nature.svg
+  service_reference: '1:0:19:3CF1:C95:3:EB0000:0:0:0:'
+  variant_types:
+  - '1'
+  - '16'
+  - '19'
+  dark_to_white: true
+  optical_scale: 1.0
+  edge_cleanup: false
+  background_cleanup: true
+  satellite_position: 23.5E
+  provider_group: skylink
