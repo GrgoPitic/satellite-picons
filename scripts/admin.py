@@ -11,7 +11,6 @@ import urllib.parse
 import webbrowser
 from pathlib import Path
 
-import cairosvg
 from PIL import Image
 
 import requests
@@ -424,6 +423,13 @@ def search_kingofsat(query: str, orbit_filter: str = "") -> list[dict]:
 
 def load_uploaded_logo(data: bytes, ext: str) -> Image.Image:
     if ext == ".svg":
+        try:
+            import cairosvg
+        except Exception as exc:
+            raise ValueError(
+                "SVG logo sa na tomto Macu nedá spracovať bez knižnice Cairo. "
+                "Použi PNG/WEBP/JPG alebo doinštaluj cairo cez Homebrew."
+            ) from exc
         data = cairosvg.svg2png(bytestring=data)
     return Image.open(io.BytesIO(data)).convert("RGBA")
 
