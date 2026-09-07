@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import html
+import io
 import os
 import re
 import shutil
@@ -9,6 +10,9 @@ import subprocess
 import urllib.parse
 import webbrowser
 from pathlib import Path
+
+import cairosvg
+from PIL import Image
 
 import requests
 import yaml
@@ -23,6 +27,23 @@ SUPPORTED = {".png", ".svg", ".jpg", ".jpeg", ".webp"}
 ID_RE = re.compile(r"^[a-z0-9][a-z0-9-]{1,63}$")
 ORBIT_RE = re.compile(r"(?P<deg>\d+(?:\.\d+)?)\s*°?\s*(?P<dir>[EW])", re.I)
 KINGOFSAT_SEARCH = "https://en.kingofsat.net/find.php"
+PROVIDER_DEFAULTS = {
+    "23.5E": ("skylink", "Skylink"),
+    "19.2E": ("astra-19-2e", "Astra 19.2°E"),
+    "28.2E": ("astra-28-2e", "Astra 28.2°E"),
+    "16E": ("eutelsat-16e", "Eutelsat 16°E"),
+    "13E": ("hotbird-13e", "Hot Bird 13°E"),
+    "9E": ("eutelsat-9e", "Eutelsat 9°E"),
+    "7E": ("eutelsat-7e", "Eutelsat 7°E"),
+    "5E": ("astra-5e", "Astra / SES 5°E"),
+    "1W": ("thor-1w", "Thor / Intelsat 1°W"),
+    "0.8W": ("thor-0-8w", "Thor 0.8°W"),
+    "4W": ("amos-4w", "Amos 4°W"),
+    "5W": ("eutelsat-5w", "Eutelsat 5°W"),
+    "30W": ("hispasat-30w", "Hispasat 30°W"),
+    "42E": ("turksat-42e", "Türksat 42°E"),
+}
+
 SATELLITE_POSITIONS = [
     ("23.5E", "23.5°E · Astra 3"),
     ("19.2E", "19.2°E · Astra 1"),
@@ -59,7 +80,7 @@ h1{margin:0 0 8px;font-size:34px}.sub{color:#93a1b3;margin:0 0 24px}
 label{display:block;font-size:13px;color:#a9b6c6;margin:16px 0 7px}
 input,select{width:100%;padding:13px 14px;border-radius:11px;border:1px solid #2a3543;background:#090e14;color:#fff;font-size:15px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.lookup{display:grid;grid-template-columns:1fr 170px 150px;gap:10px;align-items:end}
+.lookup{display:grid;grid-template-columns:1fr 210px 190px 130px;gap:10px;align-items:end}
 .check{display:flex;align-items:center;gap:9px;margin-top:16px}.check input{width:auto}
 button{margin-top:22px;width:100%;padding:14px;border:0;border-radius:12px;font-weight:700;font-size:15px;cursor:pointer}
 button.secondary{margin-top:0;background:#182332;color:#fff;border:1px solid #304052}
@@ -110,10 +131,19 @@ code{color:#d3deea}
       </div>
       <div>
         <label>Satelitná pozícia</label>
-        <select id="lookupOrbit">
+        <select id="lookupOrbit" name="satellite_position" form="channelForm">
           <option value="">— Vyber pozíciu —</option>
           {% for value, label in satellite_positions %}
             <option value="{{ value }}">{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div>
+        <label>Skupina / balík</label>
+        <select id="providerGroup" name="provider_group" form="channelForm">
+          <option value="">— Automaticky —</option>
+          {% for key, label in provider_groups %}
+            <option value="{{ key }}">{{ label }}</option>
           {% endfor %}
         </select>
       </div>
@@ -122,7 +152,7 @@ code{color:#d3deea}
     <div id="lookupStatus" class="status"></div>
     <div id="results" class="results"></div>
 
-    <form method="post" enctype="multipart/form-data">
+    <form id="channelForm" method="post" enctype="multipart/form-data">
       <div class="grid">
         <div>
           <label>ID kanála</label>
@@ -136,6 +166,7 @@ code{color:#d3deea}
 
       <label>Originálne logo</label>
       <input name="logo" type="file" accept=".png,.svg,.jpg,.jpeg,.webp" required>
+      <div class="status">Farebné alebo tmavé pozadie sa automaticky odstráni. Do piconu sa vloží iba samotné logo a výsledok dostane jednotné čierne pozadie.</div>
 
       <label>Enigma2 service reference</label>
       <input id="serviceRef" name="service_reference" placeholder="1:0:19:334F:C93:3:EB0000:0:0:0:" required>
@@ -182,6 +213,15 @@ const publishBtn=document.querySelector('#publishBtn');
 const publishStatus=document.querySelector('#publishStatus');
 const manageChannel=document.querySelector('#manageChannel');
 const deleteChannelBtn=document.querySelector('#deleteChannelBtn');
+const providerDefaults={{ provider_defaults|tojson }};
+const providerGroup=document.querySelector('#providerGroup');
+const lookupOrbit=document.querySelector('#lookupOrbit');
+if(lookupOrbit && providerGroup){
+  lookupOrbit.addEventListener('change',()=>{
+    const d=providerDefaults[lookupOrbit.value];
+    providerGroup.value=d ? d[0] : '';
+  });
+}
 if(deleteChannelBtn){
   deleteChannelBtn.addEventListener('click',async()=>{
     const channelId=manageChannel.value;
@@ -382,6 +422,74 @@ def search_kingofsat(query: str, orbit_filter: str = "") -> list[dict]:
 
     return results[:30]
 
+def load_uploaded_logo(data: bytes, ext: str) -> Image.Image:
+    if ext == ".svg":
+        data = cairosvg.svg2png(bytestring=data)
+    return Image.open(io.BytesIO(data)).convert("RGBA")
+
+def has_real_transparency(im: Image.Image) -> bool:
+    lo, _ = im.getchannel("A").getextrema()
+    return lo < 250
+
+def remove_corner_connected_background(im: Image.Image, tolerance: int = 28) -> Image.Image:
+    """Remove smooth/solid backgrounds connected to image corners.
+
+    This preserves the artwork itself and only turns the surrounding background
+    transparent. It also handles many gradient backgrounds because the flood
+    fill follows small local colour changes.
+    """
+    im = im.convert("RGBA")
+    if has_real_transparency(im):
+        return im
+
+    px = im.load()
+    w, h = im.size
+    if w < 2 or h < 2:
+        return im
+
+    seeds = {(0, 0), (w - 1, 0), (0, h - 1), (w - 1, h - 1)}
+    seen = set()
+    stack = list(seeds)
+
+    def close(a, b):
+        return max(abs(a[i] - b[i]) for i in range(3)) <= tolerance
+
+    while stack:
+        x, y = stack.pop()
+        if (x, y) in seen or not (0 <= x < w and 0 <= y < h):
+            continue
+        seen.add((x, y))
+        current = px[x, y]
+        if current[3] == 0:
+            continue
+
+        for nx, ny in ((x+1,y),(x-1,y),(x,y+1),(x,y-1)):
+            if not (0 <= nx < w and 0 <= ny < h) or (nx, ny) in seen:
+                continue
+            neighbour = px[nx, ny]
+            if neighbour[3] > 0 and close(current, neighbour):
+                stack.append((nx, ny))
+
+    # Do not apply suspicious cleanup if it would remove almost nothing.
+    if len(seen) < max(12, int(w * h * 0.015)):
+        return im
+
+    for x, y in seen:
+        r, g, b, _ = px[x, y]
+        px[x, y] = (r, g, b, 0)
+    return im
+
+def trim_transparent(im: Image.Image) -> Image.Image:
+    bbox = im.getchannel("A").getbbox()
+    if not bbox:
+        raise ValueError("Po odstránení pozadia nezostal žiadny obsah loga.")
+    return im.crop(bbox)
+
+def prepare_logo(data: bytes, ext: str) -> Image.Image:
+    im = load_uploaded_logo(data, ext)
+    im = remove_corner_connected_background(im)
+    return trim_transparent(im)
+
 def run_git(*args: str, timeout: int = 25) -> subprocess.CompletedProcess:
     env = os.environ.copy()
     env["GIT_TERMINAL_PROMPT"] = "0"
@@ -506,12 +614,18 @@ def index():
             PAGE,
             channels=cfg.get("channels", []),
             satellite_positions=SATELLITE_POSITIONS,
+            provider_groups=sorted(set(PROVIDER_DEFAULTS.values()), key=lambda x: x[1].lower()),
+            provider_defaults=PROVIDER_DEFAULTS,
         )
 
     try:
         channel_id = request.form["channel_id"].strip().lower()
         name = request.form["name"].strip()
         ref = request.form["service_reference"].strip()
+        satellite_position = normalize_orbit(request.form.get("satellite_position", "").strip())
+        provider_group = request.form.get("provider_group", "").strip()
+        if not provider_group and satellite_position in PROVIDER_DEFAULTS:
+            provider_group = PROVIDER_DEFAULTS[satellite_position][0]
         variants = [x.strip().upper() for x in request.form.get("variants", "1,16,19").split(",") if x.strip()]
         dark_to_white = request.form.get("dark_to_white", "false") == "true"
         publish = request.form.get("publish") == "on"
@@ -536,8 +650,13 @@ def index():
             if old.suffix.lower() in SUPPORTED:
                 old.unlink()
 
-        dest = LOGOS / f"{channel_id}{ext}"
-        upload.save(dest)
+        raw = upload.read()
+        if not raw:
+            raise ValueError("Logo je prázdne.")
+
+        processed = prepare_logo(raw, ext)
+        dest = LOGOS / f"{channel_id}.png"
+        processed.save(dest, format="PNG", optimize=True)
 
         cfg = yaml.safe_load(DB.read_text(encoding="utf-8"))
         entry = {
@@ -549,6 +668,9 @@ def index():
             "dark_to_white": dark_to_white,
             "optical_scale": 1.0,
             "edge_cleanup": False,
+            "background_cleanup": True,
+            "satellite_position": satellite_position or None,
+            "provider_group": provider_group or None,
         }
 
         channels = cfg.setdefault("channels", [])
