@@ -160,3 +160,107 @@ main{width:min(1280px,calc(100% - 36px));padding-top:46px}
   .stats span{font-size:10px}
   .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 10px}
 }
+
+/* Gallery polish: picons float as artwork, not boxed cards. */
+.grid{
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:26px 18px;
+  align-items:start;
+}
+.card{
+  display:block;
+  padding:0;
+  margin:0;
+  border:0;
+  background:transparent;
+  border-radius:0;
+  box-shadow:none;
+  text-align:center;
+  cursor:pointer;
+  transform:none;
+}
+.card:hover{
+  background:transparent;
+  border-color:transparent;
+  transform:none;
+}
+.card .preview{
+  position:relative;
+  width:100%;
+  aspect-ratio:5/3;
+  height:auto;
+  display:grid;
+  place-items:center;
+  overflow:visible;
+  border:0;
+  border-radius:12px;
+  background:#000;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.03) inset,
+    0 12px 28px rgba(0,0,0,.22);
+  transition:transform .18s ease, box-shadow .18s ease, filter .18s ease;
+}
+.card .preview::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:12px;
+  pointer-events:none;
+  border:1px solid rgba(255,255,255,.045);
+}
+.card .preview img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+  border-radius:12px;
+}
+.card:hover .preview{
+  transform:translateY(-4px) scale(1.015);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.04) inset,
+    0 18px 38px rgba(0,0,0,.34);
+  filter:brightness(1.035);
+}
+.card .meta{
+  padding:10px 4px 0;
+  text-align:center;
+}
+.card .meta h2{
+  margin:0;
+  font-size:13px;
+  line-height:1.25;
+  font-weight:750;
+  letter-spacing:.005em;
+  color:#eef3f8;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.card .card-sub{
+  margin-top:4px;
+  color:#66778a;
+  font-size:10px;
+  letter-spacing:.02em;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.card:focus-visible{
+  outline:none;
+}
+.card:focus-visible .preview{
+  box-shadow:
+    0 0 0 2px #8aa1b8,
+    0 18px 38px rgba(0,0,0,.34);
+}
+@media(min-width:1180px){
+  .grid{grid-template-columns:repeat(6,minmax(0,1fr))}
+}
+@media(max-width:980px){
+  .grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+@media(max-width:700px){
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 12px}
+  .card .meta h2{font-size:12px}
+}
