@@ -87,3 +87,17 @@ channels:
   background_cleanup: true
   satellite_position: 23.5E
   provider_group: skylink
+- id: prima-sport-czech
+  name: Prima Sport Czech
+  logo: assets/logos/prima-sport-czech.png
+  service_reference: '1:0:1:3D02:C95:3:EB0000:0:0:0:'
+  variant_types:
+  - '1'
+  - '16'
+  - '19'
+  dark_to_white: false
+  optical_scale: 1.0
+  edge_cleanup: false
+  background_cleanup: true
+  satellite_position: 23.5E
+  provider_group: skylink
