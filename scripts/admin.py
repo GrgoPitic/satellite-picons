@@ -122,6 +122,10 @@ code{color:#d3deea}
       <button type="submit">Uložiť a publikovať</button>
     </form>
 
+    <form method="post" action="/publish">
+      <button type="submit" class="secondary">Publikovať už uložené lokálne zmeny</button>
+    </form>
+
     <p class="note">
       Zdroj satelitných údajov: KingOfSat. Pred publikovaním sa vybraná reference zobrazí v poli a môžeš ju ručne skontrolovať/upraviť.
       Admin počúva iba na <code>127.0.0.1</code>.
@@ -305,14 +309,43 @@ def search_kingofsat(query: str, orbit_filter: str = "") -> list[dict]:
 
     return results[:30]
 
-def run_git(*args: str) -> subprocess.CompletedProcess:
-    return subprocess.run(
-        ["git", *args],
-        cwd=ROOT,
-        text=True,
-        capture_output=True,
-        check=False,
-    )
+def run_git(*args: str, timeout: int = 45) -> subprocess.CompletedProcess:
+    try:
+        return subprocess.run(
+            ["git", *args],
+            cwd=ROOT,
+            text=True,
+            capture_output=True,
+            check=False,
+            timeout=timeout,
+        )
+    except subprocess.TimeoutExpired as exc:
+        raise RuntimeError("Git operácia prekročila časový limit.") from exc
+
+def publish_pending_changes() -> str:
+    sync = run_git("pull", "--rebase", "--autostash", "origin", "main")
+    if sync.returncode != 0:
+        raise RuntimeError(sync.stderr.strip() or sync.stdout.strip() or "Synchronizácia s GitHubom zlyhala.")
+
+    add = run_git("add", "channels.yml", "assets/logos")
+    if add.returncode != 0:
+        raise RuntimeError(add.stderr.strip() or "git add zlyhal")
+
+    diff = run_git("diff", "--cached", "--quiet")
+    if diff.returncode == 0:
+        return "Nie sú žiadne lokálne zmeny na publikovanie."
+    if diff.returncode not in (0, 1):
+        raise RuntimeError(diff.stderr.strip() or "Kontrola zmien zlyhala.")
+
+    commit = run_git("commit", "-m", "Update satellite picons")
+    if commit.returncode != 0:
+        raise RuntimeError(commit.stderr.strip() or commit.stdout.strip() or "git commit zlyhal")
+
+    push = run_git("push", "origin", "main")
+    if push.returncode != 0:
+        raise RuntimeError(push.stderr.strip() or push.stdout.strip() or "git push zlyhal")
+
+    return "Lokálne zmeny boli úspešne publikované na GitHub."
 
 @app.get("/api/lookup")
 def api_lookup():
@@ -326,6 +359,14 @@ def api_lookup():
         return jsonify(error=f"KingOfSat nie je dostupný: {exc}"), 502
     except Exception as exc:
         return jsonify(error=str(exc)), 500
+
+@app.post("/publish")
+def publish():
+    try:
+        flash(publish_pending_changes())
+    except Exception as exc:
+        flash(f"Chyba publikovania: {exc}")
+    return redirect(url_for("index"))
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -387,19 +428,8 @@ def index():
         )
 
         if publish:
-            add = run_git("add", str(dest.relative_to(ROOT)), "channels.yml")
-            if add.returncode != 0:
-                raise RuntimeError(add.stderr.strip() or "git add zlyhal")
-
-            commit = run_git("commit", "-m", f"Add/update {name} picon")
-            if commit.returncode != 0 and "nothing to commit" not in (commit.stdout + commit.stderr).lower():
-                raise RuntimeError(commit.stderr.strip() or commit.stdout.strip() or "git commit zlyhal")
-
-            push = run_git("push")
-            if push.returncode != 0:
-                raise RuntimeError(push.stderr.strip() or push.stdout.strip() or "git push zlyhal")
-
-            flash(f"{name}: uložené a publikované na GitHub.")
+            message = publish_pending_changes()
+            flash(f"{name}: uložené. {message}")
         else:
             flash(f"{name}: uložené lokálne. GitHub push nebol spustený.")
 
