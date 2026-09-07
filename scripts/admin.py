@@ -97,22 +97,37 @@ code{color:#d3deea}
       <label>Originálne logo</label>
       <input name="logo" type="file" accept=".png,.svg,.jpg,.jpeg,.webp" required>
 
-      <label>Enigma2 service reference</label>
-      <input id="serviceRef" name="service_reference" placeholder="1:0:19:334F:C93:3:EB0000:0:0:0:" required>
+      <details style="margin-top:18px">
+        <summary style="cursor:pointer;color:#c9d5e3;font-weight:700">Pokročilé nastavenia</summary>
 
-      <div class="grid">
-        <div>
-          <label>Varianty service type</label>
-          <input name="variants" value="1,16,19">
+        <label>Enigma2 service reference</label>
+        <input id="serviceRef" name="service_reference" placeholder="Vyplní sa automaticky po výbere kanála z databázy">
+
+        <div class="grid">
+          <div>
+            <label>Varianty service type</label>
+            <input name="variants" value="1,16,19">
+          </div>
+          <div>
+            <label>Čierny/tmavý text → biely</label>
+            <select name="dark_to_white">
+              <option value="true" selected>Áno</option>
+              <option value="false">Nie</option>
+            </select>
+          </div>
         </div>
-        <div>
-          <label>Čierny/tmavý text → biely</label>
-          <select name="dark_to_white">
-            <option value="true" selected>Áno</option>
-            <option value="false">Nie</option>
-          </select>
+
+        <div class="grid">
+          <div>
+            <label>Optická veľkosť loga</label>
+            <input name="optical_scale" type="number" step="0.01" min="0.50" max="1.50" value="1.00">
+          </div>
+          <div>
+            <label>Pomôcka</label>
+            <input value="1.00 = štandard, 1.05 = väčšie, 0.95 = menšie" readonly>
+          </div>
         </div>
-      </div>
+      </details>
 
       <label class="check">
         <input type="checkbox" name="publish" checked>
@@ -338,6 +353,7 @@ def index():
         ref = request.form["service_reference"].strip()
         variants = [x.strip().upper() for x in request.form.get("variants", "1,16,19").split(",") if x.strip()]
         dark_to_white = request.form.get("dark_to_white", "true") == "true"
+        optical_scale = float(request.form.get("optical_scale", "1.00"))
         publish = request.form.get("publish") == "on"
         upload = request.files["logo"]
 
@@ -345,7 +361,11 @@ def index():
             raise ValueError("ID môže obsahovať iba malé písmená, čísla a pomlčky.")
         if not name:
             raise ValueError("Názov kanála je povinný.")
+        if not ref:
+            raise ValueError("Najprv vyhľadaj a vyber kanál z databázy, alebo zadaj service reference v Pokročilých nastaveniach.")
         validate_ref(ref)
+        if not 0.50 <= optical_scale <= 1.50:
+            raise ValueError("Optická veľkosť musí byť medzi 0.50 a 1.50.")
         if not variants:
             raise ValueError("Musí byť zadaný aspoň jeden service type variant.")
 
@@ -371,6 +391,7 @@ def index():
             "service_reference": ref,
             "variant_types": variants,
             "dark_to_white": dark_to_white,
+            "optical_scale": optical_scale,
         }
 
         channels = cfg.setdefault("channels", [])
