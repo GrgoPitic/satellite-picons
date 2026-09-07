@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import html
+import os
 import re
 import shutil
 import subprocess
@@ -122,8 +123,9 @@ code{color:#d3deea}
       <button type="submit">Uložiť a publikovať</button>
     </form>
 
-    <form method="post" action="/publish">
-      <button type="submit" class="secondary">Publikovať už uložené lokálne zmeny</button>
+    <form id="publishForm" method="post" action="/publish">
+      <button id="publishBtn" type="submit" class="secondary">Publikovať už uložené lokálne zmeny</button>
+      <div id="publishStatus" class="status"></div>
     </form>
 
     <p class="note">
@@ -136,6 +138,16 @@ code{color:#d3deea}
 const btn=document.querySelector('#lookupBtn');
 const results=document.querySelector('#results');
 const status=document.querySelector('#lookupStatus');
+const publishForm=document.querySelector('#publishForm');
+const publishBtn=document.querySelector('#publishBtn');
+const publishStatus=document.querySelector('#publishStatus');
+if(publishForm){
+  publishForm.addEventListener('submit',()=>{
+    publishBtn.disabled=true;
+    publishBtn.textContent='Publikujem…';
+    publishStatus.textContent='Synchronizujem lokálny repozitár a odosielam zmeny na GitHub. Maximálne približne 30 sekúnd.';
+  });
+}
 
 function slugify(v){
   return v.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')
@@ -309,7 +321,10 @@ def search_kingofsat(query: str, orbit_filter: str = "") -> list[dict]:
 
     return results[:30]
 
-def run_git(*args: str, timeout: int = 45) -> subprocess.CompletedProcess:
+def run_git(*args: str, timeout: int = 25) -> subprocess.CompletedProcess:
+    env = os.environ.copy()
+    env["GIT_TERMINAL_PROMPT"] = "0"
+    env["GIT_SSH_COMMAND"] = "ssh -o BatchMode=yes -o ConnectTimeout=10"
     try:
         return subprocess.run(
             ["git", *args],
@@ -318,6 +333,7 @@ def run_git(*args: str, timeout: int = 45) -> subprocess.CompletedProcess:
             capture_output=True,
             check=False,
             timeout=timeout,
+            env=env,
         )
     except subprocess.TimeoutExpired as exc:
         raise RuntimeError("Git operácia prekročila časový limit.") from exc
@@ -357,7 +373,7 @@ def publish_pending_changes() -> str:
     if ahead_count == 0:
         return "Nie sú žiadne lokálne zmeny ani čakajúce commity na publikovanie."
 
-    push = run_git("push", "origin", "HEAD:main", timeout=120)
+    push = run_git("push", "origin", "HEAD:main", timeout=30)
     if push.returncode != 0:
         raise RuntimeError(push.stderr.strip() or push.stdout.strip() or "git push zlyhal")
 
