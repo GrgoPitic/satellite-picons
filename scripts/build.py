@@ -125,7 +125,36 @@ def trim_alpha(im: Image.Image) -> Image.Image:
     return im.crop(bbox)
 
 
-def render_logo(logo_path: Path, template: Image.Image, dark_to_white: bool) -> Image.Image:
+def fit_logo(im: Image.Image, max_size=MAX_LOGO, optical_scale: float = 1.0) -> Image.Image:
+    """Scale artwork UP or DOWN to consistently fill the safe box.
+
+    The transparent/white outer margin is removed before this function runs,
+    so source pixel dimensions no longer influence the visual size.
+    """
+    w, h = im.size
+    if w <= 0 or h <= 0:
+        raise ValueError("Invalid logo size")
+
+    optical_scale = max(0.50, min(1.50, float(optical_scale)))
+    scale = min(max_size[0] / w, max_size[1] / h) * optical_scale
+
+    new_w = max(1, int(round(w * scale)))
+    new_h = max(1, int(round(h * scale)))
+
+    if new_w > max_size[0] or new_h > max_size[1]:
+        cap = min(max_size[0] / new_w, max_size[1] / new_h)
+        new_w = max(1, int(round(new_w * cap)))
+        new_h = max(1, int(round(new_h * cap)))
+
+    return im.resize((new_w, new_h), Image.Resampling.LANCZOS)
+
+
+def render_logo(
+    logo_path: Path,
+    template: Image.Image,
+    dark_to_white: bool,
+    optical_scale: float = 1.0,
+) -> Image.Image:
     logo = load_logo_image(logo_path)
     logo = remove_edge_white(logo)
 
@@ -133,7 +162,7 @@ def render_logo(logo_path: Path, template: Image.Image, dark_to_white: bool) -> 
         logo = recolor_neutral_dark_to_white(logo)
 
     logo = trim_alpha(logo)
-    logo.thumbnail(MAX_LOGO, Image.Resampling.LANCZOS)
+    logo = fit_logo(logo, MAX_LOGO, optical_scale)
 
     out = template.copy().convert("RGBA")
     x = (CANVAS[0] - logo.width) // 2
@@ -181,7 +210,12 @@ def main() -> int:
         if not logo_path.exists():
             raise FileNotFoundError(logo_path)
 
-        rendered = render_logo(logo_path, template, bool(ch.get("dark_to_white", True)))
+        rendered = render_logo(
+            logo_path,
+            template,
+            bool(ch.get("dark_to_white", True)),
+            float(ch.get("optical_scale", 1.0)),
+        )
         files = []
 
         for stype in ch.get("variant_types", variant_types):
@@ -194,6 +228,7 @@ def main() -> int:
             "name": ch["name"],
             "logo": str(ch["logo"]),
             "service_reference": ch["service_reference"],
+            "optical_scale": float(ch.get("optical_scale", 1.0)),
             "files": files,
         })
 
