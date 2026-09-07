@@ -46,9 +46,26 @@
         </div>
         <p>Vyhľadaj stanicu podľa názvu alebo Enigma2 service reference a stiahni konkrétny variant.</p>
       </div>
-      <input id="search" type="search" placeholder="Hľadať kanál alebo service reference…" autocomplete="off">
+      <div class="catalog-tools">
+        <input id="search" type="search" placeholder="Hľadať kanál alebo service reference…" autocomplete="off">
+        <div id="filters" class="filters" aria-label="Filtrovanie piconov"></div>
+      </div>
       <div id="grid" class="grid"></div>
     </section>
+
+    <div id="logoModal" class="modal" hidden>
+      <button class="modal-backdrop" type="button" aria-label="Zavrieť náhľad"></button>
+      <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <button id="modalClose" class="modal-close" type="button" aria-label="Zavrieť">×</button>
+        <div class="modal-preview"><img id="modalImage" alt=""></div>
+        <div class="modal-copy">
+          <p id="modalGroup" class="section-kicker"></p>
+          <h2 id="modalTitle"></h2>
+          <code id="modalRef"></code>
+          <div id="modalDownloads" class="modal-downloads"></div>
+        </div>
+      </section>
+    </div>
 
     <footer>
       <strong>Satellite Picons</strong>
