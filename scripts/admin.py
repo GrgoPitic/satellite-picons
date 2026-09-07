@@ -79,7 +79,7 @@ details{margin-top:20px;border:1px solid #202a36;border-radius:12px;padding:12px
 <div class="section">
 <div class="lookup">
 <div><label>Vyhľadať nový kanál v databáze</label><input id="lookupName" placeholder="napr. JOJ KRIMI"></div>
-<div><label>Orbita (voliteľné)</label><input id="lookupOrbit" placeholder="23.5E"></div>
+<div><label>Orbita (voliteľné)</label><input id="lookupOrbit" name="orbit_lookup" form="channelForm" placeholder="23.5E"></div>
 <div><button type="button" class="secondary" id="lookupBtn">Nájsť</button></div>
 </div>
 <div id="lookupStatus" class="status"></div><div id="results" class="results"></div>
@@ -105,12 +105,12 @@ details{margin-top:20px;border:1px solid #202a36;border-radius:12px;padding:12px
 
 <details>
 <summary>Pokročilé nastavenia</summary>
-<label>Enigma2 service reference</label><input id="serviceRef" name="service_reference" placeholder="Vyplní sa automaticky po výbere kanála z databázy">
+<label>Enigma2 service reference</label><input id="serviceRef" name="service_reference" placeholder="Automaticky — ručne iba ak chceš reference prepísať">
 <div class="grid">
 <div><label>Varianty service type</label><input id="variants" name="variants" value="1,16,19"></div>
 <div><label>Čierny/tmavý text → biely</label><select id="darkToWhite" name="dark_to_white"><option value="true" selected>Áno</option><option value="false">Nie</option></select></div>
 </div>
-<div class="status">Reference zostáva dostupná na kontrolu alebo ručnú opravu. Pri aktualizácii existujúceho loga sa automaticky zachová.</div>
+<div class="status">Reference sa pri novom kanáli doplní automaticky z databázy. Toto pole slúži iba na kontrolu alebo výnimočnú ručnú opravu.</div>
 </details>
 
 <label class="check"><input type="checkbox" name="publish" checked>Po uložení automaticky commitnúť a pushnúť na GitHub</label>
@@ -215,6 +215,32 @@ def search_kingofsat(query: str, orbit_filter: str = "") -> list[dict]:
         if not any(x["service_reference"] == service_ref for x in results):
             results.append(item)
     return results[:30]
+
+
+def resolve_service_reference(name: str, orbit: str = "") -> tuple[str, dict]:
+    results = search_kingofsat(name, orbit)
+    if not results:
+        raise ValueError("Pre tento kanál sa nepodarilo automaticky nájsť service reference. Skús doplniť orbitu a uložiť znova.")
+
+    normalized = re.sub(r"\\s+HD$", "", name.strip(), flags=re.I).casefold()
+    exact = [
+        item for item in results
+        if re.sub(r"\\s+HD$", "", item["name"].strip(), flags=re.I).casefold() == normalized
+    ]
+
+    candidates = exact or results
+    if orbit:
+        wanted = normalize_orbit(orbit)
+        narrowed = [item for item in candidates if item.get("orbit") == wanted]
+        if narrowed:
+            candidates = narrowed
+
+    if len(candidates) > 1:
+        names = ", ".join(f'{x["name"]} ({x["orbit"]})' for x in candidates[:5])
+        raise ValueError(f"Našlo sa viac možností: {names}. Vyber správny výsledok v časti Vyhľadať nový kanál.")
+
+    item = candidates[0]
+    return item["service_reference"], item
 
 
 def image_from_upload(data: bytes, ext: str) -> Image.Image:
@@ -392,6 +418,7 @@ def index():
         channel_id = request.form["channel_id"].strip().lower()
         name = request.form["name"].strip()
         ref = request.form.get("service_reference", "").strip()
+        orbit_lookup = request.form.get("orbit_lookup", "").strip()
         variants = [x.strip().upper() for x in request.form.get("variants", "1,16,19").split(",") if x.strip()]
         dark_to_white = request.form.get("dark_to_white", "true") == "true"
         optical_scale = float(request.form.get("optical_scale", "1.00"))
@@ -409,10 +436,11 @@ def index():
         cfg = yaml.safe_load(DB.read_text(encoding="utf-8")) or {"channels": []}
         channels = cfg.setdefault("channels", [])
         existing = next((ch for ch in channels if ch.get("id") == channel_id), None)
+        lookup_meta = None
         if not ref and existing:
             ref = existing.get("service_reference", "")
         if not ref:
-            raise ValueError("Najprv vyhľadaj a vyber nový kanál z databázy, alebo zadaj service reference v Pokročilých nastaveniach.")
+            ref, lookup_meta = resolve_service_reference(name, orbit_lookup)
         validate_ref(ref)
         original_name = secure_filename(upload.filename or "")
         ext = Path(original_name).suffix.lower()
@@ -449,6 +477,11 @@ def index():
             "background_method": background_method,
             "edge_cleanup": False,
         }
+        if lookup_meta:
+            entry["orbit"] = lookup_meta.get("orbit")
+            entry["satellite"] = lookup_meta.get("satellite")
+            entry["frequency"] = lookup_meta.get("frequency")
+            entry["polarization"] = lookup_meta.get("polarization")
         if existing:
             channels[channels.index(existing)] = entry
         else:
