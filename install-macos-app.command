@@ -27,7 +27,7 @@ on run
 
     do shell script "/usr/bin/nohup /bin/zsh " & quoted form of (repoPath & "/admin.command") & " >/tmp/satellite-picons-admin.log 2>&1 &"
 
-    repeat with i from 1 to 300
+    repeat with i from 1 to 30
         delay 1
         try
             do shell script "/usr/bin/curl -fsS --max-time 1 " & quoted form of adminURL & " >/dev/null 2>&1"
@@ -36,7 +36,7 @@ on run
         end try
     end repeat
 
-    display dialog "Satellite Picons Admin sa nepodarilo spustiť. Skontroluj /tmp/satellite-picons-admin.log" buttons {"OK"} default button "OK" with icon stop
+    display dialog "Satellite Picons Admin sa nepodarilo spustiť. Otvor Terminál a spusti admin.command pre zobrazenie chyby." buttons {"OK"} default button "OK" with icon stop
 end run
 EOF
 
