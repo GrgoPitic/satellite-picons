@@ -97,3 +97,28 @@ The project name is **Satellite Picons**. Operator and channel names are used on
 ## Legal note
 
 The MIT licence applies to the code only. Channel names, logos and trademarks remain the property of their respective owners. Only publish logo assets you are entitled to redistribute.
+
+
+## Private maintainer admin
+
+For adding/updating logos without editing YAML manually, run the local admin on macOS:
+
+```bash
+./admin.command
+```
+
+It opens:
+
+```text
+http://127.0.0.1:8765
+```
+
+The form lets the maintainer:
+
+- upload PNG, SVG, JPG, JPEG or WEBP
+- enter channel name and Enigma2 service reference
+- select service-type variants
+- save/update `channels.yml`
+- optionally commit and push the change to GitHub automatically
+
+The admin binds only to `127.0.0.1`, so it is not publicly exposed.
