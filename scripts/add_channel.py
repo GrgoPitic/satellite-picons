@@ -25,6 +25,7 @@ def main():
     )
     ap.add_argument("--variants", default="1,16,19")
     ap.add_argument("--dark-to-white", default="true", choices=["true", "false"])
+    ap.add_argument("--optical-scale", default="1.0", type=float)
     args = ap.parse_args()
 
     if not args.logo.exists():
@@ -36,6 +37,9 @@ def main():
             f"Unsupported logo extension: {ext or '(none)'} | "
             f"Supported: {', '.join(sorted(SUPPORTED_LOGO_EXTENSIONS))}"
         )
+
+    if not 0.50 <= args.optical_scale <= 1.50:
+        raise SystemExit("--optical-scale must be between 0.50 and 1.50")
 
     cfg = yaml.safe_load(DB.read_text(encoding="utf-8"))
     LOGOS.mkdir(parents=True, exist_ok=True)
@@ -50,6 +54,7 @@ def main():
         "service_reference": args.ref,
         "variant_types": [x.strip().upper() for x in args.variants.split(",") if x.strip()],
         "dark_to_white": args.dark_to_white == "true",
+        "optical_scale": args.optical_scale,
     }
 
     channels = cfg.setdefault("channels", [])
