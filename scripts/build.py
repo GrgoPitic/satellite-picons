@@ -91,6 +91,49 @@ def remove_edge_white(im: Image.Image) -> Image.Image:
     return im
 
 
+def has_real_transparency(im: Image.Image) -> bool:
+    lo, _ = im.getchannel("A").getextrema()
+    return lo < 250
+
+def remove_corner_connected_background(im: Image.Image, tolerance: int = 28) -> Image.Image:
+    im = im.convert("RGBA")
+    if has_real_transparency(im):
+        return im
+
+    px = im.load()
+    w, h = im.size
+    if w < 2 or h < 2:
+        return im
+
+    seen = set()
+    stack = [(0,0),(w-1,0),(0,h-1),(w-1,h-1)]
+
+    def close(a, b):
+        return max(abs(a[i] - b[i]) for i in range(3)) <= tolerance
+
+    while stack:
+        x, y = stack.pop()
+        if (x, y) in seen or not (0 <= x < w and 0 <= y < h):
+            continue
+        seen.add((x, y))
+        current = px[x, y]
+        if current[3] == 0:
+            continue
+        for nx, ny in ((x+1,y),(x-1,y),(x,y+1),(x,y-1)):
+            if not (0 <= nx < w and 0 <= ny < h) or (nx,ny) in seen:
+                continue
+            neighbour = px[nx, ny]
+            if neighbour[3] > 0 and close(current, neighbour):
+                stack.append((nx, ny))
+
+    if len(seen) < max(12, int(w * h * 0.015)):
+        return im
+
+    for x, y in seen:
+        r, g, b, _ = px[x, y]
+        px[x, y] = (r, g, b, 0)
+    return im
+
 def recolor_neutral_dark_to_white(im: Image.Image) -> Image.Image:
     """Turn neutral dark artwork/text to white, keep coloured elements intact."""
     im = im.convert("RGBA")
@@ -157,8 +200,12 @@ def render_logo(
     ch_edge_cleanup: bool = False,
 ) -> Image.Image:
     logo = load_logo_image(logo_path)
-    if ch_edge_cleanup:
+    if bool(ch_edge_cleanup):
         logo = remove_edge_white(logo)
+
+    # New uploads are normally pre-cleaned by the admin. This fallback also
+    # protects older opaque source images with solid/gradient backgrounds.
+    logo = remove_corner_connected_background(logo)
 
     if dark_to_white:
         logo = recolor_neutral_dark_to_white(logo)
@@ -234,6 +281,8 @@ def main() -> int:
             "optical_scale": float(ch.get("optical_scale", 1.0)),
             "logo_version": int(ch.get("logo_version", 1)),
             "updated_at": ch.get("updated_at"),
+            "satellite_position": ch.get("satellite_position"),
+            "provider_group": ch.get("provider_group"),
             "files": files,
         })
 
@@ -253,12 +302,35 @@ def main() -> int:
         for file in sorted(PICON_DIR.glob("*.png")):
             zf.write(file, arcname=file.name)
 
+    grouped_packages = {}
+    grouped_channels = {}
+    for ch in index["channels"]:
+        group = ch.get("provider_group") or ch.get("satellite_position")
+        if not group:
+            continue
+        grouped_channels.setdefault(group, []).extend(ch["files"])
+
+    for group, files in sorted(grouped_channels.items()):
+        safe_group = "".join(c if c.isalnum() or c in "-._" else "-" for c in str(group)).strip("-").lower()
+        group_name = f"{project['package']}-{safe_group}-{project['resolution']}-{project['style']}.zip"
+        group_path = PACKAGE_DIR / group_name
+        with zipfile.ZipFile(group_path, "w", zipfile.ZIP_DEFLATED, compresslevel=9) as zf:
+            for filename in sorted(set(files)):
+                src = PICON_DIR / filename
+                if src.exists():
+                    zf.write(src, arcname=filename)
+        grouped_packages[str(group)] = {
+            "package": f"packages/{group_name}",
+            "count": len(set(files)),
+        }
+
     version = {
         "schema": 1,
         "version": datetime.now(timezone.utc).strftime("%Y.%m.%d.%H%M%S"),
         "package": f"packages/{package_name}",
         "index": "index.json",
         "count": len(list(PICON_DIR.glob("*.png"))),
+        "groups": grouped_packages,
     }
 
     (PUBLIC / "version.json").write_text(
