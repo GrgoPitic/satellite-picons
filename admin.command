@@ -8,5 +8,4 @@ fi
 
 source .venv/bin/activate
 python -m pip install -q -r requirements-admin.txt
-
 exec python scripts/admin.py
