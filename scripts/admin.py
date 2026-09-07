@@ -25,7 +25,7 @@ SOURCE_LOGOS = ROOT / "assets" / "source-logos"
 TEMPLATE = ROOT / "assets" / "templates" / "piconblack-150x90.png"
 SUPPORTED = {".png", ".svg", ".jpg", ".jpeg", ".webp"}
 ID_RE = re.compile(r"^[a-z0-9][a-z0-9-]{1,63}$")
-ORBIT_RE = re.compile(r"(?P<deg>\\d+(?:\\.\\d+)?)\\s*°?\\s*(?P<dir>[EW])", re.I)
+ORBIT_RE = re.compile(r"(?P<deg>\d+(?:\.\d+)?)\s*°?\s*(?P<dir>[EW])", re.I)
 KINGOFSAT_SEARCH = "https://en.kingofsat.net/find.php"
 CANVAS = (150, 90)
 MAX_LOGO = (140, 80)
@@ -122,10 +122,10 @@ details{margin-top:20px;border:1px solid #202a36;border-radius:12px;padding:12px
 const channels={{ channels|tojson }};
 const btn=document.querySelector('#lookupBtn'),results=document.querySelector('#results'),status=document.querySelector('#lookupStatus');
 const existing=document.querySelector('#existingChannel'),saveBtn=document.querySelector('#saveBtn');
-function slugify(v){return v.toLowerCase().normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,64)}
+function slugify(v){return v.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,64)}
 function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
 existing.addEventListener('change',()=>{const ch=channels.find(x=>x.id===existing.value);if(!ch){saveBtn.textContent='Uložiť a publikovať';return}document.querySelector('#channelId').value=ch.id;document.querySelector('#channelName').value=ch.name;document.querySelector('#serviceRef').value=ch.service_reference||'';document.querySelector('#variants').value=(ch.variant_types||['1','16','19']).join(',');document.querySelector('#darkToWhite').value=String(ch.dark_to_white!==false);document.querySelector('#opticalScale').value=ch.optical_scale||1.0;document.querySelector('#backgroundRemoval').value=ch.background_removal||'auto';saveBtn.textContent='Aktualizovať logo a publikovať'});
-btn.addEventListener('click',async()=>{const q=document.querySelector('#lookupName').value.trim(),orbit=document.querySelector('#lookupOrbit').value.trim();if(!q){status.textContent='Zadaj názov kanála.';return}status.textContent='Hľadám v KingOfSat…';results.style.display='none';results.innerHTML='';try{const r=await fetch('/api/lookup?'+new URLSearchParams({q,orbit})),data=await r.json();if(!r.ok)throw new Error(data.error||'Vyhľadávanie zlyhalo');status.textContent=data.results.length?'Klikni na správny výsledok.':'Nič sa nenašlo.';if(!data.results.length)return;results.innerHTML=data.results.map((x,i)=>`<div class="result" data-i="${i}"><strong>${esc(x.name)} <span class="badge">${esc(x.orbit)}</span></strong><small>${esc(x.satellite)} • ${esc(x.frequency)} ${esc(x.polarization)} • SID ${x.sid} • TID ${x.tid} • NID ${x.nid}</small><small><code>${esc(x.service_reference)}</code></small></div>`).join('');results.style.display='block';[...results.querySelectorAll('.result')].forEach(el=>el.addEventListener('click',()=>{const x=data.results[Number(el.dataset.i)];existing.value='';document.querySelector('#channelName').value=x.name.replace(/\\s+HD$/i,'');document.querySelector('#channelId').value=slugify(document.querySelector('#channelName').value);document.querySelector('#serviceRef').value=x.service_reference;document.querySelector('#lookupOrbit').value=x.orbit;saveBtn.textContent='Uložiť a publikovať';status.textContent='Vybrané: '+x.name+' ('+x.orbit+')'}))}catch(e){status.textContent='Chyba: '+e.message}});
+btn.addEventListener('click',async()=>{const q=document.querySelector('#lookupName').value.trim(),orbit=document.querySelector('#lookupOrbit').value.trim();if(!q){status.textContent='Zadaj názov kanála.';return}status.textContent='Hľadám v KingOfSat…';results.style.display='none';results.innerHTML='';try{const r=await fetch('/api/lookup?'+new URLSearchParams({q,orbit})),data=await r.json();if(!r.ok)throw new Error(data.error||'Vyhľadávanie zlyhalo');status.textContent=data.results.length?'Klikni na správny výsledok.':'Nič sa nenašlo.';if(!data.results.length)return;results.innerHTML=data.results.map((x,i)=>`<div class="result" data-i="${i}"><strong>${esc(x.name)} <span class="badge">${esc(x.orbit)}</span></strong><small>${esc(x.satellite)} • ${esc(x.frequency)} ${esc(x.polarization)} • SID ${x.sid} • TID ${x.tid} • NID ${x.nid}</small><small><code>${esc(x.service_reference)}</code></small></div>`).join('');results.style.display='block';[...results.querySelectorAll('.result')].forEach(el=>el.addEventListener('click',()=>{const x=data.results[Number(el.dataset.i)];existing.value='';document.querySelector('#channelName').value=x.name.replace(/\s+HD$/i,'');document.querySelector('#channelId').value=slugify(document.querySelector('#channelName').value);document.querySelector('#serviceRef').value=x.service_reference;document.querySelector('#lookupOrbit').value=x.orbit;saveBtn.textContent='Uložiť a publikovať';status.textContent='Vybrané: '+x.name+' ('+x.orbit+')'}))}catch(e){status.textContent='Chyba: '+e.message}});
 document.querySelector('#previewBtn').addEventListener('click',async()=>{const file=document.querySelector('#logoFile').files[0],ps=document.querySelector('#previewStatus'),img=document.querySelector('#previewImage');if(!file){ps.textContent='Najprv vyber logo.';return}ps.textContent='Spracúvam náhľad…';const fd=new FormData();fd.append('logo',file);fd.append('background_removal',document.querySelector('#backgroundRemoval').value);fd.append('dark_to_white',document.querySelector('#darkToWhite').value);fd.append('optical_scale',document.querySelector('#opticalScale').value);try{const r=await fetch('/api/preview',{method:'POST',body:fd});if(!r.ok){const t=await r.text();throw new Error(t||'Náhľad zlyhal')}const blob=await r.blob();if(img.src)URL.revokeObjectURL(img.src);img.src=URL.createObjectURL(blob);img.style.display='block';ps.textContent='Pozadie: '+(r.headers.get('X-Background-Method')||'spracované')}catch(e){ps.textContent='Chyba: '+e.message}});
 </script>
 </body></html>
@@ -145,14 +145,14 @@ def validate_ref(ref: str) -> None:
 
 def normalize_orbit(value: str) -> str:
     value = value.strip().upper().replace("°", "")
-    m = re.search(r"(\\d+(?:\\.\\d+)?)\\s*([EW])", value)
+    m = re.search(r"(\d+(?:\.\d+)?)\s*([EW])", value)
     if not m:
         return ""
     return f"{float(m.group(1)):g}{m.group(2)}"
 
 
 def orbit_to_namespace(orbit: str) -> str:
-    m = re.fullmatch(r"(\\d+(?:\\.\\d+)?)([EW])", normalize_orbit(orbit))
+    m = re.fullmatch(r"(\d+(?:\.\d+)?)([EW])", normalize_orbit(orbit))
     if not m:
         raise ValueError(f"Neplatná orbita: {orbit}")
     tenths = int(round(float(m.group(1)) * 10))
@@ -161,7 +161,7 @@ def orbit_to_namespace(orbit: str) -> str:
 
 
 def compose_service_reference(*, sid: int, tid: int, nid: int, orbit: str, name: str) -> str:
-    service_type = 0x19 if re.search(r"\\bHD\\b", name, re.I) else 0x1
+    service_type = 0x19 if re.search(r"\bHD\b", name, re.I) else 0x1
     return f"1:0:{service_type:X}:{sid:X}:{tid:X}:{nid:X}:{orbit_to_namespace(orbit)}:0:0:0:"
 
 
@@ -182,13 +182,13 @@ def search_kingofsat(query: str, orbit_filter: str = "") -> list[dict]:
             continue
         joined = " | ".join(cells)
         orbit_match = ORBIT_RE.search(joined)
-        if orbit_match and re.search(r"\\b\\d{4,5}(?:\\.\\d+)?\\b", joined):
+        if orbit_match and re.search(r"\b\d{4,5}(?:\.\d+)?\b", joined):
             orbit = normalize_orbit(orbit_match.group(0))
-            nums = [int(c) for c in cells[-4:] if re.fullmatch(r"\\d+", c)]
+            nums = [int(c) for c in cells[-4:] if re.fullmatch(r"\d+", c)]
             nid = tid = None
             if len(nums) >= 2:
                 nid, tid = nums[-2], nums[-1]
-            freq = next((c for c in cells if re.fullmatch(r"\\d{4,5}(?:\\.\\d+)?", c)), "")
+            freq = next((c for c in cells if re.fullmatch(r"\d{4,5}(?:\.\d+)?", c)), "")
             pol = next((c for c in cells if c in {"H", "V", "L", "R"}), "")
             sat = next((c for c in cells if any(k in c.lower() for k in ("astra", "thor", "eutelsat", "hot bird", "hispa", "turksat", "amos", "intelsat"))), "")
             current = {"orbit": orbit, "frequency": freq, "polarization": pol, "satellite": sat, "nid": nid, "tid": tid}
@@ -202,7 +202,7 @@ def search_kingofsat(query: str, orbit_filter: str = "") -> list[dict]:
             continue
         sid = None
         for c in cells[cells.index(name) + 1:]:
-            if re.fullmatch(r"\\d{1,5}", c) and 0 < int(c) <= 65535:
+            if re.fullmatch(r"\d{1,5}", c) and 0 < int(c) <= 65535:
                 sid = int(c)
                 break
         if sid is None:
