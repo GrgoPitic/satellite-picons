@@ -13,12 +13,18 @@ channels:
   service_reference: '1:0:19:334F:C93:3:EB0000:0:0:0:'
   dark_to_white: true
   optical_scale: 1.0
+  satellite_position: 23.5E
+  provider_group: skylink
+
 - id: joj-sport-2
   name: JOJ ŠPORT 2
   logo: assets/logos/joj-sport-2.png
   service_reference: '1:0:19:30C:C94:3:EB0000:0:0:0:'
   dark_to_white: true
   optical_scale: 1.0
+  satellite_position: 23.5E
+  provider_group: skylink
+
 - id: joj-svet
   name: JOJ Svet
   logo: assets/logos/joj-svet.png
@@ -28,6 +34,9 @@ channels:
   - '16'
   - '19'
   dark_to_white: true
+  satellite_position: 23.5E
+  provider_group: skylink
+
 - id: joj-cinema
   name: JOJ Cinema
   logo: assets/logos/joj-cinema.png
@@ -37,6 +46,9 @@ channels:
   - '16'
   - '19'
   dark_to_white: true
+  satellite_position: 23.5E
+  provider_group: skylink
+
 - id: cs-mystery
   name: CS Mystery
   logo: assets/logos/cs-mystery.png
@@ -46,3 +58,5 @@ channels:
   - '16'
   - '19'
   dark_to_white: true
+  satellite_position: 23.5E
+  provider_group: skylink
