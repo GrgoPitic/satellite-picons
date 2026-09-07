@@ -323,9 +323,14 @@ def run_git(*args: str, timeout: int = 45) -> subprocess.CompletedProcess:
         raise RuntimeError("Git operácia prekročila časový limit.") from exc
 
 def publish_pending_changes() -> str:
-    sync = run_git("pull", "--rebase", "--autostash", "origin", "main")
-    if sync.returncode != 0:
-        raise RuntimeError(sync.stderr.strip() or sync.stdout.strip() or "Synchronizácia s GitHubom zlyhala.")
+    fetch = run_git("fetch", "origin", "main")
+    if fetch.returncode != 0:
+        raise RuntimeError(fetch.stderr.strip() or fetch.stdout.strip() or "Načítanie origin/main zlyhalo.")
+
+    rebase = run_git("rebase", "--autostash", "FETCH_HEAD")
+    if rebase.returncode != 0:
+        run_git("rebase", "--abort")
+        raise RuntimeError(rebase.stderr.strip() or rebase.stdout.strip() or "Synchronizácia s origin/main zlyhala.")
 
     add = run_git("add", "channels.yml", "assets/logos")
     if add.returncode != 0:
@@ -341,7 +346,7 @@ def publish_pending_changes() -> str:
     if commit.returncode != 0:
         raise RuntimeError(commit.stderr.strip() or commit.stdout.strip() or "git commit zlyhal")
 
-    push = run_git("push", "origin", "main")
+    push = run_git("push", "origin", "HEAD:main")
     if push.returncode != 0:
         raise RuntimeError(push.stderr.strip() or push.stdout.strip() or "git push zlyhal")
 
