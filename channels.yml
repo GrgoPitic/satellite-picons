@@ -39,7 +39,7 @@ channels:
   dark_to_white: true
 - id: markiza
   name: Markiza
-  logo: assets/logos/markiza.png
+  logo: assets/logos/markiza.jpeg
   service_reference: '1:0:19:3731:C8E:3:EB0000:0:0:0:'
   variant_types:
   - '1'
