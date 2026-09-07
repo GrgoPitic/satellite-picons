@@ -23,6 +23,22 @@ SUPPORTED = {".png", ".svg", ".jpg", ".jpeg", ".webp"}
 ID_RE = re.compile(r"^[a-z0-9][a-z0-9-]{1,63}$")
 ORBIT_RE = re.compile(r"(?P<deg>\d+(?:\.\d+)?)\s*°?\s*(?P<dir>[EW])", re.I)
 KINGOFSAT_SEARCH = "https://en.kingofsat.net/find.php"
+SATELLITE_POSITIONS = [
+    ("23.5E", "23.5°E · Astra 3"),
+    ("19.2E", "19.2°E · Astra 1"),
+    ("28.2E", "28.2°E · Astra 2"),
+    ("16E", "16.0°E · Eutelsat 16A"),
+    ("13E", "13.0°E · Hot Bird"),
+    ("9E", "9.0°E · Eutelsat 9B"),
+    ("7E", "7.0°E · Eutelsat 7"),
+    ("5E", "5.0°E · Astra 4A / SES 5"),
+    ("1W", "1.0°W · Thor / Intelsat"),
+    ("0.8W", "0.8°W · Thor"),
+    ("4W", "4.0°W · Amos"),
+    ("5W", "5.0°W · Eutelsat 5 West"),
+    ("30W", "30.0°W · Hispasat"),
+    ("42E", "42.0°E · Türksat"),
+]
 
 app = Flask(__name__)
 app.secret_key = "satellite-picons-local-admin"
@@ -55,8 +71,8 @@ code{color:#d3deea}
 .result:last-child{border-bottom:0}.result:hover{background:#111b27}
 .result strong{display:block}.result small{color:#93a1b3;display:block;margin-top:4px}
 .badge{display:inline-block;font-size:11px;padding:3px 7px;border:1px solid #33465c;border-radius:999px;margin-left:6px;color:#b9c8da}
-.status{font-size:13px;color:#93a1b3;margin-top:8px}
-@media(max-width:700px){.grid,.lookup{grid-template-columns:1fr}}
+.status{font-size:13px;color:#93a1b3;margin-top:8px}.manage{margin:0 0 22px;padding:16px;border:1px solid #253242;border-radius:14px;background:#0a1017}.manage-row{display:grid;grid-template-columns:1fr 170px;gap:10px;align-items:end}.danger{background:#3a1518!important;color:#ffd9dc!important;border:1px solid #6b2b31!important}
+@media(max-width:700px){.grid,.lookup,.manage-row{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -69,14 +85,37 @@ code{color:#d3deea}
       {% for m in messages %}<div class="msg">{{ m }}</div>{% endfor %}
     {% endwith %}
 
+    <div class="manage">
+      <div class="manage-row">
+        <div>
+          <label>Správa existujúceho kanála</label>
+          <select id="manageChannel">
+            <option value="">— Vyber kanál —</option>
+            {% for ch in channels %}
+              <option value="{{ ch.id }}">{{ ch.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div>
+          <button type="button" id="deleteChannelBtn" class="danger">Vymazať kanál</button>
+        </div>
+      </div>
+      <div class="status">Vymazaním sa odstráni záznam z channels.yml aj jeho logo z assets/logos. Zmena sa potom publikuje na GitHub.</div>
+    </div>
+
     <div class="lookup">
       <div>
         <label>Vyhľadať kanál v databáze</label>
         <input id="lookupName" placeholder="napr. JOJ KRIMI">
       </div>
       <div>
-        <label>Orbita (voliteľné)</label>
-        <input id="lookupOrbit" placeholder="23.5E">
+        <label>Satelitná pozícia</label>
+        <select id="lookupOrbit">
+          <option value="">— Vyber pozíciu —</option>
+          {% for value, label in satellite_positions %}
+            <option value="{{ value }}">{{ label }}</option>
+          {% endfor %}
+        </select>
       </div>
       <div><button type="button" class="secondary" id="lookupBtn">Nájsť</button></div>
     </div>
@@ -141,6 +180,28 @@ const status=document.querySelector('#lookupStatus');
 const publishForm=document.querySelector('#publishForm');
 const publishBtn=document.querySelector('#publishBtn');
 const publishStatus=document.querySelector('#publishStatus');
+const manageChannel=document.querySelector('#manageChannel');
+const deleteChannelBtn=document.querySelector('#deleteChannelBtn');
+if(deleteChannelBtn){
+  deleteChannelBtn.addEventListener('click',async()=>{
+    const channelId=manageChannel.value;
+    if(!channelId){alert('Najprv vyber kanál.');return;}
+    const name=manageChannel.options[manageChannel.selectedIndex].textContent;
+    if(!confirm('Naozaj vymazať '+name+' z databázy aj s logom?'))return;
+    deleteChannelBtn.disabled=true;
+    deleteChannelBtn.textContent='Mažem…';
+    try{
+      const r=await fetch('/api/channel/'+encodeURIComponent(channelId),{method:'DELETE'});
+      const data=await r.json();
+      if(!r.ok)throw new Error(data.error||'Mazanie zlyhalo');
+      window.location.reload();
+    }catch(e){
+      alert('Chyba: '+e.message);
+      deleteChannelBtn.disabled=false;
+      deleteChannelBtn.textContent='Vymazať kanál';
+    }
+  });
+}
 if(publishForm){
   publishForm.addEventListener('submit',()=>{
     publishBtn.disabled=true;
@@ -348,7 +409,7 @@ def publish_pending_changes() -> str:
         run_git("rebase", "--abort")
         raise RuntimeError(rebase.stderr.strip() or rebase.stdout.strip() or "Synchronizácia s origin/main zlyhala.")
 
-    add = run_git("add", "channels.yml", "assets/logos")
+    add = run_git("add", "-A", "channels.yml", "assets/logos", "assets/source-logos")
     if add.returncode != 0:
         raise RuntimeError(add.stderr.strip() or "git add zlyhal")
 
@@ -392,6 +453,39 @@ def api_lookup():
     except Exception as exc:
         return jsonify(error=str(exc)), 500
 
+@app.delete("/api/channel/<channel_id>")
+def delete_channel(channel_id: str):
+    try:
+        cfg = yaml.safe_load(DB.read_text(encoding="utf-8")) or {"channels": []}
+        channels = cfg.setdefault("channels", [])
+        existing = next((ch for ch in channels if ch.get("id") == channel_id), None)
+        if not existing:
+            return jsonify(error="Kanál sa v databáze nenašiel."), 404
+
+        channels.remove(existing)
+
+        logo_rel = existing.get("logo")
+        if logo_rel:
+            logo_path = ROOT / logo_rel
+            if logo_path.exists() and logo_path.is_file():
+                logo_path.unlink()
+
+        source_logo_rel = existing.get("source_logo")
+        if source_logo_rel:
+            source_logo_path = ROOT / source_logo_rel
+            if source_logo_path.exists() and source_logo_path.is_file():
+                source_logo_path.unlink()
+
+        DB.write_text(
+            yaml.safe_dump(cfg, allow_unicode=True, sort_keys=False),
+            encoding="utf-8",
+        )
+
+        message = publish_pending_changes()
+        return jsonify(ok=True, message=message)
+    except Exception as exc:
+        return jsonify(error=str(exc)), 500
+
 @app.post("/publish")
 def publish():
     try:
@@ -403,7 +497,12 @@ def publish():
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "GET":
-        return render_template_string(PAGE)
+        cfg = yaml.safe_load(DB.read_text(encoding="utf-8")) or {}
+        return render_template_string(
+            PAGE,
+            channels=cfg.get("channels", []),
+            satellite_positions=SATELLITE_POSITIONS,
+        )
 
     try:
         channel_id = request.form["channel_id"].strip().lower()
