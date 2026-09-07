@@ -3,34 +3,57 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Satellite Picons — curated Enigma2 satellite picon collection with consistent 150×90 styling and current channel branding.">
   <title>Satellite Picons</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main>
-    <header>
-      <div>
-        <p class="eyebrow">ENIGMA2 • FREE COMMUNITY PROJECT</p>
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">ENIGMA2 • SATELLITE ICON LIBRARY</p>
         <h1>Satellite Picons</h1>
-        <p class="lead">Bezplatná kolekcia satelitných piconov pre Enigma2, ktorú tvorím vo voľnom čase pre komunitu.</p>
+        <p class="lead">Precízne spracovaná kolekcia satelitných piconov pre Enigma2 s jednotným vizuálnym štýlom, aktuálnymi logami staníc a service-reference kompatibilitou.</p>
+        <div class="hero-tags">
+          <span>150×90</span>
+          <span>Enigma2</span>
+          <span>Service Reference</span>
+          <span>Community Maintained</span>
+        </div>
       </div>
-      <a class="button" id="package" href="#">Stiahnuť celý balík</a>
+      <a class="button primary" id="package" href="#">Stiahnuť kompletný balík</a>
     </header>
 
-    <section class="about">
-      <p>Projekt vzniká z radosti zo satelitnej televízie a Enigma2. Picony priebežne dopĺňam a aktualizujem tak, aby mali jednotný vzhľad a používali aktuálne logá staníc. Všetko je voľne dostupné bez reklám a plateného prístupu.</p>
+    <section class="intro">
+      <div>
+        <p class="section-kicker">CURATED COLLECTION</p>
+        <h2>Jednotný vzhľad. Aktuálne logá. Presné priradenie.</h2>
+      </div>
+      <p>Satellite Picons je nezávislý komunitný projekt vytváraný a priebežne udržiavaný vo voľnom čase. Cieľom je ponúknuť čistú, konzistentnú a spoľahlivú kolekciu piconov pripravenú pre každodenné používanie v Enigma2 prijímačoch.</p>
     </section>
 
     <section class="stats">
-      <div><strong id="channels">—</strong><span>kanálov</span></div>
-      <div><strong id="picons">—</strong><span>piconov</span></div>
-      <div><strong id="updated">—</strong><span>aktualizované</span></div>
+      <div><strong id="channels">—</strong><span>kanálov v katalógu</span></div>
+      <div><strong id="picons">—</strong><span>vygenerovaných piconov</span></div>
+      <div><strong id="updated">—</strong><span>posledná aktualizácia</span></div>
     </section>
 
     <section class="catalog">
+      <div class="catalog-head">
+        <div>
+          <p class="section-kicker">CATALOGUE</p>
+          <h2>Picon databáza</h2>
+        </div>
+        <p>Vyhľadaj stanicu podľa názvu alebo Enigma2 service reference a stiahni konkrétny variant.</p>
+      </div>
       <input id="search" type="search" placeholder="Hľadať kanál alebo service reference…" autocomplete="off">
       <div id="grid" class="grid"></div>
     </section>
+
+    <footer>
+      <strong>Satellite Picons</strong>
+      <span>Independent community project for Enigma2.</span>
+    </footer>
   </main>
   <script src="app.js"></script>
 </body>
