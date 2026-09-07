@@ -37,17 +37,6 @@ channels:
   - '16'
   - '19'
   dark_to_white: true
-- id: markiza
-  name: Markiza
-  logo: assets/logos/markiza.jpeg
-  service_reference: '1:0:19:3731:C8E:3:EB0000:0:0:0:'
-  variant_types:
-  - '1'
-  - '16'
-  - '19'
-  dark_to_white: false
-  optical_scale: 1.0
-  edge_cleanup: false
 - id: cs-mystery
   name: CS Mystery
   logo: assets/logos/cs-mystery.png
