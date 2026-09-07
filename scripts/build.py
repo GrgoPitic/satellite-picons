@@ -154,9 +154,11 @@ def render_logo(
     template: Image.Image,
     dark_to_white: bool,
     optical_scale: float = 1.0,
+    ch_edge_cleanup: bool = True,
 ) -> Image.Image:
     logo = load_logo_image(logo_path)
-    logo = remove_edge_white(logo)
+    if ch_edge_cleanup:
+        logo = remove_edge_white(logo)
 
     if dark_to_white:
         logo = recolor_neutral_dark_to_white(logo)
@@ -215,6 +217,7 @@ def main() -> int:
             template,
             bool(ch.get("dark_to_white", True)),
             float(ch.get("optical_scale", 1.0)),
+            bool(ch.get("edge_cleanup", True)),
         )
         files = []
 
@@ -229,6 +232,8 @@ def main() -> int:
             "logo": str(ch["logo"]),
             "service_reference": ch["service_reference"],
             "optical_scale": float(ch.get("optical_scale", 1.0)),
+            "logo_version": int(ch.get("logo_version", 1)),
+            "updated_at": ch.get("updated_at"),
             "files": files,
         })
 
