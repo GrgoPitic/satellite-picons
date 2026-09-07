@@ -306,7 +306,7 @@ def remove_ai_background(im: Image.Image) -> Image.Image:
     try:
         from rembg import new_session, remove
     except ImportError as exc:
-        raise RuntimeError("AI odstránenie pozadia nie je nainštalované. Spusť admin.command, ktorý doinštaluje admin závislosti.") from exc
+        raise RuntimeError("AI odstránenie pozadia nie je nainštalované.") from exc
     if _REMBG_SESSION is None:
         _REMBG_SESSION = new_session("u2netp")
     return remove(im.convert("RGBA"), session=_REMBG_SESSION).convert("RGBA")
@@ -325,7 +325,10 @@ def process_background(im: Image.Image, mode: str) -> tuple[Image.Image, str]:
         return simple, "jednoduché pozadie"
     if ratio >= 0.03:
         return simple, "automaticky – jednoduché pozadie"
-    return remove_ai_background(im), "automaticky – AI (u2netp)"
+    try:
+        return remove_ai_background(im), "automaticky – AI (u2netp)"
+    except Exception:
+        return simple, "automaticky – jednoduché pozadie"
 
 
 def recolor_neutral_dark_to_white(im: Image.Image) -> Image.Image:
