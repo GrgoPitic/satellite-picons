@@ -10,9 +10,11 @@ channels:
     logo: assets/logos/joj-krimi.png
     service_reference: "1:0:19:334F:C93:3:EB0000:0:0:0:"
     dark_to_white: true
+    optical_scale: 1.0
 
   - id: joj-sport-2
     name: JOJ ŠPORT 2
     logo: assets/logos/joj-sport-2.png
     service_reference: "1:0:19:30C:C94:3:EB0000:0:0:0:"
     dark_to_white: true
+    optical_scale: 1.0
