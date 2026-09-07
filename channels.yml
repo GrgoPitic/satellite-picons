@@ -3,64 +3,73 @@ project:
   resolution: 150x90
   style: piconblack
   variant_types:
-    - '1'
-    - '16'
-    - '19'
-
+  - '1'
+  - '16'
+  - '19'
 channels:
-  - id: joj-krimi
-    name: JOJ KRIMI
-    logo: assets/logos/joj-krimi.png
-    service_reference: '1:0:19:334F:C93:3:EB0000:0:0:0:'
-    dark_to_white: true
-    optical_scale: 1.0
-    satellite_position: 23.5E
-    provider_group: skylink
-
-  - id: joj-sport-2
-    name: JOJ ŠPORT 2
-    logo: assets/logos/joj-sport-2.png
-    service_reference: '1:0:19:30C:C94:3:EB0000:0:0:0:'
-    dark_to_white: true
-    optical_scale: 1.0
-    satellite_position: 23.5E
-    provider_group: skylink
-
-  - id: joj-svet
-    name: JOJ Svet
-    logo: assets/logos/joj-svet.png
-    service_reference: '1:0:19:1F4F:CA1:3:EB0000:0:0:0:'
-    variant_types:
-      - '1'
-      - '16'
-      - '19'
-    dark_to_white: true
-    optical_scale: 1.0
-    satellite_position: 23.5E
-    provider_group: skylink
-
-  - id: joj-cinema
-    name: JOJ Cinema
-    logo: assets/logos/joj-cinema.png
-    service_reference: '1:0:19:3359:C93:3:EB0000:0:0:0:'
-    variant_types:
-      - '1'
-      - '16'
-      - '19'
-    dark_to_white: true
-    optical_scale: 1.0
-    satellite_position: 23.5E
-    provider_group: skylink
-
-  - id: cs-mystery
-    name: CS Mystery
-    logo: assets/logos/cs-mystery.png
-    service_reference: '1:0:1:334D:C93:3:EB0000:0:0:0:'
-    variant_types:
-      - '1'
-      - '16'
-      - '19'
-    dark_to_white: true
-    optical_scale: 1.0
-    satellite_position: 23.5E
-    provider_group: skylink
+- id: joj-krimi
+  name: JOJ KRIMI
+  logo: assets/logos/joj-krimi.png
+  service_reference: '1:0:19:334F:C93:3:EB0000:0:0:0:'
+  dark_to_white: true
+  optical_scale: 1.0
+  satellite_position: 23.5E
+  provider_group: skylink
+- id: joj-sport-2
+  name: JOJ ŠPORT 2
+  logo: assets/logos/joj-sport-2.png
+  service_reference: '1:0:19:30C:C94:3:EB0000:0:0:0:'
+  dark_to_white: true
+  optical_scale: 1.0
+  satellite_position: 23.5E
+  provider_group: skylink
+- id: joj-svet
+  name: JOJ Svet
+  logo: assets/logos/joj-svet.png
+  service_reference: '1:0:19:1F4F:CA1:3:EB0000:0:0:0:'
+  variant_types:
+  - '1'
+  - '16'
+  - '19'
+  dark_to_white: true
+  optical_scale: 1.0
+  satellite_position: 23.5E
+  provider_group: skylink
+- id: joj-cinema
+  name: JOJ Cinema
+  logo: assets/logos/joj-cinema.png
+  service_reference: '1:0:19:3359:C93:3:EB0000:0:0:0:'
+  variant_types:
+  - '1'
+  - '16'
+  - '19'
+  dark_to_white: true
+  optical_scale: 1.0
+  satellite_position: 23.5E
+  provider_group: skylink
+- id: cs-mystery
+  name: CS Mystery
+  logo: assets/logos/cs-mystery.png
+  service_reference: '1:0:1:334D:C93:3:EB0000:0:0:0:'
+  variant_types:
+  - '1'
+  - '16'
+  - '19'
+  dark_to_white: true
+  optical_scale: 1.0
+  satellite_position: 23.5E
+  provider_group: skylink
+- id: markiza
+  name: Markiza
+  logo: assets/logos/markiza.png
+  service_reference: '1:0:19:3731:C8E:3:EB0000:0:0:0:'
+  variant_types:
+  - '1'
+  - '16'
+  - '19'
+  dark_to_white: false
+  optical_scale: 1.0
+  edge_cleanup: false
+  background_cleanup: true
+  satellite_position: 23.5E
+  provider_group: skylink
