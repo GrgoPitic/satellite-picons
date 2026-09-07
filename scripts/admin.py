@@ -337,20 +337,31 @@ def publish_pending_changes() -> str:
         raise RuntimeError(add.stderr.strip() or "git add zlyhal")
 
     diff = run_git("diff", "--cached", "--quiet")
-    if diff.returncode == 0:
-        return "Nie sú žiadne lokálne zmeny na publikovanie."
     if diff.returncode not in (0, 1):
         raise RuntimeError(diff.stderr.strip() or "Kontrola zmien zlyhala.")
 
-    commit = run_git("commit", "-m", "Update satellite picons")
-    if commit.returncode != 0:
-        raise RuntimeError(commit.stderr.strip() or commit.stdout.strip() or "git commit zlyhal")
+    if diff.returncode == 1:
+        commit = run_git("commit", "-m", "Update satellite picons")
+        if commit.returncode != 0:
+            raise RuntimeError(commit.stderr.strip() or commit.stdout.strip() or "git commit zlyhal")
 
-    push = run_git("push", "origin", "HEAD:main")
+    ahead = run_git("rev-list", "--count", "FETCH_HEAD..HEAD")
+    if ahead.returncode != 0:
+        raise RuntimeError(ahead.stderr.strip() or "Kontrola lokálnych commitov zlyhala.")
+
+    try:
+        ahead_count = int(ahead.stdout.strip() or "0")
+    except ValueError:
+        ahead_count = 0
+
+    if ahead_count == 0:
+        return "Nie sú žiadne lokálne zmeny ani čakajúce commity na publikovanie."
+
+    push = run_git("push", "origin", "HEAD:main", timeout=120)
     if push.returncode != 0:
         raise RuntimeError(push.stderr.strip() or push.stdout.strip() or "git push zlyhal")
 
-    return "Lokálne zmeny boli úspešne publikované na GitHub."
+    return f"Publikované na GitHub: {ahead_count} lokálny commit."
 
 @app.get("/api/lookup")
 def api_lookup():
