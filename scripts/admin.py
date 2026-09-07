@@ -109,8 +109,8 @@ code{color:#d3deea}
         <div>
           <label>Čierny/tmavý text → biely</label>
           <select name="dark_to_white">
-            <option value="true" selected>Áno</option>
-            <option value="false">Nie</option>
+            <option value="false" selected>Nie — zachovať originálne farby</option>
+            <option value="true">Áno — iba pre tmavé jednofarebné logo</option>
           </select>
         </div>
       </div>
@@ -410,7 +410,7 @@ def index():
         name = request.form["name"].strip()
         ref = request.form["service_reference"].strip()
         variants = [x.strip().upper() for x in request.form.get("variants", "1,16,19").split(",") if x.strip()]
-        dark_to_white = request.form.get("dark_to_white", "true") == "true"
+        dark_to_white = request.form.get("dark_to_white", "false") == "true"
         publish = request.form.get("publish") == "on"
         upload = request.files["logo"]
 
@@ -444,6 +444,8 @@ def index():
             "service_reference": ref,
             "variant_types": variants,
             "dark_to_white": dark_to_white,
+            "optical_scale": 1.0,
+            "edge_cleanup": False,
         }
 
         channels = cfg.setdefault("channels", [])
