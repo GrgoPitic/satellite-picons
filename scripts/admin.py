@@ -514,15 +514,6 @@ def run_git(*args: str, timeout: int = 25) -> subprocess.CompletedProcess:
         raise RuntimeError("Git operácia prekročila časový limit.") from exc
 
 def publish_pending_changes() -> str:
-    fetch = run_git("fetch", "origin", "main")
-    if fetch.returncode != 0:
-        raise RuntimeError(fetch.stderr.strip() or fetch.stdout.strip() or "Načítanie origin/main zlyhalo.")
-
-    rebase = run_git("rebase", "--autostash", "FETCH_HEAD")
-    if rebase.returncode != 0:
-        run_git("rebase", "--abort")
-        raise RuntimeError(rebase.stderr.strip() or rebase.stdout.strip() or "Synchronizácia s origin/main zlyhala.")
-
     add_paths = ["channels.yml", "assets/logos"]
     if (ROOT / "assets" / "source-logos").exists():
         add_paths.append("assets/source-logos")
@@ -540,14 +531,31 @@ def publish_pending_changes() -> str:
         if commit.returncode != 0:
             raise RuntimeError(commit.stderr.strip() or commit.stdout.strip() or "git commit zlyhal")
 
-    ahead = run_git("rev-list", "--count", "FETCH_HEAD..HEAD")
-    if ahead.returncode != 0:
-        raise RuntimeError(ahead.stderr.strip() or "Kontrola lokálnych commitov zlyhala.")
+    fetch = run_git("fetch", "origin", "main")
+    if fetch.returncode != 0:
+        raise RuntimeError(fetch.stderr.strip() or fetch.stdout.strip() or "Načítanie origin/main zlyhalo.")
 
-    try:
+    ahead = run_git("rev-list", "--count", "FETCH_HEAD..HEAD")
+    behind = run_git("rev-list", "--count", "HEAD..FETCH_HEAD")
+    if ahead.returncode != 0 or behind.returncode != 0:
+        raise RuntimeError("Kontrola stavu lokálnej vetvy zlyhala.")
+
+    ahead_count = int(ahead.stdout.strip() or "0")
+    behind_count = int(behind.stdout.strip() or "0")
+
+    if behind_count:
+        rebase = run_git("rebase", "FETCH_HEAD", timeout=45)
+        if rebase.returncode != 0:
+            run_git("rebase", "--abort")
+            raise RuntimeError(
+                "GitHub obsahuje novšie zmeny a automatické zlúčenie nebolo bezpečné. "
+                "Lokálne zmeny zostali zachované; publikovanie bolo zastavené."
+            )
+
+        ahead = run_git("rev-list", "--count", "FETCH_HEAD..HEAD")
+        if ahead.returncode != 0:
+            raise RuntimeError("Kontrola lokálnych commitov po synchronizácii zlyhala.")
         ahead_count = int(ahead.stdout.strip() or "0")
-    except ValueError:
-        ahead_count = 0
 
     if ahead_count == 0:
         return "Nie sú žiadne lokálne zmeny ani čakajúce commity na publikovanie."
