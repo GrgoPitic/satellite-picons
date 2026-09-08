@@ -7,6 +7,10 @@ providers:
       - SK
       - CZ
     sort_order: 10
+    source:
+      type: satelitnatv
+      operator_url: https://www.satelitnatv.sk/frekvencie/skylink-sk/
+      logo_repository: picons/picons
 
   - id: antik
     name: ANTIK Sat
