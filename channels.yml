@@ -157,3 +157,17 @@ channels:
   satellite_position: 16E
   provider_group: null
   logo: assets/logos/joj-krimi-hd-e28d404c29.png
+- id: markiza-krimi-hd
+  name: Markiza Krimi HD
+  service_reference: '1:0:19:7D9:9E98:16E:A00000:0:0:0:'
+  variant_types:
+  - '1'
+  - '16'
+  - '19'
+  dark_to_white: false
+  optical_scale: 1.0
+  edge_cleanup: false
+  background_cleanup: true
+  satellite_position: 16E
+  provider_group: null
+  logo: assets/logos/markiza-krimi-hd-85db4865d2.png
