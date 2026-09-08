@@ -29,7 +29,7 @@ The project is maintained continuously as channel identities and satellite servi
 
 ## Catalogue
 
-Browse the live catalogue, search by channel name or service reference, and download individual variants or the complete package.
+Browse the live catalogue, search by channel name or service reference, and download individual variants, complete provider packages or a custom package generated from your own Enigma2 bouquet files.
 
 <p>
   <a href="https://grgopitic.github.io/satellite-picons/">
@@ -37,24 +37,43 @@ Browse the live catalogue, search by channel name or service reference, and down
   </a>
 </p>
 
+### Custom "My channels" package
+
+For available providers the website can read local `userbouquet*.tv` / `userbouquet*.radio` files directly in the browser, match their DVB service references against the catalogue and create a ZIP containing only matching picons.
+
+Bouquet files are processed locally in the browser and are not uploaded to the project.
+
 ## Provider packages
 
-The catalogue also publishes operator-specific packages from the same source data used by the website and Enigma2 updater.
+Provider catalogues are generated from current operator/transponder metadata and the same result is used by the website, package builder and Enigma2 clients.
 
-- **Skylink** — available automatically from channels tagged with `provider_group: skylink`
-- **ANTIK Sat** — prepared in the provider catalogue and becomes downloadable as soon as its channel/service-reference mapping is added
+- **Skylink** — synchronized automatically
+- **ANTIK Sat** — synchronized automatically
+- additional providers can be added through `providers.yml`
 
 Generated metadata:
 
+- `provider-data/*.json` — normalized operator channel/service-reference data
 - `providers.json` — provider catalogue for the website and clients
 - `version.json` — global package metadata and compatibility map
 - `packages/*.zip` — full and provider-specific picon archives
 
-The Enigma2 updater can list providers and install only one operator:
+The provider synchronization workflow refreshes supported operator catalogues daily and after changes to synchronization configuration.
+
+## Enigma2
+
+The GUI plugin can install one provider in three modes:
+
+- complete provider package
+- only channels found in local Enigma2 bouquets
+- update only picons already present in the selected picon directory
+
+The command-line updater can also list and install provider packages:
 
 ```bash
 python3 update_picons.py --list
 python3 update_picons.py --provider skylink --dest /media/hdd/picon
+python3 update_picons.py --provider antik --dest /media/hdd/picon
 ```
 
 The older positional form remains supported:
@@ -69,12 +88,13 @@ python3 update_picons.py /media/hdd/picon skylink
 - consistent dimensions and visual balance
 - service-reference compatible filenames
 - individual channel downloads
-- complete downloadable package
-- ongoing maintenance and logo updates
+- provider-specific packages
+- browser-generated packages from local bouquets
+- ongoing automated metadata synchronization
 
 ## Project status
 
-The collection is actively maintained and expanded. Existing channel entries can be updated when broadcasters change branding while preserving their service mapping.
+The collection is actively maintained and expanded. Existing channel entries can be updated when broadcasters change branding while preserving their service mapping. Manually curated channel entries override generated provider data for the same DVB service.
 
 ## License & trademarks
 
