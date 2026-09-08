@@ -252,7 +252,7 @@ code{color:#d3deea}
         </div>
         <div>
           <label>Čierny/tmavý text → biely</label>
-          <select name="dark_to_white">
+          <select id="darkToWhite" name="dark_to_white">
             <option value="false" selected>Nie — zachovať originálne farby</option>
             <option value="true">Áno — tmavé neutrálne časti prefarbiť na bielo</option>
           </select>
@@ -262,15 +262,19 @@ code{color:#d3deea}
       <div class="grid">
         <div>
           <label>Veľkosť loga (optical scale)</label>
-          <input name="optical_scale" type="number" min="0.50" max="1.50" step="0.05" value="1.00">
+          <input id="opticalScale" name="optical_scale" type="number" min="0.50" max="1.50" step="0.05" value="1.00">
         </div>
         <div>
           <label class="check" style="margin-top:38px">
-            <input type="checkbox" name="edge_cleanup">
+            <input id="edgeCleanup" type="checkbox" name="edge_cleanup">
             Odstrániť biely okraj napojený na hranu
           </label>
         </div>
       </div>
+
+      <button type="button" id="previewProcessedBtn" class="secondary" style="margin-top:14px">
+        Náhľad upraveného loga
+      </button>
 
       <label class="check">
         <input type="checkbox" name="publish" checked>
@@ -312,6 +316,10 @@ const copyProvider=document.querySelector('#copyProvider');
 const copyChannel=document.querySelector('#copyChannel');
 const copyLogoPreview=document.querySelector('#copyLogoPreview');
 const copyLogoFromRef=document.querySelector('#copyLogoFromRef');
+const darkToWhite=document.querySelector('#darkToWhite');
+const opticalScale=document.querySelector('#opticalScale');
+const edgeCleanup=document.querySelector('#edgeCleanup');
+const previewProcessedBtn=document.querySelector('#previewProcessedBtn');
 if(lookupOrbit && providerGroup){
   lookupOrbit.addEventListener('change',()=>{
     const d=providerDefaults[lookupOrbit.value];
@@ -333,10 +341,9 @@ if(manageChannel){
     document.querySelector('#serviceRef').value=ch.service_reference||'';
     document.querySelector('#lookupOrbit').value=ch.satellite_position||'';
     document.querySelector('#providerGroup').value=ch.provider_group||'';
-    const dark=document.querySelector('[name="dark_to_white"]');
-    dark.value=ch.dark_to_white ? 'true' : 'false';
-    document.querySelector('[name="optical_scale"]').value=Number(ch.optical_scale||1).toFixed(2);
-    document.querySelector('[name="edge_cleanup"]').checked=Boolean(ch.edge_cleanup);
+    darkToWhite.value=ch.dark_to_white ? 'true' : 'false';
+    opticalScale.value=Number(ch.optical_scale||1).toFixed(2);
+    edgeCleanup.checked=Boolean(ch.edge_cleanup);
 
     const source=ch._manual_override ? 'Ručný override' : 'Automatická synchronizácia';
     const logo=ch.logo || ch.logo_url || 'bez loga';
@@ -426,6 +433,44 @@ if(logoUpload){
     newLogoPreview.innerHTML='<img src="'+url+'" alt="Nové logo">';
   });
 }
+if(previewProcessedBtn){
+  previewProcessedBtn.addEventListener('click', async ()=>{
+    const file=logoUpload && logoUpload.files && logoUpload.files[0];
+    const sourceRef=copyLogoFromRef ? copyLogoFromRef.value : '';
+
+    if(!file && !sourceRef){
+      alert('Najprv nahraj nové logo alebo vyber logo z iného providera.');
+      return;
+    }
+
+    previewProcessedBtn.disabled=true;
+    previewProcessedBtn.textContent='Spracovávam náhľad…';
+
+    try{
+      const fd=new FormData();
+      if(file) fd.append('logo',file);
+      if(sourceRef) fd.append('copy_logo_from_ref',sourceRef);
+      fd.append('dark_to_white',darkToWhite.value);
+      fd.append('optical_scale',opticalScale.value);
+      if(edgeCleanup.checked) fd.append('edge_cleanup','on');
+
+      const r=await fetch('/api/logo-preview',{method:'POST',body:fd});
+      if(!r.ok){
+        const data=await r.json().catch(()=>({error:'Náhľad zlyhal'}));
+        throw new Error(data.error||'Náhľad zlyhal');
+      }
+      const blob=await r.blob();
+      const url=URL.createObjectURL(blob);
+      newLogoPreview.innerHTML='<img src="'+url+'" alt="Upravené logo">';
+    }catch(e){
+      alert('Chyba náhľadu: '+e.message);
+    }finally{
+      previewProcessedBtn.disabled=false;
+      previewProcessedBtn.textContent='Náhľad upraveného loga';
+    }
+  });
+}
+
 if(deleteChannelBtn){
   deleteChannelBtn.disabled=true;
   deleteChannelBtn.addEventListener('click',async()=>{
@@ -853,6 +898,79 @@ def read_effective_logo(channel: dict) -> tuple[bytes, str]:
     raise ValueError("Zdrojový kanál nemá dostupné logo.")
 
 
+def render_preview_png(
+    *,
+    raw: bytes,
+    ext: str,
+    dark_to_white: bool = False,
+    optical_scale: float = 1.0,
+    edge_cleanup: bool = False,
+) -> bytes:
+    if ext not in SUPPORTED:
+        raise ValueError("Nepodporovaný formát loga.")
+
+    im = load_uploaded_logo(raw, ext)
+    if edge_cleanup:
+        # Same edge cleanup principle as the build: remove near-white pixels
+        # connected to the outer edge.
+        px = im.load()
+        w, h = im.size
+        seen = set()
+        stack = []
+        for x in range(w):
+            stack.extend([(x, 0), (x, h - 1)])
+        for y in range(h):
+            stack.extend([(0, y), (w - 1, y)])
+        while stack:
+            x, y = stack.pop()
+            if (x, y) in seen or not (0 <= x < w and 0 <= y < h):
+                continue
+            seen.add((x, y))
+            r, g, b, a = px[x, y]
+            if not (a > 0 and r >= 245 and g >= 245 and b >= 245):
+                continue
+            px[x, y] = (r, g, b, 0)
+            stack.extend(((x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)))
+
+    im = remove_corner_connected_background(im)
+    im = trim_transparent(im)
+
+    if dark_to_white:
+        data = list(im.getdata())
+        out = []
+        for r, g, b, a in data:
+            if a == 0:
+                out.append((r, g, b, a))
+                continue
+            mx, mn = max(r, g, b), min(r, g, b)
+            if mx <= 105 and (mx - mn) <= 28:
+                lum = (r + g + b) / 3
+                v = int(230 + (105 - lum) / 105 * 25)
+                v = max(230, min(255, v))
+                out.append((v, v, v, a))
+            else:
+                out.append((r, g, b, a))
+        im.putdata(out)
+
+    optical_scale = max(0.50, min(1.50, float(optical_scale)))
+    max_w, max_h = 148, 86
+    w, h = im.size
+    scale = min(max_w / w, max_h / h) * optical_scale
+    new_w = max(1, int(round(w * scale)))
+    new_h = max(1, int(round(h * scale)))
+    if new_w > max_w or new_h > max_h:
+        cap = min(max_w / new_w, max_h / new_h)
+        new_w = max(1, int(round(new_w * cap)))
+        new_h = max(1, int(round(new_h * cap)))
+    im = im.resize((new_w, new_h), Image.Resampling.LANCZOS)
+
+    canvas = Image.new("RGBA", (150, 90), (0, 0, 0, 0))
+    canvas.alpha_composite(im, ((150 - new_w) // 2, (90 - new_h) // 2))
+    out = io.BytesIO()
+    canvas.save(out, format="PNG", optimize=True)
+    return out.getvalue()
+
+
 def save_manual_logo(
     *,
     channel_id: str,
@@ -989,6 +1107,50 @@ def api_logo(service_key: str):
         return jsonify(error="Lokálne logo sa nenašlo."), 404
 
     return send_file(path)
+
+
+@app.post("/api/logo-preview")
+def api_logo_preview():
+    try:
+        upload = request.files.get("logo")
+        copy_logo_from_ref = request.form.get("copy_logo_from_ref", "").strip()
+        dark_to_white = request.form.get("dark_to_white", "false") == "true"
+        edge_cleanup = request.form.get("edge_cleanup") == "on"
+
+        try:
+            optical_scale = float(request.form.get("optical_scale", "1.0"))
+        except ValueError:
+            raise ValueError("Veľkosť loga musí byť číslo.")
+
+        if upload and upload.filename:
+            original_name = secure_filename(upload.filename or "")
+            ext = Path(original_name).suffix.lower()
+            raw = upload.read()
+        elif copy_logo_from_ref:
+            source_channel = effective_channel_by_ref(copy_logo_from_ref)
+            if not source_channel:
+                raise ValueError("Zdrojový kanál sa nenašiel.")
+            raw, ext = read_effective_logo(source_channel)
+        else:
+            raise ValueError("Nie je vybrané žiadne logo.")
+
+        if not raw:
+            raise ValueError("Logo je prázdne.")
+
+        png = render_preview_png(
+            raw=raw,
+            ext=ext,
+            dark_to_white=dark_to_white,
+            optical_scale=optical_scale,
+            edge_cleanup=edge_cleanup,
+        )
+        return send_file(
+            io.BytesIO(png),
+            mimetype="image/png",
+            download_name="preview.png",
+        )
+    except Exception as exc:
+        return jsonify(error=str(exc)), 400
 
 
 @app.get("/api/lookup")
