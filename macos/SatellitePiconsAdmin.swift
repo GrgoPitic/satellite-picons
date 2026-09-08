@@ -123,7 +123,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let logURL = URL(fileURLWithPath: "/tmp/satellite-picons-admin.log")
         FileManager.default.createFile(atPath: logURL.path, contents: nil)
         if let handle = try? FileHandle(forWritingTo: logURL) {
-            try? handle.seekToEnd()
+            _ = try? handle.seekToEnd()
             process.standardOutput = handle
             process.standardError = handle
         }
