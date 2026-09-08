@@ -108,6 +108,7 @@ h2{margin:0;letter-spacing:-.025em}
 }
 .provider-card{
   min-width:0;
+  width:100%;
   display:flex;
   flex-direction:column;
   min-height:230px;
@@ -119,6 +120,9 @@ h2{margin:0;letter-spacing:-.025em}
     linear-gradient(180deg,rgba(17,24,33,.9),rgba(8,12,17,.84));
   color:inherit;
   text-decoration:none;
+  text-align:left;
+  font:inherit;
+  cursor:pointer;
   box-shadow:0 16px 42px rgba(0,0,0,.18);
   transition:transform .17s ease,border-color .17s ease,box-shadow .17s ease;
 }
@@ -129,6 +133,7 @@ h2{margin:0;letter-spacing:-.025em}
 }
 .provider-card.unavailable{
   opacity:.58;
+  cursor:default;
 }
 .provider-top{
   display:flex;
@@ -360,6 +365,151 @@ input:focus{
   font-size:13px;
 }
 
+
+.visually-hidden{
+  position:absolute!important;
+  width:1px!important;
+  height:1px!important;
+  padding:0!important;
+  margin:-1px!important;
+  overflow:hidden!important;
+  clip:rect(0,0,0,0)!important;
+  white-space:nowrap!important;
+  border:0!important;
+}
+
+.provider-modal-card{
+  width:min(720px,100%);
+  display:block;
+  padding:28px;
+}
+.provider-modal-copy h2{
+  margin:0;
+  font-size:34px;
+  letter-spacing:-.035em;
+}
+.provider-modal-description{
+  max-width:620px;
+  margin:10px 0 0;
+  color:#8292a3;
+  font-size:12px;
+  line-height:1.6;
+}
+.provider-modal-stats{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin:18px 0 22px;
+}
+.provider-modal-stats span{
+  padding:7px 10px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:999px;
+  color:#8292a3;
+  font-size:10px;
+}
+.provider-modal-stats strong{color:#dce5ee}
+.provider-choice-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.provider-choice{
+  min-height:132px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  gap:7px;
+  padding:18px;
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:17px;
+  background:linear-gradient(180deg,rgba(20,29,39,.92),rgba(10,15,21,.9));
+  color:#e8eef5;
+  text-decoration:none;
+  text-align:left;
+  font:inherit;
+  cursor:pointer;
+  transition:transform .16s ease,border-color .16s ease,background .16s ease;
+}
+.provider-choice:hover{
+  transform:translateY(-1px);
+  border-color:rgba(141,169,196,.34);
+  background:linear-gradient(180deg,rgba(24,34,46,.96),rgba(11,17,24,.94));
+}
+.provider-choice strong{
+  font-size:14px;
+  letter-spacing:-.01em;
+}
+.provider-choice span{
+  color:#7f90a2;
+  font-size:10px;
+  line-height:1.55;
+}
+.bouquet-result{
+  margin-top:14px;
+  padding:16px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:15px;
+  background:rgba(6,10,15,.72);
+}
+.bouquet-result>strong{
+  display:block;
+  margin-bottom:5px;
+  color:#e8eef5;
+  font-size:12px;
+}
+.bouquet-result>span{
+  display:block;
+  color:#7c8d9f;
+  font-size:10px;
+  line-height:1.55;
+}
+.bouquet-result code{
+  color:#bac8d6;
+  font-size:9px;
+}
+.bouquet-summary{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+}
+.bouquet-summary div{
+  padding:11px;
+  border:1px solid rgba(255,255,255,.065);
+  border-radius:12px;
+  background:rgba(255,255,255,.018);
+}
+.bouquet-summary strong{
+  display:block;
+  color:#edf3f8;
+  font-size:18px;
+}
+.bouquet-summary span{
+  display:block;
+  margin-top:2px;
+  color:#6f8193;
+  font-size:9px;
+}
+.bouquet-build{
+  width:100%;
+  margin-top:12px;
+  cursor:pointer;
+}
+.bouquet-build:disabled{opacity:.55;cursor:wait}
+.bouquet-secondary{
+  margin-top:12px;
+  min-height:38px;
+  background:#111923;
+  color:#cbd7e2;
+  cursor:pointer;
+}
+.bouquet-note{
+  margin:9px 2px 0;
+  color:#5f7082;
+  font-size:9px;
+  line-height:1.5;
+}
+
 /* Detail modal */
 .modal[hidden]{display:none}
 .modal{
@@ -490,6 +640,10 @@ footer strong{color:#8a99a9}
   .preview img{width:130px;height:78px;max-height:78px}
   .meta{padding-top:9px}
   .modal-card{grid-template-columns:1fr;gap:18px;width:min(420px,100%)}
+  .provider-modal-card{width:min(560px,100%);padding:22px}
+  .provider-choice-grid{grid-template-columns:1fr}
+  .provider-choice{min-height:112px}
+  .bouquet-summary{grid-template-columns:1fr 1fr 1fr}
   .modal-preview{width:100%;height:114px}
   .modal-preview img{width:150px;height:90px;max-width:150px;max-height:90px}
   .modal-copy h2{font-size:24px}
