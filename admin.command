@@ -1,5 +1,5 @@
 #!/bin/zsh
-set -e
+set -euo pipefail
 cd "$(dirname "$0")"
 
 # Make Homebrew libraries (especially cairo) visible to Python/cairocffi on Apple Silicon.
@@ -18,5 +18,29 @@ if [ ! -d .venv ]; then
 fi
 
 source .venv/bin/activate
-python -m pip install -q -r requirements-admin.txt
+
+STAMP_FILE=".venv/.satellite-picons-admin-requirements.sha256"
+REQ_HASH="$(
+  cat requirements.txt requirements-admin.txt 2>/dev/null     | /usr/bin/shasum -a 256     | /usr/bin/awk '{print $1}'
+)"
+
+NEED_INSTALL=0
+if [ ! -f "$STAMP_FILE" ] || [ "$(<"$STAMP_FILE")" != "$REQ_HASH" ]; then
+  NEED_INSTALL=1
+else
+  python - <<'PY' >/dev/null 2>&1 || NEED_INSTALL=1
+import flask
+import requests
+import bs4
+import PIL
+import yaml
+PY
+fi
+
+if [ "$NEED_INSTALL" -eq 1 ]; then
+  echo "Satellite Picons Admin: aktualizujem lokálne závislosti..."
+  python -m pip install -q -r requirements-admin.txt
+  print -r -- "$REQ_HASH" > "$STAMP_FILE"
+fi
+
 exec python scripts/admin.py
