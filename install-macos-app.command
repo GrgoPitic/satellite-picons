@@ -29,6 +29,22 @@ fi
 
 mkdir -p "$HOME/Applications"
 
+# Stop an older running copy before replacing its bundle.
+OLD_PIDS="$(/usr/bin/pgrep -f "$APP_DIR/Contents/MacOS/SatellitePiconsAdmin.bin" || true)"
+if [ -n "$OLD_PIDS" ]; then
+  echo "Zastavujem starú verziu aplikácie..."
+  /bin/kill $OLD_PIDS 2>/dev/null || true
+  /bin/sleep 0.4
+fi
+
+if [ -f "/tmp/satellite-picons-admin.pid" ]; then
+  ADMIN_PID="$(cat /tmp/satellite-picons-admin.pid 2>/dev/null || true)"
+  if [[ "$ADMIN_PID" =~ '^[0-9]+$' ]] && [ "$ADMIN_PID" -gt 1 ]; then
+    /bin/kill "$ADMIN_PID" 2>/dev/null || true
+  fi
+  /bin/rm -f /tmp/satellite-picons-admin.pid
+fi
+
 if [ -f "$APP_RESOURCES/AppIcon.icns" ]; then
   /bin/cp "$APP_RESOURCES/AppIcon.icns" "$OLD_ICON"
 fi
@@ -38,7 +54,12 @@ mkdir -p "$APP_MACOS" "$APP_RESOURCES"
 
 echo "===== 1. KOMPILUJEM NATÍVNU MACOS APLIKÁCIU ====="
 
-/usr/bin/xcrun swiftc   -O   -framework AppKit   -framework Foundation   "$SWIFT_SOURCE"   -o "$APP_MACOS/SatellitePiconsAdmin.bin"
+/usr/bin/xcrun swiftc \
+  -O \
+  -framework AppKit \
+  -framework Foundation \
+  "$SWIFT_SOURCE" \
+  -o "$APP_MACOS/SatellitePiconsAdmin.bin"
 
 cat > "$APP_MACOS/SatellitePiconsAdmin" <<EOF
 #!/bin/zsh
@@ -66,11 +87,13 @@ cat > "$APP_CONTENTS/Info.plist" <<'EOF'
   <key>CFBundlePackageType</key>
   <string>APPL</string>
   <key>CFBundleShortVersionString</key>
-  <string>2.0</string>
+  <string>2.1</string>
   <key>CFBundleVersion</key>
-  <string>2</string>
+  <string>3</string>
   <key>LSMinimumSystemVersion</key>
   <string>14.0</string>
+  <key>LSUIElement</key>
+  <true/>
   <key>NSHighResolutionCapable</key>
   <true/>
 </dict>
@@ -120,31 +143,44 @@ if [ "$ICON_READY" -eq 1 ]; then
 fi
 
 if [ -f "$APP_RESOURCES/AppIcon.icns" ]; then
-  /usr/libexec/PlistBuddy     -c "Add :CFBundleIconFile string AppIcon.icns"     "$APP_CONTENTS/Info.plist"
+  /usr/libexec/PlistBuddy \
+    -c "Add :CFBundleIconFile string AppIcon.icns" \
+    "$APP_CONTENTS/Info.plist"
 else
   echo "UPOZORNENIE: vlastná ikona sa nevytvorila. Aplikácia bude fungovať s predvolenou ikonou macOS."
 fi
 
 echo "===== 3. PODPISUJEM APLIKÁCIU ====="
 
-/usr/bin/codesign   --force   --deep   --sign -   --timestamp=none   "$APP_DIR"
+/usr/bin/codesign \
+  --force \
+  --deep \
+  --sign - \
+  --timestamp=none \
+  "$APP_DIR"
 
 echo "===== 4. OVERUJEM ====="
 
-/usr/bin/codesign   --verify   --deep   --strict   --verbose=2   "$APP_DIR"
+/usr/bin/codesign \
+  --verify \
+  --deep \
+  --strict \
+  --verbose=2 \
+  "$APP_DIR"
 
 echo
 echo "=========================================="
-echo "HOTOVO"
+echo "HOTOVO - Satellite Picons Admin 2.1"
 echo "=========================================="
 echo "Aplikácia: $APP_DIR"
 echo
-echo "Nová verzia:"
-echo "  - nezamŕza počas štartu"
-echo "  - závislosti neinštaluje pri každom kliknutí"
-echo "  - má vlastné menu v hornej lište"
-echo "  - Zastaviť Admin korektne ukončí lokálny server"
-echo "  - Ukončiť aplikáciu ukončí aj admin server"
+echo "Opravy:"
+echo "  - kontrola servera už nikdy neblokuje hlavné vlákno"
+echo "  - aplikácia funguje ako menu-bar utility bez prázdnej Dock aplikácie"
+echo "  - Ukončiť aplikáciu je okamžité a nečaká na Flask/curl"
+echo "  - Zastaviť Admin prebieha na pozadí"
+echo "  - pridaný Reštartovať Admin a Zobraziť log"
+echo "  - inštalátor pred aktualizáciou korektne zastaví starú kópiu"
 echo
 
 /usr/bin/open -R "$APP_DIR"
