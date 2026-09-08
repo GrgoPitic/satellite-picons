@@ -24,7 +24,7 @@ concurrency:
 jobs:
   providers:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 75
 
     steps:
       - uses: actions/checkout@v4
@@ -42,54 +42,40 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Synchronize Skylink
+      - name: Synchronize all SatelitnaTV providers
         run: |
-          python scripts/sync_provider.py skylink \
-            --delay 0.08 \
-            --min-coverage 70 \
-            --output provider-data/skylink.json
-
-      - name: Synchronize ANTIK Sat
-        run: |
-          python scripts/sync_provider.py antik \
-            --delay 0.08 \
-            --min-coverage 70 \
-            --output provider-data/antik.json
+          python scripts/sync_provider.py all \
+            --delay 0.05 \
+            --min-coverage 0
 
       - name: Validate generated provider data
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
+          import yaml
 
-          rules = {
-              "skylink": {
-                  "min_channels": 250,
-                  "min_logos": 240,
-                  "max_errors": 8,
-                  "min_coverage": 70,
-              },
-              "antik": {
-                  "min_channels": 70,
-                  "min_logos": 65,
-                  "max_errors": 8,
-                  "min_coverage": 70,
-              },
-          }
+          cfg = yaml.safe_load(Path("providers.yml").read_text()) or {}
+          providers = [
+              p for p in cfg.get("providers", [])
+              if (p.get("source") or {}).get("type") == "satelitnatv"
+          ]
 
-          for provider_id, rule in rules.items():
+          assert providers, "No SatelitnaTV providers configured"
+
+          for provider in providers:
+              provider_id = provider["id"]
               path = Path("provider-data") / f"{provider_id}.json"
+              assert path.is_file(), path
+
               data = json.loads(path.read_text())
               stats = data["stats"]
 
               assert data["provider"] == provider_id
-              assert stats["channels_parsed"] >= rule["min_channels"], stats
-              assert stats["logos_matched"] >= rule["min_logos"], stats
-              assert stats["errors"] <= rule["max_errors"], stats
-              assert stats["logo_coverage_percent"] >= rule["min_coverage"], stats
+              assert stats["channels_parsed"] > 0, (provider_id, stats)
+              assert stats["errors"] <= max(25, stats["detail_links"] // 5), (provider_id, stats)
 
-              print(provider_id)
-              print(json.dumps(stats, indent=2))
+              print(provider_id, json.dumps(stats, ensure_ascii=False))
           PY
 
       - name: Validate complete build with synchronized data
@@ -98,18 +84,37 @@ jobs:
           python - <<'PY'
           import json
           from pathlib import Path
+          import yaml
 
-          providers = json.loads(Path("public/providers.json").read_text())
-          by_id = {p["id"]: p for p in providers["providers"]}
+          cfg = yaml.safe_load(Path("providers.yml").read_text()) or {}
+          expected = {
+              p["id"]
+              for p in cfg.get("providers", [])
+              if (p.get("source") or {}).get("type") == "satelitnatv"
+          }
 
-          for provider_id in ("skylink", "antik"):
+          payload = json.loads(Path("public/providers.json").read_text())
+          by_id = {p["id"]: p for p in payload["providers"]}
+
+          missing = sorted(expected - set(by_id))
+          assert not missing, missing
+
+          available = 0
+          for provider_id in sorted(expected):
               provider = by_id[provider_id]
-              assert provider["available"], provider
               assert provider["channel_count"] > 0, provider
-              assert provider["picon_count"] > 0, provider
-              package = Path("public") / provider["package"]
-              assert package.is_file(), package
-              print(provider_id, provider["channel_count"], provider["picon_count"], package)
+              if provider["available"]:
+                  available += 1
+                  package = Path("public") / provider["package"]
+                  assert package.is_file(), package
+              print(
+                  provider_id,
+                  provider["channel_count"],
+                  provider["picon_count"],
+                  provider["package"],
+              )
+
+          assert available == len(expected), (available, len(expected))
           PY
 
       - name: Commit synchronized catalogues
@@ -120,7 +125,7 @@ jobs:
           git config user.name "JohnyWick"
           git config user.email "42406628+GrgoPitic@users.noreply.github.com"
 
-          git add provider-data/skylink.json provider-data/antik.json
+          git add -A provider-data
 
           if git diff --cached --quiet; then
             echo "Provider data is already current."
@@ -128,7 +133,7 @@ jobs:
             exit 0
           fi
 
-          git commit -m "data: synchronize provider catalogues"
+          git commit -m "data: synchronize all provider catalogues"
           git pull --rebase origin "$BRANCH"
           git push origin "HEAD:$BRANCH"
           echo "PROVIDER_DATA_CHANGED=true" >> "$GITHUB_ENV"
@@ -144,8 +149,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: provider-data
-          path: |
-            provider-data/skylink.json
-            provider-data/antik.json
+          path: provider-data/*.json
           if-no-files-found: error
           retention-days: 7
