@@ -11,10 +11,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var statusItem: NSStatusItem!
     private var openItem: NSMenuItem!
     private var stopItem: NSMenuItem!
+    private var restartItem: NSMenuItem!
     private var statusMenuItem: NSMenuItem!
     private var pollTimer: Timer?
     private var launchTask: Process?
     private var openedBrowser = false
+    private var healthCheckInFlight = false
+    private var startupDecisionMade = false
+    private var isStopping = false
 
     init(repoPath: String) {
         self.repoPath = repoPath
@@ -22,20 +26,18 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        NSApp.setActivationPolicy(.regular)
+        // Menu-bar utility: no empty Dock app and no "application is not responding"
+        // impression while the local admin server starts.
+        NSApp.setActivationPolicy(.accessory)
         setupMenuBar()
-        refreshStatus()
+        setStatus("Kontrolujem stav…", canOpen: false, canStop: false)
 
-        if !isAdminReachable() {
-            startAdmin()
-        } else {
-            openAdmin()
-        }
+        refreshStatus(startIfNeeded: true)
 
         pollTimer = Timer.scheduledTimer(
-            timeInterval: 1.0,
+            timeInterval: 1.5,
             target: self,
-            selector: #selector(refreshStatus),
+            selector: #selector(timerRefreshStatus),
             userInfo: nil,
             repeats: true
         )
@@ -43,13 +45,17 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillTerminate(_ notification: Notification) {
         pollTimer?.invalidate()
-        stopAdmin(wait: false)
+        pollTimer = nil
+        stopAdminImmediately()
     }
 
     private func setupMenuBar() {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
         if let button = statusItem.button {
-            button.image = NSImage(systemSymbolName: "tv", accessibilityDescription: "Satellite Picons Admin")
+            button.image = NSImage(
+                systemSymbolName: "antenna.radiowaves.left.and.right",
+                accessibilityDescription: "Satellite Picons Admin"
+            ) ?? NSImage(systemSymbolName: "tv", accessibilityDescription: "Satellite Picons Admin")
         }
 
         let menu = NSMenu()
@@ -68,6 +74,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         openItem.target = self
         menu.addItem(openItem)
 
+        restartItem = NSMenuItem(
+            title: "Reštartovať Admin",
+            action: #selector(restartAdminAction),
+            keyEquivalent: "r"
+        )
+        restartItem.target = self
+        menu.addItem(restartItem)
+
         stopItem = NSMenuItem(
             title: "Zastaviť Admin",
             action: #selector(stopAdminAction),
@@ -75,6 +89,16 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         )
         stopItem.target = self
         menu.addItem(stopItem)
+
+        menu.addItem(.separator())
+
+        let logItem = NSMenuItem(
+            title: "Zobraziť log",
+            action: #selector(openLogAction),
+            keyEquivalent: ""
+        )
+        logItem.target = self
+        menu.addItem(logItem)
 
         menu.addItem(.separator())
 
@@ -89,30 +113,76 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         statusItem.menu = menu
     }
 
-    private func isAdminReachable() -> Bool {
-        let process = Process()
-        process.executableURL = URL(fileURLWithPath: "/usr/bin/curl")
-        process.arguments = [
-            "-fsS",
-            "--connect-timeout", "1",
-            "--max-time", "1",
-            healthURL.absoluteString,
-        ]
-        process.standardOutput = FileHandle.nullDevice
-        process.standardError = FileHandle.nullDevice
+    private func setStatus(_ title: String, canOpen: Bool, canStop: Bool) {
+        statusMenuItem.title = title
+        openItem.isEnabled = canOpen
+        stopItem.isEnabled = canStop
+        restartItem.isEnabled = canStop || canOpen
+    }
 
-        do {
-            try process.run()
-            process.waitUntilExit()
-            return process.terminationStatus == 0
-        } catch {
-            return false
+    private func checkHealth(completion: @escaping (Bool) -> Void) {
+        if healthCheckInFlight {
+            return
+        }
+        healthCheckInFlight = true
+
+        var request = URLRequest(url: healthURL)
+        request.timeoutInterval = 0.8
+        request.cachePolicy = .reloadIgnoringLocalCacheData
+
+        URLSession.shared.dataTask(with: request) { _, response, _ in
+            let ok = (response as? HTTPURLResponse)?.statusCode == 200
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                self.healthCheckInFlight = false
+                completion(ok)
+            }
+        }.resume()
+    }
+
+    @objc private func timerRefreshStatus() {
+        refreshStatus(startIfNeeded: false)
+    }
+
+    private func refreshStatus(startIfNeeded: Bool) {
+        guard !isStopping else { return }
+
+        checkHealth { [weak self] reachable in
+            guard let self else { return }
+
+            if reachable {
+                self.startupDecisionMade = true
+                self.setStatus("Admin beží", canOpen: true, canStop: true)
+
+                if !self.openedBrowser {
+                    self.openedBrowser = true
+                    self.openAdmin()
+                }
+                return
+            }
+
+            if let task = self.launchTask, task.isRunning {
+                self.setStatus("Spúšťam Admin…", canOpen: false, canStop: true)
+                return
+            }
+
+            self.launchTask = nil
+            self.setStatus("Admin je zastavený", canOpen: true, canStop: false)
+
+            if startIfNeeded && !self.startupDecisionMade {
+                self.startupDecisionMade = true
+                self.startAdmin()
+            }
         }
     }
 
     private func startAdmin() {
-        statusMenuItem.title = "Spúšťam Admin…"
-        stopItem.isEnabled = true
+        guard !isStopping else { return }
+        if let task = launchTask, task.isRunning {
+            return
+        }
+
+        setStatus("Spúšťam Admin…", canOpen: false, canStop: true)
         openedBrowser = false
 
         let process = Process()
@@ -121,42 +191,35 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         process.currentDirectoryURL = URL(fileURLWithPath: repoPath)
 
         let logURL = URL(fileURLWithPath: "/tmp/satellite-picons-admin.log")
-        FileManager.default.createFile(atPath: logURL.path, contents: nil)
+        if !FileManager.default.fileExists(atPath: logURL.path) {
+            FileManager.default.createFile(atPath: logURL.path, contents: nil)
+        }
+
         if let handle = try? FileHandle(forWritingTo: logURL) {
             _ = try? handle.seekToEnd()
             process.standardOutput = handle
             process.standardError = handle
         }
 
+        process.terminationHandler = { [weak self] task in
+            DispatchQueue.main.async {
+                guard let self else { return }
+                if self.launchTask === task {
+                    self.launchTask = nil
+                }
+                if !self.isStopping {
+                    self.refreshStatus(startIfNeeded: false)
+                }
+            }
+        }
+
         do {
             try process.run()
             launchTask = process
         } catch {
-            showError("Admin sa nepodarilo spustiť: \(error.localizedDescription)")
-        }
-    }
-
-    @objc private func refreshStatus() {
-        let reachable = isAdminReachable()
-
-        if reachable {
-            statusMenuItem.title = "Admin beží"
-            openItem.isEnabled = true
-            stopItem.isEnabled = true
-
-            if !openedBrowser {
-                openedBrowser = true
-                openAdmin()
-            }
-        } else if let task = launchTask, task.isRunning {
-            statusMenuItem.title = "Spúšťam Admin…"
-            openItem.isEnabled = false
-            stopItem.isEnabled = true
-        } else {
             launchTask = nil
-            statusMenuItem.title = "Admin je zastavený"
-            openItem.isEnabled = true
-            stopItem.isEnabled = false
+            setStatus("Admin sa nespustil", canOpen: true, canStop: false)
+            showError("Admin sa nepodarilo spustiť: \(error.localizedDescription)")
         }
     }
 
@@ -171,32 +234,60 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         return value
     }
 
-    private func stopAdmin(wait: Bool = true) {
+    private func stopAdminImmediately() {
         if let pid = readPid() {
-            kill(pid, SIGTERM)
-
-            if wait {
-                let deadline = Date().addingTimeInterval(2.5)
-                while Date() < deadline {
-                    if kill(pid, 0) != 0 {
-                        break
-                    }
-                    RunLoop.current.run(until: Date().addingTimeInterval(0.05))
-                }
-
-                if kill(pid, 0) == 0 {
-                    kill(pid, SIGKILL)
-                }
-            }
+            _ = kill(pid, SIGTERM)
         }
 
         if let task = launchTask, task.isRunning {
             task.terminate()
         }
-        launchTask = nil
 
+        launchTask = nil
         try? FileManager.default.removeItem(at: pidFile)
         openedBrowser = false
+    }
+
+    private func stopAdminAsync(completion: (() -> Void)? = nil) {
+        guard !isStopping else {
+            completion?()
+            return
+        }
+
+        isStopping = true
+        setStatus("Zastavujem Admin…", canOpen: false, canStop: false)
+
+        let pid = readPid()
+        let task = launchTask
+
+        DispatchQueue.global(qos: .userInitiated).async {
+            if let pid {
+                _ = kill(pid, SIGTERM)
+
+                let deadline = Date().addingTimeInterval(1.2)
+                while Date() < deadline && kill(pid, 0) == 0 {
+                    usleep(50_000)
+                }
+
+                if kill(pid, 0) == 0 {
+                    _ = kill(pid, SIGKILL)
+                }
+            }
+
+            if let task, task.isRunning {
+                task.terminate()
+            }
+
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                self.launchTask = nil
+                try? FileManager.default.removeItem(at: self.pidFile)
+                self.openedBrowser = false
+                self.isStopping = false
+                self.setStatus("Admin je zastavený", canOpen: true, canStop: false)
+                completion?()
+            }
+        }
     }
 
     private func openAdmin() {
@@ -204,20 +295,40 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @objc private func openAdminAction() {
-        if isAdminReachable() {
-            openAdmin()
-        } else {
-            startAdmin()
+        checkHealth { [weak self] reachable in
+            guard let self else { return }
+            if reachable {
+                self.openAdmin()
+            } else {
+                self.startAdmin()
+            }
         }
     }
 
     @objc private func stopAdminAction() {
-        stopAdmin()
-        refreshStatus()
+        stopAdminAsync()
+    }
+
+    @objc private func restartAdminAction() {
+        stopAdminAsync { [weak self] in
+            self?.startAdmin()
+        }
+    }
+
+    @objc private func openLogAction() {
+        let logURL = URL(fileURLWithPath: "/tmp/satellite-picons-admin.log")
+        if !FileManager.default.fileExists(atPath: logURL.path) {
+            FileManager.default.createFile(atPath: logURL.path, contents: Data())
+        }
+        NSWorkspace.shared.open(logURL)
     }
 
     @objc private func quitApp() {
-        stopAdmin()
+        // Quitting must never wait on networking or on the Flask process.
+        pollTimer?.invalidate()
+        pollTimer = nil
+        isStopping = true
+        stopAdminImmediately()
         NSApp.terminate(nil)
     }
 
