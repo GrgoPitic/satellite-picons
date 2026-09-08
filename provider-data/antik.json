@@ -2,7 +2,7 @@
   "schema": 1,
   "provider": "antik",
   "provider_name": "ANTIK Sat",
-  "generated_at": "2026-09-08T09:59:26.820355+00:00",
+  "generated_at": "2026-09-08T10:03:38.037168+00:00",
   "source": {
     "operator_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/",
     "operator": "SatelitnaTV.sk",
@@ -11,11 +11,12 @@
   },
   "stats": {
     "detail_links": 79,
-    "channels_parsed": 79,
+    "channels_parsed": 78,
     "logos_matched": 78,
-    "logos_missing": 1,
+    "logos_missing": 0,
+    "services_skipped": 1,
     "errors": 0,
-    "logo_coverage_percent": 98.73
+    "logo_coverage_percent": 100.0
   },
   "channels": [
     {
@@ -1109,27 +1110,14 @@
       "logo_slug": "primakrimi",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/primakrimi.default.svg",
       "logo_source": "picons/picons"
-    },
-    {
-      "id": "antik-ota-upgrade",
-      "name": "Antik OTA Upgrade",
-      "provider_group": "antik",
-      "service_reference": "1:0:19:4AF:76C0:16E:A00000:0:0:0:",
-      "satellite_position": "16E",
-      "fastscan": null,
-      "frequency_mhz": 11055,
-      "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/antik-ota-upgrade-304001199/",
-      "source_updated_at": "08.09.2026",
-      "logo_slug": null,
-      "logo_url": null,
-      "logo_source": null
     }
   ],
-  "missing_logos": [
+  "missing_logos": [],
+  "skipped_services": [
     {
       "name": "Antik OTA Upgrade",
-      "service_key": "4AF_76C0_16E_A00000",
-      "service_reference": "1:0:19:4AF:76C0:16E:A00000:0:0:0:"
+      "type": "Test",
+      "url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/antik-ota-upgrade-304001199/"
     }
   ],
   "errors": []

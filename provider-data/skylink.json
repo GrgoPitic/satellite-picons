@@ -2,7 +2,7 @@
   "schema": 1,
   "provider": "skylink",
   "provider_name": "Skylink",
-  "generated_at": "2026-09-08T09:59:04.850509+00:00",
+  "generated_at": "2026-09-08T10:03:20.501293+00:00",
   "source": {
     "operator_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/",
     "operator": "SatelitnaTV.sk",
@@ -11,9 +11,10 @@
   },
   "stats": {
     "detail_links": 309,
-    "channels_parsed": 309,
-    "logos_matched": 308,
+    "channels_parsed": 308,
+    "logos_matched": 307,
     "logos_missing": 1,
+    "services_skipped": 1,
     "errors": 0,
     "logo_coverage_percent": 99.68
   },
@@ -492,20 +493,6 @@
       "source_updated_at": "08.09.2026",
       "logo_slug": "filmeuropehd",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/filmeuropehd.default.svg",
-      "logo_source": "picons/picons"
-    },
-    {
-      "id": "cs-horror",
-      "name": "CS Horror",
-      "provider_group": "skylink",
-      "service_reference": "1:0:19:36EB:C8C:3:EB0000:0:0:0:",
-      "satellite_position": "23.5E",
-      "fastscan": 36,
-      "frequency_mhz": 11934,
-      "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cs-horror-321214059/",
-      "source_updated_at": "08.09.2026",
-      "logo_slug": "cshorror",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/cshorror.default.svg",
       "logo_source": "picons/picons"
     },
     {
@@ -4350,6 +4337,13 @@
       "name": "Pyramida",
       "service_key": "133F_CA2_3_EB0000",
       "service_reference": "1:0:19:133F:CA2:3:EB0000:0:0:0:"
+    }
+  ],
+  "skipped_services": [
+    {
+      "name": "CS Horror",
+      "type": "Test",
+      "url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cs-horror-321214059/"
     }
   ],
   "errors": []
