@@ -1,13 +1,16 @@
-name: Validate provider synchronization
+name: Synchronize provider catalogues
 
 on:
   push:
     branches:
+      - main
       - feature/provider-picon-packs
     paths:
       - scripts/sync_provider.py
       - providers.yml
       - .github/workflows/provider-sync.yml
+  schedule:
+    - cron: '20 3 * * *'
   workflow_dispatch:
 
 permissions:
@@ -18,8 +21,9 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  skylink:
+  providers:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
 
     steps:
       - uses: actions/checkout@v4
@@ -32,49 +36,81 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Synchronize full Skylink catalogue
+      - name: Synchronize Skylink
         run: |
           python scripts/sync_provider.py skylink \
             --delay 0.08 \
             --min-coverage 70 \
             --output provider-data/skylink.json
 
-      - name: Validate generated data
+      - name: Synchronize ANTIK Sat
+        run: |
+          python scripts/sync_provider.py antik \
+            --delay 0.08 \
+            --min-coverage 70 \
+            --output provider-data/antik.json
+
+      - name: Validate generated provider data
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
 
-          data = json.loads(Path("provider-data/skylink.json").read_text())
-          stats = data["stats"]
+          rules = {
+              "skylink": {
+                  "min_channels": 250,
+                  "min_logos": 240,
+                  "max_errors": 8,
+                  "min_coverage": 70,
+              },
+              "antik": {
+                  "min_channels": 80,
+                  "min_logos": 70,
+                  "max_errors": 8,
+                  "min_coverage": 70,
+              },
+          }
 
-          assert data["provider"] == "skylink"
-          assert stats["channels_parsed"] >= 50, stats
-          assert stats["logos_matched"] >= 40, stats
-          assert stats["errors"] <= 5, stats
-          assert stats["logo_coverage_percent"] >= 70, stats
+          for provider_id, rule in rules.items():
+              path = Path("provider-data") / f"{provider_id}.json"
+              data = json.loads(path.read_text())
+              stats = data["stats"]
 
-          print(json.dumps(stats, indent=2))
+              assert data["provider"] == provider_id
+              assert stats["channels_parsed"] >= rule["min_channels"], stats
+              assert stats["logos_matched"] >= rule["min_logos"], stats
+              assert stats["errors"] <= rule["max_errors"], stats
+              assert stats["logo_coverage_percent"] >= rule["min_coverage"], stats
+
+              print(provider_id)
+              print(json.dumps(stats, indent=2))
           PY
 
-      - name: Commit synchronized catalogue on feature branch
-        if: github.event_name == 'push' && github.ref == 'refs/heads/feature/provider-picon-packs'
+      - name: Commit synchronized catalogues
+        if: github.event_name != 'pull_request'
         run: |
-          git config user.name "JohnySmith"
+          BRANCH="${GITHUB_REF_NAME}"
+
+          git config user.name "JohnyWick"
           git config user.email "42406628+GrgoPitic@users.noreply.github.com"
-          git add provider-data/skylink.json
+
+          git add provider-data/skylink.json provider-data/antik.json
+
           if git diff --cached --quiet; then
             echo "Provider data is already current."
-          else
-            git commit -m "data: sync Skylink provider catalogue [skip ci]"
-            git pull --rebase origin feature/provider-picon-packs
-            git push origin HEAD:feature/provider-picon-packs
+            exit 0
           fi
 
-      - name: Upload synchronized catalogue
+          git commit -m "data: synchronize provider catalogues"
+          git pull --rebase origin "$BRANCH"
+          git push origin "HEAD:$BRANCH"
+
+      - name: Upload synchronized catalogues
         uses: actions/upload-artifact@v4
         with:
-          name: skylink-provider-data
-          path: provider-data/skylink.json
+          name: provider-data
+          path: |
+            provider-data/skylink.json
+            provider-data/antik.json
           if-no-files-found: error
           retention-days: 7
