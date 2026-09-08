@@ -115,6 +115,9 @@ code{color:#d3deea}
 .logo-canvas{height:130px;border-radius:10px;background:#111822;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .logo-canvas img{max-width:95%;max-height:110px;object-fit:contain}
 .logo-empty{color:#657386;font-size:13px}
+.copy-logo{margin-top:16px;padding:14px;border:1px solid #253242;border-radius:14px;background:#0a1017}
+.copy-logo .grid{align-items:end}
+.copy-logo button{margin-top:0}
 .status{font-size:13px;color:#93a1b3;margin-top:8px}.manage{margin:0 0 22px;padding:16px;border:1px solid #253242;border-radius:14px;background:#0a1017}.manage-row{display:grid;grid-template-columns:1fr 170px;gap:10px;align-items:end}.danger{background:#3a1518!important;color:#ffd9dc!important;border:1px solid #6b2b31!important}
 @media(max-width:700px){.grid,.lookup,.manage-row,.summary{grid-template-columns:1fr}}
 </style>
@@ -212,6 +215,33 @@ code{color:#d3deea}
       <input id="logoUpload" name="logo" type="file" accept=".png,.svg,.jpg,.jpeg,.webp">
       <div class="status">Po výbere uvidíš nové logo ešte pred uložením. Pri nahradení sa starý lokálny súbor automaticky zmaže, takže sa staré verzie nehromadia.</div>
 
+      <div class="copy-logo">
+        <strong>Skopírovať iba logo z iného providera</strong>
+        <div class="status">Vyber provider a kanál. Skopíruje sa iba obrázok; FastScan, service reference, frekvencia a ostatné údaje cieľového kanála zostanú nezmenené.</div>
+        <div class="grid">
+          <div>
+            <label>Zdrojový provider</label>
+            <select id="copyProvider">
+              <option value="">— Vyber provider —</option>
+              {% for key, label in provider_groups %}
+                <option value="{{ key }}">{{ label }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div>
+            <label>Zdrojový kanál</label>
+            <select id="copyChannel" disabled>
+              <option value="">— Najprv vyber provider —</option>
+            </select>
+          </div>
+        </div>
+        <div class="logo-preview-box" style="margin-top:12px">
+          <span>Logo, ktoré sa skopíruje</span>
+          <div class="logo-canvas" id="copyLogoPreview"><div class="logo-empty">Zatiaľ nevybrané</div></div>
+        </div>
+        <input type="hidden" id="copyLogoFromRef" name="copy_logo_from_ref" value="">
+      </div>
+
       <label>Enigma2 service reference</label>
       <input id="serviceRef" name="service_reference" placeholder="1:0:19:334F:C93:3:EB0000:0:0:0:" required>
 
@@ -247,7 +277,7 @@ code{color:#d3deea}
         Po uložení automaticky commitnúť a pushnúť na GitHub
       </label>
 
-      <button type="submit">Uložiť a publikovať</button>
+      <button type="submit">Uložiť zmeny a publikovať</button>
     </form>
 
     <form id="publishForm" method="post" action="/publish">
@@ -278,6 +308,10 @@ const lookupOrbit=document.querySelector('#lookupOrbit');
 const currentLogoPreview=document.querySelector('#currentLogoPreview');
 const newLogoPreview=document.querySelector('#newLogoPreview');
 const logoUpload=document.querySelector('#logoUpload');
+const copyProvider=document.querySelector('#copyProvider');
+const copyChannel=document.querySelector('#copyChannel');
+const copyLogoPreview=document.querySelector('#copyLogoPreview');
+const copyLogoFromRef=document.querySelector('#copyLogoFromRef');
 if(lookupOrbit && providerGroup){
   lookupOrbit.addEventListener('change',()=>{
     const d=providerDefaults[lookupOrbit.value];
@@ -306,12 +340,19 @@ if(manageChannel){
 
     const source=ch._manual_override ? 'Ručný override' : 'Automatická synchronizácia';
     const logo=ch.logo || ch.logo_url || 'bez loga';
-    const previewUrl=ch.logo ? '/api/logo/'+encodeURIComponent(ch.id) : (ch.logo_url||'');
+    const previewUrl=ch.logo ? '/api/logo/'+encodeURIComponent(ch._service_key||'') : (ch.logo_url||'');
     currentLogoPreview.innerHTML=previewUrl
       ? '<img src="'+esc(previewUrl)+'" alt="Aktuálne logo">'
       : '<div class="logo-empty">Logo nie je dostupné</div>';
     newLogoPreview.innerHTML='<div class="logo-empty">Zatiaľ nevybrané</div>';
     if(logoUpload) logoUpload.value='';
+    if(copyProvider) copyProvider.value='';
+    if(copyChannel){
+      copyChannel.innerHTML='<option value="">— Najprv vyber provider —</option>';
+      copyChannel.disabled=true;
+    }
+    if(copyLogoPreview) copyLogoPreview.innerHTML='<div class="logo-empty">Zatiaľ nevybrané</div>';
+    if(copyLogoFromRef) copyLogoFromRef.value='';
     manageMeta.innerHTML=
       '<strong>'+esc(ch.name)+' · '+esc(source)+'</strong>'+
       '<div>'+esc(ch.provider_group||'')+' · '+esc(ch.satellite_position||'')+
@@ -325,9 +366,58 @@ if(manageChannel){
     deleteChannelBtn.textContent=ch._manual_override ? 'Odstrániť override' : 'Sync kanál';
   });
 }
+function effectiveLogoPreviewUrl(ch){
+  if(!ch) return '';
+  if(ch.logo) return '/api/logo/'+encodeURIComponent(ch._service_key||'');
+  return ch.logo_url||'';
+}
+
+if(copyProvider && copyChannel){
+  copyProvider.addEventListener('change',()=>{
+    const provider=copyProvider.value;
+    copyChannel.innerHTML='<option value="">— Vyber kanál —</option>';
+    copyLogoFromRef.value='';
+    copyLogoPreview.innerHTML='<div class="logo-empty">Zatiaľ nevybrané</div>';
+
+    if(!provider){
+      copyChannel.disabled=true;
+      return;
+    }
+
+    adminChannels
+      .filter(ch=>String(ch.provider_group||'')===provider)
+      .sort((a,b)=>String(a.name||'').localeCompare(String(b.name||''),'sk'))
+      .forEach(ch=>{
+        const option=document.createElement('option');
+        option.value=ch._service_key||'';
+        option.textContent=(ch.name||'')+(ch._manual_override?' · moje':' · upstream');
+        copyChannel.appendChild(option);
+      });
+
+    copyChannel.disabled=false;
+  });
+
+  copyChannel.addEventListener('change',()=>{
+    const key=copyChannel.value;
+    const ch=adminChannels.find(item=>String(item._service_key||'')===key);
+    if(!ch){
+      copyLogoFromRef.value='';
+      copyLogoPreview.innerHTML='<div class="logo-empty">Zatiaľ nevybrané</div>';
+      return;
+    }
+
+    copyLogoFromRef.value=ch.service_reference||'';
+    const url=effectiveLogoPreviewUrl(ch);
+    copyLogoPreview.innerHTML=url
+      ? '<img src="'+esc(url)+'" alt="Zdrojové logo">'
+      : '<div class="logo-empty">Logo nie je dostupné</div>';
+  });
+}
+
 if(logoUpload){
   logoUpload.addEventListener('change',()=>{
     const file=logoUpload.files && logoUpload.files[0];
+    if(file && copyLogoFromRef) copyLogoFromRef.value='';
     if(!file){
       newLogoPreview.innerHTML='<div class="logo-empty">Zatiaľ nevybrané</div>';
       return;
@@ -470,7 +560,12 @@ def load_admin_channels() -> tuple[list[dict], dict]:
         if base.get("provider_group"):
             providers.add(str(base["provider_group"]).strip().lower())
 
-    rows = list(merged.values())
+    rows = []
+    for key, item in merged.items():
+        row = dict(item)
+        row["_service_key"] = key
+        rows.append(row)
+
     rows.sort(
         key=lambda ch: (
             str(ch.get("provider_group") or ""),
@@ -692,6 +787,102 @@ def prepare_logo(data: bytes, ext: str) -> Image.Image:
     im = remove_corner_connected_background(im)
     return trim_transparent(im)
 
+def local_logo_destination(channel_id: str, ref: str, ext: str) -> Path:
+    import hashlib
+
+    suffix = hashlib.sha1(service_identity(ref).encode("utf-8")).hexdigest()[:10]
+    return LOGOS / f"{channel_id}-{suffix}{ext}"
+
+
+def remove_local_logo_if_unused(path_value: str | None, except_ref: str = "") -> None:
+    if not path_value:
+        return
+
+    candidate = (ROOT / str(path_value)).resolve()
+    try:
+        candidate.relative_to(LOGOS.resolve())
+    except ValueError:
+        return
+
+    cfg = yaml.safe_load(DB.read_text(encoding="utf-8")) or {"channels": []}
+    wanted_key = service_identity(except_ref) if except_ref else ""
+
+    for channel in cfg.get("channels", []):
+        ref = channel.get("service_reference")
+        if not ref:
+            continue
+        if wanted_key and service_identity(ref) == wanted_key:
+            continue
+        other = channel.get("logo")
+        if other and (ROOT / str(other)).resolve() == candidate:
+            return
+
+    if candidate.exists() and candidate.is_file():
+        candidate.unlink()
+
+
+def effective_channel_by_ref(ref: str) -> dict | None:
+    wanted = service_identity(ref)
+    channels, _ = load_admin_channels()
+    return next(
+        (channel for channel in channels if channel.get("_service_key") == wanted),
+        None,
+    )
+
+
+def read_effective_logo(channel: dict) -> tuple[bytes, str]:
+    local_logo = channel.get("logo")
+    if local_logo:
+        path = (ROOT / str(local_logo)).resolve()
+        if path.exists() and path.is_file():
+            return path.read_bytes(), path.suffix.lower()
+
+    logo_url = channel.get("logo_url")
+    if logo_url:
+        response = requests.get(
+            str(logo_url),
+            timeout=(10, 25),
+            headers={"User-Agent": "Satellite-Picons-Admin/1.0"},
+        )
+        response.raise_for_status()
+        ext = Path(urllib.parse.urlparse(str(logo_url)).path).suffix.lower()
+        if ext not in SUPPORTED:
+            ext = ".png"
+        return response.content, ext
+
+    raise ValueError("Zdrojový kanál nemá dostupné logo.")
+
+
+def save_manual_logo(
+    *,
+    channel_id: str,
+    ref: str,
+    raw: bytes,
+    ext: str,
+    old_logo: str | None,
+) -> str:
+    if ext not in SUPPORTED:
+        raise ValueError("Nepodporovaný formát loga.")
+
+    LOGOS.mkdir(parents=True, exist_ok=True)
+
+    try:
+        processed = prepare_logo(raw, ext)
+        dest = local_logo_destination(channel_id, ref, ".png")
+        processed.save(dest, format="PNG", optimize=True)
+    except RuntimeError as exc:
+        if str(exc) != "SVG_LOCAL_DEFER" or ext != ".svg":
+            raise
+        dest = local_logo_destination(channel_id, ref, ".svg")
+        dest.write_bytes(raw)
+
+    new_rel = str(dest.relative_to(ROOT))
+    if old_logo and old_logo != new_rel:
+        remove_local_logo_if_unused(old_logo, except_ref=ref)
+
+    return new_rel
+
+
 def run_git(*args: str, timeout: int = 25) -> subprocess.CompletedProcess:
     env = os.environ.copy()
     env["GIT_TERMINAL_PROMPT"] = "0"
@@ -774,10 +965,17 @@ def health():
     return jsonify(ok=True, pid=os.getpid())
 
 
-@app.get("/api/logo/<channel_id>")
-def api_logo(channel_id: str):
+@app.get("/api/logo/<service_key>")
+def api_logo(service_key: str):
     cfg = yaml.safe_load(DB.read_text(encoding="utf-8")) or {"channels": []}
-    existing = next((ch for ch in cfg.get("channels", []) if ch.get("id") == channel_id), None)
+    existing = next(
+        (
+            ch for ch in cfg.get("channels", [])
+            if ch.get("service_reference")
+            and service_identity(ch["service_reference"]) == service_key.upper()
+        ),
+        None,
+    )
     if not existing or not existing.get("logo"):
         return jsonify(error="Lokálne logo sa nenašlo."), 404
 
@@ -819,9 +1017,10 @@ def delete_channel(channel_id: str):
 
         logo_rel = existing.get("logo")
         if logo_rel:
-            logo_path = ROOT / logo_rel
-            if logo_path.exists() and logo_path.is_file():
-                logo_path.unlink()
+            remove_local_logo_if_unused(
+                logo_rel,
+                except_ref=existing.get("service_reference", ""),
+            )
 
         source_logo_rel = existing.get("source_logo")
         if source_logo_rel:
@@ -877,6 +1076,7 @@ def index():
             raise ValueError("Veľkosť loga musí byť medzi 0.50 a 1.50.")
         publish = request.form.get("publish") == "on"
         upload = request.files.get("logo")
+        copy_logo_from_ref = request.form.get("copy_logo_from_ref", "").strip()
 
         if not ID_RE.match(channel_id):
             raise ValueError("ID môže obsahovať iba malé písmená, čísla a pomlčky.")
@@ -915,35 +1115,34 @@ def index():
         if upload and upload.filename:
             original_name = secure_filename(upload.filename or "")
             ext = Path(original_name).suffix.lower()
-            if ext not in SUPPORTED:
-                raise ValueError("Nepodporovaný formát loga.")
-
-            LOGOS.mkdir(parents=True, exist_ok=True)
             raw = upload.read()
             if not raw:
                 raise ValueError("Logo je prázdne.")
 
-            # Replace only this channel's previous local artwork.
-            for old in LOGOS.glob(channel_id + ".*"):
-                if old.suffix.lower() in SUPPORTED:
-                    old.unlink()
+            entry["logo"] = save_manual_logo(
+                channel_id=channel_id,
+                ref=ref,
+                raw=raw,
+                ext=ext,
+                old_logo=existing.get("logo"),
+            )
 
-            if ext == ".svg":
-                try:
-                    processed = prepare_logo(raw, ext)
-                    dest = LOGOS / f"{channel_id}.png"
-                    processed.save(dest, format="PNG", optimize=True)
-                except RuntimeError as exc:
-                    if str(exc) != "SVG_LOCAL_DEFER":
-                        raise
-                    dest = LOGOS / f"{channel_id}.svg"
-                    dest.write_bytes(raw)
-            else:
-                processed = prepare_logo(raw, ext)
-                dest = LOGOS / f"{channel_id}.png"
-                processed.save(dest, format="PNG", optimize=True)
+        elif copy_logo_from_ref:
+            if service_identity(copy_logo_from_ref) == ref_key:
+                raise ValueError("Zdrojové a cieľové logo sú rovnaký kanál.")
 
-            entry["logo"] = str(dest.relative_to(ROOT))
+            source_channel = effective_channel_by_ref(copy_logo_from_ref)
+            if not source_channel:
+                raise ValueError("Zdrojový kanál sa nenašiel.")
+
+            raw, ext = read_effective_logo(source_channel)
+            entry["logo"] = save_manual_logo(
+                channel_id=channel_id,
+                ref=ref,
+                raw=raw,
+                ext=ext,
+                old_logo=existing.get("logo"),
+            )
 
         if existing_index is not None:
             channels[existing_index] = entry
