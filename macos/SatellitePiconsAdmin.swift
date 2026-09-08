@@ -90,21 +90,24 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     private func isAdminReachable() -> Bool {
-        let semaphore = DispatchSemaphore(value: 0)
-        var reachable = false
+        let process = Process()
+        process.executableURL = URL(fileURLWithPath: "/usr/bin/curl")
+        process.arguments = [
+            "-fsS",
+            "--connect-timeout", "1",
+            "--max-time", "1",
+            healthURL.absoluteString,
+        ]
+        process.standardOutput = FileHandle.nullDevice
+        process.standardError = FileHandle.nullDevice
 
-        var request = URLRequest(url: healthURL)
-        request.timeoutInterval = 0.6
-
-        let task = URLSession.shared.dataTask(with: request) { _, response, _ in
-            if let http = response as? HTTPURLResponse, http.statusCode == 200 {
-                reachable = true
-            }
-            semaphore.signal()
+        do {
+            try process.run()
+            process.waitUntilExit()
+            return process.terminationStatus == 0
+        } catch {
+            return false
         }
-        task.resume()
-        _ = semaphore.wait(timeout: .now() + 0.8)
-        return reachable
     }
 
     private func startAdmin() {
@@ -125,13 +128,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             process.standardError = handle
         }
 
-        process.terminationHandler = { [weak self] _ in
-            DispatchQueue.main.async {
-                self?.launchTask = nil
-                self?.refreshStatus()
-            }
-        }
-
         do {
             try process.run()
             launchTask = process
@@ -141,30 +137,26 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @objc private func refreshStatus() {
-        DispatchQueue.global(qos: .utility).async { [weak self] in
-            guard let self else { return }
-            let reachable = self.isAdminReachable()
+        let reachable = isAdminReachable()
 
-            DispatchQueue.main.async {
-                if reachable {
-                    self.statusMenuItem.title = "Admin beží"
-                    self.openItem.isEnabled = true
-                    self.stopItem.isEnabled = true
+        if reachable {
+            statusMenuItem.title = "Admin beží"
+            openItem.isEnabled = true
+            stopItem.isEnabled = true
 
-                    if !self.openedBrowser {
-                        self.openedBrowser = true
-                        self.openAdmin()
-                    }
-                } else if self.launchTask != nil {
-                    self.statusMenuItem.title = "Spúšťam Admin…"
-                    self.openItem.isEnabled = false
-                    self.stopItem.isEnabled = true
-                } else {
-                    self.statusMenuItem.title = "Admin je zastavený"
-                    self.openItem.isEnabled = true
-                    self.stopItem.isEnabled = false
-                }
+            if !openedBrowser {
+                openedBrowser = true
+                openAdmin()
             }
+        } else if let task = launchTask, task.isRunning {
+            statusMenuItem.title = "Spúšťam Admin…"
+            openItem.isEnabled = false
+            stopItem.isEnabled = true
+        } else {
+            launchTask = nil
+            statusMenuItem.title = "Admin je zastavený"
+            openItem.isEnabled = true
+            stopItem.isEnabled = false
         }
     }
 
