@@ -328,6 +328,7 @@ def sync_provider(
 
     channels = []
     missing_logo = []
+    skipped_services = []
     errors = []
 
     for position_index, url in enumerate(links, 1):
@@ -338,6 +339,17 @@ def sync_provider(
 
             name = station_name(soup)
             values = get_text_pairs(soup)
+
+            service_kind = str(values.get("Typ", "")).strip().lower()
+            if service_kind not in {"tv", "rádio", "radio"}:
+                skipped_services.append(
+                    {
+                        "name": name,
+                        "type": values.get("Typ"),
+                        "url": url,
+                    }
+                )
+                continue
 
             sid = parse_int_decimal(values.get("SID", ""), "SID")
             tsid = parse_int_decimal(values.get("TSID", ""), "TSID")
@@ -463,11 +475,13 @@ def sync_provider(
             "channels_parsed": total,
             "logos_matched": matched,
             "logos_missing": len(missing_logo),
+            "services_skipped": len(skipped_services),
             "errors": len(errors),
             "logo_coverage_percent": coverage,
         },
         "channels": channels,
         "missing_logos": missing_logo,
+        "skipped_services": skipped_services,
         "errors": errors,
     }
 
@@ -541,6 +555,7 @@ def main() -> int:
         "%(logos_matched)s logos matched "
         "(%(logo_coverage_percent)s%%); "
         "%(logos_missing)s missing; "
+        "%(services_skipped)s non-channel services skipped; "
         "%(errors)s errors."
         % stats
     )
