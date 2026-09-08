@@ -14,6 +14,7 @@ ICON_WORK="$(mktemp -d -t satellite-picons-icon.XXXXXX)"
 ICONSET="$ICON_WORK/AppIcon.iconset"
 ICON_PNG="$ICON_WORK/AppIcon-1024.png"
 ICON_ICNS="$ICON_WORK/AppIcon.icns"
+OLD_ICON="$ICON_WORK/Previous-AppIcon.icns"
 
 cleanup() {
   rm -rf "$ICON_WORK"
@@ -27,6 +28,11 @@ if ! command -v swiftc >/dev/null 2>&1; then
 fi
 
 mkdir -p "$HOME/Applications"
+
+if [ -f "$APP_RESOURCES/AppIcon.icns" ]; then
+  /bin/cp "$APP_RESOURCES/AppIcon.icns" "$OLD_ICON"
+fi
+
 rm -rf "$APP_DIR"
 mkdir -p "$APP_MACOS" "$APP_RESOURCES"
 
@@ -73,34 +79,30 @@ EOF
 
 echo "===== 2. PRIPRAVUJEM IKONU ====="
 
+ICON_READY=0
+
 if [ -f "$ICON_SVG" ]; then
-  if [ ! -d "$REPO_DIR/.venv" ]; then
-    /usr/bin/python3 -m venv "$REPO_DIR/.venv"
+  echo "Používam natívne macOS nástroje - bez Cairo/Python závislosti."
+
+  QL_OUT="$ICON_WORK/quicklook"
+  mkdir -p "$QL_OUT"
+
+  if /usr/bin/qlmanage -t -s 1024 -o "$QL_OUT" "$ICON_SVG" >/dev/null 2>&1; then
+    QL_PNG="$(find "$QL_OUT" -type f -name '*.png' -print | head -n 1)"
+    if [ -n "$QL_PNG" ] && [ -f "$QL_PNG" ]; then
+      /bin/cp "$QL_PNG" "$ICON_PNG"
+      ICON_READY=1
+    fi
   fi
+fi
 
-  source "$REPO_DIR/.venv/bin/activate"
+if [ "$ICON_READY" -eq 0 ] && [ -f "$OLD_ICON" ]; then
+  echo "Natívna konverzia SVG nebola dostupná - zachovávam pôvodnú ikonu."
+  /bin/cp "$OLD_ICON" "$APP_RESOURCES/AppIcon.icns"
+  ICON_READY=2
+fi
 
-  STAMP_FILE="$REPO_DIR/.venv/.satellite-picons-icon-requirements.sha256"
-  REQ_HASH="$(
-    cat "$REPO_DIR/requirements.txt"       | /usr/bin/shasum -a 256       | /usr/bin/awk '{print $1}'
-  )"
-
-  if [ ! -f "$STAMP_FILE" ] || [ "$(<"$STAMP_FILE")" != "$REQ_HASH" ]; then
-    python -m pip install -q -r "$REPO_DIR/requirements.txt"
-    print -r -- "$REQ_HASH" > "$STAMP_FILE"
-  fi
-
-  python - "$ICON_SVG" "$ICON_PNG" <<'PY'
-import sys
-import cairosvg
-cairosvg.svg2png(
-    url=sys.argv[1],
-    write_to=sys.argv[2],
-    output_width=1024,
-    output_height=1024,
-)
-PY
-
+if [ "$ICON_READY" -eq 1 ]; then
   mkdir -p "$ICONSET"
   /usr/bin/sips -z 16 16 "$ICON_PNG" --out "$ICONSET/icon_16x16.png" >/dev/null
   /usr/bin/sips -z 32 32 "$ICON_PNG" --out "$ICONSET/icon_16x16@2x.png" >/dev/null
@@ -115,8 +117,12 @@ PY
 
   /usr/bin/iconutil -c icns "$ICONSET" -o "$ICON_ICNS"
   /bin/cp "$ICON_ICNS" "$APP_RESOURCES/AppIcon.icns"
+fi
 
+if [ -f "$APP_RESOURCES/AppIcon.icns" ]; then
   /usr/libexec/PlistBuddy     -c "Add :CFBundleIconFile string AppIcon.icns"     "$APP_CONTENTS/Info.plist"
+else
+  echo "UPOZORNENIE: vlastná ikona sa nevytvorila. Aplikácia bude fungovať s predvolenou ikonou macOS."
 fi
 
 echo "===== 3. PODPISUJEM APLIKÁCIU ====="
