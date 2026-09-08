@@ -1,5 +1,6 @@
 import AppKit
 import Foundation
+import Darwin
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
     private let adminURL = URL(string: "http://127.0.0.1:8765")!
