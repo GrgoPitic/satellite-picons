@@ -19,7 +19,7 @@ from PIL import Image
 import requests
 import yaml
 from bs4 import BeautifulSoup
-from flask import Flask, flash, jsonify, redirect, render_template_string, request, url_for
+from flask import Flask, flash, jsonify, redirect, render_template_string, request, send_file, url_for
 from werkzeug.utils import secure_filename
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -127,6 +127,12 @@ code{color:#d3deea}
 .summary strong{display:block;font-size:22px}.summary span{font-size:12px;color:#93a1b3}
 .manage-meta{margin-top:10px;padding:10px 12px;border:1px solid #253242;border-radius:10px;background:#081019;display:none}
 .manage-meta strong{display:block;margin-bottom:4px}.manage-meta code{font-size:12px;word-break:break-all}
+.logo-preview-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0 6px}
+.logo-preview-box{border:1px solid #253242;border-radius:14px;background:#081019;padding:12px}
+.logo-preview-box span{display:block;color:#93a1b3;font-size:12px;margin-bottom:8px}
+.logo-canvas{height:130px;border-radius:10px;background:#111822;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.logo-canvas img{max-width:95%;max-height:110px;object-fit:contain}
+.logo-empty{color:#657386;font-size:13px}
 .status{font-size:13px;color:#93a1b3;margin-top:8px}.manage{margin:0 0 22px;padding:16px;border:1px solid #253242;border-radius:14px;background:#0a1017}.manage-row{display:grid;grid-template-columns:1fr 170px;gap:10px;align-items:end}.danger{background:#3a1518!important;color:#ffd9dc!important;border:1px solid #6b2b31!important}
 @media(max-width:700px){.grid,.lookup,.manage-row,.summary{grid-template-columns:1fr}}
 </style>
@@ -209,9 +215,20 @@ code{color:#d3deea}
         </div>
       </div>
 
+      <div class="logo-preview-grid">
+        <div class="logo-preview-box">
+          <span>Aktuálne logo</span>
+          <div class="logo-canvas" id="currentLogoPreview"><div class="logo-empty">Vyber kanál</div></div>
+        </div>
+        <div class="logo-preview-box">
+          <span>Nové logo pred uložením</span>
+          <div class="logo-canvas" id="newLogoPreview"><div class="logo-empty">Zatiaľ nevybrané</div></div>
+        </div>
+      </div>
+
       <label>Nahradiť logo ručne (voliteľné)</label>
-      <input name="logo" type="file" accept=".png,.svg,.jpg,.jpeg,.webp">
-      <div class="status">Ak nič nevyberieš, zostane aktuálne logo. Ak nahráš nové, uloží sa ako ručný override a ďalšia synchronizácia provider dát ho neprepíše.</div>
+      <input id="logoUpload" name="logo" type="file" accept=".png,.svg,.jpg,.jpeg,.webp">
+      <div class="status">Po výbere uvidíš nové logo ešte pred uložením. Pri nahradení sa starý lokálny súbor automaticky zmaže, takže sa staré verzie nehromadia.</div>
 
       <label>Enigma2 service reference</label>
       <input id="serviceRef" name="service_reference" placeholder="1:0:19:334F:C93:3:EB0000:0:0:0:" required>
@@ -276,6 +293,9 @@ const adminChannels={{ channels|tojson }};
 const providerDefaults={{ provider_defaults|tojson }};
 const providerGroup=document.querySelector('#providerGroup');
 const lookupOrbit=document.querySelector('#lookupOrbit');
+const currentLogoPreview=document.querySelector('#currentLogoPreview');
+const newLogoPreview=document.querySelector('#newLogoPreview');
+const logoUpload=document.querySelector('#logoUpload');
 if(lookupOrbit && providerGroup){
   lookupOrbit.addEventListener('change',()=>{
     const d=providerDefaults[lookupOrbit.value];
@@ -304,6 +324,12 @@ if(manageChannel){
 
     const source=ch._manual_override ? 'Ručný override' : 'Automatická synchronizácia';
     const logo=ch.logo || ch.logo_url || 'bez loga';
+    const previewUrl=ch.logo ? '/api/logo/'+encodeURIComponent(ch.id) : (ch.logo_url||'');
+    currentLogoPreview.innerHTML=previewUrl
+      ? '<img src="'+esc(previewUrl)+'" alt="Aktuálne logo">'
+      : '<div class="logo-empty">Logo nie je dostupné</div>';
+    newLogoPreview.innerHTML='<div class="logo-empty">Zatiaľ nevybrané</div>';
+    if(logoUpload) logoUpload.value='';
     manageMeta.innerHTML=
       '<strong>'+esc(ch.name)+' · '+esc(source)+'</strong>'+
       '<div>'+esc(ch.provider_group||'')+' · '+esc(ch.satellite_position||'')+
@@ -315,6 +341,17 @@ if(manageChannel){
 
     deleteChannelBtn.disabled=!ch._manual_override;
     deleteChannelBtn.textContent=ch._manual_override ? 'Odstrániť override' : 'Sync kanál';
+  });
+}
+if(logoUpload){
+  logoUpload.addEventListener('change',()=>{
+    const file=logoUpload.files && logoUpload.files[0];
+    if(!file){
+      newLogoPreview.innerHTML='<div class="logo-empty">Zatiaľ nevybrané</div>';
+      return;
+    }
+    const url=URL.createObjectURL(file);
+    newLogoPreview.innerHTML='<img src="'+url+'" alt="Nové logo">';
   });
 }
 if(deleteChannelBtn){
@@ -740,6 +777,25 @@ def publish_pending_changes() -> str:
 @app.get("/health")
 def health():
     return jsonify(ok=True, pid=os.getpid())
+
+
+@app.get("/api/logo/<channel_id>")
+def api_logo(channel_id: str):
+    cfg = yaml.safe_load(DB.read_text(encoding="utf-8")) or {"channels": []}
+    existing = next((ch for ch in cfg.get("channels", []) if ch.get("id") == channel_id), None)
+    if not existing or not existing.get("logo"):
+        return jsonify(error="Lokálne logo sa nenašlo."), 404
+
+    path = (ROOT / str(existing["logo"])).resolve()
+    try:
+        path.relative_to(ROOT.resolve())
+    except ValueError:
+        return jsonify(error="Neplatná cesta loga."), 400
+
+    if not path.exists() or not path.is_file():
+        return jsonify(error="Lokálne logo sa nenašlo."), 404
+
+    return send_file(path)
 
 
 @app.get("/api/lookup")
