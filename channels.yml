@@ -171,3 +171,17 @@ channels:
   satellite_position: 16E
   provider_group: null
   logo: assets/logos/markiza-krimi-hd-85db4865d2.png
+- id: joj-svet-hd
+  name: JOJ Svet HD
+  service_reference: '1:0:19:48C:76C0:16E:A00000:0:0:0:'
+  variant_types:
+  - '1'
+  - '16'
+  - '19'
+  dark_to_white: true
+  optical_scale: 1.0
+  edge_cleanup: true
+  background_cleanup: true
+  satellite_position: 16E
+  provider_group: null
+  logo: assets/logos/joj-svet-hd-cd75dc1352.png
