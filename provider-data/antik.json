@@ -2,12 +2,12 @@
   "schema": 1,
   "provider": "antik",
   "provider_name": "ANTIK Sat",
-  "generated_at": "2026-09-08T10:07:04.587284+00:00",
+  "generated_at": "2026-09-08T18:28:43.356406+00:00",
   "source": {
     "operator_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/",
     "operator": "SatelitnaTV.sk",
     "logo_repository": "picons/picons",
-    "logo_revision": "41497d0cc61d856fd6cdfc487c25b4ffd969da5f"
+    "logo_revision": "5e8a110632f4873080a681ed4561ea9826a09a04"
   },
   "stats": {
     "detail_links": 79,
