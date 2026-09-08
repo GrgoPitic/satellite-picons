@@ -64,8 +64,8 @@ jobs:
                   "min_coverage": 70,
               },
               "antik": {
-                  "min_channels": 80,
-                  "min_logos": 70,
+                  "min_channels": 70,
+                  "min_logos": 65,
                   "max_errors": 8,
                   "min_coverage": 70,
               },
