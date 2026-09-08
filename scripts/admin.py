@@ -596,15 +596,57 @@ btn.addEventListener('click', async ()=>{
 """
 
 def load_provider_groups() -> list[tuple[str, str]]:
-    if not PROVIDERS_CONFIG.exists():
-        return []
-    cfg = yaml.safe_load(PROVIDERS_CONFIG.read_text(encoding="utf-8")) or {}
+    """Return provider choices that actually have usable local data.
+
+    During catalogue migrations provider-data can temporarily contain legacy
+    IDs (for example "skylink" / "antik") while providers.yml already contains
+    the new IDs. The admin must still show the channels that really exist
+    locally instead of presenting an empty provider choice.
+    """
+    configured = {}
+    if PROVIDERS_CONFIG.exists():
+        cfg = yaml.safe_load(PROVIDERS_CONFIG.read_text(encoding="utf-8")) or {}
+        for provider in cfg.get("providers", []):
+            provider_id = str(provider.get("id") or "").strip().lower()
+            name = str(provider.get("name") or provider_id).strip()
+            if provider_id:
+                configured[provider_id] = name
+
+    actual_ids = set()
+    if PROVIDER_DATA_DIR.exists():
+        for path in sorted(PROVIDER_DATA_DIR.glob("*.json")):
+            try:
+                payload = json.loads(path.read_text(encoding="utf-8"))
+            except Exception:
+                continue
+            provider_id = str(payload.get("provider") or path.stem).strip().lower()
+            if provider_id:
+                actual_ids.add(provider_id)
+
+    # Manual overrides can also refer to a provider before/without generated data.
+    if DB.exists():
+        try:
+            manual_cfg = yaml.safe_load(DB.read_text(encoding="utf-8")) or {}
+            for channel in manual_cfg.get("channels", []) or []:
+                provider_id = str(channel.get("provider_group") or "").strip().lower()
+                if provider_id:
+                    actual_ids.add(provider_id)
+        except Exception:
+            pass
+
+    legacy_names = {
+        "skylink": "Skylink",
+        "antik": "ANTIK Sat",
+    }
+
+    # Prefer providers that have data locally. If the new full sync already
+    # exists, all new configured IDs appear automatically.
+    provider_ids = actual_ids or set(configured)
     providers = []
-    for provider in cfg.get("providers", []):
-        provider_id = str(provider.get("id") or "").strip()
-        name = str(provider.get("name") or provider_id).strip()
-        if provider_id:
-            providers.append((provider_id, name))
+    for provider_id in provider_ids:
+        name = configured.get(provider_id) or legacy_names.get(provider_id) or provider_id
+        providers.append((provider_id, name))
+
     return sorted(providers, key=lambda item: item[1].lower())
 
 
