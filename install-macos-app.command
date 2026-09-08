@@ -87,13 +87,11 @@ cat > "$APP_CONTENTS/Info.plist" <<'EOF'
   <key>CFBundlePackageType</key>
   <string>APPL</string>
   <key>CFBundleShortVersionString</key>
-  <string>2.1</string>
+  <string>2.2</string>
   <key>CFBundleVersion</key>
-  <string>3</string>
+  <string>4</string>
   <key>LSMinimumSystemVersion</key>
   <string>14.0</string>
-  <key>LSUIElement</key>
-  <true/>
   <key>NSHighResolutionCapable</key>
   <true/>
 </dict>
@@ -170,7 +168,7 @@ echo "===== 4. OVERUJEM ====="
 
 echo
 echo "=========================================="
-echo "HOTOVO - Satellite Picons Admin 2.1"
+echo "HOTOVO - Satellite Picons Admin 2.2"
 echo "=========================================="
 echo "Aplikácia: $APP_DIR"
 echo
