@@ -1,47 +1,77 @@
 #!/bin/zsh
-set -e
+set -euo pipefail
 
 cd "$(dirname "$0")"
 REPO_DIR="$(pwd)"
 APP_NAME="Satellite Picons Admin"
 APP_DIR="$HOME/Applications/$APP_NAME.app"
-TMP_SCRIPT="$(mktemp -t satellite-picons-admin.XXXXXX.applescript)"
+APP_CONTENTS="$APP_DIR/Contents"
+APP_MACOS="$APP_CONTENTS/MacOS"
+APP_RESOURCES="$APP_CONTENTS/Resources"
+SWIFT_SOURCE="$REPO_DIR/macos/SatellitePiconsAdmin.swift"
 ICON_SVG="$REPO_DIR/assets/app-icon.svg"
 ICON_WORK="$(mktemp -d -t satellite-picons-icon.XXXXXX)"
 ICONSET="$ICON_WORK/AppIcon.iconset"
 ICON_PNG="$ICON_WORK/AppIcon-1024.png"
 ICON_ICNS="$ICON_WORK/AppIcon.icns"
 
+cleanup() {
+  rm -rf "$ICON_WORK"
+}
+trap cleanup EXIT
+
+if ! command -v swiftc >/dev/null 2>&1; then
+  echo "CHYBA: swiftc sa nenašiel."
+  echo "Nainštaluj Xcode Command Line Tools: xcode-select --install"
+  exit 1
+fi
+
 mkdir -p "$HOME/Applications"
+rm -rf "$APP_DIR"
+mkdir -p "$APP_MACOS" "$APP_RESOURCES"
 
-cat > "$TMP_SCRIPT" <<EOF
-on run
-    set repoPath to "$REPO_DIR"
-    set adminURL to "http://127.0.0.1:8765"
+echo "===== 1. KOMPILUJEM NATÍVNU MACOS APLIKÁCIU ====="
 
-    try
-        do shell script "/usr/bin/curl -fsS --max-time 1 " & quoted form of adminURL & " >/dev/null 2>&1"
-        do shell script "/usr/bin/open " & quoted form of adminURL
-        return
-    end try
+/usr/bin/xcrun swiftc   -O   -framework AppKit   -framework Foundation   "$SWIFT_SOURCE"   -o "$APP_MACOS/SatellitePiconsAdmin.bin"
 
-    do shell script "/usr/bin/nohup /bin/zsh " & quoted form of (repoPath & "/admin.command") & " >/tmp/satellite-picons-admin.log 2>&1 &"
+cat > "$APP_MACOS/SatellitePiconsAdmin" <<EOF
+#!/bin/zsh
+exec "$(dirname "$0")/SatellitePiconsAdmin.bin" "$REPO_DIR"
+EOF
+chmod +x "$APP_MACOS/SatellitePiconsAdmin"
 
-    repeat with i from 1 to 30
-        delay 1
-        try
-            do shell script "/usr/bin/curl -fsS --max-time 1 " & quoted form of adminURL & " >/dev/null 2>&1"
-            do shell script "/usr/bin/open " & quoted form of adminURL
-            return
-        end try
-    end repeat
-
-    display dialog "Satellite Picons Admin sa nepodarilo spustiť. Otvor Terminál a spusti admin.command pre zobrazenie chyby." buttons {"OK"} default button "OK" with icon stop
-end run
+cat > "$APP_CONTENTS/Info.plist" <<'EOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>CFBundleDevelopmentRegion</key>
+  <string>sk</string>
+  <key>CFBundleDisplayName</key>
+  <string>Satellite Picons Admin</string>
+  <key>CFBundleExecutable</key>
+  <string>SatellitePiconsAdmin</string>
+  <key>CFBundleIdentifier</key>
+  <string>io.github.grgopitic.satellitepicons.admin</string>
+  <key>CFBundleInfoDictionaryVersion</key>
+  <string>6.0</string>
+  <key>CFBundleName</key>
+  <string>Satellite Picons Admin</string>
+  <key>CFBundlePackageType</key>
+  <string>APPL</string>
+  <key>CFBundleShortVersionString</key>
+  <string>2.0</string>
+  <key>CFBundleVersion</key>
+  <string>2</string>
+  <key>LSMinimumSystemVersion</key>
+  <string>14.0</string>
+  <key>NSHighResolutionCapable</key>
+  <true/>
+</dict>
+</plist>
 EOF
 
-rm -rf "$APP_DIR"
-/usr/bin/osacompile -o "$APP_DIR" "$TMP_SCRIPT"
+echo "===== 2. PRIPRAVUJEM IKONU ====="
 
 if [ -f "$ICON_SVG" ]; then
   if [ ! -d "$REPO_DIR/.venv" ]; then
@@ -49,7 +79,16 @@ if [ -f "$ICON_SVG" ]; then
   fi
 
   source "$REPO_DIR/.venv/bin/activate"
-  python -m pip install -q -r "$REPO_DIR/requirements.txt"
+
+  STAMP_FILE="$REPO_DIR/.venv/.satellite-picons-icon-requirements.sha256"
+  REQ_HASH="$(
+    cat "$REPO_DIR/requirements.txt"       | /usr/bin/shasum -a 256       | /usr/bin/awk '{print $1}'
+  )"
+
+  if [ ! -f "$STAMP_FILE" ] || [ "$(<"$STAMP_FILE")" != "$REQ_HASH" ]; then
+    python -m pip install -q -r "$REPO_DIR/requirements.txt"
+    print -r -- "$REQ_HASH" > "$STAMP_FILE"
+  fi
 
   python - "$ICON_SVG" "$ICON_PNG" <<'PY'
 import sys
@@ -72,21 +111,34 @@ PY
   /usr/bin/sips -z 256 256 "$ICON_PNG" --out "$ICONSET/icon_256x256.png" >/dev/null
   /usr/bin/sips -z 512 512 "$ICON_PNG" --out "$ICONSET/icon_256x256@2x.png" >/dev/null
   /usr/bin/sips -z 512 512 "$ICON_PNG" --out "$ICONSET/icon_512x512.png" >/dev/null
-  /usr/bin/cp "$ICON_PNG" "$ICONSET/icon_512x512@2x.png"
+  /bin/cp "$ICON_PNG" "$ICONSET/icon_512x512@2x.png"
 
   /usr/bin/iconutil -c icns "$ICONSET" -o "$ICON_ICNS"
-  /bin/cp "$ICON_ICNS" "$APP_DIR/Contents/Resources/AppIcon.icns"
+  /bin/cp "$ICON_ICNS" "$APP_RESOURCES/AppIcon.icns"
 
-  /usr/libexec/PlistBuddy -c "Delete :CFBundleIconFile" "$APP_DIR/Contents/Info.plist" >/dev/null 2>&1 || true
-  /usr/libexec/PlistBuddy -c "Add :CFBundleIconFile string AppIcon.icns" "$APP_DIR/Contents/Info.plist"
-  /usr/libexec/PlistBuddy -c "Delete :CFBundleDisplayName" "$APP_DIR/Contents/Info.plist" >/dev/null 2>&1 || true
-  /usr/libexec/PlistBuddy -c "Add :CFBundleDisplayName string Satellite Picons Admin" "$APP_DIR/Contents/Info.plist"
-
-  /usr/bin/codesign --force --deep --sign - "$APP_DIR" >/dev/null 2>&1 || true
-  /usr/bin/touch "$APP_DIR"
+  /usr/libexec/PlistBuddy     -c "Add :CFBundleIconFile string AppIcon.icns"     "$APP_CONTENTS/Info.plist"
 fi
 
-rm -f "$TMP_SCRIPT"
-rm -rf "$ICON_WORK"
+echo "===== 3. PODPISUJEM APLIKÁCIU ====="
+
+/usr/bin/codesign   --force   --deep   --sign -   --timestamp=none   "$APP_DIR"
+
+echo "===== 4. OVERUJEM ====="
+
+/usr/bin/codesign   --verify   --deep   --strict   --verbose=2   "$APP_DIR"
+
+echo
+echo "=========================================="
+echo "HOTOVO"
+echo "=========================================="
+echo "Aplikácia: $APP_DIR"
+echo
+echo "Nová verzia:"
+echo "  - nezamŕza počas štartu"
+echo "  - závislosti neinštaluje pri každom kliknutí"
+echo "  - má vlastné menu v hornej lište"
+echo "  - Zastaviť Admin korektne ukončí lokálny server"
+echo "  - Ukončiť aplikáciu ukončí aj admin server"
+echo
 
 /usr/bin/open -R "$APP_DIR"
