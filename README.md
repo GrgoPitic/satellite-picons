@@ -37,6 +37,32 @@ Browse the live catalogue, search by channel name or service reference, and down
   </a>
 </p>
 
+## Provider packages
+
+The catalogue also publishes operator-specific packages from the same source data used by the website and Enigma2 updater.
+
+- **Skylink** — available automatically from channels tagged with `provider_group: skylink`
+- **ANTIK Sat** — prepared in the provider catalogue and becomes downloadable as soon as its channel/service-reference mapping is added
+
+Generated metadata:
+
+- `providers.json` — provider catalogue for the website and clients
+- `version.json` — global package metadata and compatibility map
+- `packages/*.zip` — full and provider-specific picon archives
+
+The Enigma2 updater can list providers and install only one operator:
+
+```bash
+python3 update_picons.py --list
+python3 update_picons.py --provider skylink --dest /media/hdd/picon
+```
+
+The older positional form remains supported:
+
+```bash
+python3 update_picons.py /media/hdd/picon skylink
+```
+
 ## Collection principles
 
 - current channel logos and branding
