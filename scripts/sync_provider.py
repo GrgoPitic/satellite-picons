@@ -27,13 +27,6 @@ USER_AGENT = (
     "(+https://github.com/GrgoPitic/satellite-picons)"
 )
 
-NAMESPACE_BY_POSITION = {
-    "23.5E": "EB0000",
-    "19.2E": "C00000",
-    "16E": "A00000",
-    "13E": "820000",
-}
-
 PICONS_REPO = "picons/picons"
 PICONS_BRANCH = "master"
 PICONS_API_TREE = (
@@ -87,6 +80,17 @@ def normalize_position(value: str) -> str:
         number = number[:-2]
 
     return "%s%s" % (number, match.group(2))
+
+
+def namespace_for_position(position: str) -> str:
+    normalized = normalize_position(position)
+    match = re.fullmatch(r"(\d+(?:\.\d+)?)([EW])", normalized)
+    if not match:
+        raise ValueError("Unsupported satellite position: %s" % position)
+
+    tenths = int(round(float(match.group(1)) * 10))
+    orbital = tenths if match.group(2) == "E" else (3600 - tenths) % 3600
+    return "%X0000" % orbital
 
 
 def parse_int_decimal(value: str, field: str) -> int:
@@ -358,12 +362,7 @@ def sync_provider(
             frequency = parse_optional_int(values.get("Frekvencia"))
 
             position = normalize_position(values.get("Družica", ""))
-            namespace = NAMESPACE_BY_POSITION.get(position)
-            if not namespace:
-                raise ValueError(
-                    "No Enigma2 namespace mapping for %s"
-                    % position
-                )
+            namespace = namespace_for_position(position)
 
             key = service_key(sid, tsid, onid, namespace)
             logo_slug, logo_path = resolve_logo(
