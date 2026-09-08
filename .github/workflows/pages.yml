@@ -38,7 +38,7 @@ jobs:
 
       - name: Syntax check
         run: |
-          python -m py_compile scripts/build.py scripts/admin.py scripts/add_channel.py receiver/update_picons.py
+          python -m py_compile scripts/build.py scripts/admin.py scripts/add_channel.py receiver/update_picons.py receiver/plugin/Plugins/Extensions/SatellitePicons/plugin.py
           python receiver/update_picons.py --help >/dev/null
 
       - name: Build picons
