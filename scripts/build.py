@@ -5,6 +5,7 @@ import hashlib
 import io
 import json
 import shutil
+import subprocess
 import sys
 import tempfile
 import zipfile
@@ -72,10 +73,28 @@ def load_logo_image(logo_path: Path) -> Image.Image:
         # Some upstream SVGs declare very large intrinsic canvases/masks.
         # Render them at a bounded working width to avoid Cairo allocating
         # hundreds of MB for artwork that will end up inside a 150x90 picon.
-        png_bytes = cairosvg.svg2png(
-            bytestring=svg_bytes,
-            output_width=1024,
-        )
+        try:
+            png_bytes = cairosvg.svg2png(
+                bytestring=svg_bytes,
+                output_width=512,
+            )
+        except Exception:
+            # librsvg is more tolerant of a few complex SVG mask constructs.
+            # The CI image installs rsvg-convert; local builds still work with
+            # CairoSVG alone when the fallback binary is unavailable.
+            rsvg = shutil.which("rsvg-convert")
+            if not rsvg:
+                raise
+
+            proc = subprocess.run(
+                [rsvg, "--width", "512", "--format", "png"],
+                input=svg_bytes,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                check=True,
+            )
+            png_bytes = proc.stdout
+
         return Image.open(io.BytesIO(png_bytes)).convert("RGBA")
 
     return Image.open(logo_path).convert("RGBA")
