@@ -14,7 +14,11 @@ providers:
 
   - id: antik
     name: ANTIK Sat
-    description: Balík piconov pre platformu ANTIK Sat. Sprístupní sa automaticky po doplnení service reference kanálov.
+    description: Kompletný balík piconov pre satelitné kanály platformy ANTIK Sat.
     countries:
       - SK
     sort_order: 20
+    source:
+      type: satelitnatv
+      operator_url: https://www.satelitnatv.sk/frekvencie/antik-sat-sk/
+      logo_repository: picons/picons
