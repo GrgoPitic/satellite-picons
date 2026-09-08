@@ -143,8 +143,8 @@ channels:
   background_cleanup: true
   satellite_position: 23.5E
   provider_group: skylink
-- id: joj-krimi-hd
-  name: JOJ Krimi HD
+- id: joj-krimi
+  name: JOJ Krimi
   service_reference: '1:0:19:4BF:76C1:16E:A00000:0:0:0:'
   variant_types:
   - '1'
