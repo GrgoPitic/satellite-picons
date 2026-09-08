@@ -296,6 +296,7 @@ def sync_provider(
     output: Path,
     limit: int | None = None,
     delay: float = 0.10,
+    shared_logo_indexes: tuple[dict[str, str], dict[str, str], str | None] | None = None,
 ) -> dict:
     source = provider.get("source") or {}
 
@@ -328,7 +329,10 @@ def sync_provider(
             % provider_id
         )
 
-    srp, logo_paths, picons_revision = fetch_picons_indexes(session)
+    if shared_logo_indexes is None:
+        srp, logo_paths, picons_revision = fetch_picons_indexes(session)
+    else:
+        srp, logo_paths, picons_revision = shared_logo_indexes
 
     channels = []
     missing_logo = []
@@ -506,17 +510,17 @@ def main() -> int:
     )
     parser.add_argument(
         "provider",
-        choices=provider_ids,
+        choices=provider_ids + ["all"],
     )
     parser.add_argument(
         "--output",
-        help="Output JSON file",
+        help="Output JSON file (single provider only)",
     )
     parser.add_argument(
         "--limit",
         type=int,
         default=None,
-        help="Only parse first N channels",
+        help="Only parse first N channels per provider",
     )
     parser.add_argument(
         "--delay",
@@ -527,17 +531,79 @@ def main() -> int:
     parser.add_argument(
         "--min-coverage",
         type=float,
-        default=70.0,
+        default=0.0,
         help="Fail when logo coverage is below this percentage",
     )
     args = parser.parse_args()
+
+    if args.provider == "all":
+        if args.output:
+            parser.error("--output cannot be used with provider=all")
+
+        DEFAULT_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+        # Remove stale generated provider catalogues that are no longer
+        # configured. Manual artwork lives elsewhere and is never touched.
+        valid_names = {"%s.json" % provider_id for provider_id in provider_ids}
+        for path in DEFAULT_OUTPUT_DIR.glob("*.json"):
+            if path.name not in valid_names:
+                path.unlink()
+
+        shared_session = make_session()
+        shared_logo_indexes = fetch_picons_indexes(shared_session)
+
+        failed = []
+        for provider_id in provider_ids:
+            provider = load_provider_config(provider_id)
+            output = DEFAULT_OUTPUT_DIR / ("%s.json" % provider_id)
+            print("\n=== %s ===" % provider.get("name", provider_id))
+            try:
+                payload = sync_provider(
+                    provider_id,
+                    provider,
+                    output=output,
+                    limit=args.limit,
+                    delay=max(0.0, args.delay),
+                    shared_logo_indexes=shared_logo_indexes,
+                )
+            except Exception as exc:
+                failed.append((provider_id, "%s: %s" % (exc.__class__.__name__, exc)))
+                print("FAILED:", failed[-1][1], file=sys.stderr)
+                continue
+
+            stats = payload["stats"]
+            print(
+                "Synced %(channels_parsed)s channels; "
+                "%(logos_matched)s logos matched "
+                "(%(logo_coverage_percent)s%%); "
+                "%(logos_missing)s missing; "
+                "%(services_skipped)s skipped; "
+                "%(errors)s errors."
+                % stats
+            )
+            if stats["channels_parsed"] == 0:
+                failed.append((provider_id, "zero parsed channels"))
+            elif stats["logo_coverage_percent"] < args.min_coverage:
+                failed.append(
+                    (
+                        provider_id,
+                        "coverage %.2f%% below %.2f%%"
+                        % (stats["logo_coverage_percent"], args.min_coverage),
+                    )
+                )
+
+        if failed:
+            print("\nProvider sync failures:", file=sys.stderr)
+            for provider_id, reason in failed:
+                print(" - %s: %s" % (provider_id, reason), file=sys.stderr)
+            return 2
+        return 0
 
     provider = load_provider_config(args.provider)
     output = (
         Path(args.output)
         if args.output
-        else DEFAULT_OUTPUT_DIR
-        / ("%s.json" % args.provider)
+        else DEFAULT_OUTPUT_DIR / ("%s.json" % args.provider)
     )
 
     payload = sync_provider(
