@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import html
 import io
+import json
 import os
 import re
 import signal
@@ -23,6 +24,7 @@ from werkzeug.utils import secure_filename
 
 ROOT = Path(__file__).resolve().parents[1]
 DB = ROOT / "channels.yml"
+PROVIDER_DATA_DIR = ROOT / "provider-data"
 LOGOS = ROOT / "assets" / "logos"
 SUPPORTED = {".png", ".svg", ".jpg", ".jpeg", ".webp"}
 ID_RE = re.compile(r"^[a-z0-9][a-z0-9-]{1,63}$")
@@ -101,7 +103,7 @@ PAGE = r"""
 <style>
 :root{color-scheme:dark;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
 *{box-sizing:border-box}body{margin:0;background:#070a0f;color:#f4f7fb}
-main{width:min(900px,calc(100% - 32px));margin:40px auto 80px}
+main{width:min(1120px,calc(100% - 32px));margin:40px auto 80px}
 .card{background:#0d131b;border:1px solid #202a36;border-radius:18px;padding:22px}
 h1{margin:0 0 8px;font-size:34px}.sub{color:#93a1b3;margin:0 0 24px}
 label{display:block;font-size:13px;color:#a9b6c6;margin:16px 0 7px}
@@ -119,8 +121,14 @@ code{color:#d3deea}
 .result:last-child{border-bottom:0}.result:hover{background:#111b27}
 .result strong{display:block}.result small{color:#93a1b3;display:block;margin-top:4px}
 .badge{display:inline-block;font-size:11px;padding:3px 7px;border:1px solid #33465c;border-radius:999px;margin-left:6px;color:#b9c8da}
+.status{font-size:13px;color:#93a1b3;margin-top:8px}
+.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:0 0 18px}
+.summary div{background:#0a1017;border:1px solid #253242;border-radius:12px;padding:12px}
+.summary strong{display:block;font-size:22px}.summary span{font-size:12px;color:#93a1b3}
+.manage-meta{margin-top:10px;padding:10px 12px;border:1px solid #253242;border-radius:10px;background:#081019;display:none}
+.manage-meta strong{display:block;margin-bottom:4px}.manage-meta code{font-size:12px;word-break:break-all}
 .status{font-size:13px;color:#93a1b3;margin-top:8px}.manage{margin:0 0 22px;padding:16px;border:1px solid #253242;border-radius:14px;background:#0a1017}.manage-row{display:grid;grid-template-columns:1fr 170px;gap:10px;align-items:end}.danger{background:#3a1518!important;color:#ffd9dc!important;border:1px solid #6b2b31!important}
-@media(max-width:700px){.grid,.lookup,.manage-row{grid-template-columns:1fr}}
+@media(max-width:700px){.grid,.lookup,.manage-row,.summary{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -133,6 +141,13 @@ code{color:#d3deea}
       {% for m in messages %}<div class="msg">{{ m }}</div>{% endfor %}
     {% endwith %}
 
+    <div class="summary">
+      <div><strong>{{ stats.total }}</strong><span>kanálov v admine</span></div>
+      <div><strong>{{ stats.generated }}</strong><span>zo synchronizácie</span></div>
+      <div><strong>{{ stats.overrides }}</strong><span>ručných override</span></div>
+      <div><strong>{{ stats.providers }}</strong><span>providerov</span></div>
+    </div>
+
     <div class="manage">
       <div class="manage-row">
         <div>
@@ -140,7 +155,9 @@ code{color:#d3deea}
           <select id="manageChannel">
             <option value="">— Vyber kanál —</option>
             {% for ch in channels %}
-              <option value="{{ ch.id }}">{{ ch.name }}</option>
+              <option value="{{ loop.index0 }}">
+                {{ ch.name }} · {{ ch.provider_group or "bez skupiny" }} · {{ "override" if ch._manual_override else "sync" }}
+              </option>
             {% endfor %}
           </select>
         </div>
@@ -148,7 +165,8 @@ code{color:#d3deea}
           <button type="button" id="deleteChannelBtn" class="danger">Vymazať kanál</button>
         </div>
       </div>
-      <div class="status">Vymazaním sa odstráni záznam z channels.yml aj jeho logo z assets/logos. Zmena sa potom publikuje na GitHub.</div>
+      <div id="manageMeta" class="manage-meta"></div>
+      <div class="status">Synchronizované kanály sa tu zobrazujú priamo z provider-data. Výber kanála predvyplní formulár. Ak nahráš nové logo, vytvorí sa ručný override v channels.yml a automatická synchronizácia ho neprepíše.</div>
     </div>
 
     <div class="lookup">
@@ -239,7 +257,9 @@ const publishForm=document.querySelector('#publishForm');
 const publishBtn=document.querySelector('#publishBtn');
 const publishStatus=document.querySelector('#publishStatus');
 const manageChannel=document.querySelector('#manageChannel');
+const manageMeta=document.querySelector('#manageMeta');
 const deleteChannelBtn=document.querySelector('#deleteChannelBtn');
+const adminChannels={{ channels|tojson }};
 const providerDefaults={{ provider_defaults|tojson }};
 const providerGroup=document.querySelector('#providerGroup');
 const lookupOrbit=document.querySelector('#lookupOrbit');
@@ -249,12 +269,49 @@ if(lookupOrbit && providerGroup){
     providerGroup.value=d ? d[0] : '';
   });
 }
+if(manageChannel){
+  manageChannel.addEventListener('change',()=>{
+    const idx=Number(manageChannel.value);
+    const ch=Number.isInteger(idx) ? adminChannels[idx] : null;
+    if(!ch){
+      manageMeta.style.display='none';
+      deleteChannelBtn.disabled=true;
+      return;
+    }
+
+    document.querySelector('#channelId').value=ch.id||'';
+    document.querySelector('#channelName').value=ch.name||'';
+    document.querySelector('#serviceRef').value=ch.service_reference||'';
+    document.querySelector('#lookupOrbit').value=ch.satellite_position||'';
+    document.querySelector('#providerGroup').value=ch.provider_group||'';
+    const dark=document.querySelector('[name="dark_to_white"]');
+    dark.value=ch.dark_to_white ? 'true' : 'false';
+
+    const source=ch._manual_override ? 'Ručný override' : 'Automatická synchronizácia';
+    const logo=ch.logo || ch.logo_url || 'bez loga';
+    manageMeta.innerHTML=
+      '<strong>'+esc(ch.name)+' · '+esc(source)+'</strong>'+
+      '<div>'+esc(ch.provider_group||'')+' · '+esc(ch.satellite_position||'')+
+      (ch.fastscan ? ' · FastScan '+esc(ch.fastscan) : '')+
+      (ch.frequency_mhz ? ' · '+esc(ch.frequency_mhz)+' MHz' : '')+'</div>'+
+      '<div><code>'+esc(ch.service_reference||'')+'</code></div>'+
+      '<div>Logo: '+esc(logo)+'</div>';
+    manageMeta.style.display='block';
+
+    deleteChannelBtn.disabled=!ch._manual_override;
+    deleteChannelBtn.textContent=ch._manual_override ? 'Odstrániť override' : 'Sync kanál';
+  });
+}
 if(deleteChannelBtn){
+  deleteChannelBtn.disabled=true;
   deleteChannelBtn.addEventListener('click',async()=>{
-    const channelId=manageChannel.value;
-    if(!channelId){alert('Najprv vyber kanál.');return;}
-    const name=manageChannel.options[manageChannel.selectedIndex].textContent;
-    if(!confirm('Naozaj vymazať '+name+' z databázy aj s logom?'))return;
+    const idx=Number(manageChannel.value);
+    const ch=Number.isInteger(idx) ? adminChannels[idx] : null;
+    if(!ch){alert('Najprv vyber kanál.');return;}
+    if(!ch._manual_override){alert('Synchronizovaný kanál sa nemaže priamo. Najprv sa spravuje cez override.');return;}
+    const channelId=ch.id;
+    const name=ch.name;
+    if(!confirm('Naozaj odstrániť ručný override pre '+name+'? Synchronizovaný kanál zostane zachovaný.'))return;
     deleteChannelBtn.disabled=true;
     deleteChannelBtn.textContent='Mažem…';
     try{
@@ -315,6 +372,73 @@ btn.addEventListener('click', async ()=>{
 </body>
 </html>
 """
+
+def service_identity(ref: str) -> str:
+    parts = ref.strip().strip(":").split(":")
+    if len(parts) < 7:
+        return ref.strip().upper()
+    return "_".join(parts[i].upper() for i in (3, 4, 5, 6))
+
+
+def load_admin_channels() -> tuple[list[dict], dict]:
+    cfg = yaml.safe_load(DB.read_text(encoding="utf-8")) or {"channels": []}
+    manual = cfg.get("channels", []) or []
+    manual_by_service = {
+        service_identity(ch.get("service_reference", "")): dict(ch)
+        for ch in manual
+        if ch.get("service_reference")
+    }
+
+    merged = {}
+    generated_count = 0
+    providers = set()
+
+    if PROVIDER_DATA_DIR.exists():
+        for path in sorted(PROVIDER_DATA_DIR.glob("*.json")):
+            try:
+                payload = json.loads(path.read_text(encoding="utf-8"))
+            except Exception:
+                continue
+            provider_id = str(payload.get("provider") or path.stem).strip().lower()
+            providers.add(provider_id)
+            for channel in payload.get("channels", []) or []:
+                if not channel.get("service_reference"):
+                    continue
+                generated_count += 1
+                item = dict(channel)
+                item["provider_group"] = str(item.get("provider_group") or provider_id).strip().lower()
+                item["_generated"] = True
+                item["_manual_override"] = False
+                merged[service_identity(item["service_reference"])] = item
+
+    for channel in manual:
+        if not channel.get("service_reference"):
+            continue
+        key = service_identity(channel["service_reference"])
+        base = dict(merged.get(key, {}))
+        base.update(channel)
+        base["_generated"] = bool(merged.get(key))
+        base["_manual_override"] = True
+        merged[key] = base
+        if base.get("provider_group"):
+            providers.add(str(base["provider_group"]).strip().lower())
+
+    rows = list(merged.values())
+    rows.sort(
+        key=lambda ch: (
+            str(ch.get("provider_group") or ""),
+            int(ch.get("fastscan") or 99999),
+            str(ch.get("name") or "").lower(),
+        )
+    )
+    stats = {
+        "total": len(rows),
+        "generated": generated_count,
+        "overrides": sum(1 for ch in rows if ch.get("_manual_override")),
+        "providers": len(providers),
+    }
+    return rows, stats
+
 
 def validate_ref(ref: str) -> None:
     parts = [p for p in ref.strip().strip(":").split(":")]
@@ -653,10 +777,11 @@ def publish():
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "GET":
-        cfg = yaml.safe_load(DB.read_text(encoding="utf-8")) or {}
+        channels, stats = load_admin_channels()
         return render_template_string(
             PAGE,
-            channels=cfg.get("channels", []),
+            channels=channels,
+            stats=stats,
             satellite_positions=SATELLITE_POSITIONS,
             provider_groups=sorted(set(PROVIDER_DEFAULTS.values()), key=lambda x: x[1].lower()),
             provider_defaults=PROVIDER_DEFAULTS,
