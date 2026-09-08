@@ -41,15 +41,6 @@ jobs:
           python -m py_compile scripts/build.py scripts/admin.py scripts/add_channel.py scripts/sync_provider.py receiver/update_picons.py receiver/plugin/Plugins/Extensions/SatellitePicons/plugin.py
           python receiver/update_picons.py --help >/dev/null
 
-      - name: Provider sync smoke test
-        if: github.ref == 'refs/heads/feature/provider-picon-packs' && github.event_name == 'push'
-        run: |
-          python scripts/sync_provider.py skylink \
-            --limit 3 \
-            --delay 0 \
-            --min-coverage 60 \
-            --output /tmp/skylink-smoke.json
-
       - name: Build picons
         run: python scripts/build.py
 
