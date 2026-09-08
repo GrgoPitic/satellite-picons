@@ -5,6 +5,8 @@ import html
 import io
 import os
 import re
+import signal
+import atexit
 import shutil
 import subprocess
 import urllib.parse
@@ -62,6 +64,32 @@ SATELLITE_POSITIONS = [
 
 app = Flask(__name__)
 app.secret_key = "satellite-picons-local-admin"
+
+PID_FILE = Path("/tmp/satellite-picons-admin.pid")
+
+
+def write_pid_file() -> None:
+    PID_FILE.write_text(str(os.getpid()), encoding="utf-8")
+
+
+def remove_pid_file() -> None:
+    try:
+        if PID_FILE.exists():
+            current = PID_FILE.read_text(encoding="utf-8").strip()
+            if current == str(os.getpid()):
+                PID_FILE.unlink()
+    except Exception:
+        pass
+
+
+def handle_shutdown_signal(signum, frame):
+    remove_pid_file()
+    raise SystemExit(0)
+
+
+atexit.register(remove_pid_file)
+signal.signal(signal.SIGTERM, handle_shutdown_signal)
+signal.signal(signal.SIGINT, handle_shutdown_signal)
 
 PAGE = r"""
 <!doctype html>
@@ -563,6 +591,11 @@ def publish_pending_changes() -> str:
 
     return f"Publikované na GitHub: {ahead_count} lokálny commit."
 
+@app.get("/health")
+def health():
+    return jsonify(ok=True, pid=os.getpid())
+
+
 @app.get("/api/lookup")
 def api_lookup():
     q = request.args.get("q", "").strip()
@@ -723,12 +756,15 @@ def index():
 
 def main():
     url = "http://127.0.0.1:8765"
+    write_pid_file()
     print(f"Satellite Picons Admin: {url}")
-    try:
-        webbrowser.open(url)
-    except Exception:
-        pass
-    app.run(host="127.0.0.1", port=8765, debug=False)
+    app.run(
+        host="127.0.0.1",
+        port=8765,
+        debug=False,
+        use_reloader=False,
+        threaded=True,
+    )
 
 if __name__ == "__main__":
     main()
