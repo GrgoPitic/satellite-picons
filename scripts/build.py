@@ -15,6 +15,7 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG = ROOT / "channels.yml"
+PROVIDERS_CONFIG = ROOT / "providers.yml"
 PUBLIC = ROOT / "public"
 PICON_DIR = PUBLIC / "picons"
 PACKAGE_DIR = PUBLIC / "packages"
@@ -224,6 +225,23 @@ def render_logo(
 def main() -> int:
     cfg = yaml.safe_load(CONFIG.read_text(encoding="utf-8"))
     project = cfg["project"]
+
+    providers_cfg = {"schema": 1, "providers": []}
+    if PROVIDERS_CONFIG.exists():
+        providers_cfg = yaml.safe_load(PROVIDERS_CONFIG.read_text(encoding="utf-8")) or providers_cfg
+
+    provider_defs = {}
+    for provider in providers_cfg.get("providers", []):
+        provider_id = str(provider.get("id", "")).strip().lower()
+        if not provider_id:
+            continue
+        provider_defs[provider_id] = {
+            "id": provider_id,
+            "name": str(provider.get("name") or provider_id),
+            "description": str(provider.get("description") or ""),
+            "countries": [str(x) for x in provider.get("countries", [])],
+            "sort_order": int(provider.get("sort_order", 999)),
+        }
     variant_types = [str(x).upper() for x in project.get("variant_types", ["1", "16", "19"])]
 
     if PUBLIC.exists():
@@ -305,8 +323,14 @@ def main() -> int:
 
     grouped_packages = {}
     grouped_channels = {}
+    provider_channels = {}
     for ch in index["channels"]:
-        group = ch.get("provider_group") or ch.get("satellite_position")
+        provider_group = ch.get("provider_group")
+        if provider_group:
+            provider_group = str(provider_group).strip().lower()
+            provider_channels.setdefault(provider_group, []).append(ch)
+
+        group = provider_group or ch.get("satellite_position")
         if not group:
             continue
         grouped_channels.setdefault(group, []).extend(ch["files"])
@@ -325,11 +349,59 @@ def main() -> int:
             "count": len(set(files)),
         }
 
+    providers_payload = {
+        "schema": int(providers_cfg.get("schema", 1)),
+        "generated_at": index["generated_at"],
+        "providers": [],
+    }
+
+    all_provider_ids = set(provider_defs) | set(provider_channels)
+    for provider_id in sorted(
+        all_provider_ids,
+        key=lambda pid: (
+            provider_defs.get(pid, {}).get("sort_order", 999),
+            provider_defs.get(pid, {}).get("name", pid).lower(),
+        ),
+    ):
+        meta = provider_defs.get(provider_id, {
+            "id": provider_id,
+            "name": provider_id,
+            "description": "",
+            "countries": [],
+            "sort_order": 999,
+        })
+        channels = provider_channels.get(provider_id, [])
+        files = sorted({filename for channel in channels for filename in channel["files"]})
+        group_info = grouped_packages.get(provider_id)
+        positions = sorted({
+            str(channel["satellite_position"])
+            for channel in channels
+            if channel.get("satellite_position")
+        })
+
+        providers_payload["providers"].append({
+            "id": provider_id,
+            "name": meta["name"],
+            "description": meta["description"],
+            "countries": meta["countries"],
+            "positions": positions,
+            "channel_count": len(channels),
+            "picon_count": len(files),
+            "available": bool(group_info and files),
+            "package": group_info["package"] if group_info and files else None,
+        })
+
+    (PUBLIC / "providers.json").write_text(
+        json.dumps(providers_payload, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+
     version = {
-        "schema": 1,
+        "schema": 2,
         "version": datetime.now(timezone.utc).strftime("%Y.%m.%d.%H%M%S"),
         "package": f"packages/{package_name}",
         "index": "index.json",
+        "providers": "providers.json",
         "count": len(list(PICON_DIR.glob("*.png"))),
         "groups": grouped_packages,
     }
