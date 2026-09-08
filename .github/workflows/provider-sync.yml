@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   skylink:
@@ -52,6 +52,19 @@ jobs:
 
           print(json.dumps(stats, indent=2))
           PY
+
+      - name: Commit synchronized catalogue on feature branch
+        if: github.event_name == 'push' && github.ref == 'refs/heads/feature/provider-picon-packs'
+        run: |
+          git config user.name "JohnySmith"
+          git config user.email "42406628+GrgoPitic@users.noreply.github.com"
+          git add provider-data/skylink.json
+          if git diff --cached --quiet; then
+            echo "Provider data is already current."
+          else
+            git commit -m "data: sync Skylink provider catalogue [skip ci]"
+            git push origin HEAD:feature/provider-picon-packs
+          fi
 
       - name: Upload synchronized catalogue
         uses: actions/upload-artifact@v4
