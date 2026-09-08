@@ -28,7 +28,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         // Menu-bar utility: no empty Dock app and no "application is not responding"
         // impression while the local admin server starts.
-        NSApp.setActivationPolicy(.accessory)
+        NSApp.setActivationPolicy(.regular)
         setupMenuBar()
         setStatus("Kontrolujem stav…", canOpen: false, canStop: false)
 
