@@ -1,22 +1,40 @@
 # Provider data
 
-This directory contains generated operator channel metadata.
+This directory contains generated operator channel metadata used by the picon builder, website and Enigma2 clients.
 
-Do not hand-edit generated provider JSON unless a source has an exceptional
-mapping that cannot be represented by the synchronization script.
+Generated JSON files should not be hand-edited unless an exceptional mapping cannot be represented by the synchronization pipeline. Hand-curated overrides belong in `channels.yml`; they win over generated data for the same DVB service identity.
 
-## Skylink
+## Supported providers
 
-Generate the current Skylink catalogue:
+### Skylink
 
 ```bash
 python scripts/sync_provider.py skylink
 ```
 
-The synchronizer uses:
+### ANTIK Sat
 
-- SatelitnáTV.sk for current operator membership, FastScan order and DVB service IDs
+```bash
+python scripts/sync_provider.py antik
+```
+
+Both synchronizers currently use:
+
+- SatelitnáTV.sk for operator membership, FastScan order, frequency and DVB SID/TSID/ONID
 - picons/picons for service-reference-to-logo mapping and source artwork
 
-The build merges generated provider data with manually curated `channels.yml`.
-Manual entries win when the same service reference exists in both sources.
+## Output
+
+Each provider JSON contains:
+
+- current channel list
+- Enigma2 service reference
+- satellite position
+- FastScan position when available
+- frequency
+- source update timestamp
+- upstream logo mapping
+- missing-logo and parsing diagnostics
+- synchronization coverage statistics
+
+The GitHub Actions provider workflow validates coverage before committing refreshed data. A failed or incomplete source refresh therefore does not silently replace known-good provider data.
