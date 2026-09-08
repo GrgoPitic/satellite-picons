@@ -1,3 +1,4 @@
+# Full provider catalogue is synchronized into provider-data for gradual manual curation.
 schema: 1
 providers:
   - id: skylink-sk
