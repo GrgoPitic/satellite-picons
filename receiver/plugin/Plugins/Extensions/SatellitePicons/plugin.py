@@ -1,5 +1,6 @@
 from __future__ import print_function
 
+import glob
 import io
 import json
 import os
@@ -30,7 +31,7 @@ DESTINATIONS = [
 def _get(url):
     request = urllib.request.Request(
         url,
-        headers={"User-Agent": "SatellitePicons-Enigma2Plugin/0.1"},
+        headers={"User-Agent": "SatellitePicons-Enigma2Plugin/0.2"},
     )
     with urllib.request.urlopen(request, timeout=30) as response:
         return response.read()
@@ -48,11 +49,70 @@ def _safe_destination():
     return "/usr/share/enigma2/picon"
 
 
-def _install_zip(package, destination):
+def _service_identity_from_filename(filename):
+    stem = os.path.basename(filename)
+    if stem.lower().endswith(".png"):
+        stem = stem[:-4]
+
+    parts = stem.split("_")
+    if len(parts) < 10:
+        return None
+
+    # 1_0_19_SID_TSID_ONID_NAMESPACE_0_0_0.png
+    return "_".join(part.upper() for part in parts[3:7])
+
+
+def _service_identity_from_reference(reference):
+    parts = reference.strip().strip(":").split(":")
+    if len(parts) < 7:
+        return None
+    return "_".join(part.upper() for part in parts[3:7])
+
+
+def _bouquet_service_identities():
+    identities = set()
+    paths = []
+    paths.extend(glob.glob("/etc/enigma2/userbouquet*.tv"))
+    paths.extend(glob.glob("/etc/enigma2/userbouquet*.radio"))
+
+    for path in paths:
+        try:
+            with open(path, "r", encoding="utf-8", errors="ignore") as handle:
+                for line in handle:
+                    if not line.startswith("#SERVICE "):
+                        continue
+
+                    reference = line[len("#SERVICE "):].strip()
+                    # Ignore IPTV/URL and marker entries. DVB services have the
+                    # SID/TSID/ONID/namespace fields needed for SRP matching.
+                    if "://" in reference:
+                        continue
+
+                    identity = _service_identity_from_reference(reference)
+                    if identity:
+                        identities.add(identity)
+        except (IOError, OSError):
+            continue
+
+    return identities
+
+
+def _install_zip(package, destination, mode="all"):
     blob = _get(BASE_URL.rstrip("/") + "/" + package)
     os.makedirs(destination, exist_ok=True)
 
+    bouquet_ids = None
+    if mode == "bouquets":
+        bouquet_ids = _bouquet_service_identities()
+        if not bouquet_ids:
+            raise RuntimeError(
+                "V /etc/enigma2 sa nenašli žiadne DVB kanály v userbouquet súboroch."
+            )
+
     installed = 0
+    candidates = 0
+    skipped = 0
+
     with zipfile.ZipFile(io.BytesIO(blob)) as archive:
         for info in archive.infolist():
             if info.is_dir() or not info.filename.lower().endswith(".png"):
@@ -62,12 +122,29 @@ def _install_zip(package, destination):
             if not name:
                 continue
 
+            candidates += 1
             target = os.path.join(destination, name)
+
+            if mode == "bouquets":
+                identity = _service_identity_from_filename(name)
+                if not identity or identity not in bouquet_ids:
+                    skipped += 1
+                    continue
+
+            if mode == "existing" and not os.path.isfile(target):
+                skipped += 1
+                continue
+
             with archive.open(info) as src, open(target, "wb") as dst:
                 shutil.copyfileobj(src, dst)
             installed += 1
 
-    return installed
+    return {
+        "installed": installed,
+        "candidates": candidates,
+        "skipped": skipped,
+        "mode": mode,
+    }
 
 
 class SatellitePiconsScreen(Screen):
@@ -103,7 +180,7 @@ class SatellitePiconsScreen(Screen):
         self["list"] = MenuList(["Načítavam zoznam platforiem…"])
         self["status"] = Label("Cieľ: %s" % self.destination)
         self["key_red"] = Label("Červená: Zavrieť")
-        self["key_green"] = Label("Zelená/OK: Stiahnuť")
+        self["key_green"] = Label("Zelená/OK: Možnosti")
         self["key_yellow"] = Label("Žltá: Umiestnenie")
         self["key_blue"] = Label("Modrá: Všetky")
 
@@ -164,7 +241,10 @@ class SatellitePiconsScreen(Screen):
                 catalog = _get_json(version.get("providers", "providers.json"))
                 self._set_result("catalog", (version, catalog))
             except Exception as error:
-                self._set_result("error", "Nepodarilo sa načítať katalóg: %s" % error)
+                self._set_result(
+                    "error",
+                    "Nepodarilo sa načítať katalóg: %s" % error,
+                )
 
         self._start_worker(worker)
 
@@ -184,17 +264,29 @@ class SatellitePiconsScreen(Screen):
             return
 
         if kind == "download":
-            label, installed = payload
-            self["status"].setText("Hotovo: %s · %d piconov" % (label, installed))
-            self.session.open(
-                MessageBox,
-                "%s\n\nNainštalovaných piconov: %d\nCieľ: %s" % (
+            label, stats = payload
+            installed = stats["installed"]
+            candidates = stats["candidates"]
+
+            self["status"].setText(
+                "Hotovo: %s · %d/%d piconov" % (
                     label,
                     installed,
+                    candidates,
+                )
+            )
+            self.session.open(
+                MessageBox,
+                "%s\n\nNainštalovaných: %d\nV balíku: %d\nPreskočených: %d\nCieľ: %s"
+                % (
+                    label,
+                    installed,
+                    candidates,
+                    stats["skipped"],
                     self.destination,
                 ),
                 MessageBox.TYPE_INFO,
-                timeout=7,
+                timeout=8,
             )
             return
 
@@ -244,13 +336,41 @@ class SatellitePiconsScreen(Screen):
         if not provider.get("available") or not provider.get("package"):
             self.session.open(
                 MessageBox,
-                "%s zatiaľ nemá hotový balík." % provider.get("name", "Provider"),
+                "%s zatiaľ nemá hotový balík."
+                % provider.get("name", "Provider"),
                 MessageBox.TYPE_INFO,
                 timeout=5,
             )
             return
 
-        self._download(provider["package"], provider.get("name") or provider["id"])
+        choices = [
+            ("Celý balík platformy", "all"),
+            ("Len moje kanály (bouquety)", "bouquets"),
+            ("Aktualizovať iba existujúce picony", "existing"),
+        ]
+        self.session.openWithCallback(
+            lambda choice: self._provider_mode_selected(provider, choice),
+            ChoiceBox,
+            title="%s – čo chceš stiahnuť?" % provider.get("name", "Provider"),
+            list=choices,
+        )
+
+    def _provider_mode_selected(self, provider, choice):
+        if not choice:
+            return
+
+        mode = choice[1]
+        mode_label = {
+            "all": "celý balík",
+            "bouquets": "len moje kanály",
+            "existing": "aktualizácia existujúcich",
+        }.get(mode, mode)
+
+        label = "%s – %s" % (
+            provider.get("name") or provider["id"],
+            mode_label,
+        )
+        self._download(provider["package"], label, mode=mode)
 
     def download_all(self):
         if self.busy:
@@ -265,17 +385,28 @@ class SatellitePiconsScreen(Screen):
             )
             return
 
-        self._download(self.version["package"], "Všetky platformy")
+        self._download(
+            self.version["package"],
+            "Všetky platformy",
+            mode="all",
+        )
 
-    def _download(self, package, label):
+    def _download(self, package, label, mode="all"):
         self["status"].setText("Sťahujem: %s…" % label)
 
         def worker():
             try:
-                installed = _install_zip(package, self.destination)
-                self._set_result("download", (label, installed))
+                stats = _install_zip(
+                    package,
+                    self.destination,
+                    mode=mode,
+                )
+                self._set_result("download", (label, stats))
             except Exception as error:
-                self._set_result("error", "Sťahovanie zlyhalo: %s" % error)
+                self._set_result(
+                    "error",
+                    "Sťahovanie zlyhalo: %s" % error,
+                )
 
         self._start_worker(worker)
 
