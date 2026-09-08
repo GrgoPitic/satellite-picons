@@ -25,43 +25,25 @@ from werkzeug.utils import secure_filename
 ROOT = Path(__file__).resolve().parents[1]
 DB = ROOT / "channels.yml"
 PROVIDER_DATA_DIR = ROOT / "provider-data"
+PROVIDERS_CONFIG = ROOT / "providers.yml"
 LOGOS = ROOT / "assets" / "logos"
 SUPPORTED = {".png", ".svg", ".jpg", ".jpeg", ".webp"}
 ID_RE = re.compile(r"^[a-z0-9][a-z0-9-]{1,63}$")
 ORBIT_RE = re.compile(r"(?P<deg>\d+(?:\.\d+)?)\s*°?\s*(?P<dir>[EW])", re.I)
 KINGOFSAT_SEARCH = "https://en.kingofsat.net/find.php"
-PROVIDER_DEFAULTS = {
-    "23.5E": ("skylink", "Skylink"),
-    "19.2E": ("astra-19-2e", "Astra 19.2°E"),
-    "28.2E": ("astra-28-2e", "Astra 28.2°E"),
-    "16E": ("eutelsat-16e", "Eutelsat 16°E"),
-    "13E": ("hotbird-13e", "Hot Bird 13°E"),
-    "9E": ("eutelsat-9e", "Eutelsat 9°E"),
-    "7E": ("eutelsat-7e", "Eutelsat 7°E"),
-    "5E": ("astra-5e", "Astra / SES 5°E"),
-    "1W": ("thor-1w", "Thor / Intelsat 1°W"),
-    "0.8W": ("thor-0-8w", "Thor 0.8°W"),
-    "4W": ("amos-4w", "Amos 4°W"),
-    "5W": ("eutelsat-5w", "Eutelsat 5°W"),
-    "30W": ("hispasat-30w", "Hispasat 30°W"),
-    "42E": ("turksat-42e", "Türksat 42°E"),
-}
+PROVIDER_DEFAULTS = {}
 
 SATELLITE_POSITIONS = [
-    ("23.5E", "23.5°E · Astra 3"),
     ("19.2E", "19.2°E · Astra 1"),
+    ("23.5E", "23.5°E · Astra 3B"),
     ("28.2E", "28.2°E · Astra 2"),
-    ("16E", "16.0°E · Eutelsat 16A"),
-    ("13E", "13.0°E · Hot Bird"),
-    ("9E", "9.0°E · Eutelsat 9B"),
-    ("7E", "7.0°E · Eutelsat 7"),
-    ("5E", "5.0°E · Astra 4A / SES 5"),
-    ("1W", "1.0°W · Thor / Intelsat"),
-    ("0.8W", "0.8°W · Thor"),
-    ("4W", "4.0°W · Amos"),
+    ("1.9E", "1.9°E · BulgariaSat"),
     ("5W", "5.0°W · Eutelsat 5 West"),
+    ("9E", "9.0°E · Eutelsat 9"),
+    ("13E", "13.0°E · Hot Bird"),
+    ("16E", "16.0°E · Eutelsat 16A"),
     ("30W", "30.0°W · Hispasat"),
-    ("42E", "42.0°E · Türksat"),
+    ("0.8W", "0.8°W · Thor / Intelsat"),
 ]
 
 app = Flask(__name__)
@@ -424,6 +406,19 @@ btn.addEventListener('click', async ()=>{
 </body>
 </html>
 """
+
+def load_provider_groups() -> list[tuple[str, str]]:
+    if not PROVIDERS_CONFIG.exists():
+        return []
+    cfg = yaml.safe_load(PROVIDERS_CONFIG.read_text(encoding="utf-8")) or {}
+    providers = []
+    for provider in cfg.get("providers", []):
+        provider_id = str(provider.get("id") or "").strip()
+        name = str(provider.get("name") or provider_id).strip()
+        if provider_id:
+            providers.append((provider_id, name))
+    return sorted(providers, key=lambda item: item[1].lower())
+
 
 def service_identity(ref: str) -> str:
     parts = ref.strip().strip(":").split(":")
@@ -861,7 +856,7 @@ def index():
             channels=channels,
             stats=stats,
             satellite_positions=SATELLITE_POSITIONS,
-            provider_groups=sorted(set(PROVIDER_DEFAULTS.values()), key=lambda x: x[1].lower()),
+            provider_groups=load_provider_groups(),
             provider_defaults=PROVIDER_DEFAULTS,
         )
 
@@ -871,8 +866,6 @@ def index():
         ref = request.form["service_reference"].strip()
         satellite_position = normalize_orbit(request.form.get("satellite_position", "").strip())
         provider_group = request.form.get("provider_group", "").strip()
-        if not provider_group and satellite_position in PROVIDER_DEFAULTS:
-            provider_group = PROVIDER_DEFAULTS[satellite_position][0]
         variants = [x.strip().upper() for x in request.form.get("variants", "1,16,19").split(",") if x.strip()]
         dark_to_white = request.form.get("dark_to_white", "false") == "true"
         edge_cleanup = request.form.get("edge_cleanup") == "on"
