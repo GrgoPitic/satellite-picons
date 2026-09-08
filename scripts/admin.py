@@ -271,8 +271,8 @@ if(lookupOrbit && providerGroup){
 }
 if(manageChannel){
   manageChannel.addEventListener('change',()=>{
-    const idx=Number(manageChannel.value);
-    const ch=Number.isInteger(idx) ? adminChannels[idx] : null;
+    const idx=manageChannel.value === '' ? -1 : Number(manageChannel.value);
+    const ch=idx >= 0 && Number.isInteger(idx) ? adminChannels[idx] : null;
     if(!ch){
       manageMeta.style.display='none';
       deleteChannelBtn.disabled=true;
@@ -305,8 +305,8 @@ if(manageChannel){
 if(deleteChannelBtn){
   deleteChannelBtn.disabled=true;
   deleteChannelBtn.addEventListener('click',async()=>{
-    const idx=Number(manageChannel.value);
-    const ch=Number.isInteger(idx) ? adminChannels[idx] : null;
+    const idx=manageChannel.value === '' ? -1 : Number(manageChannel.value);
+    const ch=idx >= 0 && Number.isInteger(idx) ? adminChannels[idx] : null;
     if(!ch){alert('Najprv vyber kanál.');return;}
     if(!ch._manual_override){alert('Synchronizovaný kanál sa nemaže priamo. Najprv sa spravuje cez override.');return;}
     const channelId=ch.id;
