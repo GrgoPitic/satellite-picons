@@ -19,7 +19,7 @@ from PIL import Image
 import requests
 import yaml
 from bs4 import BeautifulSoup
-from flask import Flask, flash, jsonify, redirect, render_template_string, request, send_file, url_for
+from flask import Flask, flash, jsonify, redirect, render_template_string, request, send_file, send_from_directory, url_for
 from werkzeug.utils import secure_filename
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -27,6 +27,7 @@ DB = ROOT / "channels.yml"
 PROVIDER_DATA_DIR = ROOT / "provider-data"
 PROVIDERS_CONFIG = ROOT / "providers.yml"
 LOGOS = ROOT / "assets" / "logos"
+PUBLIC = ROOT / "public"
 SUPPORTED = {".png", ".svg", ".jpg", ".jpeg", ".webp"}
 ID_RE = re.compile(r"^[a-z0-9][a-z0-9-]{1,63}$")
 ORBIT_RE = re.compile(r"(?P<deg>\d+(?:\.\d+)?)\s*°?\s*(?P<dir>[EW])", re.I)
@@ -74,6 +75,23 @@ def handle_shutdown_signal(signum, frame):
 atexit.register(remove_pid_file)
 signal.signal(signal.SIGTERM, handle_shutdown_signal)
 signal.signal(signal.SIGINT, handle_shutdown_signal)
+
+def git_branch() -> str:
+    try:
+        return subprocess.run(
+            ["git", "branch", "--show-current"],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            check=True,
+        ).stdout.strip() or "unknown"
+    except Exception:
+        return "unknown"
+
+
+def local_preview_ready() -> bool:
+    return (PUBLIC / "index.html").is_file() and (PUBLIC / "providers.json").is_file()
+
 
 PAGE = r"""
 <!doctype html>
@@ -143,8 +161,7 @@ code{color:#d3deea}
 .badge{display:inline-block;font-size:11px;padding:3px 7px;border:1px solid #33465c;border-radius:999px;margin-left:6px;color:#b9c8da}
 .split-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
 .split-actions .action{margin-top:0}
-.hint{padding:12px 14px;border-left:3px solid #354f6c;background:#0a111a;color:#8f9daf;font-size:13px;line-height:1.5;border-radius:0 10px 10px 0}
-@media(max-width:900px){
+.hint{padding:12px 14px;border-left:3px solid #354f6c;background:#0a111a;color:#8f9daf;font-size:13px;line-height:1.5;border-radius:0 10px 10px 0}\n.env-card{margin-top:14px;padding:16px;border:1px solid #253242;border-radius:14px;background:#0a1017}.env-row{display:flex;justify-content:space-between;gap:16px;align-items:center}.env-row+.env-row{margin-top:9px;padding-top:9px;border-top:1px solid #1d2835}.env-row span{color:#8d9aac;font-size:13px}.env-row strong{font-size:13px;text-align:right}.ok{color:#9bd6aa}.warn{color:#e6c27a}\n@media(max-width:900px){
   .app{grid-template-columns:1fr}.sidebar{position:relative;height:auto;border-right:0;border-bottom:1px solid #202a36}
   .nav{display:grid;grid-template-columns:repeat(2,1fr)}.sidebar-foot{display:none}.workspace{padding:22px 16px}
   .summary,.quick-grid{grid-template-columns:1fr 1fr}.lookup{grid-template-columns:1fr 1fr}
@@ -199,10 +216,16 @@ code{color:#d3deea}
           <div><strong>{{ stats.overrides }}</strong><span>ručných override</span></div>
           <div><strong>{{ stats.providers }}</strong><span>providerov</span></div>
         </div>
+        <div class="env-card">
+          <div class="env-row"><span>Pracovná vetva</span><strong>{{ branch }}</strong></div>
+          <div class="env-row"><span>Verejná stránka</span><strong class="warn">stále produkčný main</strong></div>
+          <div class="env-row"><span>Lokálny náhľad pripravovanej stránky</span><strong class="{{ 'ok' if preview_ready else 'warn' }}">{{ 'pripravený' if preview_ready else 'treba vytvoriť' }}</strong></div>
+        </div>
         <div class="quick-grid">
           <div class="quick-card"><strong>Nahrať logo</strong><p>Vyber súbor alebo prevezmi logo z iného providera.</p><button type="button" class="quick" data-go="upload">Otvoriť nahrávanie</button></div>
           <div class="quick-card"><strong>Upraviť logo</strong><p>Nastav veľkosť, tmavé prvky a čistenie okrajov.</p><button type="button" class="quick" data-go="edit">Otvoriť úpravu</button></div>
           <div class="quick-card"><strong>Kanál a údaje</strong><p>Vyhľadaj kanál a uprav jeho Enigma2 údaje.</p><button type="button" class="quick" data-go="channel">Otvoriť údaje</button></div>
+          <div class="quick-card"><strong>Náhľad stránky</strong><p>Zostaví aktuálnu feature verziu webu vrátane tvojich log a providerov.</p><form method="post" action="/preview/build"><button type="submit" class="quick">Vytvoriť a otvoriť náhľad</button></form></div>
         </div>
       </section>
 
@@ -302,6 +325,12 @@ code{color:#d3deea}
             <button id="publishBtn" type="submit" class="action secondary">Publikovať už uložené lokálne zmeny</button>
             <div id="publishStatus" class="status"></div>
           </form>
+          <form method="post" action="/preview/build">
+            <button type="submit" class="action primary">Vytvoriť lokálny náhľad stránky</button>
+          </form>
+          {% if preview_ready %}
+            <a href="/preview/" target="_blank" style="display:block;margin-top:10px;color:#cfe2ff">Otvoriť posledný lokálny náhľad →</a>
+          {% endif %}
           <p class="note">Admin počúva iba na <code>127.0.0.1</code>. Zdroj satelitných údajov: KingOfSat.</p>
         </div>
       </section>
@@ -1295,6 +1324,47 @@ def delete_channel(channel_id: str):
     except Exception as exc:
         return jsonify(error=str(exc)), 500
 
+@app.post("/preview/build")
+def build_preview():
+    try:
+        result = subprocess.run(
+            [str(ROOT / ".venv" / "bin" / "python"), str(ROOT / "scripts" / "build.py")],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            timeout=300,
+        )
+        if result.returncode != 0:
+            detail = (result.stderr or result.stdout or "Neznáma chyba buildu").strip()
+            flash("Lokálny náhľad sa nepodarilo vytvoriť: " + detail[-1200:])
+            return redirect(url_for("index"))
+
+        flash(
+            "Lokálny náhľad bol vytvorený z aktuálnej vetvy "
+            + git_branch()
+            + ". Verejný web na GitHub Pages sa tým nemení."
+        )
+        return redirect("/preview/")
+    except subprocess.TimeoutExpired:
+        flash("Build lokálneho náhľadu prekročil časový limit 5 minút.")
+    except Exception as exc:
+        flash(f"Chyba lokálneho náhľadu: {exc}")
+    return redirect(url_for("index"))
+
+
+@app.get("/preview/")
+def preview_index():
+    if not (PUBLIC / "index.html").is_file():
+        flash("Lokálny náhľad ešte neexistuje. Najprv ho vytvor v Prehľade alebo Publikovaní.")
+        return redirect(url_for("index"))
+    return send_from_directory(PUBLIC, "index.html")
+
+
+@app.get("/preview/<path:filename>")
+def preview_file(filename: str):
+    return send_from_directory(PUBLIC, filename)
+
+
 @app.post("/publish")
 def publish():
     try:
@@ -1314,6 +1384,8 @@ def index():
             satellite_positions=SATELLITE_POSITIONS,
             provider_groups=load_provider_groups(),
             provider_defaults=PROVIDER_DEFAULTS,
+            branch=git_branch(),
+            preview_ready=local_preview_ready(),
         )
 
     try:
