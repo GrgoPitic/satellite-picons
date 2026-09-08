@@ -42,7 +42,7 @@ echo "===== 1. KOMPILUJEM NATÍVNU MACOS APLIKÁCIU ====="
 
 cat > "$APP_MACOS/SatellitePiconsAdmin" <<EOF
 #!/bin/zsh
-exec "$(dirname "$0")/SatellitePiconsAdmin.bin" "$REPO_DIR"
+exec "\$(dirname "\$0")/SatellitePiconsAdmin.bin" "$REPO_DIR"
 EOF
 chmod +x "$APP_MACOS/SatellitePiconsAdmin"
 
