@@ -1,24 +1,210 @@
 schema: 1
 providers:
-  - id: skylink
-    name: Skylink
-    description: Kompletný balík piconov pre kanály platformy Skylink.
-    countries:
-      - SK
-      - CZ
+  - id: skylink-sk
+    name: Skylink (SK)
+    description: Kompletný balík piconov pre slovenskú ponuku Skylink.
+    countries: [SK]
     sort_order: 10
     source:
       type: satelitnatv
       operator_url: https://www.satelitnatv.sk/frekvencie/skylink-sk/
       logo_repository: picons/picons
 
-  - id: antik
-    name: ANTIK Sat
-    description: Kompletný balík piconov pre satelitné kanály platformy ANTIK Sat.
-    countries:
-      - SK
+  - id: skylink-cz
+    name: Skylink (CZ)
+    description: Kompletný balík piconov pre českú ponuku Skylink.
+    countries: [CZ]
     sort_order: 20
     source:
       type: satelitnatv
+      operator_url: https://www.satelitnatv.sk/frekvencie/skylink-cz/
+      logo_repository: picons/picons
+
+  - id: magio-sat-sk
+    name: Magio Sat (SK)
+    countries: [SK]
+    sort_order: 30
+    source:
+      type: satelitnatv
+      operator_url: https://www.satelitnatv.sk/frekvencie/magio-sat-sk/
+      logo_repository: picons/picons
+
+  - id: digi-tv-sk
+    name: DIGI TV (SK)
+    countries: [SK]
+    sort_order: 40
+    source:
+      type: satelitnatv
+      operator_url: https://www.satelitnatv.sk/frekvencie/digi-tv-sk/
+      logo_repository: picons/picons
+
+  - id: telly-cz
+    name: Telly (CZ)
+    countries: [CZ]
+    sort_order: 50
+    source:
+      type: satelitnatv
+      operator_url: https://www.satelitnatv.sk/frekvencie/telly-cz/
+      logo_repository: picons/picons
+
+  - id: antik-sat-sk
+    name: ANTIK Sat (SK)
+    countries: [SK]
+    sort_order: 60
+    source:
+      type: satelitnatv
       operator_url: https://www.satelitnatv.sk/frekvencie/antik-sat-sk/
+      logo_repository: picons/picons
+
+  - id: freesat-sk
+    name: freeSAT (SK)
+    countries: [SK]
+    sort_order: 70
+    source:
+      type: satelitnatv
+      operator_url: https://www.satelitnatv.sk/frekvencie/freesat-sk/
+      logo_repository: picons/picons
+
+  - id: freesat-cz
+    name: freeSAT (CZ)
+    countries: [CZ]
+    sort_order: 80
+    source:
+      type: satelitnatv
+      operator_url: https://www.satelitnatv.sk/frekvencie/freesat-cz/
+      logo_repository: picons/picons
+
+  - id: magenta-tv-sat-cz
+    name: Magenta TV Sat (CZ)
+    countries: [CZ]
+    sort_order: 90
+    source:
+      type: satelitnatv
+      operator_url: https://www.satelitnatv.sk/frekvencie/t-mobile-sat-cz/
+      logo_repository: picons/picons
+
+  - id: orange-tv-sat
+    name: Orange TV Sat
+    countries: [SK]
+    sort_order: 100
+    source:
+      type: satelitnatv
+      operator_url: https://www.satelitnatv.sk/frekvencie/orange-tv-sk/
+      logo_repository: picons/picons
+
+  - id: canal-plus-pl
+    name: Canal+ (PL)
+    countries: [PL]
+    sort_order: 110
+    source:
+      type: satelitnatv
+      operator_url: https://www.satelitnatv.sk/frekvencie/canal-pl/
+      logo_repository: picons/picons
+
+  - id: polsat-box-pl
+    name: Polsat Box (PL)
+    countries: [PL]
+    sort_order: 120
+    source:
+      type: satelitnatv
+      operator_url: https://www.satelitnatv.sk/frekvencie/polsat-box-pl/
+      logo_repository: picons/picons
+
+  - id: direct-one-hu
+    name: Direct One (HU)
+    countries: [HU]
+    sort_order: 130
+    source:
+      type: satelitnatv
+      operator_url: https://www.satelitnatv.sk/frekvencie/direct-one-hu/
+      logo_repository: picons/picons
+
+  - id: digi-tv-hu
+    name: DIGI TV (HU)
+    countries: [HU]
+    sort_order: 140
+    source:
+      type: satelitnatv
+      operator_url: https://www.satelitnatv.sk/frekvencie/digi-tv-hu/
+      logo_repository: picons/picons
+
+  - id: simplitv-at
+    name: SimpliTV (AT)
+    countries: [AT]
+    sort_order: 150
+    source:
+      type: satelitnatv
+      operator_url: https://www.satelitnatv.sk/frekvencie/simpli-tv-at/
+      logo_repository: picons/picons
+
+  - id: hd-austria-at
+    name: HD Austria (AT)
+    countries: [AT]
+    sort_order: 160
+    source:
+      type: satelitnatv
+      operator_url: https://www.satelitnatv.sk/frekvencie/hd-austria-at/
+      logo_repository: picons/picons
+
+  - id: digi-tv-ro
+    name: DIGI TV (RO)
+    countries: [RO]
+    sort_order: 170
+    source:
+      type: satelitnatv
+      operator_url: https://www.satelitnatv.sk/frekvencie/digi-tv-ro/
+      logo_repository: picons/picons
+
+  - id: focus-sat-ro
+    name: Focus SAT (RO)
+    countries: [RO]
+    sort_order: 180
+    source:
+      type: satelitnatv
+      operator_url: https://www.satelitnatv.sk/frekvencie/focus-sat-ro/
+      logo_repository: picons/picons
+
+  - id: kabelio-ch
+    name: Kabelio (CH)
+    countries: [CH]
+    sort_order: 190
+    source:
+      type: satelitnatv
+      operator_url: https://www.satelitnatv.sk/frekvencie/kabelio-ch/
+      logo_repository: picons/picons
+
+  - id: tivusat-it
+    name: Tivùsat (IT)
+    countries: [IT]
+    sort_order: 200
+    source:
+      type: satelitnatv
+      operator_url: https://www.satelitnatv.sk/frekvencie/tivu-sat-it/
+      logo_repository: picons/picons
+
+  - id: mts-srbija
+    name: MTS Srbija
+    countries: [RS]
+    sort_order: 210
+    source:
+      type: satelitnatv
+      operator_url: https://www.satelitnatv.sk/frekvencie/mts-srbija/
+      logo_repository: picons/picons
+
+  - id: mts-bosna
+    name: MTS Bosna a Hercegovina
+    countries: [BA]
+    sort_order: 220
+    source:
+      type: satelitnatv
+      operator_url: https://www.satelitnatv.sk/frekvencie/mts-bosna-i-hercegovina/
+      logo_repository: picons/picons
+
+  - id: fransat-fr
+    name: Fransat (FR)
+    countries: [FR]
+    sort_order: 230
+    source:
+      type: satelitnatv
+      operator_url: https://www.satelitnatv.sk/frekvencie/fransat-fr/
       logo_repository: picons/picons
