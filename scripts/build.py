@@ -69,7 +69,13 @@ def load_logo_image(logo_path: Path) -> Image.Image:
 
     if ext == ".svg":
         svg_bytes = logo_path.read_bytes()
-        png_bytes = cairosvg.svg2png(bytestring=svg_bytes)
+        # Some upstream SVGs declare very large intrinsic canvases/masks.
+        # Render them at a bounded working width to avoid Cairo allocating
+        # hundreds of MB for artwork that will end up inside a 150x90 picon.
+        png_bytes = cairosvg.svg2png(
+            bytestring=svg_bytes,
+            output_width=1024,
+        )
         return Image.open(io.BytesIO(png_bytes)).convert("RGBA")
 
     return Image.open(logo_path).convert("RGBA")
@@ -398,6 +404,7 @@ def main() -> int:
     }
 
     skipped_without_logo = []
+    skipped_render_errors = []
     session = requests.Session()
     session.headers.update({"User-Agent": REMOTE_LOGO_USER_AGENT})
 
@@ -405,25 +412,50 @@ def main() -> int:
         cache_dir = Path(temp)
 
         for ch in source_channels:
-            logo_path = resolve_channel_logo(ch, cache_dir, session)
-            if logo_path is None:
-                skipped_without_logo.append(
+            try:
+                logo_path = resolve_channel_logo(ch, cache_dir, session)
+                if logo_path is None:
+                    skipped_without_logo.append(
+                        {
+                            "id": ch.get("id"),
+                            "name": ch.get("name"),
+                            "service_reference": ch.get("service_reference"),
+                            "provider_group": ch.get("provider_group"),
+                        }
+                    )
+                    continue
+
+                rendered = render_logo(
+                    logo_path,
+                    template,
+                    bool(ch.get("dark_to_white", False)),
+                    float(ch.get("optical_scale", 1.0)),
+                    bool(ch.get("edge_cleanup", False)),
+                )
+            except Exception as error:
+                skipped_render_errors.append(
                     {
                         "id": ch.get("id"),
                         "name": ch.get("name"),
                         "service_reference": ch.get("service_reference"),
-                        "provider_group": ch.get("provider_group"),
+                        "logo_url": ch.get("logo_url"),
+                        "error": "%s: %s" % (
+                            error.__class__.__name__,
+                            error,
+                        ),
                     }
+                )
+                print(
+                    "WARNING: skipped %s: %s: %s"
+                    % (
+                        ch.get("name"),
+                        error.__class__.__name__,
+                        error,
+                    ),
+                    file=sys.stderr,
                 )
                 continue
 
-            rendered = render_logo(
-                logo_path,
-                template,
-                bool(ch.get("dark_to_white", False)),
-                float(ch.get("optical_scale", 1.0)),
-                bool(ch.get("edge_cleanup", False)),
-            )
             files = []
 
             for stype in ch.get("variant_types", variant_types):
@@ -455,9 +487,12 @@ def main() -> int:
         "source_channels": len(source_channels),
         "rendered_channels": len(index["channels"]),
         "skipped_without_logo": len(skipped_without_logo),
+        "skipped_render_errors": len(skipped_render_errors),
     }
     if skipped_without_logo:
         index["skipped_without_logo"] = skipped_without_logo
+    if skipped_render_errors:
+        index["skipped_render_errors"] = skipped_render_errors
 
     for src in WEB_DIR.iterdir():
         if src.is_file():
@@ -614,6 +649,11 @@ def main() -> int:
         print(
             f"Skipped channels without source logo: "
             f"{len(skipped_without_logo)}"
+        )
+    if skipped_render_errors:
+        print(
+            f"Skipped channels with render errors: "
+            f"{len(skipped_render_errors)}"
         )
     print(f"Package: {package_path}")
     return 0
