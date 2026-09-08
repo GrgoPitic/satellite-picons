@@ -2,7 +2,10 @@ name: Build and deploy picons
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+      - 'feature/**'
+  pull_request:
   workflow_dispatch:
 
 permissions:
@@ -11,7 +14,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: pages-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -34,18 +37,43 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Syntax check
-        run: python -m py_compile scripts/build.py scripts/admin.py scripts/add_channel.py
+        run: |
+          python -m py_compile scripts/build.py scripts/admin.py scripts/add_channel.py receiver/update_picons.py
+          python receiver/update_picons.py --help >/dev/null
 
       - name: Build picons
         run: python scripts/build.py
 
+      - name: Validate provider catalogue
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          providers = json.loads(Path("public/providers.json").read_text())
+          version = json.loads(Path("public/version.json").read_text())
+
+          assert providers.get("schema") == 1
+          assert isinstance(providers.get("providers"), list)
+          assert version.get("providers") == "providers.json"
+
+          for provider in providers["providers"]:
+              if provider.get("available"):
+                  package = provider.get("package")
+                  assert package, provider
+                  assert (Path("public") / package).is_file(), package
+          PY
+
       - uses: actions/configure-pages@v5
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
 
       - uses: actions/upload-pages-artifact@v3
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         with:
           path: public
 
   deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
