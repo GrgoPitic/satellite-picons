@@ -50,6 +50,34 @@
       <div id="grid" class="grid"></div>
     </section>
 
+    <div id="providerModal" class="modal" hidden>
+      <button class="modal-backdrop" type="button" aria-label="Zavrieť možnosti platformy"></button>
+      <section class="modal-card provider-modal-card" role="dialog" aria-modal="true" aria-labelledby="providerModalTitle">
+        <button id="providerModalClose" class="modal-close" type="button" aria-label="Zavrieť">×</button>
+        <div class="provider-modal-copy">
+          <p class="section-kicker">PLATFORMA</p>
+          <h2 id="providerModalTitle"></h2>
+          <p id="providerModalDescription" class="provider-modal-description"></p>
+          <div id="providerModalStats" class="provider-modal-stats"></div>
+
+          <div class="provider-choice-grid">
+            <a id="providerFullPackage" class="provider-choice" href="#" download>
+              <strong>Celý balík platformy</strong>
+              <span>Stiahne kompletný ZIP so všetkými dostupnými piconmi tejto platformy.</span>
+            </a>
+
+            <button id="providerBouquetButton" class="provider-choice" type="button">
+              <strong>Len moje kanály</strong>
+              <span>Vyber userbouquet súbory z Enigma2 a stránka vytvorí vlastný ZIP iba pre tvoje kanály.</span>
+            </button>
+          </div>
+
+          <input id="bouquetFiles" class="visually-hidden" type="file" accept=".tv,.radio,text/plain" multiple>
+          <div id="bouquetResult" class="bouquet-result" hidden></div>
+        </div>
+      </section>
+    </div>
+
     <div id="logoModal" class="modal" hidden>
       <button class="modal-backdrop" type="button" aria-label="Zavrieť náhľad"></button>
       <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
