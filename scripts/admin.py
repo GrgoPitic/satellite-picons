@@ -84,218 +84,232 @@ PAGE = r"""
 <title>Satellite Picons Admin</title>
 <style>
 :root{color-scheme:dark;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-*{box-sizing:border-box}body{margin:0;background:#070a0f;color:#f4f7fb}
-main{width:min(1120px,calc(100% - 32px));margin:40px auto 80px}
+*{box-sizing:border-box}
+body{margin:0;background:#070a0f;color:#f4f7fb;min-height:100vh}
+button,input,select{font:inherit}
+.app{display:grid;grid-template-columns:260px minmax(0,1fr);min-height:100vh}
+.sidebar{position:sticky;top:0;height:100vh;padding:22px 16px;border-right:1px solid #202a36;background:#0a0f16;display:flex;flex-direction:column;gap:18px}
+.brand{padding:6px 8px 14px}
+.brand strong{display:block;font-size:19px}.brand span{display:block;color:#7f8da0;font-size:12px;margin-top:4px}
+.channel-picker{padding:12px;border:1px solid #253242;border-radius:14px;background:#0d131b}
+.channel-picker label{margin-top:0}
+.nav{display:flex;flex-direction:column;gap:7px}
+.nav button,.quick{margin:0;width:100%;text-align:left;padding:11px 12px;border:1px solid transparent;border-radius:10px;background:transparent;color:#aebaca;cursor:pointer;font-weight:650}
+.nav button:hover,.nav button.active{background:#162131;color:#fff;border-color:#2c3d51}
+.nav small{display:block;color:#6f7d8e;font-size:11px;margin-top:2px;font-weight:500}
+.sidebar-foot{margin-top:auto;color:#667486;font-size:11px;padding:0 8px 4px}
+.workspace{min-width:0;padding:34px}
+.workspace-inner{width:min(1040px,100%);margin:0 auto}
+.topbar{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;margin-bottom:24px}
+h1{margin:0;font-size:30px;letter-spacing:-.02em}.sub{color:#8e9bad;margin:6px 0 0}
+.panel{display:none}.panel.active{display:block}
 .card{background:#0d131b;border:1px solid #202a36;border-radius:18px;padding:22px}
-h1{margin:0 0 8px;font-size:34px}.sub{color:#93a1b3;margin:0 0 24px}
+.card+.card{margin-top:14px}
+.panel-head{margin-bottom:18px}.panel-head h2{margin:0 0 5px;font-size:23px}.panel-head p{margin:0;color:#8b98aa;font-size:14px}
 label{display:block;font-size:13px;color:#a9b6c6;margin:16px 0 7px}
-input,select{width:100%;padding:13px 14px;border-radius:11px;border:1px solid #2a3543;background:#090e14;color:#fff;font-size:15px}
+input,select{width:100%;padding:12px 13px;border-radius:11px;border:1px solid #2a3543;background:#090e14;color:#fff}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .lookup{display:grid;grid-template-columns:1fr 210px 190px 130px;gap:10px;align-items:end}
 .check{display:flex;align-items:center;gap:9px;margin-top:16px}.check input{width:auto}
-button{margin-top:22px;width:100%;padding:14px;border:0;border-radius:12px;font-weight:700;font-size:15px;cursor:pointer}
-button.secondary{margin-top:0;background:#182332;color:#fff;border:1px solid #304052}
-.note{margin-top:18px;color:#8290a1;font-size:13px;line-height:1.5}
+button.action{margin-top:18px;width:100%;padding:13px;border:0;border-radius:12px;font-weight:750;cursor:pointer}
+button.primary{background:#edf3fb;color:#0a1017}
+button.secondary{background:#182332;color:#fff;border:1px solid #304052}
+button.danger{background:#3a1518;color:#ffd9dc;border:1px solid #6b2b31}
+button:disabled{opacity:.45;cursor:not-allowed}
 .msg{padding:12px 14px;border:1px solid #35506b;background:#102033;border-radius:10px;margin-bottom:14px}
+.status{font-size:13px;color:#93a1b3;margin-top:8px;line-height:1.45}
+.note{color:#8290a1;font-size:13px;line-height:1.5}
 code{color:#d3deea}
+.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.summary div{background:#0a1017;border:1px solid #253242;border-radius:12px;padding:15px}
+.summary strong{display:block;font-size:25px}.summary span{font-size:12px;color:#93a1b3}
+.quick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.quick-card{padding:16px;border:1px solid #253242;border-radius:14px;background:#0a1017}
+.quick-card strong{display:block;margin-bottom:4px}.quick-card p{margin:0 0 12px;color:#8492a4;font-size:13px;line-height:1.4}
+.quick-card .quick{background:#162131;color:#fff;border-color:#2c3d51}
+.manage-meta{margin-top:12px;padding:12px 14px;border:1px solid #253242;border-radius:10px;background:#081019;display:none}
+.manage-meta strong{display:block;margin-bottom:5px}.manage-meta code{font-size:12px;word-break:break-all}
+.logo-preview-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0 6px}
+.logo-preview-box{border:1px solid #253242;border-radius:14px;background:#081019;padding:12px}
+.logo-preview-box span{display:block;color:#93a1b3;font-size:12px;margin-bottom:8px}
+.logo-canvas{height:160px;border-radius:10px;background:#111822;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.logo-canvas img{max-width:95%;max-height:135px;object-fit:contain}
+.logo-empty{color:#657386;font-size:13px}
+.copy-logo{margin-top:16px;padding:14px;border:1px solid #253242;border-radius:14px;background:#0a1017}
 .results{margin-top:12px;display:none;border:1px solid #273342;border-radius:12px;overflow:hidden}
 .result{padding:12px 14px;border-bottom:1px solid #202a36;cursor:pointer;background:#0a1017}
 .result:last-child{border-bottom:0}.result:hover{background:#111b27}
 .result strong{display:block}.result small{color:#93a1b3;display:block;margin-top:4px}
 .badge{display:inline-block;font-size:11px;padding:3px 7px;border:1px solid #33465c;border-radius:999px;margin-left:6px;color:#b9c8da}
-.status{font-size:13px;color:#93a1b3;margin-top:8px}
-.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:0 0 18px}
-.summary div{background:#0a1017;border:1px solid #253242;border-radius:12px;padding:12px}
-.summary strong{display:block;font-size:22px}.summary span{font-size:12px;color:#93a1b3}
-.manage-meta{margin-top:10px;padding:10px 12px;border:1px solid #253242;border-radius:10px;background:#081019;display:none}
-.manage-meta strong{display:block;margin-bottom:4px}.manage-meta code{font-size:12px;word-break:break-all}
-.logo-preview-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0 6px}
-.logo-preview-box{border:1px solid #253242;border-radius:14px;background:#081019;padding:12px}
-.logo-preview-box span{display:block;color:#93a1b3;font-size:12px;margin-bottom:8px}
-.logo-canvas{height:130px;border-radius:10px;background:#111822;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.logo-canvas img{max-width:95%;max-height:110px;object-fit:contain}
-.logo-empty{color:#657386;font-size:13px}
-.copy-logo{margin-top:16px;padding:14px;border:1px solid #253242;border-radius:14px;background:#0a1017}
-.copy-logo .grid{align-items:end}
-.copy-logo button{margin-top:0}
-.status{font-size:13px;color:#93a1b3;margin-top:8px}.manage{margin:0 0 22px;padding:16px;border:1px solid #253242;border-radius:14px;background:#0a1017}.manage-row{display:grid;grid-template-columns:1fr 170px;gap:10px;align-items:end}.danger{background:#3a1518!important;color:#ffd9dc!important;border:1px solid #6b2b31!important}
-@media(max-width:700px){.grid,.lookup,.manage-row,.summary{grid-template-columns:1fr}}
+.split-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+.split-actions .action{margin-top:0}
+.hint{padding:12px 14px;border-left:3px solid #354f6c;background:#0a111a;color:#8f9daf;font-size:13px;line-height:1.5;border-radius:0 10px 10px 0}
+@media(max-width:900px){
+  .app{grid-template-columns:1fr}.sidebar{position:relative;height:auto;border-right:0;border-bottom:1px solid #202a36}
+  .nav{display:grid;grid-template-columns:repeat(2,1fr)}.sidebar-foot{display:none}.workspace{padding:22px 16px}
+  .summary,.quick-grid{grid-template-columns:1fr 1fr}.lookup{grid-template-columns:1fr 1fr}
+}
+@media(max-width:620px){.grid,.logo-preview-grid,.summary,.quick-grid,.lookup,.split-actions{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<main>
-  <div class="card">
-    <h1>Satellite Picons Admin</h1>
-    <p class="sub">Logo + automatické vyhľadanie Enigma2 service reference z KingOfSat.</p>
-
-    {% with messages = get_flashed_messages() %}
-      {% for m in messages %}<div class="msg">{{ m }}</div>{% endfor %}
-    {% endwith %}
-
-    <div class="summary">
-      <div><strong>{{ stats.total }}</strong><span>kanálov v admine</span></div>
-      <div><strong>{{ stats.generated }}</strong><span>zo synchronizácie</span></div>
-      <div><strong>{{ stats.overrides }}</strong><span>ručných override</span></div>
-      <div><strong>{{ stats.providers }}</strong><span>providerov</span></div>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <strong>Satellite Picons</strong>
+      <span>Admin pracovisko</span>
     </div>
 
-    <div class="manage">
-      <div class="manage-row">
-        <div>
-          <label>Správa existujúceho kanála</label>
-          <select id="manageChannel">
-            <option value="">— Vyber kanál —</option>
-            {% for ch in channels %}
-              <option value="{{ loop.index0 }}">
-                {{ ch.name }} · {{ ch.provider_group or "bez skupiny" }} · {{ "override" if ch._manual_override else "sync" }}
-              </option>
-            {% endfor %}
-          </select>
-        </div>
-        <div>
-          <button type="button" id="deleteChannelBtn" class="danger">Vymazať kanál</button>
-        </div>
-      </div>
-      <div id="manageMeta" class="manage-meta"></div>
-      <div class="status">Synchronizované kanály sa tu zobrazujú priamo z provider-data. Výber kanála predvyplní formulár. Ak nahráš nové logo, vytvorí sa ručný override v channels.yml a automatická synchronizácia ho neprepíše.</div>
+    <div class="channel-picker">
+      <label>Aktívny kanál</label>
+      <select id="manageChannel">
+        <option value="">— Vyber kanál —</option>
+        {% for ch in channels %}
+          <option value="{{ loop.index0 }}">{{ ch.name }} · {{ ch.provider_group or "bez skupiny" }} · {{ "override" if ch._manual_override else "sync" }}</option>
+        {% endfor %}
+      </select>
+      <div class="status">Výber zostáva aktívny pri prepínaní sekcií.</div>
     </div>
 
-    <div class="lookup">
-      <div>
-        <label>Vyhľadať kanál v databáze</label>
-        <input id="lookupName" placeholder="napr. JOJ KRIMI">
-      </div>
-      <div>
-        <label>Satelitná pozícia</label>
-        <select id="lookupOrbit" name="satellite_position" form="channelForm">
-          <option value="">— Vyber pozíciu —</option>
-          {% for value, label in satellite_positions %}
-            <option value="{{ value }}">{{ label }}</option>
-          {% endfor %}
-        </select>
-      </div>
-      <div>
-        <label>Skupina / balík</label>
-        <select id="providerGroup" name="provider_group" form="channelForm">
-          <option value="">— Automaticky —</option>
-          {% for key, label in provider_groups %}
-            <option value="{{ key }}">{{ label }}</option>
-          {% endfor %}
-        </select>
-      </div>
-      <div><button type="button" class="secondary" id="lookupBtn">Nájsť</button></div>
-    </div>
-    <div id="lookupStatus" class="status"></div>
-    <div id="results" class="results"></div>
+    <nav class="nav">
+      <button type="button" class="active" data-panel="overview">Prehľad<small>stav databázy a rýchle akcie</small></button>
+      <button type="button" data-panel="upload">Nahrať logo<small>nový obrázok alebo kopírovanie</small></button>
+      <button type="button" data-panel="edit">Upraviť logo<small>veľkosť, farby a čistenie</small></button>
+      <button type="button" data-panel="channel">Kanál a údaje<small>service reference a provider</small></button>
+      <button type="button" data-panel="manage">Správa<small>override a odstránenie</small></button>
+      <button type="button" data-panel="publish">Publikovanie<small>GitHub commit a push</small></button>
+    </nav>
 
-    <form id="channelForm" method="post" enctype="multipart/form-data">
-      <div class="grid">
-        <div>
-          <label>ID kanála</label>
-          <input id="channelId" name="channel_id" placeholder="joj-krimi" required>
-        </div>
-        <div>
-          <label>Názov kanála</label>
-          <input id="channelName" name="name" placeholder="JOJ KRIMI" required>
-        </div>
-      </div>
+    <div class="sidebar-foot">Lokálne rozhranie · 127.0.0.1:8765</div>
+  </aside>
 
-      <div class="logo-preview-grid">
-        <div class="logo-preview-box">
-          <span>Aktuálne logo</span>
-          <div class="logo-canvas" id="currentLogoPreview"><div class="logo-empty">Vyber kanál</div></div>
-        </div>
-        <div class="logo-preview-box">
-          <span>Nové logo pred uložením</span>
-          <div class="logo-canvas" id="newLogoPreview"><div class="logo-empty">Zatiaľ nevybrané</div></div>
-        </div>
-      </div>
+  <main class="workspace">
+    <div class="workspace-inner">
+      {% with messages = get_flashed_messages() %}
+        {% for m in messages %}<div class="msg">{{ m }}</div>{% endfor %}
+      {% endwith %}
 
-      <label>Nahradiť logo ručne (voliteľné)</label>
-      <input id="logoUpload" name="logo" type="file" accept=".png,.svg,.jpg,.jpeg,.webp">
-      <div class="status">Po výbere uvidíš nové logo ešte pred uložením. Pri nahradení sa starý lokálny súbor automaticky zmaže, takže sa staré verzie nehromadia.</div>
+      <section class="panel active" data-panel-view="overview">
+        <div class="topbar">
+          <div><h1>Prehľad</h1><p class="sub">Vyber vľavo, čo chceš práve riešiť. Ostatné nástroje sa skryjú.</p></div>
+        </div>
+        <div class="summary">
+          <div><strong>{{ stats.total }}</strong><span>kanálov v admine</span></div>
+          <div><strong>{{ stats.generated }}</strong><span>zo synchronizácie</span></div>
+          <div><strong>{{ stats.overrides }}</strong><span>ručných override</span></div>
+          <div><strong>{{ stats.providers }}</strong><span>providerov</span></div>
+        </div>
+        <div class="quick-grid">
+          <div class="quick-card"><strong>Nahrať logo</strong><p>Vyber súbor alebo prevezmi logo z iného providera.</p><button type="button" class="quick" data-go="upload">Otvoriť nahrávanie</button></div>
+          <div class="quick-card"><strong>Upraviť logo</strong><p>Nastav veľkosť, tmavé prvky a čistenie okrajov.</p><button type="button" class="quick" data-go="edit">Otvoriť úpravu</button></div>
+          <div class="quick-card"><strong>Kanál a údaje</strong><p>Vyhľadaj kanál a uprav jeho Enigma2 údaje.</p><button type="button" class="quick" data-go="channel">Otvoriť údaje</button></div>
+        </div>
+      </section>
 
-      <div class="copy-logo">
-        <strong>Skopírovať iba logo z iného providera</strong>
-        <div class="status">Vyber provider a kanál. Skopíruje sa iba obrázok; FastScan, service reference, frekvencia a ostatné údaje cieľového kanála zostanú nezmenené.</div>
-        <div class="grid">
-          <div>
-            <label>Zdrojový provider</label>
-            <select id="copyProvider">
-              <option value="">— Vyber provider —</option>
-              {% for key, label in provider_groups %}
-                <option value="{{ key }}">{{ label }}</option>
-              {% endfor %}
-            </select>
+      <form id="channelForm" method="post" enctype="multipart/form-data">
+        <section class="panel" data-panel-view="upload">
+          <div class="card">
+            <div class="panel-head"><h2>Nahrať alebo nahradiť logo</h2><p>Táto sekcia rieši iba zdroj obrázka. Úpravy vzhľadu sú samostatne v „Upraviť logo“.</p></div>
+            <div class="logo-preview-grid">
+              <div class="logo-preview-box"><span>Aktuálne logo</span><div class="logo-canvas" id="currentLogoPreview"><div class="logo-empty">Vyber kanál vľavo</div></div></div>
+              <div class="logo-preview-box"><span>Nové logo</span><div class="logo-canvas" id="newLogoPreview"><div class="logo-empty">Zatiaľ nevybrané</div></div></div>
+            </div>
+
+            <label>Nahrať logo zo súboru</label>
+            <input id="logoUpload" name="logo" type="file" accept=".png,.svg,.jpg,.jpeg,.webp">
+            <div class="status">Vybraný súbor zostane pripravený aj po prepnutí do sekcie „Upraviť logo“.</div>
+
+            <div class="copy-logo">
+              <strong>Skopírovať iba logo z iného providera</strong>
+              <div class="grid">
+                <div><label>Zdrojový provider</label><select id="copyProvider"><option value="">— Vyber provider —</option>{% for key, label in provider_groups %}<option value="{{ key }}">{{ label }}</option>{% endfor %}</select></div>
+                <div><label>Zdrojový kanál</label><select id="copyChannel" disabled><option value="">— Najprv vyber provider —</option></select></div>
+              </div>
+              <div class="logo-preview-box" style="margin-top:12px"><span>Logo, ktoré sa skopíruje</span><div class="logo-canvas" id="copyLogoPreview"><div class="logo-empty">Zatiaľ nevybrané</div></div></div>
+              <input type="hidden" id="copyLogoFromRef" name="copy_logo_from_ref" value="">
+            </div>
+            <div class="split-actions">
+              <button type="button" class="action secondary" data-go="edit">Pokračovať na úpravu loga</button>
+              <button type="submit" class="action primary">Uložiť bez ďalšej úpravy</button>
+            </div>
           </div>
-          <div>
-            <label>Zdrojový kanál</label>
-            <select id="copyChannel" disabled>
-              <option value="">— Najprv vyber provider —</option>
-            </select>
+        </section>
+
+        <section class="panel" data-panel-view="edit">
+          <div class="card">
+            <div class="panel-head"><h2>Upraviť logo</h2><p>Tu riešiš iba výsledný vzhľad piconu. Zdroj loga vyber v sekcii „Nahrať logo“.</p></div>
+            <div class="grid">
+              <div>
+                <label>Čierny/tmavý text → biely</label>
+                <select id="darkToWhite" name="dark_to_white">
+                  <option value="false" selected>Nie — zachovať originálne farby</option>
+                  <option value="true">Áno — tmavé neutrálne časti prefarbiť na bielo</option>
+                </select>
+              </div>
+              <div>
+                <label>Veľkosť loga (optical scale)</label>
+                <input id="opticalScale" name="optical_scale" type="number" min="0.50" max="1.50" step="0.05" value="1.00">
+              </div>
+            </div>
+            <label class="check"><input id="edgeCleanup" type="checkbox" name="edge_cleanup">Odstrániť biely okraj napojený na hranu</label>
+
+            <div class="logo-preview-box" style="margin-top:18px"><span>Výsledný náhľad</span><div class="logo-canvas" id="processedLogoPreview"><div class="logo-empty">Spusť náhľad úpravy</div></div></div>
+            <button type="button" id="previewProcessedBtn" class="action secondary">Náhľad upraveného loga</button>
+
+            <label class="check"><input type="checkbox" name="publish" checked>Po uložení automaticky commitnúť a pushnúť na GitHub</label>
+            <button type="submit" class="action primary">Uložiť zmeny a publikovať</button>
           </div>
+        </section>
+
+        <section class="panel" data-panel-view="channel">
+          <div class="card">
+            <div class="panel-head"><h2>Kanál a technické údaje</h2><p>Vyhľadanie, service reference, satelitná pozícia a zaradenie do providera.</p></div>
+            <div class="lookup">
+              <div><label>Vyhľadať kanál v databáze</label><input id="lookupName" placeholder="napr. JOJ KRIMI"></div>
+              <div><label>Satelitná pozícia</label><select id="lookupOrbit" name="satellite_position"><option value="">— Vyber pozíciu —</option>{% for value, label in satellite_positions %}<option value="{{ value }}">{{ label }}</option>{% endfor %}</select></div>
+              <div><label>Skupina / balík</label><select id="providerGroup" name="provider_group"><option value="">— Automaticky —</option>{% for key, label in provider_groups %}<option value="{{ key }}">{{ label }}</option>{% endfor %}</select></div>
+              <div><button type="button" class="action secondary" id="lookupBtn" style="margin-top:0">Nájsť</button></div>
+            </div>
+            <div id="lookupStatus" class="status"></div>
+            <div id="results" class="results"></div>
+
+            <div class="grid">
+              <div><label>ID kanála</label><input id="channelId" name="channel_id" placeholder="joj-krimi" required></div>
+              <div><label>Názov kanála</label><input id="channelName" name="name" placeholder="JOJ KRIMI" required></div>
+            </div>
+            <label>Enigma2 service reference</label>
+            <input id="serviceRef" name="service_reference" placeholder="1:0:19:334F:C93:3:EB0000:0:0:0:" required>
+            <label>Varianty service type</label>
+            <input name="variants" value="1,16,19">
+            <button type="submit" class="action primary">Uložiť údaje kanála</button>
+          </div>
+        </section>
+
+        <section class="panel" data-panel-view="manage">
+          <div class="card">
+            <div class="panel-head"><h2>Správa kanála</h2><p>Kontrola zdroja, service reference a ručných override.</p></div>
+            <div id="manageMeta" class="manage-meta"></div>
+            <div class="hint">Synchronizované kanály sa berú z provider-data. Ručný override môžeš odstrániť; sync kanál sa tu zámerne nemaže.</div>
+            <button type="button" id="deleteChannelBtn" class="action danger" disabled>Odstrániť override</button>
+          </div>
+        </section>
+      </form>
+
+      <section class="panel" data-panel-view="publish">
+        <div class="card">
+          <div class="panel-head"><h2>Publikovanie</h2><p>Samostatné miesto pre GitHub commit a push, bez miešania s úpravou loga.</p></div>
+          <form id="publishForm" method="post" action="/publish">
+            <button id="publishBtn" type="submit" class="action secondary">Publikovať už uložené lokálne zmeny</button>
+            <div id="publishStatus" class="status"></div>
+          </form>
+          <p class="note">Admin počúva iba na <code>127.0.0.1</code>. Zdroj satelitných údajov: KingOfSat.</p>
         </div>
-        <div class="logo-preview-box" style="margin-top:12px">
-          <span>Logo, ktoré sa skopíruje</span>
-          <div class="logo-canvas" id="copyLogoPreview"><div class="logo-empty">Zatiaľ nevybrané</div></div>
-        </div>
-        <input type="hidden" id="copyLogoFromRef" name="copy_logo_from_ref" value="">
-      </div>
-
-      <label>Enigma2 service reference</label>
-      <input id="serviceRef" name="service_reference" placeholder="1:0:19:334F:C93:3:EB0000:0:0:0:" required>
-
-      <div class="grid">
-        <div>
-          <label>Varianty service type</label>
-          <input name="variants" value="1,16,19">
-        </div>
-        <div>
-          <label>Čierny/tmavý text → biely</label>
-          <select id="darkToWhite" name="dark_to_white">
-            <option value="false" selected>Nie — zachovať originálne farby</option>
-            <option value="true">Áno — tmavé neutrálne časti prefarbiť na bielo</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="grid">
-        <div>
-          <label>Veľkosť loga (optical scale)</label>
-          <input id="opticalScale" name="optical_scale" type="number" min="0.50" max="1.50" step="0.05" value="1.00">
-        </div>
-        <div>
-          <label class="check" style="margin-top:38px">
-            <input id="edgeCleanup" type="checkbox" name="edge_cleanup">
-            Odstrániť biely okraj napojený na hranu
-          </label>
-        </div>
-      </div>
-
-      <button type="button" id="previewProcessedBtn" class="secondary" style="margin-top:14px">
-        Náhľad upraveného loga
-      </button>
-
-      <label class="check">
-        <input type="checkbox" name="publish" checked>
-        Po uložení automaticky commitnúť a pushnúť na GitHub
-      </label>
-
-      <button type="submit">Uložiť zmeny a publikovať</button>
-    </form>
-
-    <form id="publishForm" method="post" action="/publish">
-      <button id="publishBtn" type="submit" class="secondary">Publikovať už uložené lokálne zmeny</button>
-      <div id="publishStatus" class="status"></div>
-    </form>
-
-    <p class="note">
-      Zdroj satelitných údajov: KingOfSat. Pred publikovaním sa vybraná reference zobrazí v poli a môžeš ju ručne skontrolovať/upraviť.
-      Admin počúva iba na <code>127.0.0.1</code>.
-    </p>
-  </div>
-</main>
+      </section>
+    </div>
+  </main>
+</div>
 <script>
+
 const btn=document.querySelector('#lookupBtn');
 const results=document.querySelector('#results');
 const status=document.querySelector('#lookupStatus');
@@ -537,6 +551,45 @@ btn.addEventListener('click', async ()=>{
     }));
   }catch(e){status.textContent='Chyba: '+e.message;}
 });
+
+</script>
+<script>
+(function(){
+  const navButtons=[...document.querySelectorAll('[data-panel]')];
+  const panels=[...document.querySelectorAll('[data-panel-view]')];
+
+  function showPanel(name){
+    panels.forEach(p=>p.classList.toggle('active',p.dataset.panelView===name));
+    navButtons.forEach(b=>b.classList.toggle('active',b.dataset.panel===name));
+    try{localStorage.setItem('satellite-picons-admin-panel',name);}catch(e){}
+    window.scrollTo({top:0,behavior:'instant'});
+  }
+
+  navButtons.forEach(button=>button.addEventListener('click',()=>showPanel(button.dataset.panel)));
+  document.querySelectorAll('[data-go]').forEach(button=>button.addEventListener('click',()=>showPanel(button.dataset.go)));
+
+  let saved='overview';
+  try{saved=localStorage.getItem('satellite-picons-admin-panel')||'overview';}catch(e){}
+  if(panels.some(p=>p.dataset.panelView===saved)) showPanel(saved);
+
+  const originalPreview=document.querySelector('#newLogoPreview');
+  const processed=document.querySelector('#processedLogoPreview');
+  const observer=new MutationObserver(()=>{
+    if(processed && originalPreview && originalPreview.innerHTML){
+      processed.innerHTML=originalPreview.innerHTML;
+    }
+  });
+  if(originalPreview) observer.observe(originalPreview,{childList:true,subtree:true});
+
+  const selector=document.querySelector('#manageChannel');
+  if(selector){
+    selector.addEventListener('change',()=>{
+      if(selector.value!=='' && document.querySelector('[data-panel-view="overview"].active')){
+        showPanel('upload');
+      }
+    });
+  }
+})();
 </script>
 </body>
 </html>
