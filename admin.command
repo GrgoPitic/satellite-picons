@@ -2,6 +2,10 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
+# Finder/Dock launches apps with a minimal PATH. Make Homebrew and system
+# binaries available before looking for brew/python.
+export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${PATH:-}"
+
 # Make Homebrew libraries (especially cairo) visible to Python/cairocffi on Apple Silicon.
 if command -v brew >/dev/null 2>&1; then
   BREW_PREFIX="$(brew --prefix)"
