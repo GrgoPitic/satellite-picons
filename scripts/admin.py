@@ -209,9 +209,9 @@ code{color:#d3deea}
         </div>
       </div>
 
-      <label>Originálne logo</label>
-      <input name="logo" type="file" accept=".png,.svg,.jpg,.jpeg,.webp" required>
-      <div class="status">Farebné alebo tmavé pozadie sa automaticky odstráni. Samotné logo sa oreže podľa viditeľného obsahu a pri zachovaní pomeru strán vyplní takmer celý picon. SVG sa môže nahrať priamo — spracuje sa pri buildovaní na GitHube, bez potreby Cairo na Macu.</div>
+      <label>Nahradiť logo ručne (voliteľné)</label>
+      <input name="logo" type="file" accept=".png,.svg,.jpg,.jpeg,.webp">
+      <div class="status">Ak nič nevyberieš, zostane aktuálne logo. Ak nahráš nové, uloží sa ako ručný override a ďalšia synchronizácia provider dát ho neprepíše.</div>
 
       <label>Enigma2 service reference</label>
       <input id="serviceRef" name="service_reference" placeholder="1:0:19:334F:C93:3:EB0000:0:0:0:" required>
@@ -225,8 +225,21 @@ code{color:#d3deea}
           <label>Čierny/tmavý text → biely</label>
           <select name="dark_to_white">
             <option value="false" selected>Nie — zachovať originálne farby</option>
-            <option value="true">Áno — iba pre tmavé jednofarebné logo</option>
+            <option value="true">Áno — tmavé neutrálne časti prefarbiť na bielo</option>
           </select>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div>
+          <label>Veľkosť loga (optical scale)</label>
+          <input name="optical_scale" type="number" min="0.50" max="1.50" step="0.05" value="1.00">
+        </div>
+        <div>
+          <label class="check" style="margin-top:38px">
+            <input type="checkbox" name="edge_cleanup">
+            Odstrániť biely okraj napojený na hranu
+          </label>
         </div>
       </div>
 
@@ -286,6 +299,8 @@ if(manageChannel){
     document.querySelector('#providerGroup').value=ch.provider_group||'';
     const dark=document.querySelector('[name="dark_to_white"]');
     dark.value=ch.dark_to_white ? 'true' : 'false';
+    document.querySelector('[name="optical_scale"]').value=Number(ch.optical_scale||1).toFixed(2);
+    document.querySelector('[name="edge_cleanup"]').checked=Boolean(ch.edge_cleanup);
 
     const source=ch._manual_override ? 'Ručný override' : 'Automatická synchronizácia';
     const logo=ch.logo || ch.logo_url || 'bez loga';
@@ -667,6 +682,13 @@ def publish_pending_changes() -> str:
     if (ROOT / "assets" / "source-logos").exists():
         add_paths.append("assets/source-logos")
 
+    branch_result = run_git("rev-parse", "--abbrev-ref", "HEAD")
+    if branch_result.returncode != 0:
+        raise RuntimeError("Nepodarilo sa zistiť aktuálnu Git vetvu.")
+    branch = branch_result.stdout.strip()
+    if not branch or branch == "HEAD":
+        raise RuntimeError("Repozitár je v detached HEAD stave. Publikovanie bolo zastavené.")
+
     add = run_git("add", "-A", *add_paths)
     if add.returncode != 0:
         raise RuntimeError(add.stderr.strip() or "git add zlyhal")
@@ -680,9 +702,9 @@ def publish_pending_changes() -> str:
         if commit.returncode != 0:
             raise RuntimeError(commit.stderr.strip() or commit.stdout.strip() or "git commit zlyhal")
 
-    fetch = run_git("fetch", "origin", "main")
+    fetch = run_git("fetch", "origin", branch)
     if fetch.returncode != 0:
-        raise RuntimeError(fetch.stderr.strip() or fetch.stdout.strip() or "Načítanie origin/main zlyhalo.")
+        raise RuntimeError(fetch.stderr.strip() or fetch.stdout.strip() or f"Načítanie origin/{branch} zlyhalo.")
 
     ahead = run_git("rev-list", "--count", "FETCH_HEAD..HEAD")
     behind = run_git("rev-list", "--count", "HEAD..FETCH_HEAD")
@@ -697,7 +719,7 @@ def publish_pending_changes() -> str:
         if rebase.returncode != 0:
             run_git("rebase", "--abort")
             raise RuntimeError(
-                "GitHub obsahuje novšie zmeny a automatické zlúčenie nebolo bezpečné. "
+                f"GitHub vetva {branch} obsahuje novšie zmeny a automatické zlúčenie nebolo bezpečné. "
                 "Lokálne zmeny zostali zachované; publikovanie bolo zastavené."
             )
 
@@ -707,13 +729,13 @@ def publish_pending_changes() -> str:
         ahead_count = int(ahead.stdout.strip() or "0")
 
     if ahead_count == 0:
-        return "Nie sú žiadne lokálne zmeny ani čakajúce commity na publikovanie."
+        return f"Nie sú žiadne lokálne zmeny pre vetvu {branch}."
 
-    push = run_git("push", "origin", "HEAD:main", timeout=30)
+    push = run_git("push", "origin", f"HEAD:{branch}", timeout=30)
     if push.returncode != 0:
         raise RuntimeError(push.stderr.strip() or push.stdout.strip() or "git push zlyhal")
 
-    return f"Publikované na GitHub: {ahead_count} lokálny commit."
+    return f"Publikované do vetvy {branch}: {ahead_count} lokálny commit."
 
 @app.get("/health")
 def health():
@@ -797,8 +819,15 @@ def index():
             provider_group = PROVIDER_DEFAULTS[satellite_position][0]
         variants = [x.strip().upper() for x in request.form.get("variants", "1,16,19").split(",") if x.strip()]
         dark_to_white = request.form.get("dark_to_white", "false") == "true"
+        edge_cleanup = request.form.get("edge_cleanup") == "on"
+        try:
+            optical_scale = float(request.form.get("optical_scale", "1.0"))
+        except ValueError:
+            raise ValueError("Veľkosť loga musí byť číslo.")
+        if not 0.50 <= optical_scale <= 1.50:
+            raise ValueError("Veľkosť loga musí byť medzi 0.50 a 1.50.")
         publish = request.form.get("publish") == "on"
-        upload = request.files["logo"]
+        upload = request.files.get("logo")
 
         if not ID_RE.match(channel_id):
             raise ValueError("ID môže obsahovať iba malé písmená, čísla a pomlčky.")
@@ -808,58 +837,67 @@ def index():
         if not variants:
             raise ValueError("Musí byť zadaný aspoň jeden service type variant.")
 
-        original_name = secure_filename(upload.filename or "")
-        ext = Path(original_name).suffix.lower()
-        if ext not in SUPPORTED:
-            raise ValueError("Nepodporovaný formát loga.")
+        cfg = yaml.safe_load(DB.read_text(encoding="utf-8")) or {"channels": []}
+        channels = cfg.setdefault("channels", [])
+        ref_key = service_identity(ref)
+        existing_index = next(
+            (
+                i for i, ch in enumerate(channels)
+                if ch.get("service_reference") and service_identity(ch["service_reference"]) == ref_key
+            ),
+            None,
+        )
+        existing = channels[existing_index] if existing_index is not None else {}
 
-        LOGOS.mkdir(parents=True, exist_ok=True)
-
-        for old in LOGOS.glob(channel_id + ".*"):
-            if old.suffix.lower() in SUPPORTED:
-                old.unlink()
-
-        raw = upload.read()
-        if not raw:
-            raise ValueError("Logo je prázdne.")
-
-        if ext == ".svg":
-            try:
-                processed = prepare_logo(raw, ext)
-                dest = LOGOS / f"{channel_id}.png"
-                processed.save(dest, format="PNG", optimize=True)
-            except RuntimeError as exc:
-                if str(exc) != "SVG_LOCAL_DEFER":
-                    raise
-                # Fallback: keep the SVG untouched and let GitHub Actions
-                # rasterize it in Linux if local Cairo still cannot be loaded.
-                dest = LOGOS / f"{channel_id}.svg"
-                dest.write_bytes(raw)
-        else:
-            processed = prepare_logo(raw, ext)
-            dest = LOGOS / f"{channel_id}.png"
-            processed.save(dest, format="PNG", optimize=True)
-
-        cfg = yaml.safe_load(DB.read_text(encoding="utf-8"))
-        entry = {
+        entry = dict(existing)
+        entry.update({
             "id": channel_id,
             "name": name,
-            "logo": str(dest.relative_to(ROOT)),
             "service_reference": ref,
             "variant_types": variants,
             "dark_to_white": dark_to_white,
-            "optical_scale": 1.0,
-            "edge_cleanup": False,
+            "optical_scale": optical_scale,
+            "edge_cleanup": edge_cleanup,
             "background_cleanup": True,
             "satellite_position": satellite_position or None,
             "provider_group": provider_group or None,
-        }
+        })
 
-        channels = cfg.setdefault("channels", [])
-        for i, ch in enumerate(channels):
-            if ch.get("id") == channel_id:
-                channels[i] = entry
-                break
+        if upload and upload.filename:
+            original_name = secure_filename(upload.filename or "")
+            ext = Path(original_name).suffix.lower()
+            if ext not in SUPPORTED:
+                raise ValueError("Nepodporovaný formát loga.")
+
+            LOGOS.mkdir(parents=True, exist_ok=True)
+            raw = upload.read()
+            if not raw:
+                raise ValueError("Logo je prázdne.")
+
+            # Replace only this channel's previous local artwork.
+            for old in LOGOS.glob(channel_id + ".*"):
+                if old.suffix.lower() in SUPPORTED:
+                    old.unlink()
+
+            if ext == ".svg":
+                try:
+                    processed = prepare_logo(raw, ext)
+                    dest = LOGOS / f"{channel_id}.png"
+                    processed.save(dest, format="PNG", optimize=True)
+                except RuntimeError as exc:
+                    if str(exc) != "SVG_LOCAL_DEFER":
+                        raise
+                    dest = LOGOS / f"{channel_id}.svg"
+                    dest.write_bytes(raw)
+            else:
+                processed = prepare_logo(raw, ext)
+                dest = LOGOS / f"{channel_id}.png"
+                processed.save(dest, format="PNG", optimize=True)
+
+            entry["logo"] = str(dest.relative_to(ROOT))
+
+        if existing_index is not None:
+            channels[existing_index] = entry
         else:
             channels.append(entry)
 
