@@ -1,21 +1,26 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import hashlib
 import io
 import json
 import shutil
 import sys
+import tempfile
 import zipfile
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import urlparse
 
 import cairosvg
+import requests
 import yaml
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG = ROOT / "channels.yml"
 PROVIDERS_CONFIG = ROOT / "providers.yml"
+PROVIDER_DATA_DIR = ROOT / "provider-data"
 PUBLIC = ROOT / "public"
 PICON_DIR = PUBLIC / "picons"
 PACKAGE_DIR = PUBLIC / "packages"
@@ -26,6 +31,10 @@ BASE_PACK = ROOT / "seed/base-pack.zip"
 CANVAS = (150, 90)
 MAX_LOGO = (148, 86)
 SUPPORTED_LOGO_EXTENSIONS = {".png", ".svg", ".jpg", ".jpeg", ".webp"}
+REMOTE_LOGO_TIMEOUT = 30
+REMOTE_LOGO_USER_AGENT = (
+    "SatellitePiconsBuilder/0.1 (+https://github.com/GrgoPitic/satellite-picons)"
+)
 
 
 def parse_ref(ref: str) -> list[str]:
@@ -33,6 +42,11 @@ def parse_ref(ref: str) -> list[str]:
     if len(parts) != 10:
         raise ValueError(f"Service reference must have 10 fields: {ref}")
     return parts
+
+
+def service_identity(ref: str) -> str:
+    parts = parse_ref(ref)
+    return "_".join(parts[3:7])
 
 
 def ref_filename(ref_parts: list[str]) -> str:
@@ -96,6 +110,7 @@ def has_real_transparency(im: Image.Image) -> bool:
     lo, _ = im.getchannel("A").getextrema()
     return lo < 250
 
+
 def remove_corner_connected_background(im: Image.Image, tolerance: int = 28) -> Image.Image:
     im = im.convert("RGBA")
     if has_real_transparency(im):
@@ -107,7 +122,7 @@ def remove_corner_connected_background(im: Image.Image, tolerance: int = 28) -> 
         return im
 
     seen = set()
-    stack = [(0,0),(w-1,0),(0,h-1),(w-1,h-1)]
+    stack = [(0, 0), (w - 1, 0), (0, h - 1), (w - 1, h - 1)]
 
     def close(a, b):
         return max(abs(a[i] - b[i]) for i in range(3)) <= tolerance
@@ -120,8 +135,8 @@ def remove_corner_connected_background(im: Image.Image, tolerance: int = 28) -> 
         current = px[x, y]
         if current[3] == 0:
             continue
-        for nx, ny in ((x+1,y),(x-1,y),(x,y+1),(x,y-1)):
-            if not (0 <= nx < w and 0 <= ny < h) or (nx,ny) in seen:
+        for nx, ny in ((x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)):
+            if not (0 <= nx < w and 0 <= ny < h) or (nx, ny) in seen:
                 continue
             neighbour = px[nx, ny]
             if neighbour[3] > 0 and close(current, neighbour):
@@ -134,6 +149,7 @@ def remove_corner_connected_background(im: Image.Image, tolerance: int = 28) -> 
         r, g, b, _ = px[x, y]
         px[x, y] = (r, g, b, 0)
     return im
+
 
 def recolor_neutral_dark_to_white(im: Image.Image) -> Image.Image:
     """Turn neutral dark artwork/text to white, keep coloured elements intact."""
@@ -170,12 +186,7 @@ def trim_alpha(im: Image.Image) -> Image.Image:
 
 
 def fit_logo(im: Image.Image, max_size=MAX_LOGO, optical_scale: float = 1.0) -> Image.Image:
-    """Fill almost the entire picon while preserving the logo aspect ratio.
-
-    The visible alpha bounds are trimmed first. The artwork then grows until
-    either 98% of the picon width or about 96% of its height is reached.
-    No stretching, squashing or cropping is performed.
-    """
+    """Fill almost the entire picon while preserving the logo aspect ratio."""
     w, h = im.size
     if w <= 0 or h <= 0:
         raise ValueError("Invalid logo size")
@@ -205,8 +216,6 @@ def render_logo(
     if bool(ch_edge_cleanup):
         logo = remove_edge_white(logo)
 
-    # New uploads are normally pre-cleaned by the admin. This fallback also
-    # protects older opaque source images with solid/gradient backgrounds.
     logo = remove_corner_connected_background(logo)
 
     if dark_to_white:
@@ -222,13 +231,116 @@ def render_logo(
     return out
 
 
+def load_synced_provider_data() -> tuple[list[dict], dict[str, dict]]:
+    channels = []
+    metadata = {}
+
+    if not PROVIDER_DATA_DIR.exists():
+        return channels, metadata
+
+    for path in sorted(PROVIDER_DATA_DIR.glob("*.json")):
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        provider_id = str(payload.get("provider", path.stem)).strip().lower()
+
+        metadata[provider_id] = {
+            "generated_at": payload.get("generated_at"),
+            "source": payload.get("source") or {},
+            "stats": payload.get("stats") or {},
+        }
+
+        for channel in payload.get("channels", []):
+            item = dict(channel)
+            item["provider_group"] = str(
+                item.get("provider_group") or provider_id
+            ).strip().lower()
+            item["_generated_provider_data"] = True
+            channels.append(item)
+
+    return channels, metadata
+
+
+def merged_channels(cfg: dict) -> tuple[list[dict], dict[str, dict]]:
+    synced, provider_metadata = load_synced_provider_data()
+
+    # Generated operator data provides the broad catalogue. Hand-curated
+    # channels.yml entries intentionally override the same DVB service so local
+    # artwork and per-logo rendering tweaks can always win.
+    by_service = {}
+
+    for channel in synced:
+        ref = channel.get("service_reference")
+        if not ref:
+            continue
+        by_service[service_identity(ref)] = channel
+
+    for channel in cfg.get("channels", []):
+        ref = channel.get("service_reference")
+        if not ref:
+            continue
+        by_service[service_identity(ref)] = dict(channel)
+
+    rows = list(by_service.values())
+    rows.sort(
+        key=lambda ch: (
+            str(ch.get("provider_group") or ""),
+            int(ch.get("fastscan") or 99999),
+            str(ch.get("name") or "").lower(),
+        )
+    )
+    return rows, provider_metadata
+
+
+def download_remote_logo(
+    url: str,
+    cache_dir: Path,
+    session: requests.Session,
+) -> Path:
+    parsed = urlparse(url)
+    ext = Path(parsed.path).suffix.lower()
+    if ext not in SUPPORTED_LOGO_EXTENSIONS:
+        raise ValueError("Unsupported remote logo extension: %s" % url)
+
+    digest = hashlib.sha256(url.encode("utf-8")).hexdigest()
+    destination = cache_dir / (digest + ext)
+
+    if destination.exists():
+        return destination
+
+    response = session.get(url, timeout=REMOTE_LOGO_TIMEOUT)
+    response.raise_for_status()
+    destination.write_bytes(response.content)
+    return destination
+
+
+def resolve_channel_logo(
+    channel: dict,
+    cache_dir: Path,
+    session: requests.Session,
+) -> Path | None:
+    local_logo = channel.get("logo")
+    if local_logo:
+        path = ROOT / str(local_logo)
+        if path.exists():
+            return path
+        raise FileNotFoundError(path)
+
+    logo_url = channel.get("logo_url")
+    if logo_url:
+        return download_remote_logo(str(logo_url), cache_dir, session)
+
+    return None
+
+
 def main() -> int:
     cfg = yaml.safe_load(CONFIG.read_text(encoding="utf-8"))
     project = cfg["project"]
 
     providers_cfg = {"schema": 1, "providers": []}
     if PROVIDERS_CONFIG.exists():
-        providers_cfg = yaml.safe_load(PROVIDERS_CONFIG.read_text(encoding="utf-8")) or providers_cfg
+        providers_cfg = (
+            yaml.safe_load(PROVIDERS_CONFIG.read_text(encoding="utf-8"))
+            or providers_cfg
+        )
 
     provider_defs = {}
     for provider in providers_cfg.get("providers", []):
@@ -242,7 +354,13 @@ def main() -> int:
             "countries": [str(x) for x in provider.get("countries", [])],
             "sort_order": int(provider.get("sort_order", 999)),
         }
-    variant_types = [str(x).upper() for x in project.get("variant_types", ["1", "16", "19"])]
+
+    variant_types = [
+        str(x).upper()
+        for x in project.get("variant_types", ["1", "16", "19"])
+    ]
+
+    source_channels, provider_source_metadata = merged_channels(cfg)
 
     if PUBLIC.exists():
         shutil.rmtree(PUBLIC)
@@ -252,7 +370,11 @@ def main() -> int:
     if BASE_PACK.exists():
         with zipfile.ZipFile(BASE_PACK) as base_zip:
             for info in base_zip.infolist():
-                if info.is_dir() or not info.filename.lower().endswith(".png") or info.filename.startswith("__MACOSX/"):
+                if (
+                    info.is_dir()
+                    or not info.filename.lower().endswith(".png")
+                    or info.filename.startswith("__MACOSX/")
+                ):
                     continue
                 name = Path(info.filename).name
                 if not name:
@@ -262,10 +384,12 @@ def main() -> int:
 
     template = Image.open(TEMPLATE).convert("RGBA")
     if template.size != CANVAS:
-        raise ValueError(f"Template must be {CANVAS[0]}x{CANVAS[1]}, got {template.size}")
+        raise ValueError(
+            f"Template must be {CANVAS[0]}x{CANVAS[1]}, got {template.size}"
+        )
 
     index = {
-        "schema": 1,
+        "schema": 2,
         "package": project["package"],
         "style": project["style"],
         "resolution": project["resolution"],
@@ -273,37 +397,67 @@ def main() -> int:
         "channels": [],
     }
 
-    for ch in cfg.get("channels", []):
-        logo_path = ROOT / ch["logo"]
-        if not logo_path.exists():
-            raise FileNotFoundError(logo_path)
+    skipped_without_logo = []
+    session = requests.Session()
+    session.headers.update({"User-Agent": REMOTE_LOGO_USER_AGENT})
 
-        rendered = render_logo(
-            logo_path,
-            template,
-            bool(ch.get("dark_to_white", False)),
-            float(ch.get("optical_scale", 1.0)),
-            bool(ch.get("edge_cleanup", False)),
-        )
-        files = []
+    with tempfile.TemporaryDirectory(prefix="satellite-picons-build-") as temp:
+        cache_dir = Path(temp)
 
-        for stype in ch.get("variant_types", variant_types):
-            filename = make_variant(ch["service_reference"], str(stype))
-            rendered.save(PICON_DIR / filename, optimize=True)
-            files.append(filename)
+        for ch in source_channels:
+            logo_path = resolve_channel_logo(ch, cache_dir, session)
+            if logo_path is None:
+                skipped_without_logo.append(
+                    {
+                        "id": ch.get("id"),
+                        "name": ch.get("name"),
+                        "service_reference": ch.get("service_reference"),
+                        "provider_group": ch.get("provider_group"),
+                    }
+                )
+                continue
 
-        index["channels"].append({
-            "id": ch["id"],
-            "name": ch["name"],
-            "logo": str(ch["logo"]),
-            "service_reference": ch["service_reference"],
-            "optical_scale": float(ch.get("optical_scale", 1.0)),
-            "logo_version": int(ch.get("logo_version", 1)),
-            "updated_at": ch.get("updated_at"),
-            "satellite_position": ch.get("satellite_position"),
-            "provider_group": ch.get("provider_group"),
-            "files": files,
-        })
+            rendered = render_logo(
+                logo_path,
+                template,
+                bool(ch.get("dark_to_white", False)),
+                float(ch.get("optical_scale", 1.0)),
+                bool(ch.get("edge_cleanup", False)),
+            )
+            files = []
+
+            for stype in ch.get("variant_types", variant_types):
+                filename = make_variant(ch["service_reference"], str(stype))
+                rendered.save(PICON_DIR / filename, optimize=True)
+                files.append(filename)
+
+            index["channels"].append(
+                {
+                    "id": ch["id"],
+                    "name": ch["name"],
+                    "logo": ch.get("logo"),
+                    "logo_url": ch.get("logo_url"),
+                    "logo_source": ch.get("logo_source"),
+                    "service_reference": ch["service_reference"],
+                    "optical_scale": float(ch.get("optical_scale", 1.0)),
+                    "logo_version": int(ch.get("logo_version", 1)),
+                    "updated_at": ch.get("updated_at")
+                    or ch.get("source_updated_at"),
+                    "satellite_position": ch.get("satellite_position"),
+                    "provider_group": ch.get("provider_group"),
+                    "fastscan": ch.get("fastscan"),
+                    "frequency_mhz": ch.get("frequency_mhz"),
+                    "files": files,
+                }
+            )
+
+    index["build_stats"] = {
+        "source_channels": len(source_channels),
+        "rendered_channels": len(index["channels"]),
+        "skipped_without_logo": len(skipped_without_logo),
+    }
+    if skipped_without_logo:
+        index["skipped_without_logo"] = skipped_without_logo
 
     for src in WEB_DIR.iterdir():
         if src.is_file():
@@ -314,16 +468,24 @@ def main() -> int:
         encoding="utf-8",
     )
 
-    package_name = f"{project['package']}-{project['resolution']}-{project['style']}.zip"
+    package_name = (
+        f"{project['package']}-{project['resolution']}-{project['style']}.zip"
+    )
     package_path = PACKAGE_DIR / package_name
 
-    with zipfile.ZipFile(package_path, "w", zipfile.ZIP_DEFLATED, compresslevel=9) as zf:
+    with zipfile.ZipFile(
+        package_path,
+        "w",
+        zipfile.ZIP_DEFLATED,
+        compresslevel=9,
+    ) as zf:
         for file in sorted(PICON_DIR.glob("*.png")):
             zf.write(file, arcname=file.name)
 
     grouped_packages = {}
     grouped_channels = {}
     provider_channels = {}
+
     for ch in index["channels"]:
         provider_group = ch.get("provider_group")
         if provider_group:
@@ -336,14 +498,28 @@ def main() -> int:
         grouped_channels.setdefault(group, []).extend(ch["files"])
 
     for group, files in sorted(grouped_channels.items()):
-        safe_group = "".join(c if c.isalnum() or c in "-._" else "-" for c in str(group)).strip("-").lower()
-        group_name = f"{project['package']}-{safe_group}-{project['resolution']}-{project['style']}.zip"
+        safe_group = "".join(
+            c if c.isalnum() or c in "-._" else "-"
+            for c in str(group)
+        ).strip("-").lower()
+
+        group_name = (
+            f"{project['package']}-{safe_group}-"
+            f"{project['resolution']}-{project['style']}.zip"
+        )
         group_path = PACKAGE_DIR / group_name
-        with zipfile.ZipFile(group_path, "w", zipfile.ZIP_DEFLATED, compresslevel=9) as zf:
+
+        with zipfile.ZipFile(
+            group_path,
+            "w",
+            zipfile.ZIP_DEFLATED,
+            compresslevel=9,
+        ) as zf:
             for filename in sorted(set(files)):
                 src = PICON_DIR / filename
                 if src.exists():
                     zf.write(src, arcname=filename)
+
         grouped_packages[str(group)] = {
             "package": f"packages/{group_name}",
             "count": len(set(files)),
@@ -363,33 +539,53 @@ def main() -> int:
             provider_defs.get(pid, {}).get("name", pid).lower(),
         ),
     ):
-        meta = provider_defs.get(provider_id, {
-            "id": provider_id,
-            "name": provider_id,
-            "description": "",
-            "countries": [],
-            "sort_order": 999,
-        })
+        meta = provider_defs.get(
+            provider_id,
+            {
+                "id": provider_id,
+                "name": provider_id,
+                "description": "",
+                "countries": [],
+                "sort_order": 999,
+            },
+        )
         channels = provider_channels.get(provider_id, [])
-        files = sorted({filename for channel in channels for filename in channel["files"]})
+        files = sorted(
+            {
+                filename
+                for channel in channels
+                for filename in channel["files"]
+            }
+        )
         group_info = grouped_packages.get(provider_id)
-        positions = sorted({
-            str(channel["satellite_position"])
-            for channel in channels
-            if channel.get("satellite_position")
-        })
+        positions = sorted(
+            {
+                str(channel["satellite_position"])
+                for channel in channels
+                if channel.get("satellite_position")
+            }
+        )
+        source_meta = provider_source_metadata.get(provider_id, {})
 
-        providers_payload["providers"].append({
-            "id": provider_id,
-            "name": meta["name"],
-            "description": meta["description"],
-            "countries": meta["countries"],
-            "positions": positions,
-            "channel_count": len(channels),
-            "picon_count": len(files),
-            "available": bool(group_info and files),
-            "package": group_info["package"] if group_info and files else None,
-        })
+        providers_payload["providers"].append(
+            {
+                "id": provider_id,
+                "name": meta["name"],
+                "description": meta["description"],
+                "countries": meta["countries"],
+                "positions": positions,
+                "channel_count": len(channels),
+                "picon_count": len(files),
+                "available": bool(group_info and files),
+                "package": (
+                    group_info["package"]
+                    if group_info and files
+                    else None
+                ),
+                "source_generated_at": source_meta.get("generated_at"),
+                "source_stats": source_meta.get("stats") or None,
+            }
+        )
 
     (PUBLIC / "providers.json").write_text(
         json.dumps(providers_payload, ensure_ascii=False, indent=2),
@@ -404,6 +600,7 @@ def main() -> int:
         "providers": "providers.json",
         "count": len(list(PICON_DIR.glob("*.png"))),
         "groups": grouped_packages,
+        "build_stats": index["build_stats"],
     }
 
     (PUBLIC / "version.json").write_text(
@@ -412,6 +609,12 @@ def main() -> int:
     )
 
     print(f"Built {version['count']} picons -> {PUBLIC}")
+    print(f"Channels rendered: {len(index['channels'])}/{len(source_channels)}")
+    if skipped_without_logo:
+        print(
+            f"Skipped channels without source logo: "
+            f"{len(skipped_without_logo)}"
+        )
     print(f"Package: {package_path}")
     return 0
 
