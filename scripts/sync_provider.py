@@ -25,6 +25,7 @@ USER_AGENT = "SatellitePiconsProviderSync/0.1 (+https://github.com/GrgoPitic/sat
 NAMESPACE_BY_POSITION = {
     "23.5E": "EB0000",
     "19.2E": "C00000",
+    "13E": "820000",
 }
 
 PICONS_REPO = "picons/picons"
