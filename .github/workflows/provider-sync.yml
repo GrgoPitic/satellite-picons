@@ -15,6 +15,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: provider-sync-${{ github.ref }}
@@ -32,6 +33,11 @@ jobs:
         with:
           python-version: '3.12'
           cache: pip
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libcairo2 libffi-dev librsvg2-bin
 
       - name: Install dependencies
         run: pip install -r requirements.txt
@@ -86,6 +92,26 @@ jobs:
               print(json.dumps(stats, indent=2))
           PY
 
+      - name: Validate complete build with synchronized data
+        run: |
+          python scripts/build.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          providers = json.loads(Path("public/providers.json").read_text())
+          by_id = {p["id"]: p for p in providers["providers"]}
+
+          for provider_id in ("skylink", "antik"):
+              provider = by_id[provider_id]
+              assert provider["available"], provider
+              assert provider["channel_count"] > 0, provider
+              assert provider["picon_count"] > 0, provider
+              package = Path("public") / provider["package"]
+              assert package.is_file(), package
+              print(provider_id, provider["channel_count"], provider["picon_count"], package)
+          PY
+
       - name: Commit synchronized catalogues
         if: github.event_name != 'pull_request'
         run: |
@@ -98,12 +124,21 @@ jobs:
 
           if git diff --cached --quiet; then
             echo "Provider data is already current."
+            echo "PROVIDER_DATA_CHANGED=false" >> "$GITHUB_ENV"
             exit 0
           fi
 
           git commit -m "data: synchronize provider catalogues"
           git pull --rebase origin "$BRANCH"
           git push origin "HEAD:$BRANCH"
+          echo "PROVIDER_DATA_CHANGED=true" >> "$GITHUB_ENV"
+
+      - name: Trigger package rebuild after data commit
+        if: env.PROVIDER_DATA_CHANGED == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh workflow run pages.yml --ref "${GITHUB_REF_NAME}"
 
       - name: Upload synchronized catalogues
         uses: actions/upload-artifact@v4
