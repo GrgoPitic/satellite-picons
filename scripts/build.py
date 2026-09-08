@@ -302,7 +302,11 @@ def merged_channels(cfg: dict) -> tuple[list[dict], dict[str, dict]]:
         ref = channel.get("service_reference")
         if not ref:
             continue
-        by_service[service_identity(ref)] = dict(channel)
+        key = service_identity(ref)
+        base = dict(by_service.get(key, {}))
+        base.update(channel)
+        base["_manual_override"] = True
+        by_service[key] = base
 
     rows = list(by_service.values())
     rows.sort(
