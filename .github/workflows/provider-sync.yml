@@ -13,6 +13,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: provider-sync-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   skylink:
     runs-on: ubuntu-latest
@@ -63,6 +67,7 @@ jobs:
             echo "Provider data is already current."
           else
             git commit -m "data: sync Skylink provider catalogue [skip ci]"
+            git pull --rebase origin feature/provider-picon-packs
             git push origin HEAD:feature/provider-picon-packs
           fi
 
