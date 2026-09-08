@@ -1,0 +1,62 @@
+name: Validate provider synchronization
+
+on:
+  push:
+    branches:
+      - feature/provider-picon-packs
+    paths:
+      - scripts/sync_provider.py
+      - providers.yml
+      - .github/workflows/provider-sync.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  skylink:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Synchronize full Skylink catalogue
+        run: |
+          python scripts/sync_provider.py skylink \
+            --delay 0.08 \
+            --min-coverage 70 \
+            --output provider-data/skylink.json
+
+      - name: Validate generated data
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          data = json.loads(Path("provider-data/skylink.json").read_text())
+          stats = data["stats"]
+
+          assert data["provider"] == "skylink"
+          assert stats["channels_parsed"] >= 50, stats
+          assert stats["logos_matched"] >= 40, stats
+          assert stats["errors"] <= 5, stats
+          assert stats["logo_coverage_percent"] >= 70, stats
+
+          print(json.dumps(stats, indent=2))
+          PY
+
+      - name: Upload synchronized catalogue
+        uses: actions/upload-artifact@v4
+        with:
+          name: skylink-provider-data
+          path: provider-data/skylink.json
+          if-no-files-found: error
+          retention-days: 7
