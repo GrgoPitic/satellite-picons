@@ -1,0 +1,16 @@
+schema: 1
+providers:
+  - id: skylink
+    name: Skylink
+    description: Kompletný balík piconov pre kanály platformy Skylink.
+    countries:
+      - SK
+      - CZ
+    sort_order: 10
+
+  - id: antik
+    name: ANTIK Sat
+    description: Balík piconov pre platformu ANTIK Sat. Sprístupní sa automaticky po doplnení service reference kanálov.
+    countries:
+      - SK
+    sort_order: 20
