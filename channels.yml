@@ -143,3 +143,17 @@ channels:
   background_cleanup: true
   satellite_position: 23.5E
   provider_group: skylink
+- id: markiza-krimi
+  name: Markiza Krimi
+  logo: assets/logos/markiza-krimi.png
+  service_reference: '1:0:19:339F:C9D:3:EB0000:0:0:0:'
+  variant_types:
+  - '1'
+  - '16'
+  - '19'
+  dark_to_white: true
+  optical_scale: 1.0
+  edge_cleanup: false
+  background_cleanup: true
+  satellite_position: 23.5E
+  provider_group: skylink
