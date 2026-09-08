@@ -1,10 +1,14 @@
 (async () => {
-  const [index, version] = await Promise.all([
+  const [index, version, providerCatalog] = await Promise.all([
     fetch('index.json').then(r => r.json()),
-    fetch('version.json').then(r => r.json())
+    fetch('version.json').then(r => r.json()),
+    fetch('providers.json')
+      .then(r => r.ok ? r.json() : { providers: [] })
+      .catch(() => ({ providers: [] }))
   ]);
 
   const grid = document.querySelector('#grid');
+  const providerGrid = document.querySelector('#providerGrid');
   const search = document.querySelector('#search');
   const filters = document.querySelector('#filters');
   const modal = document.querySelector('#logoModal');
@@ -21,14 +25,71 @@
   document.querySelector('#updated').textContent = new Date(index.generated_at).toLocaleDateString('sk-SK');
   document.querySelector('#package').href = version.package;
 
+  const providerById = new Map(
+    (providerCatalog.providers || []).map(provider => [provider.id, provider])
+  );
+
   let activeGroup = 'all';
 
+  function escapeHtml(s) {
+    return String(s ?? '').replace(/[&<>"']/g, m => ({
+      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+    }[m]));
+  }
+
+  function providerLabel(id) {
+    if (!id) return '';
+    return providerById.get(id)?.name || id;
+  }
+
   const groupLabel = c => {
-    if (c.provider_group === 'skylink') return 'Skylink';
-    if (c.provider_group) return c.provider_group;
+    if (c.provider_group) return providerLabel(c.provider_group);
     if (c.satellite_position) return c.satellite_position;
     return 'Ostatné';
   };
+
+  function renderProviders() {
+    const providers = providerCatalog.providers || [];
+
+    if (!providers.length) {
+      providerGrid.innerHTML = '<div class="provider-empty">Balíky podľa operátora zatiaľ nie sú dostupné.</div>';
+      return;
+    }
+
+    providerGrid.innerHTML = providers.map(provider => {
+      const meta = [
+        ...(provider.countries || []),
+        ...(provider.positions || [])
+      ].map(value => '<span>'+escapeHtml(value)+'</span>').join('');
+
+      const counts = provider.available
+        ? '<strong>'+escapeHtml(provider.channel_count)+'</strong> kanálov · <strong>'+escapeHtml(provider.picon_count)+'</strong> piconov'
+        : 'Balík sa sprístupní po doplnení kanálov';
+
+      const inner =
+        '<div class="provider-top">'+
+          '<div>'+
+            '<p class="provider-status '+(provider.available ? 'online' : 'pending')+'">'+
+              (provider.available ? 'DOSTUPNÉ' : 'PRIPRAVUJEME')+
+            '</p>'+
+            '<h3>'+escapeHtml(provider.name)+'</h3>'+
+          '</div>'+
+          '<span class="provider-arrow">'+(provider.available ? '↓' : '·')+'</span>'+
+        '</div>'+
+        '<p class="provider-description">'+escapeHtml(provider.description || '')+'</p>'+
+        '<div class="provider-meta">'+meta+'</div>'+
+        '<div class="provider-foot">'+
+          '<span>'+counts+'</span>'+
+          '<span class="provider-action">'+(provider.available ? 'Stiahnuť celý balík' : 'Zatiaľ nedostupné')+'</span>'+
+        '</div>';
+
+      if (provider.available && provider.package) {
+        return '<a class="provider-card available" href="'+escapeHtml(provider.package)+'" download>'+inner+'</a>';
+      }
+
+      return '<article class="provider-card unavailable" aria-disabled="true">'+inner+'</article>';
+    }).join('');
+  }
 
   const groups = [...new Set(index.channels.map(groupLabel))].sort((a,b) => a.localeCompare(b, 'sk'));
 
@@ -50,12 +111,6 @@
 
   function primaryFile(c) {
     return c.files.find(f => f.startsWith('1_0_19_')) || c.files[0];
-  }
-
-  function escapeHtml(s) {
-    return String(s ?? '').replace(/[&<>"']/g, m => ({
-      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
-    }[m]));
   }
 
   function openModal(c) {
@@ -93,9 +148,9 @@
       return;
     }
 
-    grid.innerHTML = rows.map((c, i) => {
+    grid.innerHTML = rows.map(c => {
       const primary = primaryFile(c);
-      return '<article class="card" data-index="'+i+'" tabindex="0" role="button" aria-label="Otvoriť náhľad '+escapeHtml(c.name)+'">'+
+      return '<article class="card" tabindex="0" role="button" aria-label="Otvoriť náhľad '+escapeHtml(c.name)+'">'+
         '<div class="preview"><img src="picons/'+encodeURIComponent(primary)+'" alt="'+escapeHtml(c.name)+'" loading="lazy"></div>'+
         '<div class="meta"><h2>'+escapeHtml(c.name)+'</h2><div class="card-sub">'+escapeHtml(groupLabel(c))+(c.satellite_position?' • '+escapeHtml(c.satellite_position):'')+'</div></div>'+
       '</article>';
@@ -120,6 +175,7 @@
     if (e.key === 'Escape' && !modal.hidden) closeModal();
   });
 
+  renderProviders();
   renderFilters();
   render();
 })();
