@@ -2,12 +2,12 @@
   "schema": 1,
   "provider": "skylink",
   "provider_name": "Skylink",
-  "generated_at": "2026-09-08T18:27:58.402402+00:00",
+  "generated_at": "2026-09-09T08:13:27.330062+00:00",
   "source": {
     "operator_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/",
     "operator": "SatelitnaTV.sk",
     "logo_repository": "picons/picons",
-    "logo_revision": "5e8a110632f4873080a681ed4561ea9826a09a04"
+    "logo_revision": "a78dfa5322fd085e236a1008d74b330efdf1e9a2"
   },
   "stats": {
     "detail_links": 309,
