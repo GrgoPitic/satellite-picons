@@ -2,12 +2,12 @@
   "schema": 1,
   "provider": "skylink",
   "provider_name": "Skylink",
-  "generated_at": "2026-09-09T08:13:27.330062+00:00",
+  "generated_at": "2026-09-10T08:12:57.298843+00:00",
   "source": {
     "operator_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/",
     "operator": "SatelitnaTV.sk",
     "logo_repository": "picons/picons",
-    "logo_revision": "a78dfa5322fd085e236a1008d74b330efdf1e9a2"
+    "logo_revision": "1f0e4a369c858b17d769a00b06bbc582912e6e79"
   },
   "stats": {
     "detail_links": 309,
@@ -28,7 +28,7 @@
       "fastscan": 1,
       "frequency_mhz": 12012,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/jednotka-hd-321615420/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "stvrjednotka",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/stvrjednotka.default.svg",
       "logo_source": "picons/picons"
@@ -42,7 +42,7 @@
       "fastscan": 2,
       "frequency_mhz": 12012,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/dvojka-hd-321615421/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "stvrdvojka",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/stvrdvojka.default.svg",
       "logo_source": "picons/picons"
@@ -56,7 +56,7 @@
       "fastscan": 3,
       "frequency_mhz": 11973,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/markiza-hd-321414129/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "markiza",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/markiza.default.svg",
       "logo_source": "picons/picons"
@@ -70,7 +70,7 @@
       "fastscan": 4,
       "frequency_mhz": 12266,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/tv-joj-hd-322913208/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "jojtv",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/jojtv.default.svg",
       "logo_source": "picons/picons"
@@ -84,7 +84,7 @@
       "fastscan": 5,
       "frequency_mhz": 11973,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/canal-action-321414134/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "canalplusaction",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/canalplusaction.default.svg",
       "logo_source": "picons/picons"
@@ -98,7 +98,7 @@
       "fastscan": 6,
       "frequency_mhz": 11973,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/canal-sport-sk-321414132/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "canalplussporthd-lichoridas",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/canalplussporthd-lichoridas.default.svg",
       "logo_source": "picons/picons"
@@ -112,7 +112,7 @@
       "fastscan": 7,
       "frequency_mhz": 12012,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/canal-sport-2-sk-321615416/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "canalplussport2hd",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/canalplussport2hd.default.svg",
       "logo_source": "picons/picons"
@@ -126,7 +126,7 @@
       "fastscan": 8,
       "frequency_mhz": 11934,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/filmbox-one-sk-321214066/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "filmboxplusone",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/filmboxplusone.default.svg",
       "logo_source": "picons/picons"
@@ -140,7 +140,7 @@
       "fastscan": 9,
       "frequency_mhz": 12110,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/filmbox-love-and-crime-322115609/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "filmboxplusloveandcrime",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/filmboxplusloveandcrime.default.svg",
       "logo_source": "picons/picons"
@@ -154,7 +154,7 @@
       "fastscan": 11,
       "frequency_mhz": 12012,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/rtvs-24-hd-321615422/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "stvr24",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/stvr24.default.svg",
       "logo_source": "picons/picons"
@@ -168,7 +168,7 @@
       "fastscan": 12,
       "frequency_mhz": 12012,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/rtvs-sport-hd-321615423/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "stvrsport",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/stvrsport.default.svg",
       "logo_source": "picons/picons"
@@ -182,7 +182,7 @@
       "fastscan": 13,
       "frequency_mhz": 11973,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/doma-hd-321414130/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "markizadoma",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/markizadoma.default.svg",
       "logo_source": "picons/picons"
@@ -196,7 +196,7 @@
       "fastscan": 14,
       "frequency_mhz": 12266,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/dajto-hd-322913207/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "markizadajto",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/markizadajto.default.svg",
       "logo_source": "picons/picons"
@@ -210,7 +210,7 @@
       "fastscan": 15,
       "frequency_mhz": 12266,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/markiza-krimi-hd-322913215/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "markizakrimi",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/markizakrimi.default.svg",
       "logo_source": "picons/picons"
@@ -224,7 +224,7 @@
       "fastscan": 16,
       "frequency_mhz": 12012,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/markiza-klasik-321615403/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "markizaklasik",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/markizaklasik.default.svg",
       "logo_source": "picons/picons"
@@ -238,7 +238,7 @@
       "fastscan": 17,
       "frequency_mhz": 12266,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/joj-plus-hd-322913209/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "jojplus",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/jojplus.default.svg",
       "logo_source": "picons/picons"
@@ -252,7 +252,7 @@
       "fastscan": 18,
       "frequency_mhz": 12070,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/joj-krimi-321913135/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "jojkrimi",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/jojkrimi.default.svg",
       "logo_source": "picons/picons"
@@ -266,7 +266,7 @@
       "fastscan": 19,
       "frequency_mhz": 12266,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/joj-24-hd-322913216/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "joj24",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/joj24.default.svg",
       "logo_source": "picons/picons"
@@ -280,7 +280,7 @@
       "fastscan": 20,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/ta3-hd-32344904/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "ta3",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ta3.default.svg",
       "logo_source": "picons/picons"
@@ -294,7 +294,7 @@
       "fastscan": 21,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/tv-lux-hd-32338014/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "lux",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/lux.default.svg",
       "logo_source": "picons/picons"
@@ -308,7 +308,7 @@
       "fastscan": 22,
       "frequency_mhz": 11934,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/spektrum-home-321214070/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "spektrumhome",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/spektrumhome.default.svg",
       "logo_source": "picons/picons"
@@ -322,7 +322,7 @@
       "fastscan": 23,
       "frequency_mhz": 12012,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/filmbox-emotion-hd-321615406/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "filmboxplusemotion",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/filmboxplusemotion.default.svg",
       "logo_source": "picons/picons"
@@ -336,7 +336,7 @@
       "fastscan": 24,
       "frequency_mhz": 12110,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/filmbox-hits-hd-322115605/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "filmboxplushits",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/filmboxplushits.default.svg",
       "logo_source": "picons/picons"
@@ -350,7 +350,7 @@
       "fastscan": 25,
       "frequency_mhz": 12012,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/filmbox-comedy-321615412/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "filmboxpluscomedy",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/filmboxpluscomedy.default.svg",
       "logo_source": "picons/picons"
@@ -364,7 +364,7 @@
       "fastscan": 26,
       "frequency_mhz": 12070,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/joj-cinema-hd-321913145/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "jojcinemahd",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/jojcinemahd.default.svg",
       "logo_source": "picons/picons"
@@ -378,7 +378,7 @@
       "fastscan": 27,
       "frequency_mhz": 11934,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cs-film-cs-horror-321214058/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "csfilm",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/csfilm.default.svg",
       "logo_source": "picons/picons"
@@ -392,7 +392,7 @@
       "fastscan": 28,
       "frequency_mhz": 11934,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/viasat-epic-drama-hd-321214080/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "epicdrama",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/epicdrama.default.svg",
       "logo_source": "picons/picons"
@@ -406,7 +406,7 @@
       "fastscan": 29,
       "frequency_mhz": 11934,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/film-sk-321214072/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "filmplus",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/filmplus.default.svg",
       "logo_source": "picons/picons"
@@ -420,7 +420,7 @@
       "fastscan": 30,
       "frequency_mhz": 12110,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/film-europe-hd-322115607/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "filmeuropeplus",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/filmeuropeplus.default.svg",
       "logo_source": "picons/picons"
@@ -434,7 +434,7 @@
       "fastscan": 31,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/axn-cz-32200789/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "axn",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/axn.default.svg",
       "logo_source": "picons/picons"
@@ -448,7 +448,7 @@
       "fastscan": 32,
       "frequency_mhz": 12110,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/axn-black-central-europe-322115616/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "axnblack",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/axnblack.default.svg",
       "logo_source": "picons/picons"
@@ -462,7 +462,7 @@
       "fastscan": 33,
       "frequency_mhz": 12110,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/axn-white-central-europe-322115617/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "axnwhite",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/axnwhite.default.svg",
       "logo_source": "picons/picons"
@@ -476,7 +476,7 @@
       "fastscan": 34,
       "frequency_mhz": 11973,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/amc-sk-321414123/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "amc",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/amc.default.svg",
       "logo_source": "picons/picons"
@@ -490,7 +490,7 @@
       "fastscan": 35,
       "frequency_mhz": 12012,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/film-europe-hd-321615405/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "filmeuropehd",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/filmeuropehd.default.svg",
       "logo_source": "picons/picons"
@@ -504,21 +504,21 @@
       "fastscan": 37,
       "frequency_mhz": 12110,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/film-hd-322115602/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "filmplus",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/filmplus.default.svg",
       "logo_source": "picons/picons"
     },
     {
       "id": "story4",
-      "name": "STORY4",
+      "name": "Story4",
       "provider_group": "skylink",
       "service_reference": "1:0:19:3CF8:C95:3:EB0000:0:0:0:",
       "satellite_position": "23.5E",
       "fastscan": 38,
       "frequency_mhz": 12110,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/story4-322115608/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "story4",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/story4.default.svg",
       "logo_source": "picons/picons"
@@ -532,7 +532,7 @@
       "fastscan": 40,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/ct-1-pha-hd-32338001/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "ct1hd",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ct1hd.default.svg",
       "logo_source": "picons/picons"
@@ -546,7 +546,7 @@
       "fastscan": 41,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/ct-2-hd-32338002/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "ct2hd",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ct2hd.default.svg",
       "logo_source": "picons/picons"
@@ -560,7 +560,7 @@
       "fastscan": 42,
       "frequency_mhz": 12266,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/nova-international-322913211/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "novainternational",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/novainternational.default.svg",
       "logo_source": "picons/picons"
@@ -574,7 +574,7 @@
       "fastscan": 43,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/prima-sk-32338009/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "primask",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/primask.default.svg",
       "logo_source": "picons/picons"
@@ -588,7 +588,7 @@
       "fastscan": 44,
       "frequency_mhz": 11934,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cnn-prima-news-hd-321214079/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "cnnprimanews",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/cnnprimanews.default.svg",
       "logo_source": "picons/picons"
@@ -602,7 +602,7 @@
       "fastscan": 45,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/ct-24-hd-32338003/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "ct24hd",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ct24hd.default.svg",
       "logo_source": "picons/picons"
@@ -616,7 +616,7 @@
       "fastscan": 47,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/ct-d-art-hd-32338005/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "ctd_ctart",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ctd_ctart.default.svg",
       "logo_source": "picons/picons"
@@ -630,7 +630,7 @@
       "fastscan": 49,
       "frequency_mhz": 11973,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/prima-cool-hd-sk-321414117/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "primacoolskhd",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/primacoolskhd.default.svg",
       "logo_source": "picons/picons"
@@ -644,7 +644,7 @@
       "fastscan": 51,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/prima-krimi-sk-hd-32200776/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "primakrimisk",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/primakrimisk.default.svg",
       "logo_source": "picons/picons"
@@ -658,7 +658,7 @@
       "fastscan": 52,
       "frequency_mhz": 11973,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/prima-love-hd-sk-321414118/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "primaloveskhd",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/primaloveskhd.default.svg",
       "logo_source": "picons/picons"
@@ -672,7 +672,7 @@
       "fastscan": 55,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/tv-barrandov-32200796/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "tvbarrandovhd",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/tvbarrandovhd.default.svg",
       "logo_source": "picons/picons"
@@ -686,7 +686,7 @@
       "fastscan": 56,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/kino-barrandov-32200797/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "kinobarrandov",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/kinobarrandov.default.svg",
       "logo_source": "picons/picons"
@@ -700,7 +700,7 @@
       "fastscan": 57,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/barrandov-krimi-32200798/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "barrandovkrimi",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/barrandovkrimi.default.svg",
       "logo_source": "picons/picons"
@@ -714,7 +714,7 @@
       "fastscan": 60,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/hbo-hd-32200775/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "hbo",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/hbo.default.svg",
       "logo_source": "picons/picons"
@@ -728,7 +728,7 @@
       "fastscan": 61,
       "frequency_mhz": 12110,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/hbo2-hd-322115603/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "hbo2",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/hbo2.default.svg",
       "logo_source": "picons/picons"
@@ -742,7 +742,7 @@
       "fastscan": 62,
       "frequency_mhz": 12110,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/hbo3-hd-322115604/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "hbo3",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/hbo3.default.svg",
       "logo_source": "picons/picons"
@@ -756,7 +756,7 @@
       "fastscan": 63,
       "frequency_mhz": 12012,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cinemax-hd-321615404/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "cinemaxhd",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/cinemaxhd.default.svg",
       "logo_source": "picons/picons"
@@ -770,7 +770,7 @@
       "fastscan": 64,
       "frequency_mhz": 12110,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cinemax2-hd-322115606/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "cinemax2",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/cinemax2.default.svg",
       "logo_source": "picons/picons"
@@ -784,7 +784,7 @@
       "fastscan": 70,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/nat-geo-hd-cz-32200771/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "nationalgeographic",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/nationalgeographic.default.svg",
       "logo_source": "picons/picons"
@@ -798,7 +798,7 @@
       "fastscan": 71,
       "frequency_mhz": 12110,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/viasat-nature-hd-322115601/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "viasatnaturehd",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/viasatnaturehd.default.svg",
       "logo_source": "picons/picons"
@@ -812,7 +812,7 @@
       "fastscan": 72,
       "frequency_mhz": 12110,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/viasat-history-hd-322115600/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "viasathistoryhd",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/viasathistoryhd.default.svg",
       "logo_source": "picons/picons"
@@ -826,7 +826,7 @@
       "fastscan": 73,
       "frequency_mhz": 12012,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/viasat-explore-321615407/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "viasatexplore",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/viasatexplore.default.svg",
       "logo_source": "picons/picons"
@@ -840,7 +840,7 @@
       "fastscan": 74,
       "frequency_mhz": 11934,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/viasat-true-crime-321214067/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "viasattruecrime",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/viasattruecrime.default.svg",
       "logo_source": "picons/picons"
@@ -854,7 +854,7 @@
       "fastscan": 75,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/joj-svet-sk-32338015/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "jojsvet",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/jojsvet.default.svg",
       "logo_source": "picons/picons"
@@ -868,7 +868,7 @@
       "fastscan": 76,
       "frequency_mhz": 12070,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cs-mystery-321913133/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "csmystery",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/csmystery.default.svg",
       "logo_source": "picons/picons"
@@ -882,7 +882,7 @@
       "fastscan": 77,
       "frequency_mhz": 12070,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cs-history-321913146/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "cshistory",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/cshistory.default.svg",
       "logo_source": "picons/picons"
@@ -896,7 +896,7 @@
       "fastscan": 79,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/fishing-and-hunting-32200788/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "fishingandhunting",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/fishingandhunting.default.svg",
       "logo_source": "picons/picons"
@@ -910,7 +910,7 @@
       "fastscan": 80,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/national-geographic-wild-hd-cz-32200773/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "nationalgeographicwild",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/nationalgeographicwild.default.svg",
       "logo_source": "picons/picons"
@@ -924,7 +924,7 @@
       "fastscan": 81,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/spektrum-hd-32200784/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "spektrum",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/spektrum.default.svg",
       "logo_source": "picons/picons"
@@ -938,7 +938,7 @@
       "fastscan": 82,
       "frequency_mhz": 12110,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/history-hd-322115615/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "history",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/history.default.svg",
       "logo_source": "picons/picons"
@@ -952,7 +952,7 @@
       "fastscan": 83,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/love-nature-hd-cz-32200783/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "lovenature",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/lovenature.default.svg",
       "logo_source": "picons/picons"
@@ -966,7 +966,7 @@
       "fastscan": 85,
       "frequency_mhz": 12129,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/docubox-322221271/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "docubox",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/docubox.default.svg",
       "logo_source": "picons/picons"
@@ -980,7 +980,7 @@
       "fastscan": 86,
       "frequency_mhz": 11856,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/nautical-hd-32087165/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "nauticalchannel",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/nauticalchannel.default.svg",
       "logo_source": "picons/picons"
@@ -994,7 +994,7 @@
       "fastscan": 91,
       "frequency_mhz": 11934,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/tv-paprika-321214078/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "tvpaprika",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/tvpaprika.default.svg",
       "logo_source": "picons/picons"
@@ -1008,7 +1008,7 @@
       "fastscan": 93,
       "frequency_mhz": 12515,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/inplus-11054106/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "inplus",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/inplus.default.png",
       "logo_source": "picons/picons"
@@ -1022,7 +1022,7 @@
       "fastscan": 94,
       "frequency_mhz": 12129,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/tv8-322221272/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "televiziaosem",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/televiziaosem.default.svg",
       "logo_source": "picons/picons"
@@ -1036,7 +1036,7 @@
       "fastscan": 99,
       "frequency_mhz": 12266,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/joj-sport-hd-322913214/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "jojsport",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/jojsport.default.svg",
       "logo_source": "picons/picons"
@@ -1050,7 +1050,7 @@
       "fastscan": 100,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/joj-sport-2-hd-32200780/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "jojsport2",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/jojsport2.default.svg",
       "logo_source": "picons/picons"
@@ -1064,7 +1064,7 @@
       "fastscan": 101,
       "frequency_mhz": 12266,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/nova-sport-1-hd-322913203/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "novasport1hd",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/novasport1hd.default.svg",
       "logo_source": "picons/picons"
@@ -1078,7 +1078,7 @@
       "fastscan": 102,
       "frequency_mhz": 11973,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/nova-sport-2-hd-321414110/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "novasport2hd",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/novasport2hd.default.svg",
       "logo_source": "picons/picons"
@@ -1092,7 +1092,7 @@
       "fastscan": 103,
       "frequency_mhz": 11934,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/nova-sport-3-hd-321214054/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "novasport3hd",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/novasport3hd.default.svg",
       "logo_source": "picons/picons"
@@ -1106,7 +1106,7 @@
       "fastscan": 104,
       "frequency_mhz": 11934,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/nova-sport-4-hd-321214055/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "novasport4hd",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/novasport4hd.default.svg",
       "logo_source": "picons/picons"
@@ -1120,7 +1120,7 @@
       "fastscan": 105,
       "frequency_mhz": 12129,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/nova-sport-5-hd-sk-322221270/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "novasport5skhd",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/novasport5skhd.default.svg",
       "logo_source": "picons/picons"
@@ -1134,7 +1134,7 @@
       "fastscan": 106,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/nova-sport-6-hd-32200786/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "novasport6",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/novasport6.default.svg",
       "logo_source": "picons/picons"
@@ -1148,7 +1148,7 @@
       "fastscan": 107,
       "frequency_mhz": 12070,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/sport-1-sk-hd-321913131/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "sport1",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/sport1.default.svg",
       "logo_source": "picons/picons"
@@ -1162,7 +1162,7 @@
       "fastscan": 108,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/sport-2-hd-32200792/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "sport2",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/sport2.default.svg",
       "logo_source": "picons/picons"
@@ -1176,7 +1176,7 @@
       "fastscan": 109,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/golf-channel-32200785/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "golf",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/golf.default.svg",
       "logo_source": "picons/picons"
@@ -1190,7 +1190,7 @@
       "fastscan": 110,
       "frequency_mhz": 12012,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/kanal1-sport-321615401/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "kanal1sport",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/kanal1sport.default.svg",
       "logo_source": "picons/picons"
@@ -1204,7 +1204,7 @@
       "fastscan": 111,
       "frequency_mhz": 11973,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/kanal1-xtra-321414116/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "kanal1xtra",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/kanal1xtra.default.png",
       "logo_source": "picons/picons"
@@ -1218,7 +1218,7 @@
       "fastscan": 112,
       "frequency_mhz": 11739,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/automotorsport-hd-32026096/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "automotorsporthd",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/automotorsporthd.default.svg",
       "logo_source": "picons/picons"
@@ -1232,7 +1232,7 @@
       "fastscan": 119,
       "frequency_mhz": 11739,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/fightbox-32026122/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "fightbox",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/fightbox.default.svg",
       "logo_source": "picons/picons"
@@ -1246,7 +1246,7 @@
       "fastscan": 120,
       "frequency_mhz": 12266,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/jojko-322913210/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "jojko",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/jojko.default.png",
       "logo_source": "picons/picons"
@@ -1260,7 +1260,7 @@
       "fastscan": 121,
       "frequency_mhz": 12012,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/jimjam-cz-321615415/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "jimjam",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/jimjam.default.svg",
       "logo_source": "picons/picons"
@@ -1274,7 +1274,7 @@
       "fastscan": 122,
       "frequency_mhz": 12110,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/minimax-322115611/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "minimax",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/minimax.default.png",
       "logo_source": "picons/picons"
@@ -1288,7 +1288,7 @@
       "fastscan": 127,
       "frequency_mhz": 12012,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/lala-tv-321615402/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "lalatv",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/lalatv.default.svg",
       "logo_source": "picons/picons"
@@ -1302,7 +1302,7 @@
       "fastscan": 128,
       "frequency_mhz": 11934,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/disney-cz-321214076/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "disneychannel-phudothusi",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/disneychannel-phudothusi.default.svg",
       "logo_source": "picons/picons"
@@ -1316,7 +1316,7 @@
       "fastscan": 129,
       "frequency_mhz": 11934,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cartoon-network-cz-321214069/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "cartoonnetwork",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/cartoonnetwork.default.svg",
       "logo_source": "picons/picons"
@@ -1330,7 +1330,7 @@
       "fastscan": 130,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cartoonito-32200779/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "cartoonito",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/cartoonito.default.svg",
       "logo_source": "picons/picons"
@@ -1344,7 +1344,7 @@
       "fastscan": 140,
       "frequency_mhz": 12012,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/retro-music-tv-321615418/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "retromusictv",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/retromusictv.default.svg",
       "logo_source": "picons/picons"
@@ -1358,7 +1358,7 @@
       "fastscan": 141,
       "frequency_mhz": 12070,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/slager-original-321913134/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "slagr1original",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/slagr1original.default.svg",
       "logo_source": "picons/picons"
@@ -1372,7 +1372,7 @@
       "fastscan": 142,
       "frequency_mhz": 12266,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/slager-muzika-322913213/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "slagr2muzika",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/slagr2muzika.default.svg",
       "logo_source": "picons/picons"
@@ -1386,7 +1386,7 @@
       "fastscan": 143,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/premium-32200778/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "slagrpremium",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/slagrpremium.default.png",
       "logo_source": "picons/picons"
@@ -1400,7 +1400,7 @@
       "fastscan": 144,
       "frequency_mhz": 11934,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/senzi-321214065/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "senzi",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/senzi.default.png",
       "logo_source": "picons/picons"
@@ -1414,7 +1414,7 @@
       "fastscan": 148,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/ocko-star-32200777/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "ockostar",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ockostar.default.svg",
       "logo_source": "picons/picons"
@@ -1428,7 +1428,7 @@
       "fastscan": 154,
       "frequency_mhz": 11739,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/mezzo-32026166/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "mezzo",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/mezzo.default.svg",
       "logo_source": "picons/picons"
@@ -1442,7 +1442,7 @@
       "fastscan": 166,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/daystar-32200781/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "daystartv",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/daystartv.default.png",
       "logo_source": "picons/picons"
@@ -1456,7 +1456,7 @@
       "fastscan": 200,
       "frequency_mhz": 11739,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/m1-32026117/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "m1",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/m1.default.svg",
       "logo_source": "picons/picons"
@@ -1470,7 +1470,7 @@
       "fastscan": 201,
       "frequency_mhz": 11739,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/m2-petofi-32026118/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "m2",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/m2.default.svg",
       "logo_source": "picons/picons"
@@ -1484,7 +1484,7 @@
       "fastscan": 202,
       "frequency_mhz": 11739,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/m4-32026119/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "m4sport",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/m4sport.default.svg",
       "logo_source": "picons/picons"
@@ -1498,7 +1498,7 @@
       "fastscan": 203,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/m5-32338017/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "m5",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/m5.default.svg",
       "logo_source": "picons/picons"
@@ -1512,7 +1512,7 @@
       "fastscan": 204,
       "frequency_mhz": 11856,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/duna-sd-32087190/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "duna",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/duna.default.svg",
       "logo_source": "picons/picons"
@@ -1526,7 +1526,7 @@
       "fastscan": 205,
       "frequency_mhz": 11856,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/duna-world-m4-sport-32087184/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "dunaworld_m4sportplus",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/dunaworld_m4sportplus.default.svg",
       "logo_source": "picons/picons"
@@ -1540,7 +1540,7 @@
       "fastscan": 206,
       "frequency_mhz": 11739,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/hirtv-32026115/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "hirtv",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/hirtv.default.svg",
       "logo_source": "picons/picons"
@@ -1554,7 +1554,7 @@
       "fastscan": 207,
       "frequency_mhz": 12129,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/rtl-gold-322221268/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "rtlgold",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/rtlgold.default.svg",
       "logo_source": "picons/picons"
@@ -1568,7 +1568,7 @@
       "fastscan": 208,
       "frequency_mhz": 11739,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/rtl-32026120/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "rtl",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/rtl.default.svg",
       "logo_source": "picons/picons"
@@ -1582,7 +1582,7 @@
       "fastscan": 209,
       "frequency_mhz": 12188,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/rtl-ketto-322521152/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "rtlketto",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/rtlketto.default.svg",
       "logo_source": "picons/picons"
@@ -1596,7 +1596,7 @@
       "fastscan": 210,
       "frequency_mhz": 12188,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/rtl-harom-322521151/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "rtlharom",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/rtlharom.default.svg",
       "logo_source": "picons/picons"
@@ -1610,7 +1610,7 @@
       "fastscan": 211,
       "frequency_mhz": 11739,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/tv2-32026121/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "tv2-wapadedrud",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/tv2-wapadedrud.default.svg",
       "logo_source": "picons/picons"
@@ -1624,21 +1624,21 @@
       "fastscan": 212,
       "frequency_mhz": 11973,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/supertv2-321414126/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "supertv2",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/supertv2.default.svg",
       "logo_source": "picons/picons"
     },
     {
       "id": "story4-hu",
-      "name": "STORY4 HU",
+      "name": "Story4 HU",
       "provider_group": "skylink",
       "service_reference": "1:0:19:1F50:CA1:3:EB0000:0:0:0:",
       "satellite_position": "23.5E",
       "fastscan": 214,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/story4-hu-32338016/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "story4",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/story4.default.svg",
       "logo_source": "picons/picons"
@@ -1652,7 +1652,7 @@
       "fastscan": 215,
       "frequency_mhz": 11856,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cool-32087191/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "cool-wapadedrud",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/cool-wapadedrud.default.svg",
       "logo_source": "picons/picons"
@@ -1666,7 +1666,7 @@
       "fastscan": 217,
       "frequency_mhz": 12188,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/sorozat-322521153/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "sorozatplusz",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/sorozatplusz.default.svg",
       "logo_source": "picons/picons"
@@ -1680,7 +1680,7 @@
       "fastscan": 222,
       "frequency_mhz": 11856,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/film-hungary-32087189/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "filmplus-velirajeha",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/filmplus-velirajeha.default.svg",
       "logo_source": "picons/picons"
@@ -1694,7 +1694,7 @@
       "fastscan": 223,
       "frequency_mhz": 11973,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/galaxy4-321414111/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "galaxy4",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/galaxy4.default.svg",
       "logo_source": "picons/picons"
@@ -1708,7 +1708,7 @@
       "fastscan": 225,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/fem3-32200793/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "fem3",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/fem3.default.svg",
       "logo_source": "picons/picons"
@@ -1722,7 +1722,7 @@
       "fastscan": 226,
       "frequency_mhz": 12129,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/tv2-sef-322221269/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "tv2sef",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/tv2sef.default.svg",
       "logo_source": "picons/picons"
@@ -1736,7 +1736,7 @@
       "fastscan": 229,
       "frequency_mhz": 12129,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/slager-tv-322221237/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "slagertv",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/slagertv.default.svg",
       "logo_source": "picons/picons"
@@ -1750,7 +1750,7 @@
       "fastscan": 230,
       "frequency_mhz": 12129,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/muzsika-tv-322221235/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "muzsikatv",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/muzsikatv.default.svg",
       "logo_source": "picons/picons"
@@ -1764,7 +1764,7 @@
       "fastscan": 235,
       "frequency_mhz": 11538,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/france-24-in-english-10226906/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "france24",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/france24.default.svg",
       "logo_source": "picons/picons"
@@ -1778,7 +1778,7 @@
       "fastscan": 300,
       "frequency_mhz": 12110,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/leo-tv-22-06-322115612/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "leotv",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/leotv.default.svg",
       "logo_source": "picons/picons"
@@ -1792,7 +1792,7 @@
       "fastscan": 302,
       "frequency_mhz": 11739,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/vixen-hd-32026114/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "vixen",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/vixen.default.svg",
       "logo_source": "picons/picons"
@@ -1806,7 +1806,7 @@
       "fastscan": 303,
       "frequency_mhz": 11856,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/penthouse-gold-cz-32087180/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "penthousegold",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/penthousegold.default.svg",
       "logo_source": "picons/picons"
@@ -1820,7 +1820,7 @@
       "fastscan": 308,
       "frequency_mhz": 12515,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/hustler-tv-cz-11054109/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "hustlertv",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/hustlertv.default.svg",
       "logo_source": "picons/picons"
@@ -1834,7 +1834,7 @@
       "fastscan": 309,
       "frequency_mhz": 11856,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/penthouse-reality-tv-cz-32087181/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "penthouserealitytvbangbros",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/penthouserealitytvbangbros.default.png",
       "logo_source": "picons/picons"
@@ -1848,7 +1848,7 @@
       "fastscan": 310,
       "frequency_mhz": 12129,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/man-x-322221124/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "manx",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/manx.default.svg",
       "logo_source": "picons/picons"
@@ -1862,7 +1862,7 @@
       "fastscan": 400,
       "frequency_mhz": 12187,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/rtlzwei-108912020/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "rtlzwei",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/rtlzwei.default.svg",
       "logo_source": "picons/picons"
@@ -1876,7 +1876,7 @@
       "fastscan": 401,
       "frequency_mhz": 12226,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/rtl-austria-109128800/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "rtl",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/rtl.default.svg",
       "logo_source": "picons/picons"
@@ -1890,7 +1890,7 @@
       "fastscan": 402,
       "frequency_mhz": 12187,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/super-rtl-108912040/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "rtlsuper",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/rtlsuper.default.svg",
       "logo_source": "picons/picons"
@@ -1904,7 +1904,7 @@
       "fastscan": 403,
       "frequency_mhz": 12544,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/sat-1-110717500/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "sat1",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/sat1.default.png",
       "logo_source": "picons/picons"
@@ -1918,7 +1918,7 @@
       "fastscan": 404,
       "frequency_mhz": 11671,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/sat-1-gold-osterreich-10315310/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "sat1gold",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/sat1gold.default.svg",
       "logo_source": "picons/picons"
@@ -1932,7 +1932,7 @@
       "fastscan": 405,
       "frequency_mhz": 12544,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/prosieben-110717501/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "prosieben",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/prosieben.default.svg",
       "logo_source": "picons/picons"
@@ -1946,7 +1946,7 @@
       "fastscan": 406,
       "frequency_mhz": 11671,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/pro7-maxx-austria-10315311/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "prosiebenmaxx",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/prosiebenmaxx.default.svg",
       "logo_source": "picons/picons"
@@ -1960,7 +1960,7 @@
       "fastscan": 407,
       "frequency_mhz": 12544,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/kabel-eins-110717502/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "kabeleins",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/kabeleins.default.svg",
       "logo_source": "picons/picons"
@@ -1974,7 +1974,7 @@
       "fastscan": 408,
       "frequency_mhz": 12187,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/vox-108912060/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "vox",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/vox.default.svg",
       "logo_source": "picons/picons"
@@ -1988,7 +1988,7 @@
       "fastscan": 409,
       "frequency_mhz": 11494,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/das-erste-hd-101910301/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "daserstehd",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/daserstehd.default.svg",
       "logo_source": "picons/picons"
@@ -2002,7 +2002,7 @@
       "fastscan": 410,
       "frequency_mhz": 11362,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/zdf-hd-101111110/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "zdf",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/zdf.default.svg",
       "logo_source": "picons/picons"
@@ -2016,7 +2016,7 @@
       "fastscan": 411,
       "frequency_mhz": 12480,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/sport1-00330900/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "sport1-wispelutri",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/sport1-wispelutri.default.svg",
       "logo_source": "picons/picons"
@@ -2030,7 +2030,7 @@
       "fastscan": 412,
       "frequency_mhz": 12226,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/eurosport-1-deutschland-109131200/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "eurosport1",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/eurosport1.default.svg",
       "logo_source": "picons/picons"
@@ -2044,7 +2044,7 @@
       "fastscan": 413,
       "frequency_mhz": 11273,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/orf-2-europe-hd-100513310/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "orf2",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/orf2.default.svg",
       "logo_source": "picons/picons"
@@ -2058,7 +2058,7 @@
       "fastscan": 414,
       "frequency_mhz": 12460,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/disney-channel-00051793/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "disneychannel",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/disneychannel.default.svg",
       "logo_source": "picons/picons"
@@ -2072,7 +2072,7 @@
       "fastscan": 415,
       "frequency_mhz": 10773,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/anixehd-serie-105321100/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "anixehdserie",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/anixehdserie.default.svg",
       "logo_source": "picons/picons"
@@ -2086,7 +2086,7 @@
       "fastscan": 416,
       "frequency_mhz": 12544,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/kabel-eins-doku-110717509/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "kabeleinsdoku",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/kabeleinsdoku.default.svg",
       "logo_source": "picons/picons"
@@ -2100,7 +2100,7 @@
       "fastscan": 417,
       "frequency_mhz": 11303,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/df1-hd-10074914/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "df1hd",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/df1hd.default.svg",
       "logo_source": "picons/picons"
@@ -2114,7 +2114,7 @@
       "fastscan": 418,
       "frequency_mhz": 11494,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/swr-bw-hd-101910303/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "swrfernsehen",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/swrfernsehen.default.svg",
       "logo_source": "picons/picons"
@@ -2128,7 +2128,7 @@
       "fastscan": 419,
       "frequency_mhz": 11053,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/sr-fernsehen-hd-103910378/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "srfernsehenhd",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/srfernsehenhd.default.svg",
       "logo_source": "picons/picons"
@@ -2142,7 +2142,7 @@
       "fastscan": 420,
       "frequency_mhz": 12480,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/tele-5-00330051/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "tele5",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/tele5.default.svg",
       "logo_source": "picons/picons"
@@ -2156,7 +2156,7 @@
       "fastscan": 421,
       "frequency_mhz": 12187,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/rtlup-108912080/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "rtlup",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/rtlup.default.svg",
       "logo_source": "picons/picons"
@@ -2170,7 +2170,7 @@
       "fastscan": 422,
       "frequency_mhz": 12187,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/toggo-plus-108912030/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "toggoplus",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/toggoplus.default.svg",
       "logo_source": "picons/picons"
@@ -2184,7 +2184,7 @@
       "fastscan": 423,
       "frequency_mhz": 11582,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/br-fernsehen-nord-hd-102510326/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "bayerischesfernsehenhd",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/bayerischesfernsehenhd.default.svg",
       "logo_source": "picons/picons"
@@ -2198,7 +2198,7 @@
       "fastscan": 424,
       "frequency_mhz": 10891,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/mdr-sachsen-hd-106110352/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "mdrhd",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/mdrhd.default.svg",
       "logo_source": "picons/picons"
@@ -2212,7 +2212,7 @@
       "fastscan": 425,
       "frequency_mhz": 11582,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/ndr-fs-hh-hd-102510329/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "ndrhd",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ndrhd.default.svg",
       "logo_source": "picons/picons"
@@ -2226,7 +2226,7 @@
       "fastscan": 426,
       "frequency_mhz": 11523,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/wdr-hd-koln-102128332/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "wdr",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/wdr.default.svg",
       "logo_source": "picons/picons"
@@ -2240,7 +2240,7 @@
       "fastscan": 427,
       "frequency_mhz": 11053,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/radio-bremen-hd-103910379/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "radiobremenhd",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/radiobremenhd.default.svg",
       "logo_source": "picons/picons"
@@ -2254,7 +2254,7 @@
       "fastscan": 428,
       "frequency_mhz": 10891,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/rbb-berlin-hd-106110351/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "rbbhd",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/rbbhd.default.svg",
       "logo_source": "picons/picons"
@@ -2268,7 +2268,7 @@
       "fastscan": 429,
       "frequency_mhz": 11362,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/zdf_neo-hd-101111130/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "zdfneo",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/zdfneo.default.svg",
       "logo_source": "picons/picons"
@@ -2282,7 +2282,7 @@
       "fastscan": 430,
       "frequency_mhz": 11347,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/zdfinfo-hd-101011170/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "zdfinfo",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/zdfinfo.default.svg",
       "logo_source": "picons/picons"
@@ -2296,7 +2296,7 @@
       "fastscan": 431,
       "frequency_mhz": 11053,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/tagesschau24-hd-103910375/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "tagesschau24hd",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/tagesschau24hd.default.svg",
       "logo_source": "picons/picons"
@@ -2310,7 +2310,7 @@
       "fastscan": 432,
       "frequency_mhz": 11273,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/oe24-tv-hd-100513314/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "oe24tv",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/oe24tv.default.svg",
       "logo_source": "picons/picons"
@@ -2324,7 +2324,7 @@
       "fastscan": 433,
       "frequency_mhz": 11053,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/one-hd-103910376/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "onehd",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/onehd.default.svg",
       "logo_source": "picons/picons"
@@ -2338,7 +2338,7 @@
       "fastscan": 434,
       "frequency_mhz": 12460,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/n24-doku-00050048/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "n24doku",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/n24doku.default.svg",
       "logo_source": "picons/picons"
@@ -2352,7 +2352,7 @@
       "fastscan": 435,
       "frequency_mhz": 11347,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/3sat-hd-101011150/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "3sat",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/3sat.default.svg",
       "logo_source": "picons/picons"
@@ -2366,7 +2366,7 @@
       "fastscan": 436,
       "frequency_mhz": 11494,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/arte-hd-101910302/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "arte",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/arte.default.svg",
       "logo_source": "picons/picons"
@@ -2380,7 +2380,7 @@
       "fastscan": 437,
       "frequency_mhz": 10891,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/hr-fernsehen-hd-106110355/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "hrfernsehenhd",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/hrfernsehenhd.default.svg",
       "logo_source": "picons/picons"
@@ -2394,7 +2394,7 @@
       "fastscan": 438,
       "frequency_mhz": 11273,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/r9-oesterreich-hd-100513312/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "r9oesterreich",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/r9oesterreich.default.png",
       "logo_source": "picons/picons"
@@ -2408,7 +2408,7 @@
       "fastscan": 439,
       "frequency_mhz": 12480,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/regio-tv-00330047/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "regiotv",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/regiotv.default.svg",
       "logo_source": "picons/picons"
@@ -2422,7 +2422,7 @@
       "fastscan": 441,
       "frequency_mhz": 11053,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/ard-alpha-hd-103910377/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "ardalphahd",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ardalphahd.default.svg",
       "logo_source": "picons/picons"
@@ -2436,7 +2436,7 @@
       "fastscan": 442,
       "frequency_mhz": 12662,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/nitro-austria-111513102/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "rtlnitro",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/rtlnitro.default.svg",
       "logo_source": "picons/picons"
@@ -2450,7 +2450,7 @@
       "fastscan": 443,
       "frequency_mhz": 12460,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/tlc-00050772/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "tlc",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/tlc.default.svg",
       "logo_source": "picons/picons"
@@ -2464,7 +2464,7 @@
       "fastscan": 444,
       "frequency_mhz": 12544,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/sixx-110717506/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "sixx",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/sixx.default.svg",
       "logo_source": "picons/picons"
@@ -2478,7 +2478,7 @@
       "fastscan": 445,
       "frequency_mhz": 11273,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/tv1-ooe-neu-100513315/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "tv1oberosterreich",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/tv1oberosterreich.default.svg",
       "logo_source": "picons/picons"
@@ -2492,7 +2492,7 @@
       "fastscan": 446,
       "frequency_mhz": 11347,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/kika-hd-101011160/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "kikahd",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/kikahd.default.svg",
       "logo_source": "picons/picons"
@@ -2506,7 +2506,7 @@
       "fastscan": 447,
       "frequency_mhz": 11973,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/nick-comedy-central1-107828680/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "nickelodeon_comedycentralplus1",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/nickelodeon_comedycentralplus1.default.png",
       "logo_source": "picons/picons"
@@ -2520,7 +2520,7 @@
       "fastscan": 448,
       "frequency_mhz": 11303,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/ric-neu-10074930/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "ric",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ric.default.png",
       "logo_source": "picons/picons"
@@ -2534,7 +2534,7 @@
       "fastscan": 449,
       "frequency_mhz": 11973,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/comedy-central-107828676/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "comedycentral",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/comedycentral.default.svg",
       "logo_source": "picons/picons"
@@ -2548,7 +2548,7 @@
       "fastscan": 450,
       "frequency_mhz": 12148,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/deluxe-music-00070065/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "deluxemusic",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/deluxemusic.default.svg",
       "logo_source": "picons/picons"
@@ -2562,7 +2562,7 @@
       "fastscan": 453,
       "frequency_mhz": 12109,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/deluxe-dance-by-kontor-107328226/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "deluxedancebykontor",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/deluxedancebykontor.default.svg",
       "logo_source": "picons/picons"
@@ -2576,7 +2576,7 @@
       "fastscan": 454,
       "frequency_mhz": 12109,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/deluxe-rap-107328225/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "deluxerap",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/deluxerap.default.svg",
       "logo_source": "picons/picons"
@@ -2590,7 +2590,7 @@
       "fastscan": 455,
       "frequency_mhz": 11973,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/mtv-107828678/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "mtv",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/mtv.default.svg",
       "logo_source": "picons/picons"
@@ -2604,7 +2604,7 @@
       "fastscan": 456,
       "frequency_mhz": 11273,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/stimmungsgarten-tv-100513316/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "stimmungsgartentv",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/stimmungsgartentv.default.svg",
       "logo_source": "picons/picons"
@@ -2618,7 +2618,7 @@
       "fastscan": 457,
       "frequency_mhz": 12633,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/telegold-sd-111312604/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "telegold",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/telegold.default.svg",
       "logo_source": "picons/picons"
@@ -2632,7 +2632,7 @@
       "fastscan": 458,
       "frequency_mhz": 12480,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/dmax-00330063/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "dmax-wispelutri",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/dmax-wispelutri.default.svg",
       "logo_source": "picons/picons"
@@ -2646,7 +2646,7 @@
       "fastscan": 459,
       "frequency_mhz": 11244,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/lilo-tv-100313222/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "starparadies",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/starparadies.default.png",
       "logo_source": "picons/picons"
@@ -2660,7 +2660,7 @@
       "fastscan": 460,
       "frequency_mhz": 11273,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/melodie-tv-neu-100513317/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "melodietv",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/melodietv.default.png",
       "logo_source": "picons/picons"
@@ -2674,7 +2674,7 @@
       "fastscan": 467,
       "frequency_mhz": 11229,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/bbc-news-10025001/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "bbcnews",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/bbcnews.default.svg",
       "logo_source": "picons/picons"
@@ -2688,7 +2688,7 @@
       "fastscan": 468,
       "frequency_mhz": 11739,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cnn-int-10666101/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "cnn",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/cnn.default.svg",
       "logo_source": "picons/picons"
@@ -2702,7 +2702,7 @@
       "fastscan": 469,
       "frequency_mhz": 12603,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/sky-news-intl-11117290/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "skynews",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/skynews.default.svg",
       "logo_source": "picons/picons"
@@ -2716,7 +2716,7 @@
       "fastscan": 470,
       "frequency_mhz": 11376,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/euronews-german-sd-pal-10126388/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "euronews",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/euronews.default.svg",
       "logo_source": "picons/picons"
@@ -2730,7 +2730,7 @@
       "fastscan": 471,
       "frequency_mhz": 11376,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cgtn-hd-10126381/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "cgtn",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/cgtn.default.svg",
       "logo_source": "picons/picons"
@@ -2744,7 +2744,7 @@
       "fastscan": 472,
       "frequency_mhz": 11538,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/france-24-en-francais-10226905/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "france24",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/france24.default.svg",
       "logo_source": "picons/picons"
@@ -2758,7 +2758,7 @@
       "fastscan": 473,
       "frequency_mhz": 11229,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/al-jazeera-english-hd-10025031/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "aljazeerahd",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/aljazeerahd.default.svg",
       "logo_source": "picons/picons"
@@ -2772,7 +2772,7 @@
       "fastscan": 474,
       "frequency_mhz": 12544,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/welt-110717503/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "welt",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/welt.default.svg",
       "logo_source": "picons/picons"
@@ -2786,7 +2786,7 @@
       "fastscan": 475,
       "frequency_mhz": 12187,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/ntv-108912090/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "ntv",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ntv.default.svg",
       "logo_source": "picons/picons"
@@ -2800,7 +2800,7 @@
       "fastscan": 476,
       "frequency_mhz": 11229,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/nhk-world-jpn-10025021/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "nhkworldjapan",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/nhkworldjapan.default.svg",
       "logo_source": "picons/picons"
@@ -2814,7 +2814,7 @@
       "fastscan": 478,
       "frequency_mhz": 12207,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cnews-10909014/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "cnews",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/cnews.default.svg",
       "logo_source": "picons/picons"
@@ -2828,7 +2828,7 @@
       "fastscan": 479,
       "frequency_mhz": 12168,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/lcp-10889308/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "lcp_publicsenat",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/lcp_publicsenat.default.svg",
       "logo_source": "picons/picons"
@@ -2842,7 +2842,7 @@
       "fastscan": 480,
       "frequency_mhz": 11376,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cnbc-hd-10126389/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "cnbc",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/cnbc.default.svg",
       "logo_source": "picons/picons"
@@ -2856,7 +2856,7 @@
       "fastscan": 481,
       "frequency_mhz": 12603,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/bloomberg-europe-tv-11117200/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "bloomberg",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/bloomberg.default.svg",
       "logo_source": "picons/picons"
@@ -2870,7 +2870,7 @@
       "fastscan": 482,
       "frequency_mhz": 11376,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cgtn-documentary-10126382/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "cgtndocumentary",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/cgtndocumentary.default.svg",
       "logo_source": "picons/picons"
@@ -2884,7 +2884,7 @@
       "fastscan": 483,
       "frequency_mhz": 11376,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cgtn-francais-10126383/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "cgtnfrancais",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/cgtnfrancais.default.svg",
       "logo_source": "picons/picons"
@@ -2898,7 +2898,7 @@
       "fastscan": 484,
       "frequency_mhz": 11538,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/tv5-monde-europe-hd-10226915/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "tv5mondeeurope",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/tv5mondeeurope.default.svg",
       "logo_source": "picons/picons"
@@ -2912,7 +2912,7 @@
       "fastscan": 485,
       "frequency_mhz": 11582,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/phoenix-hd-102510331/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "phoenix",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/phoenix.default.svg",
       "logo_source": "picons/picons"
@@ -2926,7 +2926,7 @@
       "fastscan": 486,
       "frequency_mhz": 11778,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/dw-english-hd-10685700/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "deutschewelle",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/deutschewelle.default.svg",
       "logo_source": "picons/picons"
@@ -2940,7 +2940,7 @@
       "fastscan": 487,
       "frequency_mhz": 11317,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/aragon-tv-int-100829811/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "aragontvint",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/aragontvint.default.svg",
       "logo_source": "picons/picons"
@@ -2954,7 +2954,7 @@
       "fastscan": 490,
       "frequency_mhz": 11156,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/canal-sur-a-104630505/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "canalsurandalucia",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/canalsurandalucia.default.svg",
       "logo_source": "picons/picons"
@@ -2968,7 +2968,7 @@
       "fastscan": 492,
       "frequency_mhz": 11538,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/arirang-hd-10226901/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "arirang",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/arirang.default.svg",
       "logo_source": "picons/picons"
@@ -2982,7 +2982,7 @@
       "fastscan": 500,
       "frequency_mhz": 11778,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cubavision-internacional-10685703/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "cubavisioninternacional",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/cubavisioninternacional.default.svg",
       "logo_source": "picons/picons"
@@ -2996,7 +2996,7 @@
       "fastscan": 502,
       "frequency_mhz": 12551,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/canal-algerie-110812137/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "canalalgerie",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/canalalgerie.default.svg",
       "logo_source": "picons/picons"
@@ -3010,7 +3010,7 @@
       "fastscan": 503,
       "frequency_mhz": 11538,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/trt-world-hd-10226918/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "trtworldhd",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/trtworldhd.default.svg",
       "logo_source": "picons/picons"
@@ -3024,7 +3024,7 @@
       "fastscan": 504,
       "frequency_mhz": 12551,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/sbn-international-110812186/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "sonlifetv",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/sonlifetv.default.png",
       "logo_source": "picons/picons"
@@ -3038,7 +3038,7 @@
       "fastscan": 505,
       "frequency_mhz": 12460,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/ewtn-kath-olisches-tv-00050062/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "ewtnkatholischestv",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ewtnkatholischestv.default.svg",
       "logo_source": "picons/picons"
@@ -3052,7 +3052,7 @@
       "fastscan": 506,
       "frequency_mhz": 11112,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/k-tv-hd-104312530/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "ktv",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ktv.default.svg",
       "logo_source": "picons/picons"
@@ -3066,7 +3066,7 @@
       "fastscan": 507,
       "frequency_mhz": 11244,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/bibel-tv-hd-100313224/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "bibeltvhd",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/bibeltvhd.default.svg",
       "logo_source": "picons/picons"
@@ -3080,7 +3080,7 @@
       "fastscan": 557,
       "frequency_mhz": 10994,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/uhd1-by-astra-hd-10350002/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "uhd1",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/uhd1.default.svg",
       "logo_source": "picons/picons"
@@ -3094,7 +3094,7 @@
       "fastscan": 558,
       "frequency_mhz": 10994,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/ses-uhd-demo-channel-10350001/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "ses",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ses.default.svg",
       "logo_source": "picons/picons"
@@ -3108,7 +3108,7 @@
       "fastscan": 559,
       "frequency_mhz": 11296,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/love-nature-4k-05002229/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "lovenature",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/lovenature.default.svg",
       "logo_source": "picons/picons"
@@ -3122,7 +3122,7 @@
       "fastscan": 560,
       "frequency_mhz": 11914,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/m1-321120210/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "m1",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/m1.default.svg",
       "logo_source": "picons/picons"
@@ -3136,7 +3136,7 @@
       "fastscan": 561,
       "frequency_mhz": 12480,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/m2-324020057/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "m2",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/m2.default.svg",
       "logo_source": "picons/picons"
@@ -3150,7 +3150,7 @@
       "fastscan": 562,
       "frequency_mhz": 12188,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/story-4-322521169/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "story4",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/story4.default.svg",
       "logo_source": "picons/picons"
@@ -3164,7 +3164,7 @@
       "fastscan": 800,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/vlna-zs-32345159/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "vlnaradio",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/vlnaradio.default.svg",
       "logo_source": "picons/picons"
@@ -3178,7 +3178,7 @@
       "fastscan": 801,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/slovensko-32344921/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "srradioslovensko",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/srradioslovensko.default.svg",
       "logo_source": "picons/picons"
@@ -3192,7 +3192,7 @@
       "fastscan": 802,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/reginaba-32344922/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "srradioregina",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/srradioregina.default.svg",
       "logo_source": "picons/picons"
@@ -3206,7 +3206,7 @@
       "fastscan": 803,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/reginabb-32344923/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "srradioregina",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/srradioregina.default.svg",
       "logo_source": "picons/picons"
@@ -3220,7 +3220,7 @@
       "fastscan": 804,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/reginake-32344924/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "srradioregina",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/srradioregina.default.svg",
       "logo_source": "picons/picons"
@@ -3234,7 +3234,7 @@
       "fastscan": 805,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/devin-32344925/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "srradiodevin",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/srradiodevin.default.svg",
       "logo_source": "picons/picons"
@@ -3248,7 +3248,7 @@
       "fastscan": 806,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/radio_fm-32344926/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "srradiofm",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/srradiofm.default.svg",
       "logo_source": "picons/picons"
@@ -3262,7 +3262,7 @@
       "fastscan": 807,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/melody-z-32344933/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "radiomelody",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/radiomelody.default.svg",
       "logo_source": "picons/picons"
@@ -3276,7 +3276,7 @@
       "fastscan": 808,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/melody-s-32344934/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "radiomelody",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/radiomelody.default.svg",
       "logo_source": "picons/picons"
@@ -3290,7 +3290,7 @@
       "fastscan": 809,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/melody-v-32344935/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "radiomelody",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/radiomelody.default.svg",
       "logo_source": "picons/picons"
@@ -3304,7 +3304,7 @@
       "fastscan": 810,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/expres-z-32344951/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "radioexpres",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/radioexpres.default.svg",
       "logo_source": "picons/picons"
@@ -3318,7 +3318,7 @@
       "fastscan": 811,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/radio-lumen-32344936/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "radiolumen",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/radiolumen.default.png",
       "logo_source": "picons/picons"
@@ -3332,7 +3332,7 @@
       "fastscan": 812,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/junior-32344929/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "srradiojunior",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/srradiojunior.default.svg",
       "logo_source": "picons/picons"
@@ -3346,7 +3346,7 @@
       "fastscan": 813,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/litera-32344928/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "srradiolitera",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/srradiolitera.default.svg",
       "logo_source": "picons/picons"
@@ -3360,7 +3360,7 @@
       "fastscan": 814,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/slovakia-32344932/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "srradioslovakiainternational",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/srradioslovakiainternational.default.svg",
       "logo_source": "picons/picons"
@@ -3374,7 +3374,7 @@
       "fastscan": 815,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/patriafm-32344930/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "srradiopatria_srradiofm",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/srradiopatria_srradiofm.default.svg",
       "logo_source": "picons/picons"
@@ -3388,7 +3388,7 @@
       "fastscan": 816,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/patriard-32344931/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "srradiopatria_srradiodevin",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/srradiopatria_srradiodevin.default.svg",
       "logo_source": "picons/picons"
@@ -3402,7 +3402,7 @@
       "fastscan": 817,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/europa-2-s-32344955/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "europa2",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/europa2.default.png",
       "logo_source": "picons/picons"
@@ -3416,7 +3416,7 @@
       "fastscan": 818,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/europa-2-v-32344956/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "europa2",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/europa2.default.png",
       "logo_source": "picons/picons"
@@ -3430,7 +3430,7 @@
       "fastscan": 819,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/funradio-z-32344957/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "funradio-trobubislu",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/funradio-trobubislu.default.svg",
       "logo_source": "picons/picons"
@@ -3444,7 +3444,7 @@
       "fastscan": 820,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/funradio-s-32344958/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "funradio-trobubislu",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/funradio-trobubislu.default.svg",
       "logo_source": "picons/picons"
@@ -3458,7 +3458,7 @@
       "fastscan": 821,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/funradio-v-32344959/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "funradio-trobubislu",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/funradio-trobubislu.default.svg",
       "logo_source": "picons/picons"
@@ -3472,7 +3472,7 @@
       "fastscan": 830,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-radiozurnal-32338051/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "ceskyrozhlasradiozurnal",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ceskyrozhlasradiozurnal.default.svg",
       "logo_source": "picons/picons"
@@ -3486,7 +3486,7 @@
       "fastscan": 831,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-dvojka-32338052/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "ceskyrozhlasdvojka",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ceskyrozhlasdvojka.default.svg",
       "logo_source": "picons/picons"
@@ -3500,7 +3500,7 @@
       "fastscan": 832,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-vltava-32338053/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "ceskyrozhlasvltava",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ceskyrozhlasvltava.default.svg",
       "logo_source": "picons/picons"
@@ -3514,7 +3514,7 @@
       "fastscan": 833,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-plus-32338054/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "ceskyrozhlasplus",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ceskyrozhlasplus.default.svg",
       "logo_source": "picons/picons"
@@ -3528,7 +3528,7 @@
       "fastscan": 834,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-radio-wave-32338055/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "ceskyrozhlasradiowave",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ceskyrozhlasradiowave.default.svg",
       "logo_source": "picons/picons"
@@ -3542,7 +3542,7 @@
       "fastscan": 835,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-radio-junior-32338056/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "ceskyrozhlasradiojunior",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ceskyrozhlasradiojunior.default.svg",
       "logo_source": "picons/picons"
@@ -3556,7 +3556,7 @@
       "fastscan": 836,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-d-dur-32338057/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "ceskyrozhlasddur",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ceskyrozhlasddur.default.svg",
       "logo_source": "picons/picons"
@@ -3570,7 +3570,7 @@
       "fastscan": 837,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-jazz-32338058/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "ceskyrozhlasjazz",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ceskyrozhlasjazz.default.svg",
       "logo_source": "picons/picons"
@@ -3584,7 +3584,7 @@
       "fastscan": 838,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-radio-praha-32338059/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "ceskyrozhlasradiopraha",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ceskyrozhlasradiopraha.default.svg",
       "logo_source": "picons/picons"
@@ -3598,7 +3598,7 @@
       "fastscan": 839,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-stredni-cechy-32338060/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "ceskyrozhlasstrednicechy",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ceskyrozhlasstrednicechy.default.svg",
       "logo_source": "picons/picons"
@@ -3612,7 +3612,7 @@
       "fastscan": 840,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-radio-prague-int-32338061/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "czechradioradiopragueint",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/czechradioradiopragueint.default.svg",
       "logo_source": "picons/picons"
@@ -3626,7 +3626,7 @@
       "fastscan": 841,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-brno-32338062/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "ceskyrozhlasbrno",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ceskyrozhlasbrno.default.svg",
       "logo_source": "picons/picons"
@@ -3640,7 +3640,7 @@
       "fastscan": 842,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-c-budejovice-32338063/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "ceskyrozhlasceskebudejovice",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ceskyrozhlasceskebudejovice.default.svg",
       "logo_source": "picons/picons"
@@ -3654,7 +3654,7 @@
       "fastscan": 843,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-h-kralove-32338064/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "ceskyrozhlashradeckralove",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ceskyrozhlashradeckralove.default.svg",
       "logo_source": "picons/picons"
@@ -3668,7 +3668,7 @@
       "fastscan": 844,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-karlovy-vary-32338065/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "ceskyrozhlaskarlovyvary",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ceskyrozhlaskarlovyvary.default.svg",
       "logo_source": "picons/picons"
@@ -3682,7 +3682,7 @@
       "fastscan": 845,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-liberec-32338066/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "ceskyrozhlasliberec",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ceskyrozhlasliberec.default.svg",
       "logo_source": "picons/picons"
@@ -3696,7 +3696,7 @@
       "fastscan": 846,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-vysocina-32338067/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "ceskyrozhlasvysocina",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ceskyrozhlasvysocina.default.svg",
       "logo_source": "picons/picons"
@@ -3710,7 +3710,7 @@
       "fastscan": 847,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-pardubice-32338068/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "ceskyrozhlaspardubice",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ceskyrozhlaspardubice.default.svg",
       "logo_source": "picons/picons"
@@ -3724,7 +3724,7 @@
       "fastscan": 848,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-plzen-32338069/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "ceskyrozhlasplzen",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ceskyrozhlasplzen.default.svg",
       "logo_source": "picons/picons"
@@ -3738,7 +3738,7 @@
       "fastscan": 849,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-olomouc-32338070/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "ceskyrozhlasolomouc",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ceskyrozhlasolomouc.default.svg",
       "logo_source": "picons/picons"
@@ -3752,7 +3752,7 @@
       "fastscan": 850,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-ostrava-32338071/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "ceskyrozhlasostrava",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ceskyrozhlasostrava.default.svg",
       "logo_source": "picons/picons"
@@ -3766,7 +3766,7 @@
       "fastscan": 851,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-sever-32338072/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "ceskyrozhlassever",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ceskyrozhlassever.default.svg",
       "logo_source": "picons/picons"
@@ -3780,7 +3780,7 @@
       "fastscan": 852,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-zlin-32338073/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "ceskyrozhlaszlin",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ceskyrozhlaszlin.default.svg",
       "logo_source": "picons/picons"
@@ -3794,7 +3794,7 @@
       "fastscan": 853,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/beat-jm-32344941/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "beatradioclassicrock",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/beatradioclassicrock.default.png",
       "logo_source": "picons/picons"
@@ -3808,7 +3808,7 @@
       "fastscan": 854,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/beat-jz-32344943/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "beatradioclassicrock",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/beatradioclassicrock.default.png",
       "logo_source": "picons/picons"
@@ -3822,7 +3822,7 @@
       "fastscan": 855,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/beat-sm-32344942/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "beatradioclassicrock",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/beatradioclassicrock.default.png",
       "logo_source": "picons/picons"
@@ -3836,7 +3836,7 @@
       "fastscan": 856,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/beat-sv-32344944/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "beatradioclassicrock",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/beatradioclassicrock.default.png",
       "logo_source": "picons/picons"
@@ -3850,7 +3850,7 @@
       "fastscan": 857,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/beat-32344940/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "beatradioclassicrock",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/beatradioclassicrock.default.png",
       "logo_source": "picons/picons"
@@ -3864,7 +3864,7 @@
       "fastscan": 858,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/country-jm-32344945/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "countryradio",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/countryradio.default.png",
       "logo_source": "picons/picons"
@@ -3878,7 +3878,7 @@
       "fastscan": 859,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/country-jz-32344946/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "countryradio",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/countryradio.default.png",
       "logo_source": "picons/picons"
@@ -3892,7 +3892,7 @@
       "fastscan": 860,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/country-sv-32344947/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "countryradio",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/countryradio.default.png",
       "logo_source": "picons/picons"
@@ -3906,7 +3906,7 @@
       "fastscan": 861,
       "frequency_mhz": 11973,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/proglas-321414150/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "radioproglas",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/radioproglas.default.svg",
       "logo_source": "picons/picons"
@@ -3920,7 +3920,7 @@
       "fastscan": 862,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/pyramida-32344927/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": null,
       "logo_url": null,
       "logo_source": null
@@ -3934,7 +3934,7 @@
       "fastscan": 863,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/prostor-32344939/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "radioprostor",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/radioprostor.default.svg",
       "logo_source": "picons/picons"
@@ -3948,7 +3948,7 @@
       "fastscan": 870,
       "frequency_mhz": 11303,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/orf-oe1-10074940/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "oe1",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/oe1.default.svg",
       "logo_source": "picons/picons"
@@ -3962,7 +3962,7 @@
       "fastscan": 871,
       "frequency_mhz": 11303,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/orf-radio-oe1-dolby-10074951/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "oe1",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/oe1.default.svg",
       "logo_source": "picons/picons"
@@ -3976,7 +3976,7 @@
       "fastscan": 872,
       "frequency_mhz": 11303,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/orf-b-10074944/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "oe2burgenland",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/oe2burgenland.default.svg",
       "logo_source": "picons/picons"
@@ -3990,7 +3990,7 @@
       "fastscan": 873,
       "frequency_mhz": 11303,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/orf-k-10074950/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "oe2kaernten",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/oe2kaernten.default.svg",
       "logo_source": "picons/picons"
@@ -4004,7 +4004,7 @@
       "fastscan": 874,
       "frequency_mhz": 11303,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/orf-noe-10074943/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "oe2niederoesterreich",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/oe2niederoesterreich.default.svg",
       "logo_source": "picons/picons"
@@ -4018,7 +4018,7 @@
       "fastscan": 875,
       "frequency_mhz": 11303,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/orf-ooe-10074945/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "oe2oberoesterreich",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/oe2oberoesterreich.default.svg",
       "logo_source": "picons/picons"
@@ -4032,7 +4032,7 @@
       "fastscan": 876,
       "frequency_mhz": 11303,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/orf-s-10074946/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "oe2salzburg",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/oe2salzburg.default.svg",
       "logo_source": "picons/picons"
@@ -4046,7 +4046,7 @@
       "fastscan": 877,
       "frequency_mhz": 11303,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/orf-stmk-10074949/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "oe2steiermark",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/oe2steiermark.default.svg",
       "logo_source": "picons/picons"
@@ -4060,7 +4060,7 @@
       "fastscan": 878,
       "frequency_mhz": 11303,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/orf-t-10074947/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "oe2tirol",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/oe2tirol.default.svg",
       "logo_source": "picons/picons"
@@ -4074,7 +4074,7 @@
       "fastscan": 879,
       "frequency_mhz": 11303,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/orf-v-10074948/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "oe2vorarlberg",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/oe2vorarlberg.default.svg",
       "logo_source": "picons/picons"
@@ -4088,7 +4088,7 @@
       "fastscan": 880,
       "frequency_mhz": 11303,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/orf-wien-10074942/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "oe2wien",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/oe2wien.default.svg",
       "logo_source": "picons/picons"
@@ -4102,7 +4102,7 @@
       "fastscan": 881,
       "frequency_mhz": 11303,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/orf-hitradio-oe3-10074920/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "hitradiooe3",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/hitradiooe3.default.svg",
       "logo_source": "picons/picons"
@@ -4116,7 +4116,7 @@
       "fastscan": 882,
       "frequency_mhz": 11303,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/orf-hitradio-oe3-visual-10074917/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "hitradiooe3",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/hitradiooe3.default.svg",
       "logo_source": "picons/picons"
@@ -4130,7 +4130,7 @@
       "fastscan": 883,
       "frequency_mhz": 11739,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/radio-veronica-de-beste-80s-32026193/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "veronicaradiodebeste80s",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/veronicaradiodebeste80s.default.png",
       "logo_source": "picons/picons"
@@ -4144,7 +4144,7 @@
       "fastscan": 884,
       "frequency_mhz": 12662,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/radio-maria-111513140/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "radiomariaosterreich",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/radiomariaosterreich.default.svg",
       "logo_source": "picons/picons"
@@ -4158,7 +4158,7 @@
       "fastscan": 886,
       "frequency_mhz": 12148,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/antenne-bayern-00070170/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "antennebayern",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/antennebayern.default.svg",
       "logo_source": "picons/picons"
@@ -4172,7 +4172,7 @@
       "fastscan": 887,
       "frequency_mhz": 11053,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/bayern-1-103910400/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "bayern1",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/bayern1.default.svg",
       "logo_source": "picons/picons"
@@ -4186,7 +4186,7 @@
       "fastscan": 888,
       "frequency_mhz": 11053,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/bayern-2-103910401/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "bayern2",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/bayern2.default.svg",
       "logo_source": "picons/picons"
@@ -4200,7 +4200,7 @@
       "fastscan": 889,
       "frequency_mhz": 11053,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/bayern-3-103910402/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "bayern3",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/bayern3.default.svg",
       "logo_source": "picons/picons"
@@ -4214,7 +4214,7 @@
       "fastscan": 890,
       "frequency_mhz": 11053,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/br-klassik-103910403/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "brklassik",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/brklassik.default.svg",
       "logo_source": "picons/picons"
@@ -4228,7 +4228,7 @@
       "fastscan": 891,
       "frequency_mhz": 11053,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/br24-103910404/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "br24",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/br24.default.svg",
       "logo_source": "picons/picons"
@@ -4242,7 +4242,7 @@
       "fastscan": 892,
       "frequency_mhz": 11053,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/br-schlager-103910406/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "brschlager",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/brschlager.default.png",
       "logo_source": "picons/picons"
@@ -4256,7 +4256,7 @@
       "fastscan": 894,
       "frequency_mhz": 11053,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/br-heimat-103910408/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "brheimat",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/brheimat.default.svg",
       "logo_source": "picons/picons"
@@ -4270,7 +4270,7 @@
       "fastscan": 895,
       "frequency_mhz": 10891,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/hr1-106110465/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "hr1",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/hr1.default.svg",
       "logo_source": "picons/picons"
@@ -4284,7 +4284,7 @@
       "fastscan": 896,
       "frequency_mhz": 10891,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/hr2-106110466/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "hr2kultur",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/hr2kultur.default.svg",
       "logo_source": "picons/picons"
@@ -4298,7 +4298,7 @@
       "fastscan": 897,
       "frequency_mhz": 10891,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/hr3-106110467/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "hr3",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/hr3.default.svg",
       "logo_source": "picons/picons"
@@ -4312,7 +4312,7 @@
       "fastscan": 898,
       "frequency_mhz": 10891,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/hr4-106110468/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "hr4",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/hr4.default.svg",
       "logo_source": "picons/picons"
@@ -4326,7 +4326,7 @@
       "fastscan": 899,
       "frequency_mhz": 10891,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/dasding-vom-hr-106110469/",
-      "source_updated_at": "08.09.2026",
+      "source_updated_at": "09.09.2026",
       "logo_slug": "hrdasding",
       "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/hrdasding.default.svg",
       "logo_source": "picons/picons"
