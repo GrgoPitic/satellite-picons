@@ -24,7 +24,7 @@ concurrency:
 jobs:
   providers:
     runs-on: ubuntu-latest
-    timeout-minutes: 75
+    timeout-minutes: 90
 
     steps:
       - uses: actions/checkout@v5
@@ -42,10 +42,60 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Synchronize all SatelitnaTV providers
+      - name: Synchronize all provider metadata
+        shell: bash
         run: |
-          python scripts/sync_provider.py all \
-            --delay 0.05
+          set -u
+
+          mapfile -t PROVIDERS < <(python - <<'PY'
+          from pathlib import Path
+          import yaml
+          cfg = yaml.safe_load(Path("providers.yml").read_text()) or {}
+          for provider in cfg.get("providers", []):
+              source = provider.get("source") or {}
+              if source.get("type") == "satelitnatv" and provider.get("id"):
+                  print(provider["id"])
+          PY
+          )
+
+          failures=0
+
+          for provider in "${PROVIDERS[@]}"; do
+            output="provider-data/${provider}.json"
+            success=0
+
+            echo "::group::Synchronize ${provider} metadata"
+            for attempt in 1 2 3; do
+              echo "Attempt ${attempt}/3"
+              if python scripts/sync_provider.py "$provider" \
+                --delay 0.05 \
+                --output "$output"; then
+                success=1
+                break
+              fi
+
+              echo "::warning::${provider}: synchronization attempt ${attempt}/3 failed."
+              if [ "$attempt" -lt 3 ]; then
+                sleep $((attempt * 15))
+              fi
+            done
+
+            if [ "$success" -ne 1 ]; then
+              if git cat-file -e "HEAD:${output}" 2>/dev/null; then
+                echo "::warning::${provider}: upstream metadata is temporarily unavailable. Keeping the last validated local catalogue."
+                git restore --source=HEAD -- "$output"
+              else
+                echo "::error::${provider}: no fresh metadata and no previous catalogue exists."
+                failures=$((failures + 1))
+              fi
+            fi
+            echo "::endgroup::"
+          done
+
+          if [ "$failures" -gt 0 ]; then
+            echo "::error::${failures} provider(s) could not be synchronized and have no fallback catalogue."
+            exit 1
+          fi
 
       - name: Validate generated provider metadata
         run: |
@@ -109,9 +159,8 @@ jobs:
               provider = by_id[provider_id]
               assert provider["channel_count"] > 0, provider
 
-              # A provider may legitimately have zero picons until the curator
-              # uploads artwork through the local admin. Packages are required
-              # only once at least one curated picon exists.
+              # Providers remain visible even before artwork is curated.
+              # A downloadable package is required only once curated picons exist.
               if provider["available"]:
                   assert provider["picon_count"] > 0, provider
                   package = Path("public") / provider["package"]
