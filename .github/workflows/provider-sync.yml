@@ -28,6 +28,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-python@v6
         with:
@@ -145,8 +147,6 @@ jobs:
             echo "::endgroup::"
           done
 
-          # Once migrated provider files exist, remove obsolete legacy IDs so
-          # the web/admin do not show duplicate Skylink/ANTIK provider cards.
           [ -f provider-data/skylink-sk.json ] && rm -f provider-data/skylink.json
           [ -f provider-data/antik-sat-sk.json ] && rm -f provider-data/antik.json
 
@@ -236,7 +236,9 @@ jobs:
 
       - name: Commit synchronized catalogues
         if: github.event_name != 'pull_request'
+        shell: bash
         run: |
+          set -u
           BRANCH="${GITHUB_REF_NAME}"
           git config user.name "JohnyWick"
           git config user.email "42406628+GrgoPitic@users.noreply.github.com"
@@ -249,8 +251,34 @@ jobs:
           fi
 
           git commit -m "data: synchronize provider metadata"
-          git pull --rebase origin "$BRANCH"
-          git push origin "HEAD:$BRANCH"
+
+          pushed=0
+          for attempt in 1 2 3; do
+            echo "Push attempt ${attempt}/3"
+            git fetch --no-tags origin "+refs/heads/${BRANCH}:refs/remotes/origin/${BRANCH}"
+
+            if ! git rebase "origin/${BRANCH}"; then
+              git rebase --abort || true
+              echo "::warning::Provider metadata could not be rebased safely after concurrent repository changes. A later sync will retry."
+              echo "PROVIDER_DATA_CHANGED=false" >> "$GITHUB_ENV"
+              exit 0
+            fi
+
+            if git push origin "HEAD:${BRANCH}"; then
+              pushed=1
+              break
+            fi
+
+            echo "::warning::Branch moved while provider metadata was being pushed; retrying."
+            sleep $((attempt * 3))
+          done
+
+          if [ "$pushed" -ne 1 ]; then
+            echo "::warning::Provider metadata push was skipped after repeated concurrent updates. A later sync will retry."
+            echo "PROVIDER_DATA_CHANGED=false" >> "$GITHUB_ENV"
+            exit 0
+          fi
+
           echo "PROVIDER_DATA_CHANGED=true" >> "$GITHUB_ENV"
 
       - name: Trigger package rebuild after data commit
