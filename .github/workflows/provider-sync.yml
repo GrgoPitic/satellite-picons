@@ -24,12 +24,12 @@ concurrency:
 jobs:
   providers:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 30
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
           cache: pip
@@ -42,19 +42,49 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Synchronize Skylink
+      - name: Synchronize provider catalogues
+        shell: bash
         run: |
-          python scripts/sync_provider.py skylink \
-            --delay 0.08 \
-            --min-coverage 70 \
-            --output provider-data/skylink.json
+          set -u
 
-      - name: Synchronize ANTIK Sat
-        run: |
-          python scripts/sync_provider.py antik \
-            --delay 0.08 \
-            --min-coverage 70 \
-            --output provider-data/antik.json
+          sync_provider() {
+            local provider="$1"
+            local output="$2"
+            local label="$3"
+            local success=0
+
+            echo "::group::Synchronize ${label}"
+            for attempt in 1 2 3; do
+              echo "Attempt ${attempt}/3"
+              if python scripts/sync_provider.py "$provider" \
+                --delay 0.08 \
+                --min-coverage 70 \
+                --output "$output"; then
+                success=1
+                break
+              fi
+
+              echo "::warning::${label}: synchronization attempt ${attempt}/3 failed."
+              if [ "$attempt" -lt 3 ]; then
+                sleep $((attempt * 20))
+              fi
+            done
+
+            if [ "$success" -ne 1 ]; then
+              if git cat-file -e "HEAD:${output}" 2>/dev/null; then
+                echo "::warning::${label}: upstream source is temporarily unavailable. Keeping the last validated catalogue from the repository."
+                git restore --source=HEAD -- "$output"
+              else
+                echo "::error::${label}: synchronization failed and no previous catalogue is available."
+                echo "::endgroup::"
+                return 1
+              fi
+            fi
+            echo "::endgroup::"
+          }
+
+          sync_provider skylink provider-data/skylink.json "Skylink"
+          sync_provider antik provider-data/antik.json "ANTIK Sat"
 
       - name: Validate generated provider data
         run: |
