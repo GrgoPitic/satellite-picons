@@ -128,10 +128,13 @@ jobs:
 
           for provider_id in ("skylink", "antik"):
               provider = by_id[provider_id]
-              assert provider["channel_count"] > 0, provider
+              source_stats = provider.get("source_stats") or {}
 
-              # The catalogue is valid even with zero picons. Artwork is added
-              # manually through the local admin and only then becomes a package.
+              # In metadata-only mode the full catalogue size comes from the
+              # synchronized provider metadata. channel_count currently means
+              # channels that already have curated artwork and were rendered.
+              assert source_stats.get("channels_parsed", 0) > 0, provider
+
               if provider["available"]:
                   assert provider["picon_count"] > 0, provider
                   package = Path("public") / provider["package"]
@@ -139,7 +142,8 @@ jobs:
 
               print(
                   provider_id,
-                  "channels=", provider["channel_count"],
+                  "catalogue_channels=", source_stats.get("channels_parsed", 0),
+                  "curated_channels=", provider["channel_count"],
                   "curated_picons=", provider["picon_count"],
                   "available=", provider["available"],
               )
