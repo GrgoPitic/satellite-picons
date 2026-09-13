@@ -24,7 +24,7 @@ concurrency:
 jobs:
   providers:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 45
 
     steps:
       - uses: actions/checkout@v5
@@ -58,26 +58,51 @@ jobs:
           PY
           )
 
+          PROBE_URL="$(python - <<'PY'
+          from pathlib import Path
+          import yaml
+          cfg = yaml.safe_load(Path("providers.yml").read_text()) or {}
+          for provider in cfg.get("providers", []):
+              source = provider.get("source") or {}
+              if source.get("type") == "satelitnatv" and source.get("operator_url"):
+                  print(source["operator_url"])
+                  break
+          PY
+          )"
+
+          UPSTREAM_OK=0
+          if [ -n "$PROBE_URL" ]; then
+            if curl -fsSL --connect-timeout 5 --max-time 12 \
+              -A 'SatellitePiconsProviderSync/0.3' \
+              "$PROBE_URL" -o /dev/null; then
+              UPSTREAM_OK=1
+            else
+              echo "::warning::SatelitnaTV metadata source is currently unreachable. Skipping network crawl and using stored catalogues."
+            fi
+          fi
+
           for provider in "${PROVIDERS[@]}"; do
             output="provider-data/${provider}.json"
             success=0
 
             echo "::group::Synchronize ${provider} metadata"
-            for attempt in 1 2; do
-              echo "Attempt ${attempt}/2"
-              if python scripts/sync_provider.py "$provider" \
-                --delay 0.05 \
-                --output "$output"; then
-                success=1
-                break
-              fi
-              echo "::warning::${provider}: upstream metadata attempt ${attempt}/2 failed."
-              [ "$attempt" -lt 2 ] && sleep 15
-            done
+            if [ "$UPSTREAM_OK" -eq 1 ]; then
+              for attempt in 1 2; do
+                echo "Attempt ${attempt}/2"
+                if python scripts/sync_provider.py "$provider" \
+                  --delay 0.05 \
+                  --output "$output"; then
+                  success=1
+                  break
+                fi
+                echo "::warning::${provider}: upstream metadata attempt ${attempt}/2 failed."
+                [ "$attempt" -lt 2 ] && sleep 10
+              done
+            fi
 
             if [ "$success" -ne 1 ]; then
               if git cat-file -e "HEAD:${output}" 2>/dev/null; then
-                echo "::warning::${provider}: upstream unavailable; using last catalogue."
+                echo "::warning::${provider}: using last stored catalogue."
                 git restore --source=HEAD -- "$output"
               else
                 echo "::warning::${provider}: no catalogue yet; provider stays visible with zero channels until a later successful sync."
@@ -148,7 +173,7 @@ jobs:
                   assert "logo_source" not in channel
               print(provider_id, json.dumps(stats, ensure_ascii=False))
 
-          assert available > 0, "No provider catalogue is available; keep the workflow green only when at least one fallback/fresh catalogue exists"
+          assert available > 0, "No provider catalogue is available yet"
           PY
 
       - name: Validate Picon Hub build
