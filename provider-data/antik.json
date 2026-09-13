@@ -1,22 +1,20 @@
 {
-  "schema": 1,
+  "schema": 2,
   "provider": "antik",
   "provider_name": "ANTIK Sat",
-  "generated_at": "2026-09-13T14:06:10.920593+00:00",
+  "generated_at": "2026-09-13T16:29:05.260882+00:00",
   "source": {
     "operator_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/",
     "operator": "SatelitnaTV.sk",
-    "logo_repository": "picons/picons",
-    "logo_revision": "1db8bbce7266b774899136ff68dd4b5d402ef58b"
+    "artwork_mode": "manual",
+    "upstream_logos_imported": false
   },
   "stats": {
     "detail_links": 79,
     "channels_parsed": 78,
-    "logos_matched": 78,
-    "logos_missing": 0,
     "services_skipped": 1,
     "errors": 0,
-    "logo_coverage_percent": 100.0
+    "upstream_logos_imported": 0
   },
   "channels": [
     {
@@ -28,10 +26,7 @@
       "fastscan": 1,
       "frequency_mhz": 11324,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/jednotka-hd-406002001/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "stvrjednotka",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/stvrjednotka.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "dvojka-hd",
@@ -42,10 +37,7 @@
       "fastscan": 2,
       "frequency_mhz": 11324,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/dvojka-hd-406002002/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "stvrdvojka",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/stvrdvojka.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "24",
@@ -56,10 +48,7 @@
       "fastscan": 3,
       "frequency_mhz": 11094,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/24-304011205/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "stvr24",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/stvr24.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "sport-hd",
@@ -70,10 +59,7 @@
       "fastscan": 4,
       "frequency_mhz": 11094,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/sport-hd-304011224/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "stvrsport",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/stvrsport.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "markiza-hd",
@@ -84,10 +70,7 @@
       "fastscan": 5,
       "frequency_mhz": 11324,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/markiza-hd-406002003/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "markiza",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/markiza.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "joj-hd",
@@ -98,10 +81,7 @@
       "fastscan": 6,
       "frequency_mhz": 11324,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/joj-hd-406002004/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "jojtv",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/jojtv.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "dajto-hd",
@@ -112,10 +92,7 @@
       "fastscan": 7,
       "frequency_mhz": 11324,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/dajto-hd-406002007/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "markizadajto",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/markizadajto.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "doma-hd",
@@ -126,10 +103,7 @@
       "fastscan": 8,
       "frequency_mhz": 11324,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/doma-hd-406002005/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "markizadoma",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/markizadoma.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "markiza-krimi-hd",
@@ -140,10 +114,7 @@
       "fastscan": 9,
       "frequency_mhz": 11324,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/markiza-krimi-hd-406002009/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "markizakrimi",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/markizakrimi.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "markiza-klasik-hd",
@@ -154,10 +125,7 @@
       "fastscan": 10,
       "frequency_mhz": 11094,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/markiza-klasik-hd-304011204/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "markizaklasik",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/markizaklasik.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "joj-plus-hd",
@@ -168,10 +136,7 @@
       "fastscan": 11,
       "frequency_mhz": 11324,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/joj-plus-hd-406002006/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "jojplus",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/jojplus.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "joj-sport-hd",
@@ -182,10 +147,7 @@
       "fastscan": 12,
       "frequency_mhz": 11324,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/joj-sport-hd-406002011/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "jojsport",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/jojsport.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "joj-sport-2-hd",
@@ -196,10 +158,7 @@
       "fastscan": 13,
       "frequency_mhz": 11471,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/joj-sport-2-hd-502000616/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "jojsport2",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/jojsport2.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "joj-krimi-hd",
@@ -210,10 +169,7 @@
       "fastscan": 14,
       "frequency_mhz": 11094,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/joj-krimi-hd-304011215/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "jojkrimi",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/jojkrimi.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "joj-24",
@@ -224,10 +180,7 @@
       "fastscan": 15,
       "frequency_mhz": 11055,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/joj-24-304001170/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "joj24",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/joj24.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "joj-svet-hd",
@@ -238,10 +191,7 @@
       "fastscan": 16,
       "frequency_mhz": 11055,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/joj-svet-hd-304001164/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "jojsvet",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/jojsvet.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "joj-cinema-hd",
@@ -252,10 +202,7 @@
       "fastscan": 17,
       "frequency_mhz": 11094,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/joj-cinema-hd-304011221/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "jojcinemahd",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/jojcinemahd.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "ta3-hd",
@@ -266,10 +213,7 @@
       "fastscan": 20,
       "frequency_mhz": 11324,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/ta3-hd-406002012/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "ta3",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ta3.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "kanal1-hd",
@@ -280,10 +224,7 @@
       "fastscan": 21,
       "frequency_mhz": 11471,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/kanal1-hd-502000602/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "kanal1",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/kanal1.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "jojko",
@@ -294,10 +235,7 @@
       "fastscan": 23,
       "frequency_mhz": 11094,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/jojko-304011225/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "jojko",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/jojko.default.png",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "rik-tv-hd",
@@ -308,10 +246,7 @@
       "fastscan": 24,
       "frequency_mhz": 11471,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/rik-tv-hd-502000609/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "kanal1rik",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/kanal1rik.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "tv-lux",
@@ -322,10 +257,7 @@
       "fastscan": 26,
       "frequency_mhz": 11094,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/tv-lux-304011202/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "lux",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/lux.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "ct-1-hd",
@@ -336,10 +268,7 @@
       "fastscan": 28,
       "frequency_mhz": 11055,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/ct-1-hd-304001153/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "ct1hd",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ct1hd.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "ct-2-hd",
@@ -350,10 +279,7 @@
       "fastscan": 29,
       "frequency_mhz": 11055,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/ct-2-hd-304001156/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "ct2hd",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ct2hd.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "ct-24-hd",
@@ -364,10 +290,7 @@
       "fastscan": 30,
       "frequency_mhz": 11055,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/ct-24-hd-304001154/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "ct24hd",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ct24hd.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "ct-d-art",
@@ -378,10 +301,7 @@
       "fastscan": 31,
       "frequency_mhz": 11055,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/ct-d-art-304001159/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "ctd_ctart",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ctd_ctart.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "tv-barrandov-hd",
@@ -392,10 +312,7 @@
       "fastscan": 32,
       "frequency_mhz": 11055,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/tv-barrandov-hd-304001152/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "tvbarrandovhd",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/tvbarrandovhd.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "prima-sk-hd",
@@ -406,10 +323,7 @@
       "fastscan": 33,
       "frequency_mhz": 11055,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/prima-sk-hd-304001165/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "primask",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/primask.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "nova-international-hd",
@@ -420,10 +334,7 @@
       "fastscan": 34,
       "frequency_mhz": 11094,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/nova-international-hd-304011203/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "novainternational",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/novainternational.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "cs-mystery",
@@ -434,10 +345,7 @@
       "fastscan": 35,
       "frequency_mhz": 11094,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/cs-mystery-304011208/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "csmystery",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/csmystery.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "senzi-tv",
@@ -448,10 +356,7 @@
       "fastscan": 38,
       "frequency_mhz": 11094,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/senzi-tv-304011213/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "senzi",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/senzi.default.png",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "premium-hd",
@@ -462,10 +367,7 @@
       "fastscan": 39,
       "frequency_mhz": 11471,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/premium-hd-502000605/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "slagrpremium",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/slagrpremium.default.png",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "duck-tv",
@@ -476,10 +378,7 @@
       "fastscan": 44,
       "frequency_mhz": 11471,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/duck-tv-502000640/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "ducktv",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ducktv.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "nickelodeon",
@@ -490,10 +389,7 @@
       "fastscan": 45,
       "frequency_mhz": 11094,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/nickelodeon-304011223/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "nickelodeonglobal",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/nickelodeonglobal.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "disney-channel",
@@ -504,10 +400,7 @@
       "fastscan": 46,
       "frequency_mhz": 11094,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/disney-channel-304011216/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "disneychannel",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/disneychannel.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "jim-jam",
@@ -518,10 +411,7 @@
       "fastscan": 47,
       "frequency_mhz": 11094,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/jim-jam-304011231/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "jimjam",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/jimjam.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "minimax",
@@ -532,10 +422,7 @@
       "fastscan": 48,
       "frequency_mhz": 11094,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/minimax-304011207/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "minimax",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/minimax.default.png",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "amc-hd",
@@ -546,10 +433,7 @@
       "fastscan": 51,
       "frequency_mhz": 11055,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/amc-hd-304001151/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "amc",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/amc.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "film",
@@ -560,10 +444,7 @@
       "fastscan": 52,
       "frequency_mhz": 11094,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/film-304011217/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "filmplus",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/filmplus.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "axn",
@@ -574,10 +455,7 @@
       "fastscan": 60,
       "frequency_mhz": 11094,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/axn-304011258/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "axn",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/axn.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "bbc-first-hd",
@@ -588,10 +466,7 @@
       "fastscan": 61,
       "frequency_mhz": 11471,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/bbc-first-hd-502000612/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "bbcfirst",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/bbcfirst.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "hbo-hd",
@@ -602,10 +477,7 @@
       "fastscan": 63,
       "frequency_mhz": 11055,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/hbo-hd-304001158/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "hbo",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/hbo.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "hbo2-hd",
@@ -616,10 +488,7 @@
       "fastscan": 64,
       "frequency_mhz": 11094,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/hbo2-hd-304011209/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "hbo2",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/hbo2.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "hbo3-hd",
@@ -630,10 +499,7 @@
       "fastscan": 65,
       "frequency_mhz": 11094,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/hbo3-hd-304011212/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "hbo3",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/hbo3.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "cinemax-hd",
@@ -644,10 +510,7 @@
       "fastscan": 66,
       "frequency_mhz": 11637,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/cinemax-hd-509001946/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "cinemax",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/cinemax.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "cinemax-2-hd",
@@ -658,10 +521,7 @@
       "fastscan": 67,
       "frequency_mhz": 11637,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/cinemax-2-hd-509001938/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "cinemax2",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/cinemax2.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "epic-drama-hd",
@@ -672,10 +532,7 @@
       "fastscan": 68,
       "frequency_mhz": 10928,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/epic-drama-hd-211001112/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "epicdrama",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/epicdrama.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "viasat-explore-hd",
@@ -686,10 +543,7 @@
       "fastscan": 69,
       "frequency_mhz": 10928,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/viasat-explore-hd-211001115/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "viasatexplorehd",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/viasatexplorehd.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "viasat-history-hd",
@@ -700,10 +554,7 @@
       "fastscan": 70,
       "frequency_mhz": 10928,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/viasat-history-hd-211001116/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "viasathistoryhd",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/viasathistoryhd.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "viasat-nature-hd",
@@ -714,10 +565,7 @@
       "fastscan": 71,
       "frequency_mhz": 10928,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/viasat-nature-hd-211001114/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "viasatnaturehd",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/viasatnaturehd.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "discovery",
@@ -728,10 +576,7 @@
       "fastscan": 72,
       "frequency_mhz": 11094,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/discovery-304011206/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "discoverychannel",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/discoverychannel.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "tlc",
@@ -742,10 +587,7 @@
       "fastscan": 73,
       "frequency_mhz": 11094,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/tlc-304011219/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "tlc-deswephosp",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/tlc-deswephosp.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "investigation-discovery-hd",
@@ -756,10 +598,7 @@
       "fastscan": 74,
       "frequency_mhz": 11471,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/investigation-discovery-hd-502000622/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "investigationdiscoveryhd-jusowanusw",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/investigationdiscoveryhd-jusowanusw.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "love-nature-hd",
@@ -770,10 +609,7 @@
       "fastscan": 75,
       "frequency_mhz": 11471,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/love-nature-hd-502000611/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "lovenature",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/lovenature.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "animal-planet-hd",
@@ -784,10 +620,7 @@
       "fastscan": 76,
       "frequency_mhz": 10887,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/animal-planet-hd-209004700/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "animalplanethd-clivebesle",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/animalplanethd-clivebesle.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "national-geographic-channel",
@@ -798,10 +631,7 @@
       "fastscan": 77,
       "frequency_mhz": 11094,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/national-geographic-channel-304011222/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "nationalgeographic",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/nationalgeographic.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "national-geographic-wild-hd",
@@ -812,10 +642,7 @@
       "fastscan": 78,
       "frequency_mhz": 11094,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/national-geographic-wild-hd-304011214/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "nationalgeographicwild",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/nationalgeographicwild.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "spektrum",
@@ -826,10 +653,7 @@
       "fastscan": 79,
       "frequency_mhz": 11094,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/spektrum-304011226/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "spektrum",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/spektrum.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "travel-channel-hd",
@@ -840,10 +664,7 @@
       "fastscan": 80,
       "frequency_mhz": 10845,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/travel-channel-hd-207003700/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "travelchannelhd",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/travelchannelhd.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "tv-paprika",
@@ -854,10 +675,7 @@
       "fastscan": 81,
       "frequency_mhz": 11094,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/tv-paprika-304011229/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "tvpaprika",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/tvpaprika.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "ko",
@@ -868,10 +686,7 @@
       "fastscan": 82,
       "frequency_mhz": 11471,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/ocko-502000617/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "ocko",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/ocko.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "history-hd",
@@ -882,10 +697,7 @@
       "fastscan": 83,
       "frequency_mhz": 11637,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/history-hd-509001902/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "history",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/history.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "spektrum-home",
@@ -896,10 +708,7 @@
       "fastscan": 85,
       "frequency_mhz": 11094,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/spektrum-home-304011227/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "spektrumhome",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/spektrumhome.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "travelxp-hd",
@@ -910,10 +719,7 @@
       "fastscan": 86,
       "frequency_mhz": 11637,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/travelxp-hd-509001906/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "travelxphd",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/travelxphd.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "nova-sport-1-hd",
@@ -924,10 +730,7 @@
       "fastscan": 87,
       "frequency_mhz": 11055,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/nova-sport-1-hd-304001160/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "novasport1hd",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/novasport1hd.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "eurosport-1-hd",
@@ -938,10 +741,7 @@
       "fastscan": 88,
       "frequency_mhz": 11471,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/eurosport-1-hd-502000606/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "eurosport1hd",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/eurosport1hd.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "eurosport-2-hd",
@@ -952,10 +752,7 @@
       "fastscan": 89,
       "frequency_mhz": 11094,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/eurosport-2-hd-304011201/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "eurosport2hd",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/eurosport2hd.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "sport-1-hd",
@@ -966,10 +763,7 @@
       "fastscan": 90,
       "frequency_mhz": 11055,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/sport-1-hd-304001166/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "sport1",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/sport1.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "sport-2-hd",
@@ -980,10 +774,7 @@
       "fastscan": 91,
       "frequency_mhz": 11094,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/sport-2-hd-304011228/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "sport2",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/sport2.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "automotorsport-hd",
@@ -994,10 +785,7 @@
       "fastscan": 92,
       "frequency_mhz": 11055,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/automotorsport-hd-304001169/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "automotorsporthd",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/automotorsporthd.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "arena-sport-1-hd",
@@ -1008,10 +796,7 @@
       "fastscan": 93,
       "frequency_mhz": 11471,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/arena-sport-1-hd-502000608/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "kanal1sport",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/kanal1sport.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "arena-sport-2",
@@ -1022,10 +807,7 @@
       "fastscan": 94,
       "frequency_mhz": 11471,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/arena-sport-2-502000601/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "kanal1xtra",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/kanal1xtra.default.png",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "extasy-4k",
@@ -1036,10 +818,7 @@
       "fastscan": 99,
       "frequency_mhz": 11055,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/extasy-4k-304001157/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "extasy",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/extasy.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "dorcel-tv-hd",
@@ -1050,10 +829,7 @@
       "fastscan": 102,
       "frequency_mhz": 10762,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/dorcel-tv-hd-203005025/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "dorceltv",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/dorceltv.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "extasy-hd",
@@ -1064,10 +840,7 @@
       "fastscan": 103,
       "frequency_mhz": 11094,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/extasy-hd-304011211/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "extasy",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/extasy.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "prima-cool-sk-hd",
@@ -1078,10 +851,7 @@
       "fastscan": 106,
       "frequency_mhz": 11055,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/prima-cool-sk-hd-304001161/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "primacoolskhd",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/primacoolskhd.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "prima-love-sk",
@@ -1092,10 +862,7 @@
       "fastscan": 107,
       "frequency_mhz": 11055,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/prima-love-sk-304001162/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "primalovesk",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/primalovesk.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     },
     {
       "id": "prima-krimi-sk",
@@ -1106,13 +873,9 @@
       "fastscan": 110,
       "frequency_mhz": 11055,
       "source_url": "https://www.satelitnatv.sk/frekvencie/antik-sat-sk/program/prima-krimi-sk-304001155/",
-      "source_updated_at": "13.09.2026",
-      "logo_slug": "primakrimi",
-      "logo_url": "https://raw.githubusercontent.com/picons/picons/master/build-source/logos/primakrimi.default.svg",
-      "logo_source": "picons/picons"
+      "source_updated_at": "13.09.2026"
     }
   ],
-  "missing_logos": [],
   "skipped_services": [
     {
       "name": "Antik OTA Upgrade",
