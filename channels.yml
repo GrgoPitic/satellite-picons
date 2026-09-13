@@ -14,7 +14,7 @@ channels:
   dark_to_white: true
   optical_scale: 1.0
   satellite_position: 23.5E
-  provider_group: skylink
+  provider_group: skylink-sk
 - id: joj-sport-2
   name: JOJ ŠPORT 2
   logo: assets/logos/joj-sport-2.png
@@ -22,7 +22,7 @@ channels:
   dark_to_white: true
   optical_scale: 1.0
   satellite_position: 23.5E
-  provider_group: skylink
+  provider_group: skylink-sk
 - id: joj-svet
   name: JOJ Svet
   logo: assets/logos/joj-svet.png
@@ -34,7 +34,7 @@ channels:
   dark_to_white: true
   optical_scale: 1.0
   satellite_position: 23.5E
-  provider_group: skylink
+  provider_group: skylink-sk
 - id: joj-cinema
   name: JOJ Cinema
   logo: assets/logos/joj-cinema.png
@@ -46,7 +46,7 @@ channels:
   dark_to_white: true
   optical_scale: 1.0
   satellite_position: 23.5E
-  provider_group: skylink
+  provider_group: skylink-sk
 - id: cs-mystery
   name: CS Mystery
   logo: assets/logos/cs-mystery.png
@@ -58,7 +58,7 @@ channels:
   dark_to_white: true
   optical_scale: 1.0
   satellite_position: 23.5E
-  provider_group: skylink
+  provider_group: skylink-sk
 - id: markiza
   name: Markiza
   logo: assets/logos/markiza.png
@@ -72,7 +72,7 @@ channels:
   edge_cleanup: false
   background_cleanup: true
   satellite_position: 23.5E
-  provider_group: skylink
+  provider_group: skylink-sk
 - id: prima-televize
   name: Prima Televize
   logo: assets/logos/prima-televize.svg
@@ -86,7 +86,7 @@ channels:
   edge_cleanup: false
   background_cleanup: true
   satellite_position: 23.5E
-  provider_group: skylink
+  provider_group: skylink-sk
 - id: prima-sport-czech
   name: Prima Sport Czech
   logo: assets/logos/prima-sport-czech.png
@@ -100,7 +100,7 @@ channels:
   edge_cleanup: false
   background_cleanup: true
   satellite_position: 23.5E
-  provider_group: skylink
+  provider_group: skylink-sk
 - id: joj-sport
   name: JOJ Sport
   logo: assets/logos/joj-sport.png
@@ -114,7 +114,7 @@ channels:
   edge_cleanup: false
   background_cleanup: true
   satellite_position: 23.5E
-  provider_group: skylink
+  provider_group: skylink-sk
 - id: viasat-explore
   name: Viasat Explore
   logo: assets/logos/viasat-explore.png
@@ -128,7 +128,7 @@ channels:
   edge_cleanup: false
   background_cleanup: true
   satellite_position: 23.5E
-  provider_group: skylink
+  provider_group: skylink-sk
 - id: viasat-nature
   name: Viasat Nature
   logo: assets/logos/viasat-nature.svg
@@ -142,7 +142,7 @@ channels:
   edge_cleanup: false
   background_cleanup: true
   satellite_position: 23.5E
-  provider_group: skylink
+  provider_group: skylink-sk
 - id: joj-krimi
   name: JOJ Krimi
   service_reference: '1:0:19:4BF:76C1:16E:A00000:0:0:0:'
@@ -155,7 +155,7 @@ channels:
   edge_cleanup: false
   background_cleanup: true
   satellite_position: 16E
-  provider_group: null
+  provider_group: antik-sat-sk
   logo: assets/logos/joj-krimi-hd-e28d404c29.png
 - id: markiza-krimi-hd
   name: Markiza Krimi HD
@@ -169,7 +169,7 @@ channels:
   edge_cleanup: false
   background_cleanup: true
   satellite_position: 16E
-  provider_group: null
+  provider_group: antik-sat-sk
   logo: assets/logos/markiza-krimi-hd-85db4865d2.png
 - id: joj-svet-hd
   name: JOJ Svet HD
@@ -183,5 +183,5 @@ channels:
   edge_cleanup: true
   background_cleanup: true
   satellite_position: 16E
-  provider_group: null
+  provider_group: antik-sat-sk
   logo: assets/logos/joj-svet-hd-cd75dc1352.png
