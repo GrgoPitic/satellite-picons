@@ -16,44 +16,20 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 import yaml
 
-
 ROOT = Path(__file__).resolve().parents[1]
 PROVIDERS_CONFIG = ROOT / "providers.yml"
 DEFAULT_OUTPUT_DIR = ROOT / "provider-data"
 
 DEFAULT_TIMEOUT = (10, 25)
 USER_AGENT = (
-    "SatellitePiconsProviderSync/0.2 "
+    "SatellitePiconsProviderSync/0.3 "
     "(+https://github.com/GrgoPitic/satellite-picons)"
-)
-
-NAMESPACE_BY_POSITION = {
-    "23.5E": "EB0000",
-    "19.2E": "C00000",
-    "16E": "A00000",
-    "13E": "820000",
-}
-
-PICONS_REPO = "picons/picons"
-PICONS_BRANCH = "master"
-PICONS_API_TREE = (
-    "https://api.github.com/repos/%s/git/trees/%s?recursive=1"
-    % (PICONS_REPO, PICONS_BRANCH)
-)
-PICONS_SRP_INDEX = (
-    "https://raw.githubusercontent.com/%s/%s/build-source/srp.index"
-    % (PICONS_REPO, PICONS_BRANCH)
-)
-PICONS_RAW_PREFIX = "https://raw.githubusercontent.com/%s/%s/" % (
-    PICONS_REPO,
-    PICONS_BRANCH,
 )
 
 
 def make_session() -> requests.Session:
     session = requests.Session()
     session.headers.update({"User-Agent": USER_AGENT})
-
     retry = Retry(
         total=3,
         connect=3,
@@ -85,8 +61,18 @@ def normalize_position(value: str) -> str:
     number = match.group(1)
     if number.endswith(".0"):
         number = number[:-2]
-
     return "%s%s" % (number, match.group(2))
+
+
+def namespace_for_position(position: str) -> str:
+    normalized = normalize_position(position)
+    match = re.fullmatch(r"(\d+(?:\.\d+)?)([EW])", normalized)
+    if not match:
+        raise ValueError("Unsupported satellite position: %s" % position)
+
+    tenths = int(round(float(match.group(1)) * 10))
+    orbital = tenths if match.group(2) == "E" else (3600 - tenths) % 3600
+    return "%X0000" % orbital
 
 
 def parse_int_decimal(value: str, field: str) -> int:
@@ -108,7 +94,6 @@ def service_key(sid: int, tsid: int, onid: int, namespace: str) -> str:
 
 
 def service_reference(sid: int, tsid: int, onid: int, namespace: str) -> str:
-    # Base service type is 19. The build creates the configured variants.
     return "1:0:19:%X:%X:%X:%s:0:0:0:" % (
         sid,
         tsid,
@@ -131,12 +116,10 @@ def get_text_pairs(soup: BeautifulSoup) -> dict[str, str]:
         "SID",
         "Posledná aktualizácia",
     }
-    result = {}
-
+    result: dict[str, str] = {}
     for index, token in enumerate(tokens[:-1]):
         if token in wanted:
             result[token] = tokens[index + 1]
-
     return result
 
 
@@ -144,146 +127,44 @@ def station_name(soup: BeautifulSoup) -> str:
     heading = soup.find("h1")
     if not heading:
         raise ValueError("Missing H1 station name")
-
     title = " ".join(heading.stripped_strings).strip()
-    title = re.split(
-        r"\s+[–-]\s+frekvencia",
-        title,
-        maxsplit=1,
-        flags=re.I,
-    )[0]
+    title = re.split(r"\s+[–-]\s+frekvencia", title, maxsplit=1, flags=re.I)[0]
     return title.strip()
 
 
 def station_links(soup: BeautifulSoup, operator_url: str) -> list[str]:
     operator_path = urlparse(operator_url).path.rstrip("/")
     prefix = operator_path + "/program/"
-
-    links = []
-    seen = set()
+    links: list[str] = []
+    seen: set[str] = set()
 
     for anchor in soup.find_all("a", href=True):
-        href = anchor["href"]
-        absolute = urljoin(operator_url, href)
-        path = urlparse(absolute).path
-
-        if not path.startswith(prefix):
+        absolute = urljoin(operator_url, anchor["href"])
+        if not urlparse(absolute).path.startswith(prefix):
             continue
-
         if absolute not in seen:
             seen.add(absolute)
             links.append(absolute)
-
     return links
 
 
 def load_provider_config(provider_id: str) -> dict:
     cfg = yaml.safe_load(PROVIDERS_CONFIG.read_text(encoding="utf-8")) or {}
-
     for provider in cfg.get("providers", []):
         if str(provider.get("id", "")).strip().lower() == provider_id.lower():
             return provider
-
     raise SystemExit("Unknown provider in providers.yml: %s" % provider_id)
 
 
 def available_provider_ids() -> list[str]:
     cfg = yaml.safe_load(PROVIDERS_CONFIG.read_text(encoding="utf-8")) or {}
-    result = []
-
+    result: list[str] = []
     for provider in cfg.get("providers", []):
         provider_id = str(provider.get("id", "")).strip().lower()
         source = provider.get("source") or {}
         if provider_id and source.get("type") == "satelitnatv":
             result.append(provider_id)
-
     return result
-
-
-def fetch_picons_indexes(
-    session: requests.Session,
-) -> tuple[dict[str, str], dict[str, str], str | None]:
-    srp_response = session.get(PICONS_SRP_INDEX, timeout=DEFAULT_TIMEOUT)
-    srp_response.raise_for_status()
-
-    srp = {}
-    for line in srp_response.text.splitlines():
-        line = line.strip()
-        if not line or line.startswith("#") or "=" not in line:
-            continue
-        key, logo = line.split("=", 1)
-        srp[key.strip().upper()] = logo.strip()
-
-    tree_response = session.get(PICONS_API_TREE, timeout=DEFAULT_TIMEOUT)
-    tree_response.raise_for_status()
-    tree_payload = tree_response.json()
-
-    preferred = {}
-    priority = {
-        ".default.svg": 0,
-        ".default.png": 1,
-        ".default.webp": 2,
-        ".light.svg": 3,
-        ".light.png": 4,
-        ".dark.svg": 5,
-        ".dark.png": 6,
-    }
-
-    for item in tree_payload.get("tree", []):
-        path = item.get("path", "")
-        if not path.startswith("build-source/logos/"):
-            continue
-
-        filename = Path(path).name
-        lower = filename.lower()
-
-        for suffix, rank in priority.items():
-            if not lower.endswith(suffix):
-                continue
-
-            slug = filename[: -len(suffix)]
-            current = preferred.get(slug)
-            if current is None or rank < current[0]:
-                preferred[slug] = (rank, path)
-            break
-
-    logo_paths = {
-        slug: value[1]
-        for slug, value in preferred.items()
-    }
-    revision = tree_payload.get("sha")
-    return srp, logo_paths, revision
-
-
-def resolve_logo(
-    key: str,
-    name: str,
-    srp: dict[str, str],
-    logo_paths: dict[str, str],
-) -> tuple[str | None, str | None]:
-    slug = srp.get(key.upper())
-
-    if slug and slug in logo_paths:
-        return slug, logo_paths[slug]
-
-    # Conservative fallback: exact normalized channel name only.
-    compact = re.sub(r"[^a-z0-9]", "", name.lower())
-    candidates = []
-
-    for upstream_slug in logo_paths:
-        upstream_compact = re.sub(
-            r"[^a-z0-9]",
-            "",
-            upstream_slug.lower(),
-        )
-        if upstream_compact == compact:
-            candidates.append(upstream_slug)
-
-    if len(candidates) == 1:
-        fallback = candidates[0]
-        return fallback, logo_paths[fallback]
-
-    return None, None
 
 
 def sync_provider(
@@ -294,7 +175,6 @@ def sync_provider(
     delay: float = 0.10,
 ) -> dict:
     source = provider.get("source") or {}
-
     if source.get("type") != "satelitnatv":
         raise RuntimeError(
             "Unsupported source type for %s: %s"
@@ -303,13 +183,9 @@ def sync_provider(
 
     operator_url = source.get("operator_url")
     if not operator_url:
-        raise RuntimeError(
-            "Provider %s is missing source.operator_url"
-            % provider_id
-        )
+        raise RuntimeError("Provider %s is missing source.operator_url" % provider_id)
 
     session = make_session()
-
     listing_response = session.get(operator_url, timeout=DEFAULT_TIMEOUT)
     listing_response.raise_for_status()
     listing = BeautifulSoup(listing_response.text, "html.parser")
@@ -317,19 +193,12 @@ def sync_provider(
     links = station_links(listing, operator_url)
     if limit:
         links = links[:limit]
-
     if not links:
-        raise RuntimeError(
-            "No station detail links found for %s"
-            % provider_id
-        )
+        raise RuntimeError("No station detail links found for %s" % provider_id)
 
-    srp, logo_paths, picons_revision = fetch_picons_indexes(session)
-
-    channels = []
-    missing_logo = []
-    skipped_services = []
-    errors = []
+    channels: list[dict] = []
+    skipped_services: list[dict] = []
+    errors: list[dict] = []
 
     for position_index, url in enumerate(links, 1):
         try:
@@ -339,15 +208,10 @@ def sync_provider(
 
             name = station_name(soup)
             values = get_text_pairs(soup)
-
             service_kind = str(values.get("Typ", "")).strip().lower()
             if service_kind not in {"tv", "rádio", "radio"}:
                 skipped_services.append(
-                    {
-                        "name": name,
-                        "type": values.get("Typ"),
-                        "url": url,
-                    }
+                    {"name": name, "type": values.get("Typ"), "url": url}
                 )
                 continue
 
@@ -356,75 +220,27 @@ def sync_provider(
             onid = parse_int_decimal(values.get("ONID", ""), "ONID")
             fastscan = parse_optional_int(values.get("FastScan (LCN)"))
             frequency = parse_optional_int(values.get("Frekvencia"))
-
             position = normalize_position(values.get("Družica", ""))
-            namespace = NAMESPACE_BY_POSITION.get(position)
-            if not namespace:
-                raise ValueError(
-                    "No Enigma2 namespace mapping for %s"
-                    % position
-                )
+            namespace = namespace_for_position(position)
 
-            key = service_key(sid, tsid, onid, namespace)
-            logo_slug, logo_path = resolve_logo(
-                key,
-                name,
-                srp,
-                logo_paths,
+            channels.append(
+                {
+                    "id": slugify(name),
+                    "name": name,
+                    "provider_group": provider_id,
+                    "service_reference": service_reference(sid, tsid, onid, namespace),
+                    "satellite_position": position,
+                    "fastscan": fastscan,
+                    "frequency_mhz": frequency,
+                    "source_url": url,
+                    "source_updated_at": values.get("Posledná aktualizácia"),
+                }
             )
-            logo_url = (
-                PICONS_RAW_PREFIX + logo_path
-                if logo_path
-                else None
-            )
-
-            channel = {
-                "id": slugify(name),
-                "name": name,
-                "provider_group": provider_id,
-                "service_reference": service_reference(
-                    sid,
-                    tsid,
-                    onid,
-                    namespace,
-                ),
-                "satellite_position": position,
-                "fastscan": fastscan,
-                "frequency_mhz": frequency,
-                "source_url": url,
-                "source_updated_at": values.get(
-                    "Posledná aktualizácia"
-                ),
-                "logo_slug": logo_slug,
-                "logo_url": logo_url,
-                "logo_source": (
-                    PICONS_REPO
-                    if logo_url
-                    else None
-                ),
-            }
-            channels.append(channel)
-
-            if not logo_url:
-                missing_logo.append(
-                    {
-                        "name": name,
-                        "service_key": key,
-                        "service_reference": channel[
-                            "service_reference"
-                        ],
-                    }
-                )
-
         except Exception as error:
             errors.append(
                 {
                     "url": url,
-                    "error": "%s: %s"
-                    % (
-                        error.__class__.__name__,
-                        error,
-                    ),
+                    "error": "%s: %s" % (error.__class__.__name__, error),
                 }
             )
 
@@ -433,114 +249,111 @@ def sync_provider(
 
     channels.sort(
         key=lambda item: (
-            int(
-                item.get("fastscan")
-                if item.get("fastscan") is not None
-                else 99999
-            ),
+            int(item.get("fastscan") if item.get("fastscan") is not None else 99999),
             item["name"].lower(),
         )
     )
 
-    matched = sum(
-        1
-        for item in channels
-        if item.get("logo_url")
-    )
     total = len(channels)
-    coverage = (
-        round((matched / total * 100.0), 2)
-        if total
-        else 0.0
-    )
-
     payload = {
-        "schema": 1,
+        "schema": 2,
         "provider": provider_id,
-        "provider_name": provider.get(
-            "name",
-            provider_id,
-        ),
-        "generated_at": datetime.now(
-            timezone.utc
-        ).isoformat(),
+        "provider_name": provider.get("name", provider_id),
+        "generated_at": datetime.now(timezone.utc).isoformat(),
         "source": {
             "operator_url": operator_url,
             "operator": "SatelitnaTV.sk",
-            "logo_repository": PICONS_REPO,
-            "logo_revision": picons_revision,
+            "artwork_mode": "manual",
+            "upstream_logos_imported": False,
         },
         "stats": {
             "detail_links": len(links),
             "channels_parsed": total,
-            "logos_matched": matched,
-            "logos_missing": len(missing_logo),
             "services_skipped": len(skipped_services),
             "errors": len(errors),
-            "logo_coverage_percent": coverage,
+            "upstream_logos_imported": 0,
         },
         "channels": channels,
-        "missing_logos": missing_logo,
         "skipped_services": skipped_services,
         "errors": errors,
     }
 
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(
-        json.dumps(
-            payload,
-            ensure_ascii=False,
-            indent=2,
-        )
-        + "\n",
+        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
-
     return payload
 
 
 def main() -> int:
     provider_ids = available_provider_ids()
-
     parser = argparse.ArgumentParser(
-        description="Synchronize operator channel metadata"
+        description="Synchronize operator metadata only; artwork is curated manually"
     )
-    parser.add_argument(
-        "provider",
-        choices=provider_ids,
-    )
-    parser.add_argument(
-        "--output",
-        help="Output JSON file",
-    )
-    parser.add_argument(
-        "--limit",
-        type=int,
-        default=None,
-        help="Only parse first N channels",
-    )
-    parser.add_argument(
-        "--delay",
-        type=float,
-        default=0.10,
-        help="Delay between station requests",
-    )
+    parser.add_argument("provider", choices=provider_ids + ["all"])
+    parser.add_argument("--output", help="Output JSON file (single provider only)")
+    parser.add_argument("--limit", type=int, default=None)
+    parser.add_argument("--delay", type=float, default=0.10)
     parser.add_argument(
         "--min-coverage",
         type=float,
-        default=70.0,
-        help="Fail when logo coverage is below this percentage",
+        default=0.0,
+        help="Deprecated compatibility option; artwork is manual and coverage is not checked",
     )
     args = parser.parse_args()
+
+    if args.provider == "all":
+        if args.output:
+            parser.error("--output cannot be used with provider=all")
+
+        DEFAULT_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+        valid_names = {"%s.json" % provider_id for provider_id in provider_ids}
+        for path in DEFAULT_OUTPUT_DIR.glob("*.json"):
+            if path.name not in valid_names:
+                path.unlink()
+
+        failed: list[tuple[str, str]] = []
+        for provider_id in provider_ids:
+            provider = load_provider_config(provider_id)
+            output = DEFAULT_OUTPUT_DIR / ("%s.json" % provider_id)
+            print("\n=== %s ===" % provider.get("name", provider_id))
+            try:
+                payload = sync_provider(
+                    provider_id,
+                    provider,
+                    output=output,
+                    limit=args.limit,
+                    delay=max(0.0, args.delay),
+                )
+            except Exception as exc:
+                reason = "%s: %s" % (exc.__class__.__name__, exc)
+                failed.append((provider_id, reason))
+                print("FAILED:", reason, file=sys.stderr)
+                continue
+
+            stats = payload["stats"]
+            print(
+                "Synced %(channels_parsed)s channels; metadata only; "
+                "%(services_skipped)s skipped; %(errors)s errors."
+                % stats
+            )
+            if stats["channels_parsed"] == 0:
+                failed.append((provider_id, "zero parsed channels"))
+
+        if failed:
+            print("\nProvider sync failures:", file=sys.stderr)
+            for provider_id, reason in failed:
+                print(" - %s: %s" % (provider_id, reason), file=sys.stderr)
+            return 2
+        return 0
 
     provider = load_provider_config(args.provider)
     output = (
         Path(args.output)
         if args.output
-        else DEFAULT_OUTPUT_DIR
-        / ("%s.json" % args.provider)
+        else DEFAULT_OUTPUT_DIR / ("%s.json" % args.provider)
     )
-
     payload = sync_provider(
         args.provider,
         provider,
@@ -548,34 +361,14 @@ def main() -> int:
         limit=args.limit,
         delay=max(0.0, args.delay),
     )
-
     stats = payload["stats"]
     print(
-        "Synced %(channels_parsed)s channels; "
-        "%(logos_matched)s logos matched "
-        "(%(logo_coverage_percent)s%%); "
-        "%(logos_missing)s missing; "
-        "%(services_skipped)s non-channel services skipped; "
-        "%(errors)s errors."
+        "Synced %(channels_parsed)s channels; metadata only; "
+        "%(services_skipped)s non-channel services skipped; %(errors)s errors."
         % stats
     )
     print("Output:", output)
-
-    if stats["channels_parsed"] == 0:
-        return 2
-
-    if stats["logo_coverage_percent"] < args.min_coverage:
-        print(
-            "Coverage %.2f%% is below required %.2f%%"
-            % (
-                stats["logo_coverage_percent"],
-                args.min_coverage,
-            ),
-            file=sys.stderr,
-        )
-        return 3
-
-    return 0
+    return 0 if stats["channels_parsed"] > 0 else 2
 
 
 if __name__ == "__main__":
