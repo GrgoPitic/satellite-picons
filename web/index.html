@@ -3,23 +3,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Satellite Picons — curated Enigma2 satellite picon collection with consistent 150×90 styling and current channel branding.">
-  <title>Satellite Picons</title>
+  <meta name="description" content="Picon Hub — kurátorovaná databáza piconov pre satelitných aj IPTV providerov.">
+  <title>Picon Hub</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main>
     <header class="hero">
       <div class="hero-copy">
-        <p class="eyebrow">ENIGMA2 PICON DATABASE</p>
-        <h1>Satellite Picons</h1>
-        <p class="lead">Picony 150×90 pre Enigma2, zoradené podľa satelitnej pozície a balíka.</p>
+        <p class="eyebrow">SAT + IPTV PICON DATABASE</p>
+        <h1>Picon Hub</h1>
+        <p class="lead">Jedna databáza vlastných piconov pre satelitné aj IPTV platformy, s balíkmi podľa operátora.</p>
       </div>
       <a class="button primary" id="package" href="#">Stiahnuť všetky picony</a>
     </header>
 
     <section class="stats">
-      <div><strong id="channels">—</strong><span>kanálov v katalógu</span></div>
+      <div><strong id="channels">—</strong><span>hotových kanálov</span></div>
       <div><strong id="picons">—</strong><span>vygenerovaných piconov</span></div>
       <div><strong id="updated">—</strong><span>posledná aktualizácia</span></div>
     </section>
@@ -30,8 +30,9 @@
           <p class="section-kicker">PLATFORMY</p>
           <h2>Balíky podľa operátora</h2>
         </div>
-        <p>Klikni na platformu a stiahni kompletný balík piconov iba pre daného operátora.</p>
+        <p>Satelit a IPTV sú v jednom katalógu. Balík sa sprístupní, keď má provider aspoň jeden náš hotový picon.</p>
       </div>
+      <div id="providerDeliveryFilters" class="filters" aria-label="Typ platformy"></div>
       <div id="providerGrid" class="provider-grid" aria-live="polite"></div>
     </section>
 
@@ -44,7 +45,7 @@
         <p>Kliknutím na picon otvoríš detail a možnosti stiahnutia.</p>
       </div>
       <div class="catalog-tools">
-        <input id="search" type="search" placeholder="Hľadať kanál alebo service reference…" autocomplete="off">
+        <input id="search" type="search" placeholder="Hľadať kanál, provider, tvg-id alebo service reference…" autocomplete="off">
         <div id="filters" class="filters" aria-label="Filtrovanie piconov"></div>
       </div>
       <div id="grid" class="grid"></div>
@@ -93,8 +94,8 @@
     </div>
 
     <footer>
-      <strong>Satellite Picons</strong>
-      <span>Enigma2 picon database.</span>
+      <strong>Picon Hub</strong>
+      <span>SAT + IPTV picon database.</span>
     </footer>
   </main>
   <script src="app.js"></script>
