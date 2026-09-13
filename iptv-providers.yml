@@ -1,0 +1,28 @@
+schema: 1
+providers:
+  - id: magio-tv-iptv-sk
+    name: Magio TV (IPTV)
+    description: IPTV kanály Magio TV spravované ručne v Picon Hub.
+    countries: [SK]
+    delivery: iptv
+    sort_order: 310
+    source:
+      type: manual
+
+  - id: orange-tv-iptv-sk
+    name: Orange TV (IPTV)
+    description: IPTV kanály Orange TV spravované ručne v Picon Hub.
+    countries: [SK]
+    delivery: iptv
+    sort_order: 320
+    source:
+      type: manual
+
+  - id: antik-tv-iptv-sk
+    name: ANTIK TV (IPTV)
+    description: IPTV kanály ANTIK TV spravované ručne v Picon Hub.
+    countries: [SK]
+    delivery: iptv
+    sort_order: 330
+    source:
+      type: manual
