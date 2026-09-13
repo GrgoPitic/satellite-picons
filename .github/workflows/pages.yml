@@ -38,12 +38,12 @@ jobs:
 
       - name: Syntax check
         run: |
-          python -m py_compile scripts/build.py scripts/admin.py scripts/add_channel.py scripts/sync_provider.py receiver/update_picons.py receiver/plugin/Plugins/Extensions/SatellitePicons/plugin.py
+          python -m py_compile scripts/build.py scripts/build_v2.py scripts/admin.py scripts/admin_v2.py scripts/catalog_common.py scripts/add_channel.py scripts/sync_provider.py receiver/update_picons.py receiver/plugin/Plugins/Extensions/SatellitePicons/plugin.py
           python receiver/update_picons.py --help >/dev/null
           node --check web/app.js
 
-      - name: Build picons
-        run: python scripts/build.py
+      - name: Build Picon Hub
+        run: python scripts/build_v2.py
 
       - name: Validate provider catalogue
         run: |
@@ -58,7 +58,12 @@ jobs:
           assert isinstance(providers.get("providers"), list)
           assert version.get("providers") == "providers.json"
 
+          deliveries = {p.get("delivery") for p in providers["providers"]}
+          assert "satellite" in deliveries, deliveries
+          assert "iptv" in deliveries, deliveries
+
           for provider in providers["providers"]:
+              assert provider.get("delivery") in {"satellite", "iptv"}, provider
               if provider.get("available"):
                   package = provider.get("package")
                   assert package, provider
