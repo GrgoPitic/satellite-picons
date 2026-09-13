@@ -9,6 +9,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 PROVIDERS_CONFIG = ROOT / "providers.yml"
+IPTV_PROVIDERS_CONFIG = ROOT / "iptv-providers.yml"
 ARTWORK_CONFIG = ROOT / "station-artwork.yml"
 
 
@@ -28,16 +29,22 @@ def normalize_station_key(name: str) -> str:
 
 
 def provider_definitions() -> dict[str, dict]:
-    cfg = yaml.safe_load(PROVIDERS_CONFIG.read_text(encoding="utf-8")) or {}
     result: dict[str, dict] = {}
-    for provider in cfg.get("providers", []) or []:
-        provider_id = str(provider.get("id") or "").strip().lower()
-        if not provider_id:
+    for path, default_delivery in (
+        (PROVIDERS_CONFIG, "satellite"),
+        (IPTV_PROVIDERS_CONFIG, "iptv"),
+    ):
+        if not path.exists():
             continue
-        item = dict(provider)
-        item["id"] = provider_id
-        item["delivery"] = str(item.get("delivery") or "satellite").strip().lower()
-        result[provider_id] = item
+        cfg = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+        for provider in cfg.get("providers", []) or []:
+            provider_id = str(provider.get("id") or "").strip().lower()
+            if not provider_id:
+                continue
+            item = dict(provider)
+            item["id"] = provider_id
+            item["delivery"] = str(item.get("delivery") or default_delivery).strip().lower()
+            result[provider_id] = item
     return result
 
 
