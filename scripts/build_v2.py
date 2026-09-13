@@ -22,13 +22,18 @@ def enrich_artwork(channel: dict) -> dict:
     item["delivery"] = str(item.get("delivery") or provider.get("delivery") or "satellite").lower()
     station_key = str(item.get("station_key") or normalize_station_key(item.get("name", "")))
     item["station_key"] = station_key
+    identity = channel_identity(item, provider_id)
 
-    if not item.get("logo"):
-        artwork = (load_station_artwork().get("stations") or {}).get(station_key)
-        if isinstance(artwork, dict):
+    artwork = (load_station_artwork().get("stations") or {}).get(station_key)
+    if isinstance(artwork, dict):
+        targets = {str(x) for x in artwork.get("targets", []) or []}
+        selected_for_channel = not targets or identity in targets
+        if selected_for_channel:
             provider_override = (artwork.get("provider_overrides") or {}).get(provider_id)
             selected = provider_override if isinstance(provider_override, dict) else artwork
             if selected.get("logo"):
+                # Explicitly selected shared artwork is authoritative, even if
+                # an older per-service logo still exists in channels.yml.
                 item["logo"] = selected.get("logo")
             for field in ("dark_to_white", "optical_scale", "edge_cleanup", "background_cleanup"):
                 if field in selected:
