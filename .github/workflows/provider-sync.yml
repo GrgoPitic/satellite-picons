@@ -157,10 +157,13 @@ jobs:
 
           for provider_id in sorted(expected):
               provider = by_id[provider_id]
-              assert provider["channel_count"] > 0, provider
+              source_stats = provider.get("source_stats") or {}
 
-              # Providers remain visible even before artwork is curated.
-              # A downloadable package is required only once curated picons exist.
+              # Full provider catalogue metadata is valid even when no logo has
+              # been curated yet. channel_count currently represents rendered
+              # curated channels, not the synchronized metadata catalogue size.
+              assert source_stats.get("channels_parsed", 0) > 0, provider
+
               if provider["available"]:
                   assert provider["picon_count"] > 0, provider
                   package = Path("public") / provider["package"]
@@ -168,7 +171,8 @@ jobs:
 
               print(
                   provider_id,
-                  "channels=", provider["channel_count"],
+                  "catalogue_channels=", source_stats.get("channels_parsed", 0),
+                  "curated_channels=", provider["channel_count"],
                   "curated_picons=", provider["picon_count"],
                   "available=", provider["available"],
               )
