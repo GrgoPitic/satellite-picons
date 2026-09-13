@@ -81,6 +81,35 @@ jobs:
             fi
           fi
 
+          seed_legacy() {
+            local provider="$1"
+            local output="$2"
+            local legacy="$3"
+            if git cat-file -e "HEAD:${legacy}" 2>/dev/null; then
+              echo "::notice::${provider}: seeding renamed provider from ${legacy}."
+              git show "HEAD:${legacy}" > "$output"
+              TARGET_PROVIDER="$provider" TARGET_FILE="$output" python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          import yaml
+
+          target = os.environ["TARGET_PROVIDER"]
+          path = Path(os.environ["TARGET_FILE"])
+          data = json.loads(path.read_text())
+          cfg = yaml.safe_load(Path("providers.yml").read_text()) or {}
+          meta = next((p for p in cfg.get("providers", []) if p.get("id") == target), {})
+          data["provider"] = target
+          data["provider_name"] = meta.get("name", target)
+          for channel in data.get("channels", []) or []:
+              channel["provider_group"] = target
+          path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n")
+          PY
+              return 0
+            fi
+            return 1
+          }
+
           for provider in "${PROVIDERS[@]}"; do
             output="provider-data/${provider}.json"
             success=0
@@ -104,6 +133,10 @@ jobs:
               if git cat-file -e "HEAD:${output}" 2>/dev/null; then
                 echo "::warning::${provider}: using last stored catalogue."
                 git restore --source=HEAD -- "$output"
+              elif [ "$provider" = "skylink-sk" ] && seed_legacy "$provider" "$output" "provider-data/skylink.json"; then
+                :
+              elif [ "$provider" = "antik-sat-sk" ] && seed_legacy "$provider" "$output" "provider-data/antik.json"; then
+                :
               else
                 echo "::warning::${provider}: no catalogue yet; provider stays visible with zero channels until a later successful sync."
                 rm -f "$output"
@@ -111,6 +144,11 @@ jobs:
             fi
             echo "::endgroup::"
           done
+
+          # Once migrated provider files exist, remove obsolete legacy IDs so
+          # the web/admin do not show duplicate Skylink/ANTIK provider cards.
+          [ -f provider-data/skylink-sk.json ] && rm -f provider-data/skylink.json
+          [ -f provider-data/antik-sat-sk.json ] && rm -f provider-data/antik.json
 
       - name: Normalize catalogues to metadata only
         run: |
