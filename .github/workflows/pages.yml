@@ -42,6 +42,27 @@ jobs:
           python receiver/update_picons.py --help >/dev/null
           node --check web/app.js
 
+      - name: Admin SAT IPTV smoke test
+        run: |
+          python - <<'PY'
+          import sys
+          sys.path.insert(0, "scripts")
+          import admin_v2
+
+          client = admin_v2.legacy.app.test_client()
+          page = client.get("/")
+          assert page.status_code == 200, page.status_code
+          assert b"Picon Hub" in page.data
+          assert b"Magio TV" in page.data
+
+          matches = client.get("/api/station-matches?name=Markiza")
+          assert matches.status_code == 200, matches.status_code
+          payload = matches.get_json()
+          assert payload["station_key"] == "markiza", payload
+          assert isinstance(payload.get("matches"), list), payload
+          print("Admin smoke test OK; Markiza matches:", len(payload["matches"]))
+          PY
+
       - name: Build Picon Hub
         run: python scripts/build_v2.py
 
