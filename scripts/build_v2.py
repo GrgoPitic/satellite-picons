@@ -32,8 +32,6 @@ def enrich_artwork(channel: dict) -> dict:
             provider_override = (artwork.get("provider_overrides") or {}).get(provider_id)
             selected = provider_override if isinstance(provider_override, dict) else artwork
             if selected.get("logo"):
-                # Explicitly selected shared artwork is authoritative, even if
-                # an older per-service logo still exists in channels.yml.
                 item["logo"] = selected.get("logo")
             for field in ("dark_to_white", "optical_scale", "edge_cleanup", "background_cleanup"):
                 if field in selected:
@@ -86,6 +84,20 @@ def postprocess_public() -> None:
         providers = payload.setdefault("providers", [])
         by_id = {str(p.get("id") or "").lower(): p for p in providers}
 
+        # Old provider-data can temporarily coexist with renamed provider IDs
+        # during migration (for example skylink -> skylink-sk). Keep those
+        # records valid and explicitly mark them as satellite instead of
+        # producing an untyped provider that breaks catalogue validation.
+        for provider in providers:
+            provider_id = str(provider.get("id") or "").lower()
+            meta = defs.get(provider_id, {})
+            provider["delivery"] = str(meta.get("delivery") or provider.get("delivery") or "satellite").lower()
+            provider["source_type"] = str((meta.get("source") or {}).get("type") or provider.get("source_type") or "legacy")
+            provider["curated_channel_count"] = int(provider.get("curated_channel_count", provider.get("channel_count") or 0))
+            source_stats = provider.get("source_stats") or {}
+            if source_stats.get("channels_parsed") is not None:
+                provider["channel_count"] = int(source_stats["channels_parsed"])
+
         for provider_id, meta in defs.items():
             provider = by_id.get(provider_id)
             if provider is None:
@@ -107,7 +119,7 @@ def postprocess_public() -> None:
 
             provider["delivery"] = str(meta.get("delivery") or "satellite").lower()
             provider["source_type"] = str((meta.get("source") or {}).get("type") or "manual")
-            provider["curated_channel_count"] = int(provider.get("channel_count") or 0)
+            provider["curated_channel_count"] = int(provider.get("curated_channel_count", provider.get("channel_count") or 0))
             source_stats = provider.get("source_stats") or {}
             if source_stats.get("channels_parsed") is not None:
                 provider["channel_count"] = int(source_stats["channels_parsed"])
@@ -123,7 +135,7 @@ def postprocess_public() -> None:
         index = json.loads(index_path.read_text(encoding="utf-8"))
         for channel in index.get("channels", []):
             provider_id = str(channel.get("provider_group") or "").lower()
-            channel["delivery"] = str(defs.get(provider_id, {}).get("delivery") or "satellite").lower()
+            channel["delivery"] = str(defs.get(provider_id, {}).get("delivery") or channel.get("delivery") or "satellite").lower()
             channel["station_key"] = normalize_station_key(channel.get("name", ""))
         index_path.write_text(json.dumps(index, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
