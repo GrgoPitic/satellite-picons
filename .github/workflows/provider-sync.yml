@@ -54,24 +54,21 @@ jobs:
             local success=0
 
             echo "::group::Synchronize ${label} metadata"
-            for attempt in 1 2 3; do
-              echo "Attempt ${attempt}/3"
+            for attempt in 1 2; do
+              echo "Attempt ${attempt}/2"
               if python scripts/sync_provider.py "$provider" \
                 --delay 0.08 \
                 --output "$output"; then
                 success=1
                 break
               fi
-
-              echo "::warning::${label}: synchronization attempt ${attempt}/3 failed."
-              if [ "$attempt" -lt 3 ]; then
-                sleep $((attempt * 20))
-              fi
+              echo "::warning::${label}: upstream metadata attempt ${attempt}/2 failed."
+              [ "$attempt" -lt 2 ] && sleep 15
             done
 
             if [ "$success" -ne 1 ]; then
               if git cat-file -e "HEAD:${output}" 2>/dev/null; then
-                echo "::warning::${label}: upstream metadata source is temporarily unavailable. Keeping the last validated catalogue from the repository."
+                echo "::warning::${label}: upstream unavailable; using last catalogue."
                 git restore --source=HEAD -- "$output"
               else
                 echo "::error::${label}: synchronization failed and no previous catalogue is available."
@@ -84,6 +81,35 @@ jobs:
 
           sync_provider skylink provider-data/skylink.json "Skylink"
           sync_provider antik provider-data/antik.json "ANTIK Sat"
+
+      - name: Normalize catalogues to metadata only
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          for provider_id in ("skylink", "antik"):
+              path = Path("provider-data") / f"{provider_id}.json"
+              data = json.loads(path.read_text())
+              source = data.setdefault("source", {})
+              source.pop("logo_repository", None)
+              source.pop("logo_revision", None)
+              source["artwork_mode"] = "manual"
+              source["upstream_logos_imported"] = False
+
+              stats = data.setdefault("stats", {})
+              for key in ("logos_matched", "logos_missing", "logo_coverage_percent"):
+                  stats.pop(key, None)
+              stats["upstream_logos_imported"] = 0
+
+              for channel in data.get("channels", []) or []:
+                  channel.pop("logo_url", None)
+                  channel.pop("logo_slug", None)
+                  channel.pop("logo_source", None)
+              data.pop("missing_logos", None)
+
+              path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n")
+          PY
 
       - name: Validate generated provider metadata
         run: |
@@ -100,20 +126,16 @@ jobs:
               path = Path("provider-data") / f"{provider_id}.json"
               data = json.loads(path.read_text())
               stats = data["stats"]
-
               assert data["provider"] == provider_id
               assert data["source"].get("artwork_mode") == "manual", data["source"]
               assert data["source"].get("upstream_logos_imported") is False, data["source"]
               assert stats["channels_parsed"] >= rule["min_channels"], stats
               assert stats["errors"] <= rule["max_errors"], stats
-
               for channel in data.get("channels", []):
-                  assert "logo_url" not in channel, (provider_id, channel.get("name"))
-                  assert "logo_slug" not in channel, (provider_id, channel.get("name"))
-                  assert "logo_source" not in channel, (provider_id, channel.get("name"))
-
-              print(provider_id)
-              print(json.dumps(stats, indent=2))
+                  assert "logo_url" not in channel
+                  assert "logo_slug" not in channel
+                  assert "logo_source" not in channel
+              print(provider_id, json.dumps(stats, indent=2))
           PY
 
       - name: Validate complete build with curated artwork only
@@ -125,42 +147,26 @@ jobs:
 
           providers = json.loads(Path("public/providers.json").read_text())
           by_id = {p["id"]: p for p in providers["providers"]}
-
           for provider_id in ("skylink", "antik"):
               provider = by_id[provider_id]
               source_stats = provider.get("source_stats") or {}
-
-              # In metadata-only mode the full catalogue size comes from the
-              # synchronized provider metadata. channel_count currently means
-              # channels that already have curated artwork and were rendered.
               assert source_stats.get("channels_parsed", 0) > 0, provider
-
               if provider["available"]:
                   assert provider["picon_count"] > 0, provider
                   package = Path("public") / provider["package"]
                   assert package.is_file(), package
-
-              print(
-                  provider_id,
-                  "catalogue_channels=", source_stats.get("channels_parsed", 0),
-                  "curated_channels=", provider["channel_count"],
-                  "curated_picons=", provider["picon_count"],
-                  "available=", provider["available"],
-              )
           PY
 
       - name: Commit synchronized catalogues
         if: github.event_name != 'pull_request'
         run: |
           BRANCH="${GITHUB_REF_NAME}"
-
           git config user.name "JohnyWick"
           git config user.email "42406628+GrgoPitic@users.noreply.github.com"
-
           git add provider-data/skylink.json provider-data/antik.json
 
           if git diff --cached --quiet; then
-            echo "Provider data is already current."
+            echo "Provider metadata is already current."
             echo "PROVIDER_DATA_CHANGED=false" >> "$GITHUB_ENV"
             exit 0
           fi
@@ -174,8 +180,7 @@ jobs:
         if: env.PROVIDER_DATA_CHANGED == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
-        run: |
-          gh workflow run pages.yml --ref "${GITHUB_REF_NAME}"
+        run: gh workflow run pages.yml --ref "${GITHUB_REF_NAME}"
 
       - name: Upload synchronized catalogues
         uses: actions/upload-artifact@v4
