@@ -53,12 +53,11 @@ jobs:
             local label="$3"
             local success=0
 
-            echo "::group::Synchronize ${label}"
+            echo "::group::Synchronize ${label} metadata"
             for attempt in 1 2 3; do
               echo "Attempt ${attempt}/3"
               if python scripts/sync_provider.py "$provider" \
                 --delay 0.08 \
-                --min-coverage 70 \
                 --output "$output"; then
                 success=1
                 break
@@ -72,7 +71,7 @@ jobs:
 
             if [ "$success" -ne 1 ]; then
               if git cat-file -e "HEAD:${output}" 2>/dev/null; then
-                echo "::warning::${label}: upstream source is temporarily unavailable. Keeping the last validated catalogue from the repository."
+                echo "::warning::${label}: upstream metadata source is temporarily unavailable. Keeping the last validated catalogue from the repository."
                 git restore --source=HEAD -- "$output"
               else
                 echo "::error::${label}: synchronization failed and no previous catalogue is available."
@@ -86,25 +85,15 @@ jobs:
           sync_provider skylink provider-data/skylink.json "Skylink"
           sync_provider antik provider-data/antik.json "ANTIK Sat"
 
-      - name: Validate generated provider data
+      - name: Validate generated provider metadata
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
 
           rules = {
-              "skylink": {
-                  "min_channels": 250,
-                  "min_logos": 240,
-                  "max_errors": 8,
-                  "min_coverage": 70,
-              },
-              "antik": {
-                  "min_channels": 70,
-                  "min_logos": 65,
-                  "max_errors": 8,
-                  "min_coverage": 70,
-              },
+              "skylink": {"min_channels": 250, "max_errors": 8},
+              "antik": {"min_channels": 70, "max_errors": 8},
           }
 
           for provider_id, rule in rules.items():
@@ -113,16 +102,21 @@ jobs:
               stats = data["stats"]
 
               assert data["provider"] == provider_id
+              assert data["source"].get("artwork_mode") == "manual", data["source"]
+              assert data["source"].get("upstream_logos_imported") is False, data["source"]
               assert stats["channels_parsed"] >= rule["min_channels"], stats
-              assert stats["logos_matched"] >= rule["min_logos"], stats
               assert stats["errors"] <= rule["max_errors"], stats
-              assert stats["logo_coverage_percent"] >= rule["min_coverage"], stats
+
+              for channel in data.get("channels", []):
+                  assert "logo_url" not in channel, (provider_id, channel.get("name"))
+                  assert "logo_slug" not in channel, (provider_id, channel.get("name"))
+                  assert "logo_source" not in channel, (provider_id, channel.get("name"))
 
               print(provider_id)
               print(json.dumps(stats, indent=2))
           PY
 
-      - name: Validate complete build with synchronized data
+      - name: Validate complete build with curated artwork only
         run: |
           python scripts/build.py
           python - <<'PY'
@@ -134,12 +128,21 @@ jobs:
 
           for provider_id in ("skylink", "antik"):
               provider = by_id[provider_id]
-              assert provider["available"], provider
               assert provider["channel_count"] > 0, provider
-              assert provider["picon_count"] > 0, provider
-              package = Path("public") / provider["package"]
-              assert package.is_file(), package
-              print(provider_id, provider["channel_count"], provider["picon_count"], package)
+
+              # The catalogue is valid even with zero picons. Artwork is added
+              # manually through the local admin and only then becomes a package.
+              if provider["available"]:
+                  assert provider["picon_count"] > 0, provider
+                  package = Path("public") / provider["package"]
+                  assert package.is_file(), package
+
+              print(
+                  provider_id,
+                  "channels=", provider["channel_count"],
+                  "curated_picons=", provider["picon_count"],
+                  "available=", provider["available"],
+              )
           PY
 
       - name: Commit synchronized catalogues
@@ -158,7 +161,7 @@ jobs:
             exit 0
           fi
 
-          git commit -m "data: synchronize provider catalogues"
+          git commit -m "data: synchronize provider metadata"
           git pull --rebase origin "$BRANCH"
           git push origin "HEAD:$BRANCH"
           echo "PROVIDER_DATA_CHANGED=true" >> "$GITHUB_ENV"
