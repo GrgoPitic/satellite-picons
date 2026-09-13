@@ -27,9 +27,9 @@ jobs:
     timeout-minutes: 75
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
           cache: pip
@@ -45,10 +45,9 @@ jobs:
       - name: Synchronize all SatelitnaTV providers
         run: |
           python scripts/sync_provider.py all \
-            --delay 0.05 \
-            --min-coverage 0
+            --delay 0.05
 
-      - name: Validate generated provider data
+      - name: Validate generated provider metadata
         run: |
           python - <<'PY'
           import json
@@ -72,13 +71,20 @@ jobs:
               stats = data["stats"]
 
               assert data["provider"] == provider_id
+              assert data["source"].get("artwork_mode") == "manual", data["source"]
+              assert data["source"].get("upstream_logos_imported") is False, data["source"]
               assert stats["channels_parsed"] > 0, (provider_id, stats)
               assert stats["errors"] <= max(25, stats["detail_links"] // 5), (provider_id, stats)
+
+              for channel in data.get("channels", []):
+                  assert "logo_url" not in channel, (provider_id, channel.get("name"))
+                  assert "logo_slug" not in channel, (provider_id, channel.get("name"))
+                  assert "logo_source" not in channel, (provider_id, channel.get("name"))
 
               print(provider_id, json.dumps(stats, ensure_ascii=False))
           PY
 
-      - name: Validate complete build with synchronized data
+      - name: Validate complete build with curated artwork only
         run: |
           python scripts/build.py
           python - <<'PY'
@@ -99,22 +105,24 @@ jobs:
           missing = sorted(expected - set(by_id))
           assert not missing, missing
 
-          available = 0
           for provider_id in sorted(expected):
               provider = by_id[provider_id]
               assert provider["channel_count"] > 0, provider
+
+              # A provider may legitimately have zero picons until the curator
+              # uploads artwork through the local admin. Packages are required
+              # only once at least one curated picon exists.
               if provider["available"]:
-                  available += 1
+                  assert provider["picon_count"] > 0, provider
                   package = Path("public") / provider["package"]
                   assert package.is_file(), package
+
               print(
                   provider_id,
-                  provider["channel_count"],
-                  provider["picon_count"],
-                  provider["package"],
+                  "channels=", provider["channel_count"],
+                  "curated_picons=", provider["picon_count"],
+                  "available=", provider["available"],
               )
-
-          assert available == len(expected), (available, len(expected))
           PY
 
       - name: Commit synchronized catalogues
@@ -133,7 +141,7 @@ jobs:
             exit 0
           fi
 
-          git commit -m "data: synchronize all provider catalogues"
+          git commit -m "data: synchronize provider metadata"
           git pull --rebase origin "$BRANCH"
           git push origin "HEAD:$BRANCH"
           echo "PROVIDER_DATA_CHANGED=true" >> "$GITHUB_ENV"
