@@ -46,4 +46,4 @@ if [ "$NEED_INSTALL" -eq 1 ]; then
   print -r -- "$REQ_HASH" > "$STAMP_FILE"
 fi
 
-exec python scripts/admin_v2.py
+exec python scripts/admin_curated.py
