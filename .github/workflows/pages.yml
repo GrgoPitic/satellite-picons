@@ -38,29 +38,33 @@ jobs:
 
       - name: Syntax check
         run: |
-          python -m py_compile scripts/build.py scripts/build_v2.py scripts/admin.py scripts/admin_v2.py scripts/catalog_common.py scripts/add_channel.py scripts/sync_provider.py receiver/update_picons.py receiver/plugin/Plugins/Extensions/SatellitePicons/plugin.py
+          python -m py_compile scripts/build.py scripts/build_v2.py scripts/admin.py scripts/admin_v2.py scripts/admin_curated.py scripts/catalog_common.py scripts/add_channel.py scripts/sync_provider.py receiver/update_picons.py receiver/plugin/Plugins/Extensions/SatellitePicons/plugin.py
           python receiver/update_picons.py --help >/dev/null
           node --check web/app.js
 
-      - name: Admin SAT IPTV smoke test
+      - name: Admin curated artwork smoke test
         run: |
           python - <<'PY'
           import sys
           sys.path.insert(0, "scripts")
-          import admin_v2
+          import admin_curated
 
-          client = admin_v2.legacy.app.test_client()
+          rows, stats = admin_curated.load_curated_channels()
+          assert all("logo_url" not in row for row in rows), "Imported provider artwork leaked into curated admin"
+
+          client = admin_curated.hub.legacy.app.test_client()
           page = client.get("/")
           assert page.status_code == 200, page.status_code
           assert b"Picon Hub" in page.data
           assert b"Magio TV" in page.data
+          assert b'name="publish" checked' not in page.data
 
           matches = client.get("/api/station-matches?name=Markiza")
           assert matches.status_code == 200, matches.status_code
           payload = matches.get_json()
           assert payload["station_key"] == "markiza", payload
           assert isinstance(payload.get("matches"), list), payload
-          print("Admin smoke test OK; Markiza matches:", len(payload["matches"]))
+          print("Curated admin smoke test OK; local logos:", stats.get("local_logos", 0))
           PY
 
       - name: Build Picon Hub
