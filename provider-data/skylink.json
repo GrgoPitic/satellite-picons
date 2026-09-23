@@ -2,7 +2,7 @@
   "schema": 2,
   "provider": "skylink",
   "provider_name": "Skylink",
-  "generated_at": "2026-09-21T09:01:57.786785+00:00",
+  "generated_at": "2026-09-23T08:39:26.407918+00:00",
   "source": {
     "operator_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/",
     "operator": "SatelitnaTV.sk",
@@ -26,7 +26,7 @@
       "fastscan": 1,
       "frequency_mhz": 12012,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/jednotka-hd-321615420/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "dvojka-hd",
@@ -37,7 +37,7 @@
       "fastscan": 2,
       "frequency_mhz": 12012,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/dvojka-hd-321615421/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "markiza-hd",
@@ -48,7 +48,7 @@
       "fastscan": 3,
       "frequency_mhz": 11973,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/markiza-hd-321414129/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "tv-joj-hd",
@@ -59,7 +59,7 @@
       "fastscan": 4,
       "frequency_mhz": 12266,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/tv-joj-hd-322913208/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "canal-action",
@@ -70,7 +70,7 @@
       "fastscan": 5,
       "frequency_mhz": 11973,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/canal-action-321414134/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "canal-sport-sk",
@@ -81,7 +81,7 @@
       "fastscan": 6,
       "frequency_mhz": 11973,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/canal-sport-sk-321414132/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "canal-sport-2-sk",
@@ -92,7 +92,7 @@
       "fastscan": 7,
       "frequency_mhz": 12012,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/canal-sport-2-sk-321615416/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "filmbox-one-sk",
@@ -103,7 +103,7 @@
       "fastscan": 8,
       "frequency_mhz": 11934,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/filmbox-one-sk-321214066/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "filmbox-love-and-crime",
@@ -114,7 +114,7 @@
       "fastscan": 9,
       "frequency_mhz": 12110,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/filmbox-love-and-crime-322115609/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "rtvs-24-hd",
@@ -125,7 +125,7 @@
       "fastscan": 11,
       "frequency_mhz": 12012,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/rtvs-24-hd-321615422/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "rtvs-sport-hd",
@@ -136,7 +136,7 @@
       "fastscan": 12,
       "frequency_mhz": 12012,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/rtvs-sport-hd-321615423/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "doma-hd",
@@ -147,7 +147,7 @@
       "fastscan": 13,
       "frequency_mhz": 11973,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/doma-hd-321414130/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "dajto-hd",
@@ -158,7 +158,7 @@
       "fastscan": 14,
       "frequency_mhz": 12266,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/dajto-hd-322913207/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "markiza-krimi-hd",
@@ -169,7 +169,7 @@
       "fastscan": 15,
       "frequency_mhz": 12266,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/markiza-krimi-hd-322913215/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "markiza-klasik",
@@ -180,7 +180,7 @@
       "fastscan": 16,
       "frequency_mhz": 12012,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/markiza-klasik-321615403/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "joj-plus-hd",
@@ -191,7 +191,7 @@
       "fastscan": 17,
       "frequency_mhz": 12266,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/joj-plus-hd-322913209/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "joj-krimi",
@@ -202,7 +202,7 @@
       "fastscan": 18,
       "frequency_mhz": 12070,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/joj-krimi-321913135/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "joj-24-hd",
@@ -213,7 +213,7 @@
       "fastscan": 19,
       "frequency_mhz": 12266,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/joj-24-hd-322913216/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "ta3-hd",
@@ -224,7 +224,7 @@
       "fastscan": 20,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/ta3-hd-32344904/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "tv-lux-hd",
@@ -235,7 +235,7 @@
       "fastscan": 21,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/tv-lux-hd-32338014/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "spektrum-home",
@@ -246,7 +246,7 @@
       "fastscan": 22,
       "frequency_mhz": 11934,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/spektrum-home-321214070/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "filmbox-emotion-hd",
@@ -257,7 +257,7 @@
       "fastscan": 23,
       "frequency_mhz": 12012,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/filmbox-emotion-hd-321615406/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "filmbox-hits-hd",
@@ -268,7 +268,7 @@
       "fastscan": 24,
       "frequency_mhz": 12110,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/filmbox-hits-hd-322115605/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "filmbox-comedy",
@@ -279,7 +279,7 @@
       "fastscan": 25,
       "frequency_mhz": 12012,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/filmbox-comedy-321615412/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "joj-cinema-hd",
@@ -290,7 +290,7 @@
       "fastscan": 26,
       "frequency_mhz": 12070,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/joj-cinema-hd-321913145/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cs-film-cs-horror",
@@ -301,7 +301,7 @@
       "fastscan": 27,
       "frequency_mhz": 11934,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cs-film-cs-horror-321214058/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "viasat-epic-drama-hd",
@@ -312,7 +312,7 @@
       "fastscan": 28,
       "frequency_mhz": 11934,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/viasat-epic-drama-hd-321214080/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "film-sk",
@@ -323,7 +323,7 @@
       "fastscan": 29,
       "frequency_mhz": 11934,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/film-sk-321214072/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "film-europe-hd",
@@ -334,7 +334,7 @@
       "fastscan": 30,
       "frequency_mhz": 12110,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/film-europe-hd-322115607/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "axn-cz",
@@ -345,7 +345,7 @@
       "fastscan": 31,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/axn-cz-32200789/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "axn-black-central-europe",
@@ -356,7 +356,7 @@
       "fastscan": 32,
       "frequency_mhz": 12110,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/axn-black-central-europe-322115616/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "axn-white-central-europe",
@@ -367,7 +367,7 @@
       "fastscan": 33,
       "frequency_mhz": 12110,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/axn-white-central-europe-322115617/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "amc-sk",
@@ -378,7 +378,7 @@
       "fastscan": 34,
       "frequency_mhz": 11973,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/amc-sk-321414123/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "film-europe-hd",
@@ -389,7 +389,7 @@
       "fastscan": 35,
       "frequency_mhz": 12012,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/film-europe-hd-321615405/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "film-hd",
@@ -400,7 +400,7 @@
       "fastscan": 37,
       "frequency_mhz": 12110,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/film-hd-322115602/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "story4",
@@ -411,7 +411,7 @@
       "fastscan": 38,
       "frequency_mhz": 12110,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/story4-322115608/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "ct-1-pha-hd",
@@ -422,7 +422,7 @@
       "fastscan": 40,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/ct-1-pha-hd-32338001/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "ct-2-hd",
@@ -433,7 +433,7 @@
       "fastscan": 41,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/ct-2-hd-32338002/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "nova-international",
@@ -444,7 +444,7 @@
       "fastscan": 42,
       "frequency_mhz": 12266,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/nova-international-322913211/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "prima-sk",
@@ -455,7 +455,7 @@
       "fastscan": 43,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/prima-sk-32338009/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cnn-prima-news-hd",
@@ -466,7 +466,7 @@
       "fastscan": 44,
       "frequency_mhz": 11934,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cnn-prima-news-hd-321214079/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "ct-24-hd",
@@ -477,7 +477,7 @@
       "fastscan": 45,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/ct-24-hd-32338003/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "ct-d-art-hd",
@@ -488,7 +488,7 @@
       "fastscan": 47,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/ct-d-art-hd-32338005/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "prima-cool-hd-sk",
@@ -499,7 +499,7 @@
       "fastscan": 49,
       "frequency_mhz": 11973,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/prima-cool-hd-sk-321414117/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "prima-krimi-sk-hd",
@@ -510,7 +510,7 @@
       "fastscan": 51,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/prima-krimi-sk-hd-32200776/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "prima-love-hd-sk",
@@ -521,7 +521,7 @@
       "fastscan": 52,
       "frequency_mhz": 11973,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/prima-love-hd-sk-321414118/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "tv-barrandov",
@@ -532,7 +532,7 @@
       "fastscan": 55,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/tv-barrandov-32200796/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "kino-barrandov",
@@ -543,7 +543,7 @@
       "fastscan": 56,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/kino-barrandov-32200797/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "barrandov-krimi",
@@ -554,7 +554,7 @@
       "fastscan": 57,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/barrandov-krimi-32200798/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "hbo-hd",
@@ -565,7 +565,7 @@
       "fastscan": 60,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/hbo-hd-32200775/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "hbo2-hd",
@@ -576,7 +576,7 @@
       "fastscan": 61,
       "frequency_mhz": 12110,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/hbo2-hd-322115603/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "hbo3-hd",
@@ -587,7 +587,7 @@
       "fastscan": 62,
       "frequency_mhz": 12110,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/hbo3-hd-322115604/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cinemax-hd",
@@ -598,7 +598,7 @@
       "fastscan": 63,
       "frequency_mhz": 12012,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cinemax-hd-321615404/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cinemax2-hd",
@@ -609,7 +609,7 @@
       "fastscan": 64,
       "frequency_mhz": 12110,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cinemax2-hd-322115606/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "nat-geo-hd-cz",
@@ -620,7 +620,7 @@
       "fastscan": 70,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/nat-geo-hd-cz-32200771/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "viasat-nature-hd",
@@ -631,7 +631,7 @@
       "fastscan": 71,
       "frequency_mhz": 12110,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/viasat-nature-hd-322115601/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "viasat-history-hd",
@@ -642,7 +642,7 @@
       "fastscan": 72,
       "frequency_mhz": 12110,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/viasat-history-hd-322115600/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "viasat-explore",
@@ -653,7 +653,7 @@
       "fastscan": 73,
       "frequency_mhz": 12012,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/viasat-explore-321615407/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "viasat-true-crime",
@@ -664,7 +664,7 @@
       "fastscan": 74,
       "frequency_mhz": 11934,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/viasat-true-crime-321214067/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "joj-svet-sk",
@@ -675,7 +675,7 @@
       "fastscan": 75,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/joj-svet-sk-32338015/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cs-mystery",
@@ -686,7 +686,7 @@
       "fastscan": 76,
       "frequency_mhz": 12070,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cs-mystery-321913133/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cs-history",
@@ -697,7 +697,7 @@
       "fastscan": 77,
       "frequency_mhz": 12070,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cs-history-321913146/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "fishing-and-hunting",
@@ -708,7 +708,7 @@
       "fastscan": 79,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/fishing-and-hunting-32200788/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "national-geographic-wild-hd-cz",
@@ -719,7 +719,7 @@
       "fastscan": 80,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/national-geographic-wild-hd-cz-32200773/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "spektrum-hd",
@@ -730,7 +730,7 @@
       "fastscan": 81,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/spektrum-hd-32200784/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "history-hd",
@@ -741,7 +741,7 @@
       "fastscan": 82,
       "frequency_mhz": 12110,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/history-hd-322115615/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "love-nature-hd-cz",
@@ -752,7 +752,7 @@
       "fastscan": 83,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/love-nature-hd-cz-32200783/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "docubox",
@@ -763,7 +763,7 @@
       "fastscan": 85,
       "frequency_mhz": 12129,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/docubox-322221271/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "nautical-hd",
@@ -774,7 +774,7 @@
       "fastscan": 86,
       "frequency_mhz": 11856,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/nautical-hd-32087165/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "tv-paprika",
@@ -785,7 +785,7 @@
       "fastscan": 91,
       "frequency_mhz": 11934,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/tv-paprika-321214078/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "inplus",
@@ -796,7 +796,7 @@
       "fastscan": 93,
       "frequency_mhz": 12515,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/inplus-11054106/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "tv8",
@@ -807,7 +807,7 @@
       "fastscan": 94,
       "frequency_mhz": 12129,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/tv8-322221272/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "joj-sport-hd",
@@ -818,7 +818,7 @@
       "fastscan": 99,
       "frequency_mhz": 12266,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/joj-sport-hd-322913214/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "joj-sport-2-hd",
@@ -829,7 +829,7 @@
       "fastscan": 100,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/joj-sport-2-hd-32200780/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "nova-sport-1-hd",
@@ -840,7 +840,7 @@
       "fastscan": 101,
       "frequency_mhz": 12266,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/nova-sport-1-hd-322913203/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "nova-sport-2-hd",
@@ -851,7 +851,7 @@
       "fastscan": 102,
       "frequency_mhz": 11973,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/nova-sport-2-hd-321414110/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "nova-sport-3-hd",
@@ -862,7 +862,7 @@
       "fastscan": 103,
       "frequency_mhz": 11934,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/nova-sport-3-hd-321214054/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "nova-sport-4-hd",
@@ -873,7 +873,7 @@
       "fastscan": 104,
       "frequency_mhz": 11934,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/nova-sport-4-hd-321214055/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "nova-sport-5-hd-sk",
@@ -884,7 +884,7 @@
       "fastscan": 105,
       "frequency_mhz": 12129,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/nova-sport-5-hd-sk-322221270/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "nova-sport-6-hd",
@@ -895,7 +895,7 @@
       "fastscan": 106,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/nova-sport-6-hd-32200786/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "sport-1-sk-hd",
@@ -906,7 +906,7 @@
       "fastscan": 107,
       "frequency_mhz": 12070,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/sport-1-sk-hd-321913131/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "sport-2-hd",
@@ -917,7 +917,7 @@
       "fastscan": 108,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/sport-2-hd-32200792/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "golf-channel",
@@ -928,7 +928,7 @@
       "fastscan": 109,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/golf-channel-32200785/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "kanal1-sport",
@@ -939,7 +939,7 @@
       "fastscan": 110,
       "frequency_mhz": 12012,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/kanal1-sport-321615401/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "kanal1-xtra",
@@ -950,7 +950,7 @@
       "fastscan": 111,
       "frequency_mhz": 11973,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/kanal1-xtra-321414116/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "automotorsport-hd",
@@ -961,7 +961,7 @@
       "fastscan": 112,
       "frequency_mhz": 11739,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/automotorsport-hd-32026096/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "fightbox",
@@ -972,7 +972,7 @@
       "fastscan": 119,
       "frequency_mhz": 11739,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/fightbox-32026122/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "jojko",
@@ -983,7 +983,7 @@
       "fastscan": 120,
       "frequency_mhz": 12266,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/jojko-322913210/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "jimjam-cz",
@@ -994,7 +994,7 @@
       "fastscan": 121,
       "frequency_mhz": 12012,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/jimjam-cz-321615415/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "minimax",
@@ -1005,7 +1005,7 @@
       "fastscan": 122,
       "frequency_mhz": 12110,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/minimax-322115611/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "lala-tv",
@@ -1016,7 +1016,7 @@
       "fastscan": 127,
       "frequency_mhz": 12012,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/lala-tv-321615402/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "disney-cz",
@@ -1027,7 +1027,7 @@
       "fastscan": 128,
       "frequency_mhz": 11934,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/disney-cz-321214076/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cartoon-network-cz",
@@ -1038,7 +1038,7 @@
       "fastscan": 129,
       "frequency_mhz": 11934,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cartoon-network-cz-321214069/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cartoonito",
@@ -1049,7 +1049,7 @@
       "fastscan": 130,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cartoonito-32200779/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "retro-music-tv",
@@ -1060,7 +1060,7 @@
       "fastscan": 140,
       "frequency_mhz": 12012,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/retro-music-tv-321615418/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "slager-original",
@@ -1071,7 +1071,7 @@
       "fastscan": 141,
       "frequency_mhz": 12070,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/slager-original-321913134/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "slager-muzika",
@@ -1082,7 +1082,7 @@
       "fastscan": 142,
       "frequency_mhz": 12266,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/slager-muzika-322913213/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "premium",
@@ -1093,7 +1093,7 @@
       "fastscan": 143,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/premium-32200778/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "senzi",
@@ -1104,7 +1104,7 @@
       "fastscan": 144,
       "frequency_mhz": 11934,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/senzi-321214065/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "ocko-star",
@@ -1115,7 +1115,7 @@
       "fastscan": 148,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/ocko-star-32200777/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "daystar",
@@ -1126,7 +1126,7 @@
       "fastscan": 166,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/daystar-32200781/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "m1",
@@ -1137,7 +1137,7 @@
       "fastscan": 200,
       "frequency_mhz": 11739,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/m1-32026117/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "m2-petofi",
@@ -1148,7 +1148,7 @@
       "fastscan": 201,
       "frequency_mhz": 11739,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/m2-petofi-32026118/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "m4",
@@ -1159,7 +1159,7 @@
       "fastscan": 202,
       "frequency_mhz": 11739,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/m4-32026119/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "m5",
@@ -1170,7 +1170,7 @@
       "fastscan": 203,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/m5-32338017/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "duna-sd",
@@ -1181,7 +1181,7 @@
       "fastscan": 204,
       "frequency_mhz": 11856,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/duna-sd-32087190/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "duna-world-m4-sport",
@@ -1192,7 +1192,7 @@
       "fastscan": 205,
       "frequency_mhz": 11856,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/duna-world-m4-sport-32087184/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "hirtv",
@@ -1203,7 +1203,7 @@
       "fastscan": 206,
       "frequency_mhz": 11739,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/hirtv-32026115/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "rtl-gold",
@@ -1214,7 +1214,7 @@
       "fastscan": 207,
       "frequency_mhz": 12129,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/rtl-gold-322221268/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "rtl",
@@ -1225,7 +1225,7 @@
       "fastscan": 208,
       "frequency_mhz": 11739,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/rtl-32026120/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "rtl-ketto",
@@ -1236,7 +1236,7 @@
       "fastscan": 209,
       "frequency_mhz": 12188,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/rtl-ketto-322521152/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "rtl-harom",
@@ -1247,7 +1247,7 @@
       "fastscan": 210,
       "frequency_mhz": 12188,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/rtl-harom-322521151/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "tv2",
@@ -1258,7 +1258,7 @@
       "fastscan": 211,
       "frequency_mhz": 11739,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/tv2-32026121/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "supertv2",
@@ -1269,7 +1269,7 @@
       "fastscan": 212,
       "frequency_mhz": 11973,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/supertv2-321414126/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "story4-hu",
@@ -1280,7 +1280,7 @@
       "fastscan": 214,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/story4-hu-32338016/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cool",
@@ -1291,7 +1291,7 @@
       "fastscan": 215,
       "frequency_mhz": 11856,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cool-32087191/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "sorozat",
@@ -1302,7 +1302,7 @@
       "fastscan": 217,
       "frequency_mhz": 12188,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/sorozat-322521153/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "film-hungary",
@@ -1313,7 +1313,7 @@
       "fastscan": 222,
       "frequency_mhz": 11856,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/film-hungary-32087189/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "galaxy4",
@@ -1324,7 +1324,7 @@
       "fastscan": 223,
       "frequency_mhz": 11973,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/galaxy4-321414111/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "fem3",
@@ -1335,7 +1335,7 @@
       "fastscan": 225,
       "frequency_mhz": 12090,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/fem3-32200793/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "tv2-sef",
@@ -1346,7 +1346,7 @@
       "fastscan": 226,
       "frequency_mhz": 12129,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/tv2-sef-322221269/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "slager-tv",
@@ -1357,7 +1357,7 @@
       "fastscan": 229,
       "frequency_mhz": 12129,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/slager-tv-322221237/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "muzsika-tv",
@@ -1368,7 +1368,7 @@
       "fastscan": 230,
       "frequency_mhz": 12129,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/muzsika-tv-322221235/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "france-24-in-english",
@@ -1379,7 +1379,7 @@
       "fastscan": 235,
       "frequency_mhz": 11538,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/france-24-in-english-10226906/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "leo-tv-22-06",
@@ -1390,7 +1390,7 @@
       "fastscan": 300,
       "frequency_mhz": 12110,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/leo-tv-22-06-322115612/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "vixen-hd",
@@ -1401,7 +1401,7 @@
       "fastscan": 302,
       "frequency_mhz": 11739,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/vixen-hd-32026114/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "penthouse-gold-cz",
@@ -1412,7 +1412,7 @@
       "fastscan": 303,
       "frequency_mhz": 11856,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/penthouse-gold-cz-32087180/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "hustler-tv-cz",
@@ -1423,7 +1423,7 @@
       "fastscan": 308,
       "frequency_mhz": 12515,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/hustler-tv-cz-11054109/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "penthouse-reality-tv-cz",
@@ -1434,7 +1434,7 @@
       "fastscan": 309,
       "frequency_mhz": 11856,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/penthouse-reality-tv-cz-32087181/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "man-x",
@@ -1445,7 +1445,7 @@
       "fastscan": 310,
       "frequency_mhz": 12129,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/man-x-322221124/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "rtlzwei",
@@ -1456,7 +1456,7 @@
       "fastscan": 400,
       "frequency_mhz": 12187,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/rtlzwei-108912020/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "rtl-austria",
@@ -1467,7 +1467,7 @@
       "fastscan": 401,
       "frequency_mhz": 12226,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/rtl-austria-109128800/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "super-rtl",
@@ -1478,7 +1478,7 @@
       "fastscan": 402,
       "frequency_mhz": 12187,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/super-rtl-108912040/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "sat-1",
@@ -1489,7 +1489,7 @@
       "fastscan": 403,
       "frequency_mhz": 12544,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/sat-1-110717500/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "sat-1-gold-sterreich",
@@ -1500,7 +1500,7 @@
       "fastscan": 404,
       "frequency_mhz": 11671,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/sat-1-gold-osterreich-10315310/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "prosieben",
@@ -1511,7 +1511,7 @@
       "fastscan": 405,
       "frequency_mhz": 12544,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/prosieben-110717501/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "pro7-maxx-austria",
@@ -1522,7 +1522,7 @@
       "fastscan": 406,
       "frequency_mhz": 11671,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/pro7-maxx-austria-10315311/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "kabel-eins",
@@ -1533,7 +1533,7 @@
       "fastscan": 407,
       "frequency_mhz": 12544,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/kabel-eins-110717502/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "vox",
@@ -1544,7 +1544,7 @@
       "fastscan": 408,
       "frequency_mhz": 12187,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/vox-108912060/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "das-erste-hd",
@@ -1555,7 +1555,7 @@
       "fastscan": 409,
       "frequency_mhz": 11494,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/das-erste-hd-101910301/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "zdf-hd",
@@ -1566,7 +1566,7 @@
       "fastscan": 410,
       "frequency_mhz": 11362,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/zdf-hd-101111110/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "sport1",
@@ -1577,7 +1577,7 @@
       "fastscan": 411,
       "frequency_mhz": 12480,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/sport1-00330900/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "eurosport-1-deutschland",
@@ -1588,7 +1588,7 @@
       "fastscan": 412,
       "frequency_mhz": 12226,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/eurosport-1-deutschland-109131200/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "orf-2-europe-hd",
@@ -1599,7 +1599,7 @@
       "fastscan": 413,
       "frequency_mhz": 11273,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/orf-2-europe-hd-100513310/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "disney-channel",
@@ -1610,7 +1610,7 @@
       "fastscan": 414,
       "frequency_mhz": 12460,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/disney-channel-00051793/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "anixehd-serie",
@@ -1621,7 +1621,7 @@
       "fastscan": 415,
       "frequency_mhz": 10773,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/anixehd-serie-105321100/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "kabel-eins-doku",
@@ -1632,7 +1632,7 @@
       "fastscan": 416,
       "frequency_mhz": 12544,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/kabel-eins-doku-110717509/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "df1-hd",
@@ -1643,7 +1643,7 @@
       "fastscan": 417,
       "frequency_mhz": 11303,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/df1-hd-10074914/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "swr-bw-hd",
@@ -1654,7 +1654,7 @@
       "fastscan": 418,
       "frequency_mhz": 11494,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/swr-bw-hd-101910303/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "sr-fernsehen-hd",
@@ -1665,7 +1665,7 @@
       "fastscan": 419,
       "frequency_mhz": 11053,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/sr-fernsehen-hd-103910378/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "tele-5",
@@ -1676,7 +1676,7 @@
       "fastscan": 420,
       "frequency_mhz": 12480,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/tele-5-00330051/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "rtlup",
@@ -1687,7 +1687,7 @@
       "fastscan": 421,
       "frequency_mhz": 12187,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/rtlup-108912080/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "toggo-plus",
@@ -1698,7 +1698,7 @@
       "fastscan": 422,
       "frequency_mhz": 12187,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/toggo-plus-108912030/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "br-fernsehen-nord-hd",
@@ -1709,7 +1709,7 @@
       "fastscan": 423,
       "frequency_mhz": 11582,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/br-fernsehen-nord-hd-102510326/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "mdr-sachsen-hd",
@@ -1720,7 +1720,7 @@
       "fastscan": 424,
       "frequency_mhz": 10891,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/mdr-sachsen-hd-106110352/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "ndr-fs-hh-hd",
@@ -1731,7 +1731,7 @@
       "fastscan": 425,
       "frequency_mhz": 11582,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/ndr-fs-hh-hd-102510329/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "wdr-hd-k-ln",
@@ -1742,7 +1742,7 @@
       "fastscan": 426,
       "frequency_mhz": 11523,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/wdr-hd-koln-102128332/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "radio-bremen-hd",
@@ -1753,7 +1753,7 @@
       "fastscan": 427,
       "frequency_mhz": 11053,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/radio-bremen-hd-103910379/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "rbb-berlin-hd",
@@ -1764,7 +1764,7 @@
       "fastscan": 428,
       "frequency_mhz": 10891,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/rbb-berlin-hd-106110351/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "zdf-neo-hd",
@@ -1775,7 +1775,7 @@
       "fastscan": 429,
       "frequency_mhz": 11362,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/zdf_neo-hd-101111130/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "zdfinfo-hd",
@@ -1786,7 +1786,7 @@
       "fastscan": 430,
       "frequency_mhz": 11347,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/zdfinfo-hd-101011170/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "tagesschau24-hd",
@@ -1797,7 +1797,7 @@
       "fastscan": 431,
       "frequency_mhz": 11053,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/tagesschau24-hd-103910375/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "oe24-tv-hd",
@@ -1808,7 +1808,7 @@
       "fastscan": 432,
       "frequency_mhz": 11273,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/oe24-tv-hd-100513314/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "one-hd",
@@ -1819,7 +1819,7 @@
       "fastscan": 433,
       "frequency_mhz": 11053,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/one-hd-103910376/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "n24-doku",
@@ -1830,7 +1830,7 @@
       "fastscan": 434,
       "frequency_mhz": 12460,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/n24-doku-00050048/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "3sat-hd",
@@ -1841,7 +1841,7 @@
       "fastscan": 435,
       "frequency_mhz": 11347,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/3sat-hd-101011150/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "arte-hd",
@@ -1852,7 +1852,7 @@
       "fastscan": 436,
       "frequency_mhz": 11494,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/arte-hd-101910302/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "hr-fernsehen-hd",
@@ -1863,7 +1863,7 @@
       "fastscan": 437,
       "frequency_mhz": 10891,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/hr-fernsehen-hd-106110355/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "r9-oesterreich-hd",
@@ -1874,7 +1874,7 @@
       "fastscan": 438,
       "frequency_mhz": 11273,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/r9-oesterreich-hd-100513312/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "regio-tv",
@@ -1885,7 +1885,7 @@
       "fastscan": 439,
       "frequency_mhz": 12480,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/regio-tv-00330047/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "ard-alpha-hd",
@@ -1896,7 +1896,7 @@
       "fastscan": 441,
       "frequency_mhz": 11053,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/ard-alpha-hd-103910377/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "nitro-austria",
@@ -1907,7 +1907,7 @@
       "fastscan": 442,
       "frequency_mhz": 12662,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/nitro-austria-111513102/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "tlc",
@@ -1918,7 +1918,7 @@
       "fastscan": 443,
       "frequency_mhz": 12460,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/tlc-00050772/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "sixx",
@@ -1929,7 +1929,7 @@
       "fastscan": 444,
       "frequency_mhz": 12544,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/sixx-110717506/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "tv1-ooe-neu",
@@ -1940,7 +1940,7 @@
       "fastscan": 445,
       "frequency_mhz": 11273,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/tv1-ooe-neu-100513315/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "kika-hd",
@@ -1951,7 +1951,7 @@
       "fastscan": 446,
       "frequency_mhz": 11347,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/kika-hd-101011160/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "nick-comedy-central-1",
@@ -1962,7 +1962,7 @@
       "fastscan": 447,
       "frequency_mhz": 11973,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/nick-comedy-central1-107828680/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "ric-neu",
@@ -1973,7 +1973,7 @@
       "fastscan": 448,
       "frequency_mhz": 11303,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/ric-neu-10074930/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "comedy-central",
@@ -1984,7 +1984,7 @@
       "fastscan": 449,
       "frequency_mhz": 11973,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/comedy-central-107828676/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "deluxe-music",
@@ -1995,7 +1995,7 @@
       "fastscan": 450,
       "frequency_mhz": 12148,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/deluxe-music-00070065/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "deluxe-dance-by-kontor",
@@ -2006,7 +2006,7 @@
       "fastscan": 453,
       "frequency_mhz": 12109,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/deluxe-dance-by-kontor-107328226/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "deluxe-rap",
@@ -2017,7 +2017,7 @@
       "fastscan": 454,
       "frequency_mhz": 12109,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/deluxe-rap-107328225/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "mtv",
@@ -2028,7 +2028,7 @@
       "fastscan": 455,
       "frequency_mhz": 11973,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/mtv-107828678/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "stimmungsgarten-tv",
@@ -2039,7 +2039,7 @@
       "fastscan": 456,
       "frequency_mhz": 11273,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/stimmungsgarten-tv-100513316/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "telegold-sd",
@@ -2050,7 +2050,7 @@
       "fastscan": 457,
       "frequency_mhz": 12633,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/telegold-sd-111312604/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "dmax",
@@ -2061,7 +2061,7 @@
       "fastscan": 458,
       "frequency_mhz": 12480,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/dmax-00330063/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "lilo-tv",
@@ -2072,7 +2072,7 @@
       "fastscan": 459,
       "frequency_mhz": 11244,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/lilo-tv-100313222/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "melodie-tv-neu",
@@ -2083,7 +2083,7 @@
       "fastscan": 460,
       "frequency_mhz": 11273,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/melodie-tv-neu-100513317/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "bbc-news",
@@ -2094,7 +2094,7 @@
       "fastscan": 467,
       "frequency_mhz": 11229,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/bbc-news-10025001/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cnn-int",
@@ -2105,7 +2105,7 @@
       "fastscan": 468,
       "frequency_mhz": 11739,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cnn-int-10666101/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "sky-news-intl",
@@ -2116,7 +2116,7 @@
       "fastscan": 469,
       "frequency_mhz": 12603,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/sky-news-intl-11117290/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "euronews-german-sd-pal",
@@ -2127,7 +2127,7 @@
       "fastscan": 470,
       "frequency_mhz": 11376,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/euronews-german-sd-pal-10126388/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cgtn-hd",
@@ -2138,7 +2138,7 @@
       "fastscan": 471,
       "frequency_mhz": 11376,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cgtn-hd-10126381/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "france-24-en-francais",
@@ -2149,7 +2149,7 @@
       "fastscan": 472,
       "frequency_mhz": 11538,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/france-24-en-francais-10226905/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "al-jazeera-english-hd",
@@ -2160,7 +2160,7 @@
       "fastscan": 473,
       "frequency_mhz": 11229,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/al-jazeera-english-hd-10025031/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "welt",
@@ -2171,7 +2171,7 @@
       "fastscan": 474,
       "frequency_mhz": 12544,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/welt-110717503/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "ntv",
@@ -2182,7 +2182,7 @@
       "fastscan": 475,
       "frequency_mhz": 12187,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/ntv-108912090/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "nhk-world-jpn",
@@ -2193,7 +2193,7 @@
       "fastscan": 476,
       "frequency_mhz": 11229,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/nhk-world-jpn-10025021/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cnews",
@@ -2204,7 +2204,7 @@
       "fastscan": 478,
       "frequency_mhz": 12207,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cnews-10909014/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "lcp",
@@ -2215,7 +2215,7 @@
       "fastscan": 479,
       "frequency_mhz": 12168,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/lcp-10889308/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cnbc-hd",
@@ -2226,7 +2226,7 @@
       "fastscan": 480,
       "frequency_mhz": 11376,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cnbc-hd-10126389/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "bloomberg-europe-tv",
@@ -2237,7 +2237,7 @@
       "fastscan": 481,
       "frequency_mhz": 12603,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/bloomberg-europe-tv-11117200/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cgtn-documentary",
@@ -2248,7 +2248,7 @@
       "fastscan": 482,
       "frequency_mhz": 11376,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cgtn-documentary-10126382/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cgtn-francais",
@@ -2259,7 +2259,7 @@
       "fastscan": 483,
       "frequency_mhz": 11376,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cgtn-francais-10126383/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "tv5-monde-europe-hd",
@@ -2270,7 +2270,7 @@
       "fastscan": 484,
       "frequency_mhz": 11538,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/tv5-monde-europe-hd-10226915/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "phoenix-hd",
@@ -2281,7 +2281,7 @@
       "fastscan": 485,
       "frequency_mhz": 11582,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/phoenix-hd-102510331/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "dw-english-hd",
@@ -2292,7 +2292,7 @@
       "fastscan": 486,
       "frequency_mhz": 11778,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/dw-english-hd-10685700/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "aragon-tv-int",
@@ -2303,7 +2303,7 @@
       "fastscan": 487,
       "frequency_mhz": 11317,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/aragon-tv-int-100829811/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "canal-sur-a",
@@ -2314,7 +2314,7 @@
       "fastscan": 490,
       "frequency_mhz": 11156,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/canal-sur-a-104630505/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "arirang-hd",
@@ -2325,7 +2325,7 @@
       "fastscan": 492,
       "frequency_mhz": 11538,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/arirang-hd-10226901/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cubavision-internacional",
@@ -2336,7 +2336,7 @@
       "fastscan": 500,
       "frequency_mhz": 11778,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cubavision-internacional-10685703/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "canal-algerie",
@@ -2347,7 +2347,7 @@
       "fastscan": 502,
       "frequency_mhz": 12551,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/canal-algerie-110812137/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "trt-world-hd",
@@ -2358,7 +2358,7 @@
       "fastscan": 503,
       "frequency_mhz": 11538,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/trt-world-hd-10226918/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "sbn-international",
@@ -2369,7 +2369,7 @@
       "fastscan": 504,
       "frequency_mhz": 12551,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/sbn-international-110812186/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "ewtn-kath-olisches-tv",
@@ -2380,7 +2380,7 @@
       "fastscan": 505,
       "frequency_mhz": 12460,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/ewtn-kath-olisches-tv-00050062/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "k-tv-hd",
@@ -2391,7 +2391,7 @@
       "fastscan": 506,
       "frequency_mhz": 11112,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/k-tv-hd-104312530/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "bibel-tv-hd",
@@ -2402,7 +2402,7 @@
       "fastscan": 507,
       "frequency_mhz": 11244,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/bibel-tv-hd-100313224/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "uhd1-by-astra-hd",
@@ -2413,7 +2413,7 @@
       "fastscan": 557,
       "frequency_mhz": 10994,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/uhd1-by-astra-hd-10350002/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "ses-uhd-demo-channel",
@@ -2424,7 +2424,7 @@
       "fastscan": 558,
       "frequency_mhz": 10994,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/ses-uhd-demo-channel-10350001/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "love-nature-4k",
@@ -2435,7 +2435,7 @@
       "fastscan": 559,
       "frequency_mhz": 11296,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/love-nature-4k-05002229/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "m1",
@@ -2446,7 +2446,7 @@
       "fastscan": 560,
       "frequency_mhz": 11914,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/m1-321120210/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "m2",
@@ -2457,7 +2457,7 @@
       "fastscan": 561,
       "frequency_mhz": 12480,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/m2-324020057/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "story-4",
@@ -2468,7 +2468,7 @@
       "fastscan": 562,
       "frequency_mhz": 12188,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/story-4-322521169/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "vlna-zs",
@@ -2479,7 +2479,7 @@
       "fastscan": 800,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/vlna-zs-32345159/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "slovensko",
@@ -2490,7 +2490,7 @@
       "fastscan": 801,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/slovensko-32344921/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "reginaba",
@@ -2501,7 +2501,7 @@
       "fastscan": 802,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/reginaba-32344922/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "reginabb",
@@ -2512,7 +2512,7 @@
       "fastscan": 803,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/reginabb-32344923/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "reginake",
@@ -2523,7 +2523,7 @@
       "fastscan": 804,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/reginake-32344924/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "devin",
@@ -2534,7 +2534,7 @@
       "fastscan": 805,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/devin-32344925/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "radio-fm",
@@ -2545,7 +2545,7 @@
       "fastscan": 806,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/radio_fm-32344926/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "melody-z",
@@ -2556,7 +2556,7 @@
       "fastscan": 807,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/melody-z-32344933/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "melody-s",
@@ -2567,7 +2567,7 @@
       "fastscan": 808,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/melody-s-32344934/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "melody-v",
@@ -2578,7 +2578,7 @@
       "fastscan": 809,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/melody-v-32344935/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "expres-z",
@@ -2589,7 +2589,7 @@
       "fastscan": 810,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/expres-z-32344951/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "radio-lumen",
@@ -2600,7 +2600,7 @@
       "fastscan": 811,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/radio-lumen-32344936/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "junior",
@@ -2611,7 +2611,7 @@
       "fastscan": 812,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/junior-32344929/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "litera",
@@ -2622,7 +2622,7 @@
       "fastscan": 813,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/litera-32344928/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "slovakia",
@@ -2633,7 +2633,7 @@
       "fastscan": 814,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/slovakia-32344932/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "patriafm",
@@ -2644,7 +2644,7 @@
       "fastscan": 815,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/patriafm-32344930/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "patriard",
@@ -2655,7 +2655,7 @@
       "fastscan": 816,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/patriard-32344931/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "europa-2-s",
@@ -2666,7 +2666,7 @@
       "fastscan": 817,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/europa-2-s-32344955/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "europa-2-v",
@@ -2677,7 +2677,7 @@
       "fastscan": 818,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/europa-2-v-32344956/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "funradio-z",
@@ -2688,7 +2688,7 @@
       "fastscan": 819,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/funradio-z-32344957/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "funradio-s",
@@ -2699,7 +2699,7 @@
       "fastscan": 820,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/funradio-s-32344958/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "funradio-v",
@@ -2710,7 +2710,7 @@
       "fastscan": 821,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/funradio-v-32344959/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cro-radiozurnal",
@@ -2721,7 +2721,7 @@
       "fastscan": 830,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-radiozurnal-32338051/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cro-dvojka",
@@ -2732,7 +2732,7 @@
       "fastscan": 831,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-dvojka-32338052/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cro-vltava",
@@ -2743,7 +2743,7 @@
       "fastscan": 832,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-vltava-32338053/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cro-plus",
@@ -2754,7 +2754,7 @@
       "fastscan": 833,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-plus-32338054/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cro-radio-wave",
@@ -2765,7 +2765,7 @@
       "fastscan": 834,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-radio-wave-32338055/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cro-radio-junior",
@@ -2776,7 +2776,7 @@
       "fastscan": 835,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-radio-junior-32338056/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cro-d-dur",
@@ -2787,7 +2787,7 @@
       "fastscan": 836,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-d-dur-32338057/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cro-jazz",
@@ -2798,7 +2798,7 @@
       "fastscan": 837,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-jazz-32338058/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cro-radio-praha",
@@ -2809,7 +2809,7 @@
       "fastscan": 838,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-radio-praha-32338059/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cro-stredni-cechy",
@@ -2820,7 +2820,7 @@
       "fastscan": 839,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-stredni-cechy-32338060/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cro-radio-prague-int",
@@ -2831,7 +2831,7 @@
       "fastscan": 840,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-radio-prague-int-32338061/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cro-brno",
@@ -2842,7 +2842,7 @@
       "fastscan": 841,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-brno-32338062/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cro-c-budejovice",
@@ -2853,7 +2853,7 @@
       "fastscan": 842,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-c-budejovice-32338063/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cro-h-kralove",
@@ -2864,7 +2864,7 @@
       "fastscan": 843,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-h-kralove-32338064/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cro-karlovy-vary",
@@ -2875,7 +2875,7 @@
       "fastscan": 844,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-karlovy-vary-32338065/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cro-liberec",
@@ -2886,7 +2886,7 @@
       "fastscan": 845,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-liberec-32338066/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cro-vysocina",
@@ -2897,7 +2897,7 @@
       "fastscan": 846,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-vysocina-32338067/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cro-pardubice",
@@ -2908,7 +2908,7 @@
       "fastscan": 847,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-pardubice-32338068/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cro-plzen",
@@ -2919,7 +2919,7 @@
       "fastscan": 848,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-plzen-32338069/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cro-olomouc",
@@ -2930,7 +2930,7 @@
       "fastscan": 849,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-olomouc-32338070/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cro-ostrava",
@@ -2941,7 +2941,7 @@
       "fastscan": 850,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-ostrava-32338071/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cro-sever",
@@ -2952,7 +2952,7 @@
       "fastscan": 851,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-sever-32338072/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "cro-zlin",
@@ -2963,7 +2963,7 @@
       "fastscan": 852,
       "frequency_mhz": 12343,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/cro-zlin-32338073/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "beat-jm",
@@ -2974,7 +2974,7 @@
       "fastscan": 853,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/beat-jm-32344941/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "beat-jz",
@@ -2985,7 +2985,7 @@
       "fastscan": 854,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/beat-jz-32344943/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "beat-sm",
@@ -2996,7 +2996,7 @@
       "fastscan": 855,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/beat-sm-32344942/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "beat-sv",
@@ -3007,7 +3007,7 @@
       "fastscan": 856,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/beat-sv-32344944/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "beat",
@@ -3018,7 +3018,7 @@
       "fastscan": 857,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/beat-32344940/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "country-jm",
@@ -3029,7 +3029,7 @@
       "fastscan": 858,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/country-jm-32344945/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "country-jz",
@@ -3040,7 +3040,7 @@
       "fastscan": 859,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/country-jz-32344946/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "country-sv",
@@ -3051,7 +3051,7 @@
       "fastscan": 860,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/country-sv-32344947/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "proglas",
@@ -3062,7 +3062,7 @@
       "fastscan": 861,
       "frequency_mhz": 11973,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/proglas-321414150/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "pyramida",
@@ -3073,7 +3073,7 @@
       "fastscan": 862,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/pyramida-32344927/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "prostor",
@@ -3084,7 +3084,7 @@
       "fastscan": 863,
       "frequency_mhz": 12363,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/prostor-32344939/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "orf-oe1",
@@ -3095,7 +3095,7 @@
       "fastscan": 870,
       "frequency_mhz": 11303,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/orf-oe1-10074940/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "orf-radio-oe1-dolby",
@@ -3106,7 +3106,7 @@
       "fastscan": 871,
       "frequency_mhz": 11303,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/orf-radio-oe1-dolby-10074951/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "orf-b",
@@ -3117,7 +3117,7 @@
       "fastscan": 872,
       "frequency_mhz": 11303,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/orf-b-10074944/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "orf-k",
@@ -3128,7 +3128,7 @@
       "fastscan": 873,
       "frequency_mhz": 11303,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/orf-k-10074950/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "orf-noe",
@@ -3139,7 +3139,7 @@
       "fastscan": 874,
       "frequency_mhz": 11303,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/orf-noe-10074943/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "orf-ooe",
@@ -3150,7 +3150,7 @@
       "fastscan": 875,
       "frequency_mhz": 11303,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/orf-ooe-10074945/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "orf-s",
@@ -3161,7 +3161,7 @@
       "fastscan": 876,
       "frequency_mhz": 11303,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/orf-s-10074946/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "orf-stmk",
@@ -3172,7 +3172,7 @@
       "fastscan": 877,
       "frequency_mhz": 11303,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/orf-stmk-10074949/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "orf-t",
@@ -3183,7 +3183,7 @@
       "fastscan": 878,
       "frequency_mhz": 11303,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/orf-t-10074947/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "orf-v",
@@ -3194,7 +3194,7 @@
       "fastscan": 879,
       "frequency_mhz": 11303,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/orf-v-10074948/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "orf-wien",
@@ -3205,7 +3205,7 @@
       "fastscan": 880,
       "frequency_mhz": 11303,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/orf-wien-10074942/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "orf-hitradio-oe3",
@@ -3216,7 +3216,7 @@
       "fastscan": 881,
       "frequency_mhz": 11303,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/orf-hitradio-oe3-10074920/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "orf-hitradio-oe3-visual",
@@ -3227,7 +3227,7 @@
       "fastscan": 882,
       "frequency_mhz": 11303,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/orf-hitradio-oe3-visual-10074917/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "radio-veronica-de-beste-80s",
@@ -3238,7 +3238,7 @@
       "fastscan": 883,
       "frequency_mhz": 11739,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/radio-veronica-de-beste-80s-32026193/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "radio-maria",
@@ -3249,7 +3249,7 @@
       "fastscan": 884,
       "frequency_mhz": 12662,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/radio-maria-111513140/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "antenne-bayern",
@@ -3260,7 +3260,7 @@
       "fastscan": 886,
       "frequency_mhz": 12148,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/antenne-bayern-00070170/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "bayern-1",
@@ -3271,7 +3271,7 @@
       "fastscan": 887,
       "frequency_mhz": 11053,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/bayern-1-103910400/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "bayern-2",
@@ -3282,7 +3282,7 @@
       "fastscan": 888,
       "frequency_mhz": 11053,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/bayern-2-103910401/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "bayern-3",
@@ -3293,7 +3293,7 @@
       "fastscan": 889,
       "frequency_mhz": 11053,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/bayern-3-103910402/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "br-klassik",
@@ -3304,7 +3304,7 @@
       "fastscan": 890,
       "frequency_mhz": 11053,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/br-klassik-103910403/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "br24",
@@ -3315,7 +3315,7 @@
       "fastscan": 891,
       "frequency_mhz": 11053,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/br24-103910404/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "br-schlager",
@@ -3326,7 +3326,7 @@
       "fastscan": 892,
       "frequency_mhz": 11053,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/br-schlager-103910406/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "br-heimat",
@@ -3337,7 +3337,7 @@
       "fastscan": 894,
       "frequency_mhz": 11053,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/br-heimat-103910408/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "hr1",
@@ -3348,7 +3348,7 @@
       "fastscan": 895,
       "frequency_mhz": 10891,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/hr1-106110465/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "hr2",
@@ -3359,7 +3359,7 @@
       "fastscan": 896,
       "frequency_mhz": 10891,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/hr2-106110466/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "hr3",
@@ -3370,7 +3370,7 @@
       "fastscan": 897,
       "frequency_mhz": 10891,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/hr3-106110467/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "hr4",
@@ -3381,7 +3381,7 @@
       "fastscan": 898,
       "frequency_mhz": 10891,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/hr4-106110468/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     },
     {
       "id": "dasding-vom-hr",
@@ -3392,7 +3392,7 @@
       "fastscan": 899,
       "frequency_mhz": 10891,
       "source_url": "https://www.satelitnatv.sk/frekvencie/skylink-sk/program/dasding-vom-hr-106110469/",
-      "source_updated_at": "20.09.2026"
+      "source_updated_at": "22.09.2026"
     }
   ],
   "skipped_services": [],
