@@ -228,15 +228,28 @@ def matching_channels(name: str, exclude_identity: str = "") -> list[dict]:
 
 
 def save_shared_logo(*, station_key: str, raw: bytes, ext: str) -> str:
+    """Save the user's source logo conservatively.
+
+    Transparent artwork is only trimmed. Opaque artwork is preserved as-is;
+    destructive edge/background removal is never applied during upload.
+    Visual cleanup belongs to the explicit edit controls / preview step.
+    """
     if ext not in legacy.SUPPORTED:
         raise ValueError("Nepodporovaný formát loga.")
+
     STATION_LOGOS.mkdir(parents=True, exist_ok=True)
     try:
-        image = legacy.prepare_logo(raw, ext)
+        image = legacy.load_uploaded_logo(raw, ext).convert("RGBA")
     except RuntimeError as exc:
         if ext == ".svg":
             raise ValueError("SVG sa na Macu nepodarilo spracovať. Použi PNG alebo oprav lokálny SVG renderer.") from exc
         raise
+
+    # Preserve opaque logos exactly. For already-transparent logos only trim
+    # empty transparent margins; do not alter colours or connected pixels.
+    if legacy.has_real_transparency(image):
+        image = legacy.trim_transparent(image)
+
     destination = STATION_LOGOS / f"{station_key}.png"
     image.save(destination, format="PNG", optimize=True)
     return str(destination.relative_to(ROOT))
@@ -294,7 +307,7 @@ def PAGE_V2() -> str:
         '<button type="button" data-panel="upload">Nahrať logo<small>nový obrázok</small></button>\n      <button type="button" data-panel="library">Knižnica log<small>kde sú použité a kam ich pridať</small></button>'
     )
     page = page.replace(
-        '        <section class="panel" data-panel-view="edit">',
+        '        <section class="panel active" data-panel-view="edit">',
         '''        <section class="panel" data-panel-view="library">
           <div class="card">
             <div class="panel-head">
@@ -371,6 +384,7 @@ const deliverySelect=document.querySelector('#delivery');
 const tvgId=document.querySelector('#tvgId');
 const channelUid=document.querySelector('#channelUid');
 const currentIdentity=document.querySelector('#currentIdentity');
+const editLogoSelect=document.querySelector('#editLogoSelect');
 const assignLogoPreview=document.querySelector('#assignLogoPreview');
 const assignSourceInfo=document.querySelector('#assignSourceInfo');
 const assignSourceIdentity=document.querySelector('#assignSourceIdentity');
@@ -384,6 +398,17 @@ function syncDeliveryFromProvider(){
   if(deliverySelect && p.delivery) deliverySelect.value=p.delivery;
 }
 if(providerGroup) providerGroup.addEventListener('change',syncDeliveryFromProvider);
+
+if(editLogoSelect){
+  editLogoSelect.addEventListener('change',()=>{
+    const identity=editLogoSelect.value;
+    if(!identity || !manageChannel) return;
+    const idx=adminChannels.findIndex(ch=>(ch._identity||'')===identity);
+    if(idx<0) return;
+    manageChannel.value=String(idx);
+    manageChannel.dispatchEvent(new Event('change'));
+  });
+}
 
 
 if(manageChannel){
@@ -691,17 +716,12 @@ def index_v2():
             entry.pop("satellite_position", None)
 
         upload = request.files.get("logo")
-        copy_ref = request.form.get("copy_logo_from_ref", "").strip()
         raw = None
         ext = None
         if upload and upload.filename:
             filename = secure_filename(upload.filename or "")
             ext = Path(filename).suffix.lower()
             raw = upload.read()
-        elif copy_ref:
-            source = legacy.effective_channel_by_ref(copy_ref)
-            if source:
-                raw, ext = legacy.read_effective_logo(source)
 
         if raw:
             if not raw:
