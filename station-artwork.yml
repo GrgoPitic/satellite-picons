@@ -1,2 +1,57 @@
 schema: 1
-stations: {}
+stations:
+  joj-sport:
+    name: JOJ Sport
+    logo: assets/logos/joj-sport.png
+    dark_to_white: true
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: true
+    targets:
+    - sat:antik-sat-sk:7DB_9E98_16E_A00000
+    - sat:skylink-sk:339E_C9D_3_EB0000
+    updated_at: 1792004727
+  joj-cinema:
+    name: JOJ Cinema
+    logo: assets/logos/joj-cinema.png
+    dark_to_white: true
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: true
+    targets:
+    - sat:antik-sat-sk:4C5_76C1_16E_A00000
+    - sat:skylink-sk:3359_C93_3_EB0000
+    updated_at: 1792004735
+  viasat-explore:
+    name: Viasat Explore
+    logo: assets/logos/viasat-explore.png
+    dark_to_white: true
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: true
+    targets:
+    - sat:antik-sat-sk:45B_526C_16E_A00000
+    - sat:skylink-sk:3C2F_C90_3_EB0000
+    updated_at: 1792004753
+  markiza-krimi:
+    name: Markiza Krimi HD
+    logo: assets/logos/markiza-krimi-hd-85db4865d2.png
+    dark_to_white: false
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: true
+    targets:
+    - sat:antik-sat-sk:7D9_9E98_16E_A00000
+    - sat:skylink-sk:339F_C9D_3_EB0000
+    updated_at: 1792004757
+  viasat-nature:
+    name: Viasat Nature
+    logo: assets/logos/viasat-nature.svg
+    dark_to_white: true
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: true
+    targets:
+    - sat:antik-sat-sk:45A_526C_16E_A00000
+    - sat:skylink-sk:3CF1_C95_3_EB0000
+    updated_at: 1792004778

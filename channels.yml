@@ -115,6 +115,8 @@ channels:
   background_cleanup: true
   satellite_position: 23.5E
   provider_group: skylink-sk
+  station_key: joj-sport
+  delivery: satellite
 - id: viasat-explore
   name: Viasat Explore
   logo: assets/logos/viasat-explore.png
@@ -185,3 +187,33 @@ channels:
   satellite_position: 16E
   provider_group: antik-sat-sk
   logo: assets/logos/joj-svet-hd-cd75dc1352.png
+- id: jednotka-hd
+  name: Jednotka HD
+  station_key: jednotka
+  delivery: satellite
+  provider_group: antik-sat-sk
+  dark_to_white: false
+  optical_scale: 1.0
+  edge_cleanup: false
+  background_cleanup: true
+  service_reference: '1:0:19:7D1:9E98:16E:A00000:0:0:0:'
+  variant_types:
+  - '1'
+  - '16'
+  - '19'
+  satellite_position: 16E
+- id: hbo2-hd
+  name: HBO2 HD
+  station_key: hbo2
+  delivery: satellite
+  provider_group: skylink-sk
+  dark_to_white: false
+  optical_scale: 1.0
+  edge_cleanup: false
+  background_cleanup: true
+  service_reference: '1:0:19:3CF3:C95:3:EB0000:0:0:0:'
+  variant_types:
+  - '1'
+  - '16'
+  - '19'
+  satellite_position: 23.5E
