@@ -241,8 +241,8 @@ def render_logo(
     if bool(ch_edge_cleanup):
         logo = remove_edge_white(logo)
 
-    logo = remove_corner_connected_background(logo)
-
+    # Do not automatically flood-remove corner/background pixels. Curated
+    # source artwork must remain intact; edge cleanup is explicit above.
     if dark_to_white:
         logo = recolor_neutral_dark_to_white(logo)
 
