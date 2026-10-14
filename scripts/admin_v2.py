@@ -394,27 +394,54 @@ def PAGE_V2() -> str:
         <section class="panel" data-panel-view="upload">
           <div class="card">
             <div class="panel-head">
-              <h2>Nahrať logo</h2>
-              <p>Vyber kanál a svoj obrázok. Nič ďalšie sa tu nenastavuje.</p>
+              <h2>Pripraviť nové / aktualizované logo</h2>
+              <p>Najprv skontroluj výsledok. Logo sa uloží až po tvojom schválení.</p>
             </div>
-            <label>Kanál</label>
+
+            <label>Stanica</label>
             <select id="simpleUploadChannel">
-              <option value="">— Vyber kanál —</option>
+              <option value="">— Vyber stanicu —</option>
               {% for ch in channels %}
-                <option value="{{ ch._identity }}">{{ ch.name }} · {{ ch.provider_group }} · {{ 'IPTV' if ch.delivery == 'iptv' else 'SAT' }}</option>
+                <option value="{{ ch._identity }}">
+                  {{ ch.name }} · {{ ch.provider_group }} · {{ 'IPTV' if ch.delivery == 'iptv' else 'SAT' }}{% if ch._has_curated_logo %} · má moje logo{% endif %}
+                </option>
               {% endfor %}
             </select>
 
-            <label>Logo zo súboru</label>
+            <label>Nový súbor loga</label>
             <input id="simpleUploadFile" type="file" accept=".png,.svg,.jpg,.jpeg,.webp">
 
-            <div class="logo-preview-box" style="margin-top:16px">
-              <span>Náhľad</span>
-              <div class="logo-canvas" id="simpleUploadPreview"><div class="logo-empty">Vyber obrázok</div></div>
+            <div class="logo-preview-grid">
+              <div class="logo-preview-box">
+                <span>Dodané logo</span>
+                <div class="logo-canvas" id="simpleUploadOriginal"><div class="logo-empty">Vyber obrázok</div></div>
+              </div>
+              <div class="logo-preview-box">
+                <span>Výsledný picon</span>
+                <div class="logo-canvas" id="simpleUploadProcessed"><div class="logo-empty">Po výbere sa vytvorí náhľad</div></div>
+              </div>
             </div>
 
+            <div class="grid">
+              <div>
+                <label>Tmavé neutrálne časti → biele</label>
+                <select id="uploadDarkToWhite">
+                  <option value="false">Nie</option>
+                  <option value="true">Áno</option>
+                </select>
+              </div>
+              <div>
+                <label>Veľkosť loga</label>
+                <input id="uploadOpticalScale" type="number" min="0.50" max="1.50" step="0.05" value="1.00">
+              </div>
+            </div>
+            <label class="check"><input id="uploadEdgeCleanup" type="checkbox">Odstrániť iba biely okraj napojený na hranu</label>
+
             <div id="simpleUploadStatus" class="status"></div>
-            <button type="button" id="simpleUploadBtn" class="action primary">Uložiť logo</button>
+            <div class="split-actions">
+              <button type="button" id="simpleUploadPreviewBtn" class="action secondary">Obnoviť náhľad</button>
+              <button type="button" id="simpleUploadBtn" class="action primary" disabled>Schváliť a uložiť logo</button>
+            </div>
           </div>
         </section>
     ''')
@@ -622,38 +649,112 @@ filterChannels();
 
 const simpleUploadChannel=document.querySelector('#simpleUploadChannel');
 const simpleUploadFile=document.querySelector('#simpleUploadFile');
-const simpleUploadPreview=document.querySelector('#simpleUploadPreview');
+const simpleUploadOriginal=document.querySelector('#simpleUploadOriginal');
+const simpleUploadProcessed=document.querySelector('#simpleUploadProcessed');
 const simpleUploadStatus=document.querySelector('#simpleUploadStatus');
 const simpleUploadBtn=document.querySelector('#simpleUploadBtn');
+const simpleUploadPreviewBtn=document.querySelector('#simpleUploadPreviewBtn');
+const uploadDarkToWhite=document.querySelector('#uploadDarkToWhite');
+const uploadOpticalScale=document.querySelector('#uploadOpticalScale');
+const uploadEdgeCleanup=document.querySelector('#uploadEdgeCleanup');
+let uploadPreviewValid=false;
+let uploadPreviewUrl=null;
+
+function invalidateUploadPreview(){
+  uploadPreviewValid=false;
+  if(simpleUploadBtn) simpleUploadBtn.disabled=true;
+}
+
+async function previewNewLogo(){
+  const identity=(simpleUploadChannel&&simpleUploadChannel.value)||'';
+  const file=simpleUploadFile&&simpleUploadFile.files&&simpleUploadFile.files[0];
+  if(!identity){ simpleUploadStatus.textContent='Vyber stanicu.'; return; }
+  if(!file){ simpleUploadStatus.textContent='Vyber nový súbor loga.'; return; }
+
+  invalidateUploadPreview();
+  simpleUploadStatus.textContent='Spracúvam náhľad…';
+  try{
+    const fd=new FormData();
+    fd.append('identity',identity);
+    fd.append('logo',file);
+    fd.append('dark_to_white',uploadDarkToWhite.value);
+    fd.append('optical_scale',uploadOpticalScale.value);
+    if(uploadEdgeCleanup.checked) fd.append('edge_cleanup','on');
+
+    const r=await fetch('/api/v2/upload-preview',{method:'POST',body:fd});
+    if(!r.ok){
+      const data=await r.json().catch(()=>({error:'Náhľad zlyhal.'}));
+      throw new Error(data.error||'Náhľad zlyhal.');
+    }
+    const blob=await r.blob();
+    if(uploadPreviewUrl) URL.revokeObjectURL(uploadPreviewUrl);
+    uploadPreviewUrl=URL.createObjectURL(blob);
+    simpleUploadProcessed.innerHTML='<img src="'+uploadPreviewUrl+'" alt="Spracovaný picon">';
+    uploadPreviewValid=true;
+    simpleUploadBtn.disabled=false;
+
+    const ch=adminChannels.find(ch=>(ch._identity||'')===identity);
+    simpleUploadBtn.textContent=(ch&&ch._has_curated_logo)?'Schváliť a nahradiť logo':'Schváliť a uložiť logo';
+    simpleUploadStatus.textContent='Skontroluj výsledok. Ak je dobrý, schváľ uloženie.';
+  }catch(e){
+    simpleUploadProcessed.innerHTML='<div class="logo-empty">Náhľad sa nepodaril</div>';
+    simpleUploadStatus.textContent='Chyba: '+e.message;
+  }
+}
 
 if(simpleUploadFile){
   simpleUploadFile.addEventListener('change',()=>{
     const file=simpleUploadFile.files&&simpleUploadFile.files[0];
-    if(!file){ simpleUploadPreview.innerHTML='<div class="logo-empty">Vyber obrázok</div>'; return; }
+    invalidateUploadPreview();
+    if(!file){
+      simpleUploadOriginal.innerHTML='<div class="logo-empty">Vyber obrázok</div>';
+      simpleUploadProcessed.innerHTML='<div class="logo-empty">Po výbere sa vytvorí náhľad</div>';
+      return;
+    }
     const url=URL.createObjectURL(file);
-    simpleUploadPreview.innerHTML='<img src="'+url+'" alt="Náhľad">';
+    simpleUploadOriginal.innerHTML='<img src="'+url+'" alt="Dodané logo">';
+    previewNewLogo();
   });
 }
+if(simpleUploadChannel) simpleUploadChannel.addEventListener('change',()=>{
+  invalidateUploadPreview();
+  const file=simpleUploadFile&&simpleUploadFile.files&&simpleUploadFile.files[0];
+  if(file) previewNewLogo();
+});
+[uploadDarkToWhite,uploadOpticalScale,uploadEdgeCleanup].forEach(el=>{
+  if(!el) return;
+  el.addEventListener(el.tagName==='SELECT'||el.type==='checkbox'?'change':'input',()=>{
+    invalidateUploadPreview();
+    const file=simpleUploadFile&&simpleUploadFile.files&&simpleUploadFile.files[0];
+    if(file) previewNewLogo();
+  });
+});
+if(simpleUploadPreviewBtn) simpleUploadPreviewBtn.addEventListener('click',()=>previewNewLogo());
+
 if(simpleUploadBtn){
   simpleUploadBtn.addEventListener('click',async()=>{
     const identity=(simpleUploadChannel&&simpleUploadChannel.value)||'';
     const file=simpleUploadFile&&simpleUploadFile.files&&simpleUploadFile.files[0];
-    if(!identity){ simpleUploadStatus.textContent='Vyber kanál.'; return; }
-    if(!file){ simpleUploadStatus.textContent='Vyber logo zo súboru.'; return; }
+    if(!identity || !file){ simpleUploadStatus.textContent='Vyber stanicu a súbor.'; return; }
+    if(!uploadPreviewValid){ simpleUploadStatus.textContent='Najprv vytvor a skontroluj aktuálny náhľad.'; return; }
+
     simpleUploadBtn.disabled=true;
-    simpleUploadStatus.textContent='Ukladám logo…';
+    simpleUploadStatus.textContent='Ukladám schválené logo…';
     try{
       const fd=new FormData();
       fd.append('identity',identity);
       fd.append('logo',file);
+      fd.append('dark_to_white',uploadDarkToWhite.value);
+      fd.append('optical_scale',uploadOpticalScale.value);
+      if(uploadEdgeCleanup.checked) fd.append('edge_cleanup','on');
+
       const r=await fetch('/api/v2/upload-logo',{method:'POST',body:fd});
       const data=await r.json();
       if(!r.ok) throw new Error(data.error||'Uloženie zlyhalo.');
       simpleUploadStatus.textContent=data.message||'Logo uložené.';
-      setTimeout(()=>location.reload(),500);
+      setTimeout(()=>location.reload(),650);
     }catch(e){
       simpleUploadStatus.textContent='Chyba: '+e.message;
-    }finally{
       simpleUploadBtn.disabled=false;
     }
   });
@@ -740,17 +841,17 @@ if(simpleSaveEditBtn){
     return page.replace("</body>", extra_js + "</body>")
 
 
-@legacy.app.post("/api/v2/upload-logo")
-def api_v2_upload_logo():
+@legacy.app.post("/api/v2/upload-preview")
+def api_v2_upload_preview():
     try:
         identity = request.form.get("identity", "").strip()
         channel = channel_by_identity(identity)
         if not channel:
-            raise ValueError("Vybraný kanál sa nenašiel.")
+            raise ValueError("Vybraná stanica sa nenašla.")
 
         upload = request.files.get("logo")
         if not upload or not upload.filename:
-            raise ValueError("Vyber logo zo súboru.")
+            raise ValueError("Vyber nový súbor loga.")
 
         filename = secure_filename(upload.filename or "")
         ext = Path(filename).suffix.lower()
@@ -758,27 +859,74 @@ def api_v2_upload_logo():
         if not raw:
             raise ValueError("Logo je prázdne.")
 
+        dark_to_white = request.form.get("dark_to_white", "false") == "true"
+        edge_cleanup = request.form.get("edge_cleanup") == "on"
+        optical_scale = max(0.50, min(1.50, float(request.form.get("optical_scale", "1.0"))))
+
+        png = legacy.render_preview_png(
+            raw=raw,
+            ext=ext,
+            dark_to_white=dark_to_white,
+            optical_scale=optical_scale,
+            edge_cleanup=edge_cleanup,
+        )
+        return send_file(io.BytesIO(png), mimetype="image/png", download_name="preview.png")
+    except Exception as exc:
+        return jsonify(error=str(exc)), 400
+
+
+@legacy.app.post("/api/v2/upload-logo")
+def api_v2_upload_logo():
+    try:
+        identity = request.form.get("identity", "").strip()
+        channel = channel_by_identity(identity)
+        if not channel:
+            raise ValueError("Vybraná stanica sa nenašla.")
+
+        upload = request.files.get("logo")
+        if not upload or not upload.filename:
+            raise ValueError("Vyber nový súbor loga.")
+
+        filename = secure_filename(upload.filename or "")
+        ext = Path(filename).suffix.lower()
+        raw = upload.read()
+        if not raw:
+            raise ValueError("Logo je prázdne.")
+
+        dark_to_white = request.form.get("dark_to_white", "false") == "true"
+        edge_cleanup = request.form.get("edge_cleanup") == "on"
+        optical_scale = max(0.50, min(1.50, float(request.form.get("optical_scale", "1.0"))))
+
         station_key = str(channel.get("station_key") or normalize_station_key(channel.get("name", "")))
         logo_rel = save_shared_logo(station_key=station_key, raw=raw, ext=ext)
 
         artwork = load_station_artwork()
         stations = artwork.setdefault("stations", {})
         current = stations.get(station_key) if isinstance(stations.get(station_key), dict) else {}
+
+        # IMPORTANT: replacing the station artwork must never lose assignments.
+        # Keep every SAT/IPTV identity that already used this station logo.
         targets = set(str(x) for x in current.get("targets", []) or [])
         targets.add(identity)
 
         stations[station_key] = {
             "name": channel.get("name") or station_key,
             "logo": logo_rel,
-            "dark_to_white": bool(current.get("dark_to_white", False)),
-            "optical_scale": float(current.get("optical_scale", 1.0) or 1.0),
-            "edge_cleanup": bool(current.get("edge_cleanup", False)),
+            "dark_to_white": dark_to_white,
+            "optical_scale": optical_scale,
+            "edge_cleanup": edge_cleanup,
             "background_cleanup": False,
             "targets": sorted(targets),
             "updated_at": int(time.time()),
         }
         save_station_artwork(artwork)
-        return jsonify(ok=True, message=f"{channel.get('name')}: logo uložené.")
+
+        replaced = bool(current.get("logo"))
+        action = "nahradené novou verziou" if replaced else "uložené"
+        return jsonify(
+            ok=True,
+            message=f"{channel.get('name')}: logo {action}. Existujúce priradenia providerov zostali zachované.",
+        )
     except Exception as exc:
         return jsonify(error=str(exc)), 400
 
