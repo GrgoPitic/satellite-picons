@@ -290,6 +290,58 @@ def PAGE_V2() -> str:
         </style>"""
     )
     page = page.replace(
+        '<button type="button" data-panel="upload">Nahrať logo<small>nový obrázok alebo kopírovanie</small></button>',
+        '<button type="button" data-panel="upload">Nahrať logo<small>nový obrázok</small></button>\n      <button type="button" data-panel="library">Knižnica log<small>kde sú použité a kam ich pridať</small></button>'
+    )
+    page = page.replace(
+        '        <section class="panel" data-panel-view="edit">',
+        '''        <section class="panel" data-panel-view="library">
+          <div class="card">
+            <div class="panel-head">
+              <h2>Knižnica mojich log</h2>
+              <p>Tu vidíš všetky svoje nahraté logá, kde sú priradené a kam ich ešte môžeš pridať.</p>
+            </div>
+            {% if logo_library %}
+              <div class="logo-library">
+                {% for logo in logo_library %}
+                  <div class="logo-card">
+                    <div class="logo-card-head">
+                      <div class="logo-thumb"><img src="/library-logo/{{ logo.station_key }}" alt="{{ logo.name }}"></div>
+                      <div><h3>{{ logo.name }}</h3><div class="muted">{{ logo.station_key }}</div></div>
+                    </div>
+                    <div class="assign-block">
+                      <div class="assign-title">Použité u</div>
+                      {% for item in logo.assigned %}
+                        <span class="provider-chip">{{ item.provider_label }}</span>
+                      {% endfor %}
+                    </div>
+                    <div class="assign-block">
+                      <div class="assign-title">Pridať k ďalšiemu operátorovi</div>
+                      {% if logo.available %}
+                        {% for item in logo.available %}
+                          <form method="post" action="/library-assign" class="assign-row">
+                            <input type="hidden" name="source_identity" value="{{ logo.source_identity }}">
+                            <input type="hidden" name="target_identity" value="{{ item.identity }}">
+                            <span>{{ item.provider_label }}{% if item.name and item.name != logo.name %}<br><small>{{ item.name }}</small>{% endif %}</span>
+                            <button type="submit" class="action secondary">+ Pridať</button>
+                          </form>
+                        {% endfor %}
+                      {% else %}
+                        <div class="note">Logo je už priradené ku všetkým nájdeným výskytom.</div>
+                      {% endif %}
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            {% else %}
+              <div class="empty-library">Zatiaľ nemáš žiadne vlastné nahraté logá.</div>
+            {% endif %}
+          </div>
+        </section>
+
+        <section class="panel" data-panel-view="edit">'''
+    )
+    page = page.replace(
         '<input id="serviceRef" name="service_reference" placeholder="1:0:19:334F:C93:3:EB0000:0:0:0:" required>',
         '<input id="serviceRef" name="service_reference" placeholder="1:0:19:334F:C93:3:EB0000:0:0:0:">'
     )
