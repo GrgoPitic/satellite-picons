@@ -4,6 +4,7 @@ from __future__ import annotations
 import io
 import json
 import os
+import re
 import time
 from pathlib import Path
 
@@ -267,6 +268,14 @@ def channel_by_identity(identity: str) -> dict | None:
     return next((row for row in rows if row.get("_identity") == identity), None)
 
 
+def replace_panel_html(page: str, panel_name: str, replacement: str) -> str:
+    pattern = re.compile(
+        rf'<section class="panel(?: active)?" data-panel-view="{re.escape(panel_name)}">[\\s\\S]*?</section>',
+        re.M,
+    )
+    return pattern.sub(replacement, page, count=1)
+
+
 def PAGE_V2() -> str:
     page = legacy.PAGE
     page = page.replace("Satellite Picons Admin", "Picon Hub Admin")
@@ -380,6 +389,86 @@ def PAGE_V2() -> str:
     )
     page = page.replace("'/api/logo/'+encodeURIComponent(ch._service_key||'')", "'/api/v2/logo?identity='+encodeURIComponent(ch._identity||'')")
     page = page.replace("'/api/logo/'+encodeURIComponent(ch._service_key||'')", "'/api/v2/logo?identity='+encodeURIComponent(ch._identity||'')")
+
+    page = replace_panel_html(page, "upload", r'''
+        <section class="panel" data-panel-view="upload">
+          <div class="card">
+            <div class="panel-head">
+              <h2>Nahrať logo</h2>
+              <p>Vyber kanál a svoj obrázok. Nič ďalšie sa tu nenastavuje.</p>
+            </div>
+            <label>Kanál</label>
+            <select id="simpleUploadChannel">
+              <option value="">— Vyber kanál —</option>
+              {% for ch in channels %}
+                <option value="{{ ch._identity }}">{{ ch.name }} · {{ ch.provider_group }} · {{ 'IPTV' if ch.delivery == 'iptv' else 'SAT' }}</option>
+              {% endfor %}
+            </select>
+
+            <label>Logo zo súboru</label>
+            <input id="simpleUploadFile" type="file" accept=".png,.svg,.jpg,.jpeg,.webp">
+
+            <div class="logo-preview-box" style="margin-top:16px">
+              <span>Náhľad</span>
+              <div class="logo-canvas" id="simpleUploadPreview"><div class="logo-empty">Vyber obrázok</div></div>
+            </div>
+
+            <div id="simpleUploadStatus" class="status"></div>
+            <button type="button" id="simpleUploadBtn" class="action primary">Uložiť logo</button>
+          </div>
+        </section>
+    ''')
+
+    page = replace_panel_html(page, "edit", r'''
+        <section class="panel active" data-panel-view="edit">
+          <div class="card">
+            <div class="panel-head">
+              <h2>Upraviť moje logo</h2>
+              <p>Tu sú iba tvoje nahraté logá. Synchronizované ani importované obrázky sa nezobrazujú.</p>
+            </div>
+
+            <label>Moje logo</label>
+            <select id="simpleEditLogo">
+              <option value="">— Vyber logo —</option>
+              {% for logo in logo_library %}
+                <option value="{{ logo.source_identity }}">{{ logo.name }}</option>
+              {% endfor %}
+            </select>
+
+            <div class="logo-preview-grid">
+              <div class="logo-preview-box">
+                <span>Originál</span>
+                <div class="logo-canvas" id="simpleEditOriginal"><div class="logo-empty">Vyber logo</div></div>
+              </div>
+              <div class="logo-preview-box">
+                <span>Výsledok</span>
+                <div class="logo-canvas" id="simpleEditResult"><div class="logo-empty">Najprv vyber logo</div></div>
+              </div>
+            </div>
+
+            <div class="grid">
+              <div>
+                <label>Tmavé neutrálne časti → biele</label>
+                <select id="simpleDarkToWhite">
+                  <option value="false">Nie</option>
+                  <option value="true">Áno</option>
+                </select>
+              </div>
+              <div>
+                <label>Veľkosť loga</label>
+                <input id="simpleOpticalScale" type="number" min="0.50" max="1.50" step="0.05" value="1.00">
+              </div>
+            </div>
+            <label class="check"><input id="simpleEdgeCleanup" type="checkbox">Odstrániť iba biely okraj napojený na hranu</label>
+
+            <div id="simpleEditStatus" class="status"></div>
+            <div class="split-actions">
+              <button type="button" id="simplePreviewBtn" class="action secondary">Zobraziť náhľad</button>
+              <button type="button" id="simpleSaveEditBtn" class="action primary">Uložiť úpravu</button>
+            </div>
+          </div>
+        </section>
+    ''')
 
     extra_js = r'''
 <script>
@@ -530,9 +619,242 @@ if(manageChannel){
   });
 }
 filterChannels();
+
+const simpleUploadChannel=document.querySelector('#simpleUploadChannel');
+const simpleUploadFile=document.querySelector('#simpleUploadFile');
+const simpleUploadPreview=document.querySelector('#simpleUploadPreview');
+const simpleUploadStatus=document.querySelector('#simpleUploadStatus');
+const simpleUploadBtn=document.querySelector('#simpleUploadBtn');
+
+if(simpleUploadFile){
+  simpleUploadFile.addEventListener('change',()=>{
+    const file=simpleUploadFile.files&&simpleUploadFile.files[0];
+    if(!file){ simpleUploadPreview.innerHTML='<div class="logo-empty">Vyber obrázok</div>'; return; }
+    const url=URL.createObjectURL(file);
+    simpleUploadPreview.innerHTML='<img src="'+url+'" alt="Náhľad">';
+  });
+}
+if(simpleUploadBtn){
+  simpleUploadBtn.addEventListener('click',async()=>{
+    const identity=(simpleUploadChannel&&simpleUploadChannel.value)||'';
+    const file=simpleUploadFile&&simpleUploadFile.files&&simpleUploadFile.files[0];
+    if(!identity){ simpleUploadStatus.textContent='Vyber kanál.'; return; }
+    if(!file){ simpleUploadStatus.textContent='Vyber logo zo súboru.'; return; }
+    simpleUploadBtn.disabled=true;
+    simpleUploadStatus.textContent='Ukladám logo…';
+    try{
+      const fd=new FormData();
+      fd.append('identity',identity);
+      fd.append('logo',file);
+      const r=await fetch('/api/v2/upload-logo',{method:'POST',body:fd});
+      const data=await r.json();
+      if(!r.ok) throw new Error(data.error||'Uloženie zlyhalo.');
+      simpleUploadStatus.textContent=data.message||'Logo uložené.';
+      setTimeout(()=>location.reload(),500);
+    }catch(e){
+      simpleUploadStatus.textContent='Chyba: '+e.message;
+    }finally{
+      simpleUploadBtn.disabled=false;
+    }
+  });
+}
+
+const simpleEditLogo=document.querySelector('#simpleEditLogo');
+const simpleEditOriginal=document.querySelector('#simpleEditOriginal');
+const simpleEditResult=document.querySelector('#simpleEditResult');
+const simpleDarkToWhite=document.querySelector('#simpleDarkToWhite');
+const simpleOpticalScale=document.querySelector('#simpleOpticalScale');
+const simpleEdgeCleanup=document.querySelector('#simpleEdgeCleanup');
+const simpleEditStatus=document.querySelector('#simpleEditStatus');
+const simplePreviewBtn=document.querySelector('#simplePreviewBtn');
+const simpleSaveEditBtn=document.querySelector('#simpleSaveEditBtn');
+
+async function loadSimpleEdit(){
+  const identity=(simpleEditLogo&&simpleEditLogo.value)||'';
+  if(!identity){
+    simpleEditOriginal.innerHTML='<div class="logo-empty">Vyber logo</div>';
+    simpleEditResult.innerHTML='<div class="logo-empty">Najprv vyber logo</div>';
+    return;
+  }
+  simpleEditOriginal.innerHTML='<img src="/api/v2/logo?identity='+encodeURIComponent(identity)+'" alt="Originál">';
+  simpleEditResult.innerHTML='<img src="/api/v2/logo?identity='+encodeURIComponent(identity)+'" alt="Výsledok">';
+  try{
+    const r=await fetch('/api/v2/logo-settings?identity='+encodeURIComponent(identity));
+    const data=await r.json();
+    if(r.ok){
+      simpleDarkToWhite.value=data.dark_to_white?'true':'false';
+      simpleOpticalScale.value=String(data.optical_scale||1);
+      simpleEdgeCleanup.checked=!!data.edge_cleanup;
+    }
+  }catch(e){}
+}
+if(simpleEditLogo) simpleEditLogo.addEventListener('change',loadSimpleEdit);
+
+async function renderSimplePreview(){
+  const identity=(simpleEditLogo&&simpleEditLogo.value)||'';
+  if(!identity){ simpleEditStatus.textContent='Vyber logo.'; return; }
+  const fd=new FormData();
+  fd.append('identity',identity);
+  fd.append('dark_to_white',simpleDarkToWhite.value);
+  fd.append('optical_scale',simpleOpticalScale.value);
+  if(simpleEdgeCleanup.checked) fd.append('edge_cleanup','on');
+  simpleEditStatus.textContent='Vytváram náhľad…';
+  const r=await fetch('/api/v2/edit-preview',{method:'POST',body:fd});
+  if(!r.ok){
+    const data=await r.json().catch(()=>({error:'Náhľad zlyhal.'}));
+    throw new Error(data.error||'Náhľad zlyhal.');
+  }
+  const blob=await r.blob();
+  simpleEditResult.innerHTML='<img src="'+URL.createObjectURL(blob)+'" alt="Výsledok">';
+  simpleEditStatus.textContent='Náhľad pripravený.';
+}
+if(simplePreviewBtn){
+  simplePreviewBtn.addEventListener('click',()=>renderSimplePreview().catch(e=>simpleEditStatus.textContent='Chyba: '+e.message));
+}
+if(simpleSaveEditBtn){
+  simpleSaveEditBtn.addEventListener('click',async()=>{
+    const identity=(simpleEditLogo&&simpleEditLogo.value)||'';
+    if(!identity){ simpleEditStatus.textContent='Vyber logo.'; return; }
+    simpleSaveEditBtn.disabled=true;
+    simpleEditStatus.textContent='Ukladám nastavenia…';
+    try{
+      const fd=new FormData();
+      fd.append('identity',identity);
+      fd.append('dark_to_white',simpleDarkToWhite.value);
+      fd.append('optical_scale',simpleOpticalScale.value);
+      if(simpleEdgeCleanup.checked) fd.append('edge_cleanup','on');
+      const r=await fetch('/api/v2/edit-save',{method:'POST',body:fd});
+      const data=await r.json();
+      if(!r.ok) throw new Error(data.error||'Uloženie zlyhalo.');
+      simpleEditStatus.textContent=data.message||'Úprava uložená.';
+      await renderSimplePreview();
+    }catch(e){
+      simpleEditStatus.textContent='Chyba: '+e.message;
+    }finally{
+      simpleSaveEditBtn.disabled=false;
+    }
+  });
+}
 </script>
 '''
     return page.replace("</body>", extra_js + "</body>")
+
+
+@legacy.app.post("/api/v2/upload-logo")
+def api_v2_upload_logo():
+    try:
+        identity = request.form.get("identity", "").strip()
+        channel = channel_by_identity(identity)
+        if not channel:
+            raise ValueError("Vybraný kanál sa nenašiel.")
+
+        upload = request.files.get("logo")
+        if not upload or not upload.filename:
+            raise ValueError("Vyber logo zo súboru.")
+
+        filename = secure_filename(upload.filename or "")
+        ext = Path(filename).suffix.lower()
+        raw = upload.read()
+        if not raw:
+            raise ValueError("Logo je prázdne.")
+
+        station_key = str(channel.get("station_key") or normalize_station_key(channel.get("name", "")))
+        logo_rel = save_shared_logo(station_key=station_key, raw=raw, ext=ext)
+
+        artwork = load_station_artwork()
+        stations = artwork.setdefault("stations", {})
+        current = stations.get(station_key) if isinstance(stations.get(station_key), dict) else {}
+        targets = set(str(x) for x in current.get("targets", []) or [])
+        targets.add(identity)
+
+        stations[station_key] = {
+            "name": channel.get("name") or station_key,
+            "logo": logo_rel,
+            "dark_to_white": bool(current.get("dark_to_white", False)),
+            "optical_scale": float(current.get("optical_scale", 1.0) or 1.0),
+            "edge_cleanup": bool(current.get("edge_cleanup", False)),
+            "background_cleanup": False,
+            "targets": sorted(targets),
+            "updated_at": int(time.time()),
+        }
+        save_station_artwork(artwork)
+        return jsonify(ok=True, message=f"{channel.get('name')}: logo uložené.")
+    except Exception as exc:
+        return jsonify(error=str(exc)), 400
+
+
+@legacy.app.get("/api/v2/logo-settings")
+def api_v2_logo_settings():
+    identity = request.args.get("identity", "").strip()
+    channel = channel_by_identity(identity)
+    if not channel or not channel.get("_has_curated_logo"):
+        return jsonify(error="Logo sa nenašlo."), 404
+    return jsonify(
+        dark_to_white=bool(channel.get("dark_to_white", False)),
+        optical_scale=float(channel.get("optical_scale", 1.0) or 1.0),
+        edge_cleanup=bool(channel.get("edge_cleanup", False)),
+    )
+
+
+@legacy.app.post("/api/v2/edit-preview")
+def api_v2_edit_preview():
+    try:
+        identity = request.form.get("identity", "").strip()
+        channel = channel_by_identity(identity)
+        if not channel or not channel.get("_has_curated_logo") or not channel.get("logo"):
+            raise ValueError("Vybrané vlastné logo sa nenašlo.")
+
+        path = (ROOT / str(channel["logo"])).resolve()
+        if not path.is_file():
+            raise ValueError("Súbor loga sa nenašiel.")
+
+        raw = path.read_bytes()
+        ext = path.suffix.lower()
+        dark_to_white = request.form.get("dark_to_white", "false") == "true"
+        edge_cleanup = request.form.get("edge_cleanup") == "on"
+        optical_scale = float(request.form.get("optical_scale", "1.0"))
+
+        png = legacy.render_preview_png(
+            raw=raw,
+            ext=ext,
+            dark_to_white=dark_to_white,
+            optical_scale=optical_scale,
+            edge_cleanup=edge_cleanup,
+        )
+        return send_file(io.BytesIO(png), mimetype="image/png", download_name="preview.png")
+    except Exception as exc:
+        return jsonify(error=str(exc)), 400
+
+
+@legacy.app.post("/api/v2/edit-save")
+def api_v2_edit_save():
+    try:
+        identity = request.form.get("identity", "").strip()
+        channel = channel_by_identity(identity)
+        if not channel or not channel.get("_has_curated_logo"):
+            raise ValueError("Vybrané vlastné logo sa nenašlo.")
+
+        station_key = str(channel.get("station_key") or normalize_station_key(channel.get("name", "")))
+        artwork = load_station_artwork()
+        stations = artwork.setdefault("stations", {})
+        current = stations.get(station_key) if isinstance(stations.get(station_key), dict) else {}
+        if not current.get("logo"):
+            current["logo"] = channel.get("logo")
+
+        current["name"] = channel.get("name") or station_key
+        current["dark_to_white"] = request.form.get("dark_to_white", "false") == "true"
+        current["optical_scale"] = max(0.50, min(1.50, float(request.form.get("optical_scale", "1.0"))))
+        current["edge_cleanup"] = request.form.get("edge_cleanup") == "on"
+        current["background_cleanup"] = False
+        targets = set(str(x) for x in current.get("targets", []) or [])
+        targets.add(identity)
+        current["targets"] = sorted(targets)
+        current["updated_at"] = int(time.time())
+        stations[station_key] = current
+        save_station_artwork(artwork)
+        return jsonify(ok=True, message=f"{channel.get('name')}: úprava uložená.")
+    except Exception as exc:
+        return jsonify(error=str(exc)), 400
 
 
 @legacy.app.get("/api/station-matches")
