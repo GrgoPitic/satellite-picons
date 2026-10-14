@@ -124,6 +124,85 @@ def load_admin_channels_v2() -> tuple[list[dict], dict]:
     return rows, stats
 
 
+
+def provider_label(provider_id: str) -> str:
+    meta = provider_definitions().get(str(provider_id or "").strip().lower(), {})
+    name = str(meta.get("name") or provider_id or "Neznámy provider")
+    delivery = str(meta.get("delivery") or "satellite").lower()
+    return f"{name} · {'IPTV' if delivery == 'iptv' else 'SAT'}"
+
+
+def logo_library_v2() -> list[dict]:
+    """Return one card per manually curated station logo.
+
+    A logo is shown once, together with where it is already assigned and where
+    the same station exists but still has no assignment.
+    """
+    rows, _ = load_admin_channels_v2()
+    by_station: dict[str, list[dict]] = {}
+    for row in rows:
+        if not row.get("_has_curated_logo"):
+            continue
+        key = str(row.get("station_key") or normalize_station_key(row.get("name", "")))
+        by_station.setdefault(key, []).append(row)
+
+    cards = []
+    all_by_station: dict[str, list[dict]] = {}
+    for row in rows:
+        key = str(row.get("station_key") or normalize_station_key(row.get("name", "")))
+        all_by_station.setdefault(key, []).append(row)
+
+    for station_key, sources in by_station.items():
+        # Prefer a direct/manual logo as the source; shared copies come after it.
+        sources = sorted(
+            sources,
+            key=lambda row: (bool(row.get("_shared_artwork")), str(row.get("provider_group") or "")),
+        )
+        source = sources[0]
+        logo = str(source.get("logo") or "")
+        if not logo:
+            continue
+
+        assigned = []
+        assigned_ids = set()
+        for row in all_by_station.get(station_key, []):
+            if not row.get("_has_curated_logo"):
+                continue
+            identity = str(row.get("_identity") or "")
+            if not identity or identity in assigned_ids:
+                continue
+            assigned_ids.add(identity)
+            assigned.append({
+                "identity": identity,
+                "provider": str(row.get("provider_group") or ""),
+                "provider_label": provider_label(str(row.get("provider_group") or "")),
+                "name": row.get("name"),
+            })
+
+        available = []
+        for row in all_by_station.get(station_key, []):
+            identity = str(row.get("_identity") or "")
+            if not identity or identity in assigned_ids:
+                continue
+            available.append({
+                "identity": identity,
+                "provider": str(row.get("provider_group") or ""),
+                "provider_label": provider_label(str(row.get("provider_group") or "")),
+                "name": row.get("name"),
+            })
+
+        cards.append({
+            "station_key": station_key,
+            "name": source.get("name") or station_key,
+            "logo": logo,
+            "source_identity": source.get("_identity"),
+            "assigned": assigned,
+            "available": available,
+        })
+
+    cards.sort(key=lambda card: str(card.get("name") or "").lower())
+    return cards
+
 def matching_channels(name: str, exclude_identity: str = "") -> list[dict]:
     station_key = normalize_station_key(name)
     rows, _ = load_admin_channels_v2()
@@ -195,6 +274,19 @@ def PAGE_V2() -> str:
 .progress-line{display:flex;justify-content:space-between;gap:12px;font-size:13px}
 .progress-track{height:8px;border-radius:999px;background:#17212d;overflow:hidden;margin-top:9px}
 .progress-fill{height:100%;background:#dce9f8;border-radius:999px}
+.logo-library{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.logo-card{border:1px solid #253242;border-radius:16px;background:#0a1017;padding:15px}
+.logo-card-head{display:grid;grid-template-columns:86px 1fr;gap:12px;align-items:center}
+.logo-thumb{height:62px;border-radius:10px;background:#111822;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.logo-thumb img{max-width:78px;max-height:54px;object-fit:contain}
+.logo-card h3{margin:0;font-size:16px}.logo-card .muted{color:#7f8da0;font-size:12px;margin-top:4px}
+.assign-block{margin-top:14px;padding-top:12px;border-top:1px solid #1f2a37}
+.assign-title{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#758397;margin-bottom:7px}
+.provider-chip{display:inline-flex;align-items:center;padding:5px 8px;border:1px solid #2f4053;border-radius:999px;font-size:11px;margin:0 5px 5px 0;background:#111a25}
+.assign-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid #17212d}
+.assign-row:first-child{border-top:0}.assign-row span{font-size:12px}
+.assign-row button{width:auto;margin:0;padding:7px 10px;border-radius:8px}
+.empty-library{padding:28px;text-align:center;color:#8190a3;border:1px dashed #2b3848;border-radius:14px}
         </style>"""
     )
     page = page.replace(
@@ -381,6 +473,71 @@ def api_v2_logo():
     return send_file(path)
 
 
+
+@legacy.app.get("/library-logo/<station_key>")
+def library_logo(station_key: str):
+    wanted = normalize_station_key(station_key)
+    for card in logo_library_v2():
+        if card.get("station_key") != wanted:
+            continue
+        path = (ROOT / str(card.get("logo") or "")).resolve()
+        try:
+            path.relative_to((ROOT / "assets" / "logos").resolve())
+        except ValueError:
+            break
+        if path.is_file():
+            return send_file(path)
+        break
+    return jsonify(error="Logo sa nenašlo."), 404
+
+
+@legacy.app.post("/library-assign")
+def library_assign():
+    try:
+        source_identity = request.form.get("source_identity", "").strip()
+        target_identity = request.form.get("target_identity", "").strip()
+        if not source_identity or not target_identity:
+            raise ValueError("Chýba zdroj alebo cieľ priradenia.")
+
+        source = channel_by_identity(source_identity)
+        target = channel_by_identity(target_identity)
+        if not source or not source.get("_has_curated_logo") or not source.get("logo"):
+            raise ValueError("Zdrojové logo sa nenašlo.")
+        if not target:
+            raise ValueError("Cieľový kanál sa nenašiel.")
+
+        source_key = str(source.get("station_key") or normalize_station_key(source.get("name", "")))
+        target_key = str(target.get("station_key") or normalize_station_key(target.get("name", "")))
+        if source_key != target_key:
+            raise ValueError("Vybrané kanály nie sú tá istá stanica.")
+
+        artwork = load_station_artwork()
+        stations = artwork.setdefault("stations", {})
+        current = stations.get(source_key) if isinstance(stations.get(source_key), dict) else {}
+        targets = set(str(x) for x in current.get("targets", []) or [])
+        targets.add(source_identity)
+        targets.add(target_identity)
+
+        stations[source_key] = {
+            "name": source.get("name") or source_key,
+            "logo": source["logo"],
+            "dark_to_white": bool(source.get("dark_to_white", False)),
+            "optical_scale": float(source.get("optical_scale", 1.0) or 1.0),
+            "edge_cleanup": bool(source.get("edge_cleanup", False)),
+            "background_cleanup": True,
+            "targets": sorted(targets),
+            "updated_at": int(time.time()),
+        }
+        save_station_artwork(artwork)
+
+        flash(
+            f"{source.get('name')}: logo priradené k {provider_label(str(target.get('provider_group') or ''))}."
+        )
+    except Exception as exc:
+        flash(f"Chyba priradenia loga: {exc}")
+    return redirect(url_for("index") + "#library")
+
+
 def index_v2():
     if request.method == "GET":
         channels, stats = load_admin_channels_v2()
@@ -399,6 +556,7 @@ def index_v2():
             provider_meta=provider_meta,
             branch=legacy.git_branch(),
             preview_ready=legacy.local_preview_ready(),
+            logo_library=logo_library_v2(),
         )
 
     try:
@@ -520,7 +678,7 @@ def index_v2():
         DB.write_text(yaml.safe_dump(cfg, allow_unicode=True, sort_keys=False), encoding="utf-8")
 
         message = publish_v2() if publish else "Uložené lokálne; GitHub push nebol spustený."
-        flash(f"{name}: logo uložené. Ďalším operátorom ho priradíš samostatne v sekcii „Priradiť logo“. {message}")
+        flash(f"{name}: logo uložené. Ďalším operátorom ho priradíš v „Knižnici log“. {message}")
     except Exception as exc:
         flash(f"Chyba: {exc}")
     return redirect(url_for("index"))
