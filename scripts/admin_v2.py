@@ -352,7 +352,11 @@ def PAGE_V2() -> str:
           </div>
         </section>
 
-        <section class="panel" data-panel-view="edit">'''
+        <section class="panel active" data-panel-view="edit">'''
+    )
+    page = page.replace(
+        '<div class="panel-head"><h2>Upraviť logo</h2><p>Tu riešiš iba výsledný vzhľad piconu. Zdroj loga vyber v sekcii „Nahrať logo“.</p></div>',
+        '<div class="panel-head"><h2>Upraviť moje logo</h2><p>Vyber iba zo svojich nahratých log. Synchronizované ani importované obrázky tu nie sú.</p></div><label>Moje nahraté logo</label><select id="editLogoSelect"><option value="">— Vyber moje logo —</option>{% for logo in logo_library %}<option value="{{ logo.source_identity }}">{{ logo.name }}</option>{% endfor %}</select><div class="status">Úprava vždy pracuje s tvojím uloženým zdrojovým logom.</div>'
     )
     page = page.replace(
         '<input id="serviceRef" name="service_reference" placeholder="1:0:19:334F:C93:3:EB0000:0:0:0:" required>',
