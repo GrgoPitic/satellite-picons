@@ -215,7 +215,7 @@ def PAGE_V2() -> str:
     )
     page = page.replace(
         '<div class="status">Vybraný súbor zostane pripravený aj po prepnutí do sekcie „Upraviť logo“.</div>',
-        '<div class="status">Vybraný súbor zostane pripravený aj po prepnutí do sekcie „Upraviť logo“.</div><div id="shareMatches" class="copy-logo" style="display:none"><strong>Rovnaká stanica je aj u ďalších providerov</strong><p class="note">Zaškrtni, kde sa má použiť rovnaké logo. Funguje spoločne pre SAT aj IPTV.</p><div id="shareMatchesList"></div></div><input type="hidden" id="currentIdentity" name="current_identity" value="">'
+        '<div class="status">Vybraný súbor zostane pripravený aj po prepnutí do sekcie „Upraviť logo“.</div><input type="hidden" id="currentIdentity" name="current_identity" value="">'
     )
     page = page.replace("'/api/logo/'+encodeURIComponent(ch._service_key||'')", "'/api/v2/logo?identity='+encodeURIComponent(ch._identity||'')")
     page = page.replace("'/api/logo/'+encodeURIComponent(ch._service_key||'')", "'/api/v2/logo?identity='+encodeURIComponent(ch._identity||'')")
@@ -227,8 +227,13 @@ const deliverySelect=document.querySelector('#delivery');
 const tvgId=document.querySelector('#tvgId');
 const channelUid=document.querySelector('#channelUid');
 const currentIdentity=document.querySelector('#currentIdentity');
-const shareMatches=document.querySelector('#shareMatches');
-const shareMatchesList=document.querySelector('#shareMatchesList');
+const assignLogoPreview=document.querySelector('#assignLogoPreview');
+const assignSourceInfo=document.querySelector('#assignSourceInfo');
+const assignSourceIdentity=document.querySelector('#assignSourceIdentity');
+const assignTargets=document.querySelector('#assignTargets');
+const assignTargetsList=document.querySelector('#assignTargetsList');
+const assignNoLogo=document.querySelector('#assignNoLogo');
+const assignNoMatches=document.querySelector('#assignNoMatches');
 
 function syncDeliveryFromProvider(){
   const p=providerMeta[providerGroup.value]||{};
@@ -236,24 +241,6 @@ function syncDeliveryFromProvider(){
 }
 if(providerGroup) providerGroup.addEventListener('change',syncDeliveryFromProvider);
 
-async function refreshSharedMatches(ch){
-  if(!shareMatches || !shareMatchesList) return;
-  const name=(ch && ch.name) || document.querySelector('#channelName').value || '';
-  const identity=(ch && ch._identity) || (currentIdentity ? currentIdentity.value : '');
-  if(name.trim().length<2){shareMatches.style.display='none';shareMatchesList.innerHTML='';return;}
-  try{
-    const r=await fetch('/api/station-matches?name='+encodeURIComponent(name)+'&exclude='+encodeURIComponent(identity));
-    const data=await r.json();
-    const matches=data.matches||[];
-    if(!matches.length){shareMatches.style.display='none';shareMatchesList.innerHTML='';return;}
-    shareMatchesList.innerHTML=matches.map(m=>
-      '<label class="check" style="margin-top:9px"><input type="checkbox" name="share_target" value="'+esc(m.identity)+'" checked> '+
-      esc(m.name)+' · '+esc(m.provider_group||'')+' · '+(m.delivery==='iptv'?'IPTV':'SAT')+
-      (m.satellite_position?' · '+esc(m.satellite_position):'')+'</label>'
-    ).join('');
-    shareMatches.style.display='block';
-  }catch(e){shareMatches.style.display='none';}
-}
 
 if(manageChannel){
   manageChannel.addEventListener('change',()=>{
@@ -264,16 +251,55 @@ if(manageChannel){
     if(tvgId) tvgId.value=ch.tvg_id||'';
     if(channelUid) channelUid.value=ch.channel_uid||'';
     if(currentIdentity) currentIdentity.value=ch._identity||'';
-    refreshSharedMatches(ch);
+    refreshAssignPanel(ch);
   });
 }
-const channelNameV2=document.querySelector('#channelName');
-if(channelNameV2){
-  let matchTimer=null;
-  channelNameV2.addEventListener('input',()=>{
-    clearTimeout(matchTimer);
-    matchTimer=setTimeout(()=>refreshSharedMatches(null),300);
-  });
+async function refreshAssignPanel(ch){
+  if(!assignLogoPreview || !assignSourceInfo || !assignTargets || !assignTargetsList) return;
+
+  assignTargets.style.display='none';
+  assignTargetsList.innerHTML='';
+  assignNoLogo.style.display='none';
+  assignNoMatches.style.display='none';
+
+  if(!ch){
+    assignLogoPreview.innerHTML='<div class="logo-empty">Vyber hotový kanál vľavo</div>';
+    assignSourceInfo.innerHTML='<div class="logo-empty">Zatiaľ nevybrané</div>';
+    if(assignSourceIdentity) assignSourceIdentity.value='';
+    return;
+  }
+
+  if(assignSourceIdentity) assignSourceIdentity.value=ch._identity||'';
+  assignSourceInfo.innerHTML='<div style="padding:12px;text-align:center"><strong>'+esc(ch.name||'')+'</strong><br><small>'+esc(ch.provider_group||'')+' · '+((ch.delivery||'satellite')==='iptv'?'IPTV':'SAT')+'</small></div>';
+
+  if(!ch._has_curated_logo){
+    assignLogoPreview.innerHTML='<div class="logo-empty">Kanál nemá tvoje logo</div>';
+    assignNoLogo.style.display='block';
+    return;
+  }
+
+  assignLogoPreview.innerHTML='<img src="/api/v2/logo?identity='+encodeURIComponent(ch._identity||'')+'" alt="Zdrojové logo">';
+
+  try{
+    const r=await fetch('/api/station-matches?name='+encodeURIComponent(ch.name||'')+'&exclude='+encodeURIComponent(ch._identity||''));
+    const data=await r.json();
+    const matches=(data.matches||[]).filter(m=>!m.has_logo);
+    if(!matches.length){
+      assignNoMatches.style.display='block';
+      return;
+    }
+
+    assignTargetsList.innerHTML=matches.map(m=>
+      '<label class="check" style="margin-top:10px"><input type="checkbox" name="target_identity" value="'+esc(m.identity)+'"> '+
+      '<strong>'+esc(m.provider_group||'')+'</strong> · '+(m.delivery==='iptv'?'IPTV':'SAT')+
+      (m.satellite_position?' · '+esc(m.satellite_position):'')+
+      ' <span style="color:#7f8da0">('+esc(m.name||'')+')</span></label>'
+    ).join('');
+    assignTargets.style.display='block';
+  }catch(e){
+    assignNoMatches.textContent='Nepodarilo sa načítať zhodné stanice.';
+    assignNoMatches.style.display='block';
+  }
 }
 
 const deliveryFilter=document.querySelector('#channelDeliveryFilter');
@@ -325,7 +351,9 @@ if(searchFilter) searchFilter.addEventListener('input',filterChannels);
 if(manageChannel){
   manageChannel.addEventListener('change',()=>{
     const idx=manageChannel.value === '' ? -1 : Number(manageChannel.value);
-    updateSelectedLogoState(idx>=0 ? adminChannels[idx] : null);
+    const ch=idx>=0 ? adminChannels[idx] : null;
+    updateSelectedLogoState(ch);
+    refreshAssignPanel(ch);
   });
 }
 filterChannels();
@@ -471,7 +499,6 @@ def index_v2():
             logo_rel = save_shared_logo(station_key=station_key, raw=raw, ext=ext or ".png")
             artwork = load_station_artwork()
             targets = {identity}
-            targets.update(request.form.getlist("share_target"))
             artwork.setdefault("stations", {})[station_key] = {
                 "name": name,
                 "logo": logo_rel,
@@ -493,10 +520,52 @@ def index_v2():
         DB.write_text(yaml.safe_dump(cfg, allow_unicode=True, sort_keys=False), encoding="utf-8")
 
         message = publish_v2() if publish else "Uložené lokálne; GitHub push nebol spustený."
-        shared_count = len(request.form.getlist("share_target"))
-        flash(f"{name}: uložené. Zdieľanie loga: {shared_count} ďalších výskytov. {message}")
+        flash(f"{name}: logo uložené. Ďalším operátorom ho priradíš samostatne v sekcii „Priradiť logo“. {message}")
     except Exception as exc:
         flash(f"Chyba: {exc}")
+    return redirect(url_for("index"))
+
+
+
+@legacy.app.post("/assign-logo")
+def assign_logo():
+    try:
+        source_identity = request.form.get("source_identity", "").strip()
+        targets = [x.strip() for x in request.form.getlist("target_identity") if x.strip()]
+
+        if not source_identity:
+            raise ValueError("Vyber zdrojový kanál s hotovým logom.")
+        if not targets:
+            raise ValueError("Vyber aspoň jedného operátora.")
+
+        source = channel_by_identity(source_identity)
+        if not source or not source.get("_has_curated_logo") or not source.get("logo"):
+            raise ValueError("Zdrojový kanál nemá tvoje vlastné logo.")
+
+        station_key = str(source.get("station_key") or normalize_station_key(source.get("name", "")))
+        artwork = load_station_artwork()
+        stations = artwork.setdefault("stations", {})
+
+        existing = stations.get(station_key) if isinstance(stations.get(station_key), dict) else {}
+        existing_targets = set(str(x) for x in existing.get("targets", []) or [])
+        existing_targets.add(source_identity)
+        existing_targets.update(targets)
+
+        stations[station_key] = {
+            "name": source.get("name") or station_key,
+            "logo": source["logo"],
+            "dark_to_white": bool(source.get("dark_to_white", False)),
+            "optical_scale": float(source.get("optical_scale", 1.0) or 1.0),
+            "edge_cleanup": bool(source.get("edge_cleanup", False)),
+            "background_cleanup": True,
+            "targets": sorted(existing_targets),
+            "updated_at": int(time.time()),
+        }
+        save_station_artwork(artwork)
+
+        flash(f"{source.get('name')}: logo priradené k {len(targets)} ďalším operátorom. Zmeny sú uložené lokálne.")
+    except Exception as exc:
+        flash(f"Chyba priraďovania loga: {exc}")
     return redirect(url_for("index"))
 
 
