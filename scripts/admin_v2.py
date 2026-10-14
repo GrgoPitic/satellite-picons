@@ -89,6 +89,17 @@ def load_admin_channels_v2() -> tuple[list[dict], dict]:
                 for field in ("dark_to_white", "optical_scale", "edge_cleanup", "background_cleanup"):
                     if field in art:
                         row[field] = art[field]
+
+        # Curated means a real local file selected by the user. Remote/imported
+        # logo_url values never count as artwork in the admin.
+        local_logo = str(row.get("logo") or "").strip()
+        local_logo_path = (ROOT / local_logo).resolve() if local_logo else None
+        row["_has_curated_logo"] = bool(
+            local_logo_path
+            and local_logo_path.is_file()
+            and str(local_logo_path).startswith(str((ROOT / "assets" / "logos").resolve()))
+        )
+        row.pop("logo_url", None)
         rows.append(row)
 
     rows.sort(key=lambda ch: (
@@ -106,6 +117,9 @@ def load_admin_channels_v2() -> tuple[list[dict], dict]:
         "providers": len(set(provider_definitions()) | providers),
         "satellite": sum(1 for ch in rows if ch.get("delivery") != "iptv"),
         "iptv": sum(1 for ch in rows if ch.get("delivery") == "iptv"),
+        "curated": sum(1 for ch in rows if ch.get("_has_curated_logo")),
+        "missing_logo": sum(1 for ch in rows if not ch.get("_has_curated_logo")),
+        "shared": sum(1 for ch in rows if ch.get("_shared_artwork")),
     }
     return rows, stats
 
@@ -166,6 +180,23 @@ def PAGE_V2() -> str:
     page = page.replace("Satellite Picons Admin", "Picon Hub Admin")
     page = page.replace("<strong>Satellite Picons</strong>", "<strong>Picon Hub</strong>")
     page = page.replace("<span>Admin pracovisko</span>", "<span>SAT + IPTV · spoločné logá</span>")
+    page = page.replace(
+        "</style>",
+        """
+.admin-filters{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.admin-filter-wide{grid-column:1/-1}
+.admin-filter-label{display:block;color:#7f8da0;font-size:11px;margin:0 0 5px}
+.admin-filters select,.admin-filters input{padding:9px 10px;border-radius:9px;font-size:12px}
+.logo-state{margin-top:9px;padding:8px 10px;border-radius:9px;font-size:12px;font-weight:700}
+.logo-state.ok{background:#102419;color:#9ee6b1;border:1px solid #245536}
+.logo-state.missing{background:#28191a;color:#f1aaa5;border:1px solid #5a2d2d}
+.logo-state.shared{background:#142033;color:#a9c7f6;border:1px solid #2b466d}
+.progress-card{margin-top:14px;padding:16px;border:1px solid #253242;border-radius:14px;background:#0a1017}
+.progress-line{display:flex;justify-content:space-between;gap:12px;font-size:13px}
+.progress-track{height:8px;border-radius:999px;background:#17212d;overflow:hidden;margin-top:9px}
+.progress-fill{height:100%;background:#dce9f8;border-radius:999px}
+        </style>"""
+    )
     page = page.replace(
         '<input id="serviceRef" name="service_reference" placeholder="1:0:19:334F:C93:3:EB0000:0:0:0:" required>',
         '<input id="serviceRef" name="service_reference" placeholder="1:0:19:334F:C93:3:EB0000:0:0:0:">'
@@ -244,6 +275,60 @@ if(channelNameV2){
     matchTimer=setTimeout(()=>refreshSharedMatches(null),300);
   });
 }
+
+const deliveryFilter=document.querySelector('#channelDeliveryFilter');
+const logoFilter=document.querySelector('#channelLogoFilter');
+const providerFilter=document.querySelector('#channelProviderFilter');
+const searchFilter=document.querySelector('#channelSearchFilter');
+const filterCount=document.querySelector('#channelFilterCount');
+const selectedLogoState=document.querySelector('#selectedLogoState');
+
+function logoStateFor(ch){
+  if(!ch) return {key:'missing', text:'Vyber kanál'};
+  if(ch._shared_artwork) return {key:'shared', text:'Zdieľané tvoje logo'};
+  if(ch._has_curated_logo) return {key:'curated', text:'Hotové · tvoje logo'};
+  return {key:'missing', text:'Chýba tvoje logo'};
+}
+function updateSelectedLogoState(ch){
+  if(!selectedLogoState) return;
+  const state=logoStateFor(ch);
+  selectedLogoState.className='logo-state '+(state.key==='curated'?'ok':state.key);
+  selectedLogoState.textContent=state.text;
+}
+function filterChannels(){
+  if(!manageChannel) return;
+  const delivery=(deliveryFilter&&deliveryFilter.value)||'';
+  const logo=(logoFilter&&logoFilter.value)||'';
+  const provider=(providerFilter&&providerFilter.value)||'';
+  const q=((searchFilter&&searchFilter.value)||'').trim().toLowerCase();
+  let shown=0;
+  [...manageChannel.options].forEach((opt, idx)=>{
+    if(idx===0){ opt.hidden=false; return; }
+    const ch=adminChannels[idx-1];
+    if(!ch){ opt.hidden=true; return; }
+    const state=logoStateFor(ch).key;
+    const match=
+      (!delivery || (ch.delivery||'satellite')===delivery) &&
+      (!provider || (ch.provider_group||'')===provider) &&
+      (!logo || state===logo || (logo==='curated' && ch._has_curated_logo)) &&
+      (!q || ((ch.name||'')+' '+(ch.provider_group||'')).toLowerCase().includes(q));
+    opt.hidden=!match;
+    if(match) shown++;
+  });
+  if(filterCount) filterCount.textContent=shown+' z '+adminChannels.length+' kanálov';
+  const current=manageChannel.options[manageChannel.selectedIndex];
+  if(current && current.hidden){ manageChannel.value=''; updateSelectedLogoState(null); }
+}
+[deliveryFilter,logoFilter,providerFilter].forEach(el=>el&&el.addEventListener('change',filterChannels));
+if(searchFilter) searchFilter.addEventListener('input',filterChannels);
+
+if(manageChannel){
+  manageChannel.addEventListener('change',()=>{
+    const idx=manageChannel.value === '' ? -1 : Number(manageChannel.value);
+    updateSelectedLogoState(idx>=0 ? adminChannels[idx] : null);
+  });
+}
+filterChannels();
 </script>
 '''
     return page.replace("</body>", extra_js + "</body>")
