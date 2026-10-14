@@ -189,9 +189,9 @@ code{color:#d3deea}
     </div>
 
     <nav class="nav">
-      <button type="button" class="active" data-panel="overview">Prehľad<small>stav databázy a rýchle akcie</small></button>
-      <button type="button" data-panel="upload">Nahrať logo<small>nový obrázok alebo kopírovanie</small></button>
-      <button type="button" data-panel="edit">Upraviť logo<small>veľkosť, farby a čistenie</small></button>
+      <button type="button" class="active" data-panel="edit">Upraviť logo<small>iba tvoje nahraté logá</small></button>
+      <button type="button" data-panel="upload">Nahrať logo<small>nový obrázok</small></button>
+      <button type="button" data-panel="overview">Prehľad<small>stav databázy a rýchle akcie</small></button>
       <button type="button" data-panel="channel">Kanál a údaje<small>service reference a provider</small></button>
       <button type="button" data-panel="manage">Správa<small>override a odstránenie</small></button>
       <button type="button" data-panel="publish">Publikovanie<small>GitHub commit a push</small></button>
@@ -206,7 +206,7 @@ code{color:#d3deea}
         {% for m in messages %}<div class="msg">{{ m }}</div>{% endfor %}
       {% endwith %}
 
-      <section class="panel active" data-panel-view="overview">
+      <section class="panel" data-panel-view="overview">
         <div class="topbar">
           <div><h1>Prehľad</h1><p class="sub">Vyber vľavo, čo chceš práve riešiť. Ostatné nástroje sa skryjú.</p></div>
         </div>
@@ -222,7 +222,7 @@ code{color:#d3deea}
           <div class="env-row"><span>Lokálny náhľad pripravovanej stránky</span><strong class="{{ 'ok' if preview_ready else 'warn' }}">{{ 'pripravený' if preview_ready else 'treba vytvoriť' }}</strong></div>
         </div>
         <div class="quick-grid">
-          <div class="quick-card"><strong>Nahrať logo</strong><p>Vyber súbor alebo prevezmi logo z iného providera.</p><button type="button" class="quick" data-go="upload">Otvoriť nahrávanie</button></div>
+          <div class="quick-card"><strong>Nahrať logo</strong><p>Nahraj vlastný súbor loga.</p><button type="button" class="quick" data-go="upload">Otvoriť nahrávanie</button></div>
           <div class="quick-card"><strong>Upraviť logo</strong><p>Nastav veľkosť, tmavé prvky a čistenie okrajov.</p><button type="button" class="quick" data-go="edit">Otvoriť úpravu</button></div>
           <div class="quick-card"><strong>Kanál a údaje</strong><p>Vyhľadaj kanál a uprav jeho Enigma2 údaje.</p><button type="button" class="quick" data-go="channel">Otvoriť údaje</button></div>
           <div class="quick-card"><strong>Náhľad stránky</strong><p>Zostaví aktuálnu feature verziu webu vrátane tvojich log a providerov.</p><form method="post" action="/preview/build"><button type="submit" class="quick">Vytvoriť a otvoriť náhľad</button></form></div>
@@ -242,15 +242,7 @@ code{color:#d3deea}
             <input id="logoUpload" name="logo" type="file" accept=".png,.svg,.jpg,.jpeg,.webp">
             <div class="status">Vybraný súbor zostane pripravený aj po prepnutí do sekcie „Upraviť logo“.</div>
 
-            <div class="copy-logo">
-              <strong>Skopírovať iba logo z iného providera</strong>
-              <div class="grid">
-                <div><label>Zdrojový provider</label><select id="copyProvider"><option value="">— Vyber provider —</option>{% for key, label in provider_groups %}<option value="{{ key }}">{{ label }}</option>{% endfor %}</select></div>
-                <div><label>Zdrojový kanál</label><select id="copyChannel" disabled><option value="">— Najprv vyber provider —</option></select></div>
-              </div>
-              <div class="logo-preview-box" style="margin-top:12px"><span>Logo, ktoré sa skopíruje</span><div class="logo-canvas" id="copyLogoPreview"><div class="logo-empty">Zatiaľ nevybrané</div></div></div>
-              <input type="hidden" id="copyLogoFromRef" name="copy_logo_from_ref" value="">
-            </div>
+            <input type="hidden" id="copyLogoFromRef" name="copy_logo_from_ref" value="">
             <div class="split-actions">
               <button type="button" class="action secondary" data-go="edit">Pokračovať na úpravu loga</button>
               <button type="submit" class="action primary">Uložiť bez ďalšej úpravy</button>
@@ -258,9 +250,17 @@ code{color:#d3deea}
           </div>
         </section>
 
-        <section class="panel" data-panel-view="edit">
+        <section class="panel active" data-panel-view="edit">
           <div class="card">
-            <div class="panel-head"><h2>Upraviť logo</h2><p>Tu riešiš iba výsledný vzhľad piconu. Zdroj loga vyber v sekcii „Nahrať logo“.</p></div>
+            <div class="panel-head"><h2>Upraviť moje logo</h2><p>Vyber iba zo svojich nahratých log. Synchronizované a importované obrázky sa tu nezobrazujú.</p></div>
+            <label>Moje nahraté logo</label>
+            <select id="editLogoSelect">
+              <option value="">— Vyber moje logo —</option>
+              {% for logo in logo_library|default([]) %}
+                <option value="{{ logo.source_identity }}">{{ logo.name }}</option>
+              {% endfor %}
+            </select>
+            <div class="status">Úprava pracuje s tvojím uloženým zdrojovým logom. Originál sa pri náhľade nemení.</div>
             <div class="grid">
               <div>
                 <label>Čierny/tmavý text → biely</label>
@@ -279,7 +279,7 @@ code{color:#d3deea}
             <div class="logo-preview-box" style="margin-top:18px"><span>Výsledný náhľad</span><div class="logo-canvas" id="processedLogoPreview"><div class="logo-empty">Spusť náhľad úpravy</div></div></div>
             <button type="button" id="previewProcessedBtn" class="action secondary">Náhľad upraveného loga</button>
 
-            <label class="check"><input type="checkbox" name="publish" checked>Po uložení automaticky commitnúť a pushnúť na GitHub</label>
+            <label class="check"><input type="checkbox" name="publish">Po uložení publikovať aj na GitHub</label>
             <button type="submit" class="action primary">Uložiť zmeny a publikovať</button>
           </div>
         </section>
@@ -355,9 +355,9 @@ const lookupOrbit=document.querySelector('#lookupOrbit');
 const currentLogoPreview=document.querySelector('#currentLogoPreview');
 const newLogoPreview=document.querySelector('#newLogoPreview');
 const logoUpload=document.querySelector('#logoUpload');
-const copyProvider=document.querySelector('#copyProvider');
-const copyChannel=document.querySelector('#copyChannel');
-const copyLogoPreview=document.querySelector('#copyLogoPreview');
+const copyProvider=null;
+const copyChannel=null;
+const copyLogoPreview=null;
 const copyLogoFromRef=document.querySelector('#copyLogoFromRef');
 const darkToWhite=document.querySelector('#darkToWhite');
 const opticalScale=document.querySelector('#opticalScale');
@@ -597,7 +597,7 @@ btn.addEventListener('click', async ()=>{
   navButtons.forEach(button=>button.addEventListener('click',()=>showPanel(button.dataset.panel)));
   document.querySelectorAll('[data-go]').forEach(button=>button.addEventListener('click',()=>showPanel(button.dataset.go)));
 
-  let saved='overview';
+  let saved='edit';
   try{saved=localStorage.getItem('satellite-picons-admin-panel')||'overview';}catch(e){}
   if(panels.some(p=>p.dataset.panelView===saved)) showPanel(saved);
 
@@ -618,6 +618,8 @@ btn.addEventListener('click', async ()=>{
       }
     });
   }
+  const channelPicker=document.querySelector('.channel-picker');
+  if(channelPicker) channelPicker.style.display=(name==='edit'?'none':'block');
 })();
 </script>
 </body>
