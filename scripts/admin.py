@@ -1058,7 +1058,8 @@ def render_preview_png(
             px[x, y] = (r, g, b, 0)
             stack.extend(((x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)))
 
-    im = remove_corner_connected_background(im)
+    # Never run automatic corner flood cleanup here. It can destroy artwork
+    # (notably compact/dark logos such as AMC). Pixel removal is explicit only.
     im = trim_transparent(im)
 
     if dark_to_white:
@@ -1258,7 +1259,32 @@ def api_logo_preview():
                 raise ValueError("Zdrojový kanál sa nenašiel.")
             raw, ext = read_effective_logo(source_channel)
         else:
-            raise ValueError("Nie je vybrané žiadne logo.")
+            # Editing an already curated logo: use the currently selected
+            # channel as the preview source even when no new upload is chosen.
+            current_ref = request.form.get("service_reference", "").strip()
+            current_provider = request.form.get("provider_group", "").strip().lower()
+            current_id = request.form.get("channel_id", "").strip().lower()
+            source_channel = None
+            if current_ref:
+                source_channel = effective_channel_by_ref(current_ref)
+            if source_channel is None and current_id:
+                channels, _ = load_admin_channels()
+                source_channel = next(
+                    (
+                        ch for ch in channels
+                        if str(ch.get("id") or "").strip().lower() == current_id
+                        and (
+                            not current_provider
+                            or str(ch.get("provider_group") or "").strip().lower() == current_provider
+                        )
+                        and ch.get("logo")
+                    ),
+                    None,
+                )
+            if source_channel:
+                raw, ext = read_effective_logo(source_channel)
+            else:
+                raise ValueError("Vybrané logo sa nenašlo.")
 
         if not raw:
             raise ValueError("Logo je prázdne.")
