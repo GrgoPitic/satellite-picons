@@ -166,6 +166,17 @@ def catalogue_changes():
     return response
 
 
+@hub.legacy.app.get("/api/operator-registry")
+def operator_registry():
+    """Shared operator metadata for dynamically rendered admin controls."""
+    from flask import jsonify
+    from operator_membership import active_operators
+    return jsonify({"operators": [
+        {"id": str(op["id"]), "name": str(op.get("name") or op["id"])}
+        for op in active_operators()
+    ]})
+
+
 from vhannibal_check import register
 register(hub.legacy.app, load_curated_channels)
 
