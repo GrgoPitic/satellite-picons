@@ -1111,7 +1111,10 @@ def publish_pending_changes() -> str:
     feature code from leaking to the public site while making approved logos
     visible automatically.
     """
-    add_paths = ["channels.yml", "station-artwork.yml", "assets/logos"]
+    # Allow operator catalogues imported on the local Mac to be published
+    # through the same explicit Publish button as curated station artwork.
+    # Automated provider-sync remains independent and keeps its own schedule.
+    add_paths = ["channels.yml", "station-artwork.yml", "assets/logos", "provider-data"]
     if (ROOT / "assets" / "source-logos").exists():
         add_paths.append("assets/source-logos")
 
