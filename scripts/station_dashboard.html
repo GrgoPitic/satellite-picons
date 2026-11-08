@@ -165,7 +165,7 @@
  const nav=document.querySelector('.nav');
  const details=document.createElement('details');
  const summary=document.createElement('summary');summary.textContent='Ďalšie nástroje';details.append(summary);
- nav.querySelectorAll('[data-panel]').forEach(b=>{if(!['stations','missing','vhannibal','publish'].includes(b.dataset.panel))details.append(b);});nav.append(details);
+ nav.querySelectorAll('[data-panel]').forEach(b=>{if(!['stations','missing','vhannibal','changes','publish'].includes(b.dataset.panel))details.append(b);});nav.append(details);
  const vhTs=document.querySelector('#vhannibalSyncedAt');
  if(vhTs&&vhTs.dataset.ts){const d=new Date(Number(vhTs.dataset.ts)*1000);if(!Number.isNaN(d.getTime()))vhTs.textContent=d.toLocaleString('sk-SK');}
  // Keep existing editing panels reachable, with the station list as the entry point.
