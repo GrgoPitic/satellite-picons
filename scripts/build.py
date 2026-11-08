@@ -588,6 +588,14 @@ def main() -> int:
     grouped_channels = {}
     provider_channels = {}
 
+    # Completion is measured against the whole current provider catalogue,
+    # not against how many logos happen to be rendered today.
+    provider_source_totals = {}
+    for ch in source_channels:
+        provider_group = str(ch.get("provider_group") or "").strip().lower()
+        if provider_group:
+            provider_source_totals[provider_group] = provider_source_totals.get(provider_group, 0) + 1
+
     for ch in index["channels"]:
         provider_group = ch.get("provider_group")
         if provider_group:
@@ -600,6 +608,19 @@ def main() -> int:
         grouped_channels.setdefault(group, []).extend(ch["files"])
 
     for group, files in sorted(grouped_channels.items()):
+        group_key = str(group).strip().lower()
+        rendered_channel_count = len(provider_channels.get(group_key, []))
+        expected_channel_count = int(provider_source_totals.get(group_key, rendered_channel_count))
+        is_provider = group_key in provider_source_totals
+
+        # Provider ZIPs are published only when the provider is 100% curated
+        # and every current channel rendered successfully.
+        if is_provider and (
+            expected_channel_count <= 0
+            or rendered_channel_count != expected_channel_count
+        ):
+            continue
+
         safe_group = "".join(
             c if c.isalnum() or c in "-._" else "-"
             for c in str(group)
@@ -669,6 +690,20 @@ def main() -> int:
         )
         source_meta = provider_source_metadata.get(provider_id, {})
 
+        expected_count = int(provider_source_totals.get(provider_id, len(channels)))
+        rendered_count = len(channels)
+        complete = bool(
+            expected_count > 0
+            and rendered_count == expected_count
+            and group_info
+            and files
+        )
+        progress_percent = (
+            round((rendered_count / expected_count) * 100, 1)
+            if expected_count > 0
+            else 0.0
+        )
+
         providers_payload["providers"].append(
             {
                 "id": provider_id,
@@ -676,14 +711,14 @@ def main() -> int:
                 "description": meta["description"],
                 "countries": meta["countries"],
                 "positions": positions,
-                "channel_count": len(channels),
+                "channel_count": expected_count,
+                "curated_channel_count": rendered_count,
                 "picon_count": len(files),
-                "available": bool(group_info and files),
-                "package": (
-                    group_info["package"]
-                    if group_info and files
-                    else None
-                ),
+                "complete": complete,
+                "progress_percent": progress_percent,
+                "missing_channel_count": max(0, expected_count - rendered_count),
+                "available": complete,
+                "package": group_info["package"] if complete else None,
                 "source_generated_at": source_meta.get("generated_at"),
                 "source_stats": source_meta.get("stats") or None,
             }
