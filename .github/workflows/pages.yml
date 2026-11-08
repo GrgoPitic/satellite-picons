@@ -38,7 +38,7 @@ jobs:
 
       - name: Syntax check
         run: |
-          python -m py_compile scripts/build.py scripts/build_v2.py scripts/admin.py scripts/admin_v2.py scripts/admin_curated.py scripts/catalog_common.py scripts/add_channel.py scripts/sync_provider.py scripts/sync_vhannibal.py receiver/update_picons.py receiver/plugin/Plugins/Extensions/SatellitePicons/plugin.py
+          python -m py_compile scripts/build.py scripts/build_v2.py scripts/admin.py scripts/admin_v2.py scripts/admin_curated.py scripts/catalog_common.py scripts/add_channel.py scripts/catalogue_changes.py scripts/sync_vhannibal.py receiver/update_picons.py receiver/plugin/Plugins/Extensions/SatellitePicons/plugin.py
           python receiver/update_picons.py --help >/dev/null
           node --check web/app.js
 
@@ -56,7 +56,7 @@ jobs:
           page = client.get("/")
           assert page.status_code == 200, page.status_code
           assert b"Picon Hub" in page.data
-          assert b"Magio TV" in page.data
+          assert b"Vhannibal" in page.data
           assert b'name="publish" checked' not in page.data
 
           matches = client.get("/api/station-matches?name=Markiza")
@@ -135,10 +135,11 @@ jobs:
 
           deliveries = {p.get("delivery") for p in providers["providers"]}
           assert "satellite" in deliveries, deliveries
-          assert "iptv" in deliveries, deliveries
+          assert deliveries == {"satellite"}, deliveries
 
+          assert {p.get("id") for p in providers["providers"]} == {"skylink-sk"}
           for provider in providers["providers"]:
-              assert provider.get("delivery") in {"satellite", "iptv"}, provider
+              assert provider.get("delivery") == "satellite", provider
               expected = int(provider.get("channel_count") or 0)
               curated = int(provider.get("curated_channel_count") or 0)
               complete = bool(provider.get("complete"))
@@ -172,18 +173,14 @@ jobs:
               key = channel_identity(channel, channel.get("provider_group"))
               rendered[key] = channel
 
-          # These are real previously published uploads, not synthetic fixtures.
+          # The historical operator assignments remain in station-artwork.yml,
+          # but only Vhannibal services are published in this edition.
           for station in ("cartoonito", "cinemax"):
               artwork = stations[station]
-              for target in artwork["targets"]:
-                  # A curated target can exist before that operator's catalogue
-                  # has been imported. Validate current catalogues strictly;
-                  # do not block publication on a not-yet-imported provider.
-                  parts = target.split(":")
-                  provider = parts[1] if len(parts) > 2 else ""
-                  if not (Path("provider-data") / (provider + ".json")).is_file():
-                      print(f"::warning::{station}: pending provider catalogue {provider}")
-                      continue
+              vhannibal_targets = [target for target in artwork["targets"]
+                                   if target.startswith("sat:skylink-sk:")]
+              assert vhannibal_targets, f"{station}: missing Vhannibal target"
+              for target in vhannibal_targets:
                   assert target in rendered, f"{station}: missing published service {target}"
                   channel = rendered[target]
                   assert channel.get("files"), f"{station}: no generated picons for {target}"
@@ -192,7 +189,12 @@ jobs:
                           f"{station}: missing picon {filename}"
                       )
 
-          print("Published artwork verified: Cartoonito and Cinemax (Skylink / ANTIK Sat)")
+          orbit = json.loads(Path("public/orbits.json").read_text(encoding="utf-8"))
+          assert orbit["source"] == "Vhannibal"
+          assert orbit["orbits"]
+          rendered_positions = {ch["satellite_position"] for ch in index["channels"]}
+          assert rendered_positions <= {p["id"] for p in orbit["orbits"]}
+          print("Vhannibal orbit packs and curated Cartoonito/Cinemax picons verified")
           PY
 
       - uses: actions/configure-pages@v5
