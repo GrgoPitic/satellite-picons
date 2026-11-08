@@ -49,9 +49,11 @@ def normalize_station_key(name: str) -> str:
     """
     value = unicodedata.normalize("NFKD", str(name or ""))
     value = "".join(ch for ch in value if not unicodedata.combining(ch))
-    value = value.lower().replace("+", " plus ")
+    value = value.casefold().replace("+", " plus ")
     value = re.sub(r"\b(?:uhd|4k|full\s*hd|fhd|hd|sd)\b", " ", value, flags=re.I)
-    value = re.sub(r"[^a-z0-9]+", "-", value)
+    # Preserve Unicode letters/digits; България 24 must never become "24".
+    value = re.sub(r"[^\w]+", "-", value, flags=re.UNICODE)
+    value = re.sub(r"_+", "-", value)
     return value.strip("-") or "channel"
 
 
