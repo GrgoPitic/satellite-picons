@@ -72,19 +72,32 @@ def enrich_artwork(channel: dict) -> dict:
 
 
 def merged_channels_v2(cfg: dict) -> tuple[list[dict], dict[str, dict]]:
-    synced, provider_metadata = legacy.load_synced_provider_data()
-    merged: dict[str, dict] = {}
-
-    for channel in synced:
-        provider_id = str(channel.get("provider_group") or "").strip().lower()
-        if provider_id:
-            merged[channel_identity(channel, provider_id)] = dict(channel)
+    # Vhannibal is the single source of *which services exist*. Keep stored
+    # artwork overrides, but do not expose services absent from its catalogue.
+    synced_all, metadata = legacy.load_synced_provider_data()
+    synced = [ch for ch in synced_all
+              if str(ch.get("provider_group") or "").lower() == "skylink-sk"]
+    if not synced:
+        raise RuntimeError("Vhannibal catalogue is empty or unavailable; refusing empty public build.")
+    provider_metadata = {"skylink-sk": metadata.get("skylink-sk", {})}
+    merged: dict[str, dict] = {
+        channel_identity(ch, "skylink-sk"): dict(ch) for ch in synced
+    }
 
     for channel in current_manual_channels(cfg):
         provider_id = str(channel.get("provider_group") or "").strip().lower()
-        key = channel_identity(channel, provider_id)
-        base = dict(merged.get(key, {}))
-        base.update(channel)
+        if provider_id not in {"skylink-sk", "skylink-cz"}:
+            continue
+        key = channel_identity(channel, "skylink-sk")
+        if key not in merged:
+            # Preserve the artwork on disk; only hide outdated service refs.
+            continue
+        base = dict(merged[key])
+        # Keep the *current* Vhannibal tuning, never restore a stale ref.
+        for field in ("logo", "dark_to_white", "optical_scale",
+                      "edge_cleanup", "background_cleanup"):
+            if field in channel:
+                base[field] = channel[field]
         merged[key] = base
 
     rows = [enrich_artwork(item) for item in merged.values()]
