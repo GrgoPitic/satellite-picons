@@ -2,7 +2,7 @@
 """Regression tests for Vhannibal service-name filtering."""
 import unittest
 
-from catalog_common import is_real_station_name
+from catalog_common import is_real_station_name, normalize_station_key
 
 
 class StationNameTests(unittest.TestCase):
@@ -24,6 +24,19 @@ class StationNameTests(unittest.TestCase):
         ):
             with self.subTest(value=value):
                 self.assertTrue(is_real_station_name(value))
+
+
+    def test_unicode_names_never_collide_with_ascii_number(self):
+        self.assertEqual(normalize_station_key(":24"), "24")
+        self.assertEqual(normalize_station_key("България 24"), "българия-24")
+        self.assertNotEqual(
+            normalize_station_key("България 24"),
+            normalize_station_key(":24"),
+        )
+        self.assertEqual(normalize_station_key("Cartoon Network HD"), "cartoon-network")
+        self.assertEqual(normalize_station_key("AMC SK"), "amc-sk")
+        self.assertEqual(normalize_station_key("ČT 1 HD"), "ct-1")
+
 
 
 if __name__ == "__main__":
