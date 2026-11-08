@@ -147,6 +147,46 @@ jobs:
       - name: Build Picon Hub
         run: python scripts/build_v2.py
 
+      - name: Validate public website categories and picon files
+        run: |
+          python - <<'PY'
+          import json
+          import zipfile
+          from pathlib import Path
+          import yaml
+
+          root = Path("public")
+          config = yaml.safe_load(Path("operators.yml").read_text(encoding="utf-8"))
+          registry = [x for x in config["operators"] if x.get("enabled")]
+          data = json.loads((root / "operators.json").read_text(encoding="utf-8"))
+          operators = data.get("providers", [])
+          assert [x["id"] for x in operators] == [x["id"] for x in registry], operators
+          assert {x["id"] for x in operators} == {"skylink-sk", "skylink-cz"}
+          for operator in operators:
+              rows = operator["channels"]
+              assert len(rows) == operator["channel_count"]
+              assert len({(ch["fastscan"], ch["name"]) for ch in rows}) == len(rows)
+              assert sum(bool(ch["files"]) for ch in rows) == operator["curated_channel_count"]
+              refs = [row["service_reference"] for row in rows if row["service_reference"]]
+              assert len(refs) == operator["matched_channel_count"]
+              assert all(ch["status"] == "ready" if ch["files"] else ch["status"] != "ready" for ch in rows)
+              package = operator.get("package")
+              if package:
+                  with zipfile.ZipFile(root / package) as archive:
+                      assert set(archive.namelist()) == {
+                          filename for row in rows for filename in row["files"]
+                      }
+              for ch in rows:
+                  for file in ch["files"]:
+                      assert (root / "picons" / file).is_file(), file
+          assert (root / "orbits.json").is_file()
+          assert (root / "index.json").is_file()
+          assert (root / "app.js").is_file()
+          assert "operators.json" in (root / "app.js").read_text(encoding="utf-8")
+          assert (root / "index.html").is_file()
+          print("Public UI/operator registry OK; verified operator categories:", len(operators))
+          PY
+
       - name: Validate provider catalogue
         run: |
           python - <<'PY'
