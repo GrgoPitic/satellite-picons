@@ -98,20 +98,61 @@ def artwork_for_channel(channel: dict) -> tuple[str, dict | None]:
 
 
 def current_manual_channels(cfg):
-    """Keep artwork overrides, but use Vhannibal's current Skylink service mapping."""
+    """Keep manual artwork overrides while refreshing current Skylink tuning.
+
+    Match current Vhannibal services conservatively:
+    1. exact DVB identity,
+    2. unique canonical station key,
+    3. otherwise keep the manual row unchanged rather than dropping user data.
+    """
     import json
-    path=ROOT/'provider-data/skylink-sk.json'
-    if not path.exists(): return cfg.get('channels',[]) or []
-    data=json.loads(path.read_text())
-    if data.get('source',{}).get('type')!='vhannibal':return cfg.get('channels',[]) or []
-    live={service_identity(c['service_reference']):c for c in data['channels']}
-    result=[]
-    for row in cfg.get('channels',[]) or []:
-        if row.get('provider_group') not in {'skylink-sk','skylink-cz'}:
-            result.append(row);continue
-        current=live.get(service_identity(row.get('service_reference','')))
-        if current:
-            item=dict(row);item['provider_group']='skylink-sk'
-            for key in ('service_reference','variant_types','satellite_position'):item[key]=current[key]
-            result.append(item)
+
+    rows = cfg.get("channels", []) or []
+    path = ROOT / "provider-data" / "skylink-sk.json"
+    if not path.exists():
+        return rows
+
+    data = json.loads(path.read_text(encoding="utf-8"))
+    if data.get("source", {}).get("type") != "vhannibal":
+        return rows
+
+    live_rows = data.get("channels", []) or []
+    by_ref = {}
+    by_station = {}
+    for channel in live_rows:
+        ref = str(channel.get("service_reference") or "")
+        if ref:
+            by_ref[service_identity(ref)] = channel
+        key = str(channel.get("station_key") or normalize_station_key(channel.get("name", "")))
+        by_station.setdefault(key, []).append(channel)
+
+    result = []
+    for row in rows:
+        if row.get("provider_group") not in {"skylink-sk", "skylink-cz"}:
+            result.append(row)
+            continue
+
+        current = by_ref.get(service_identity(row.get("service_reference", "")))
+        if current is None:
+            station_key = str(row.get("station_key") or normalize_station_key(row.get("name", "")))
+            candidates = by_station.get(station_key, [])
+            if len(candidates) == 1:
+                current = candidates[0]
+
+        if current is None:
+            # Never delete/drop a curated user row only because the upstream
+            # catalogue changed or matching is ambiguous.
+            result.append(row)
+            continue
+
+        item = dict(row)
+        item["provider_group"] = "skylink-sk"
+        item["station_key"] = str(
+            current.get("station_key") or normalize_station_key(current.get("name", row.get("name", "")))
+        )
+        for key in ("service_reference", "variant_types", "satellite_position"):
+            if current.get(key) is not None:
+                item[key] = current[key]
+        result.append(item)
+
     return result
