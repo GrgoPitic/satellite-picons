@@ -76,7 +76,7 @@ def load_logo_image(logo_path: Path) -> Image.Image:
         try:
             png_bytes = cairosvg.svg2png(
                 bytestring=svg_bytes,
-                output_width=512,
+                output_width=1024,
             )
         except Exception:
             # librsvg is more tolerant of a few complex SVG mask constructs.
@@ -87,7 +87,7 @@ def load_logo_image(logo_path: Path) -> Image.Image:
                 raise
 
             proc = subprocess.run(
-                [rsvg, "--width", "512", "--format", "png"],
+                [rsvg, "--width", "1024", "--format", "png"],
                 input=svg_bytes,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
@@ -203,15 +203,57 @@ def recolor_neutral_dark_to_white(im: Image.Image) -> Image.Image:
 
 
 def trim_alpha(im: Image.Image) -> Image.Image:
+    """Crop only truly transparent outer space without altering the artwork."""
+    im = im.convert("RGBA")
     alpha = im.getchannel("A")
-    bbox = alpha.getbbox()
+    # Ignore only effectively invisible alpha noise. Visible antialiasing remains.
+    mask = alpha.point(lambda a: 255 if a >= 2 else 0)
+    bbox = mask.getbbox()
     if not bbox:
         raise ValueError("Logo is fully transparent")
     return im.crop(bbox)
 
 
+def resize_rgba_premultiplied(im: Image.Image, size: tuple[int, int]) -> Image.Image:
+    """Resize RGBA without bright/dark colour fringes around transparent edges."""
+    im = im.convert("RGBA")
+    if im.size == size:
+        return im
+
+    r, g, b, a = im.split()
+
+    # Premultiply RGB by alpha before Lanczos resampling. Pillow otherwise
+    # interpolates hidden RGB values in transparent pixels, which can create
+    # white/black halos on small broadcast logos.
+    def premultiply(channel: Image.Image) -> Image.Image:
+        return Image.merge("LA", (channel, a)).convert("RGBA").split()[0]
+
+    # Use integer math through Pillow's point operation for deterministic output.
+    alpha_values = list(a.getdata())
+    channels = []
+    for channel in (r, g, b):
+        values = list(channel.getdata())
+        premul = Image.new("L", im.size)
+        premul.putdata([(c * av + 127) // 255 for c, av in zip(values, alpha_values)])
+        channels.append(premul.resize(size, Image.Resampling.LANCZOS))
+
+    a2 = a.resize(size, Image.Resampling.LANCZOS)
+    alpha2 = list(a2.getdata())
+    out_channels = []
+    for channel in channels:
+        values = list(channel.getdata())
+        restored = Image.new("L", size)
+        restored.putdata([
+            0 if av <= 0 else min(255, (c * 255 + av // 2) // av)
+            for c, av in zip(values, alpha2)
+        ])
+        out_channels.append(restored)
+
+    return Image.merge("RGBA", (*out_channels, a2))
+
+
 def fit_logo(im: Image.Image, max_size=MAX_LOGO, optical_scale: float = 1.0) -> Image.Image:
-    """Fill almost the entire picon while preserving the logo aspect ratio."""
+    """Fit a clean logo into the fixed picon area with no extra graphics."""
     w, h = im.size
     if w <= 0 or h <= 0:
         raise ValueError("Invalid logo size")
@@ -227,7 +269,7 @@ def fit_logo(im: Image.Image, max_size=MAX_LOGO, optical_scale: float = 1.0) -> 
         new_w = max(1, int(round(new_w * cap)))
         new_h = max(1, int(round(new_h * cap)))
 
-    return im.resize((new_w, new_h), Image.Resampling.LANCZOS)
+    return resize_rgba_premultiplied(im, (new_w, new_h))
 
 
 def render_logo(
@@ -241,8 +283,8 @@ def render_logo(
     if bool(ch_edge_cleanup):
         logo = remove_edge_white(logo)
 
-    logo = remove_corner_connected_background(logo)
-
+    # Do not automatically flood-remove corner/background pixels. Curated
+    # source artwork must remain intact; edge cleanup is explicit above.
     if dark_to_white:
         logo = recolor_neutral_dark_to_white(logo)
 
@@ -253,6 +295,8 @@ def render_logo(
     x = (CANVAS[0] - logo.width) // 2
     y = (CANVAS[1] - logo.height) // 2
     out.alpha_composite(logo, (x, y))
+    if out.size != CANVAS:
+        raise ValueError(f"Rendered picon must be {CANVAS[0]}x{CANVAS[1]}, got {out.size}")
     return out
 
 
@@ -302,7 +346,11 @@ def merged_channels(cfg: dict) -> tuple[list[dict], dict[str, dict]]:
         ref = channel.get("service_reference")
         if not ref:
             continue
-        by_service[service_identity(ref)] = dict(channel)
+        key = service_identity(ref)
+        base = dict(by_service.get(key, {}))
+        base.update(channel)
+        base["_manual_override"] = True
+        by_service[key] = base
 
     rows = list(by_service.values())
     rows.sort(
@@ -540,6 +588,14 @@ def main() -> int:
     grouped_channels = {}
     provider_channels = {}
 
+    # Completion is measured against the whole current provider catalogue,
+    # not against how many logos happen to be rendered today.
+    provider_source_totals = {}
+    for ch in source_channels:
+        provider_group = str(ch.get("provider_group") or "").strip().lower()
+        if provider_group:
+            provider_source_totals[provider_group] = provider_source_totals.get(provider_group, 0) + 1
+
     for ch in index["channels"]:
         provider_group = ch.get("provider_group")
         if provider_group:
@@ -552,6 +608,19 @@ def main() -> int:
         grouped_channels.setdefault(group, []).extend(ch["files"])
 
     for group, files in sorted(grouped_channels.items()):
+        group_key = str(group).strip().lower()
+        rendered_channel_count = len(provider_channels.get(group_key, []))
+        expected_channel_count = int(provider_source_totals.get(group_key, rendered_channel_count))
+        is_provider = group_key in provider_source_totals
+
+        # Provider ZIPs are published only when the provider is 100% curated
+        # and every current channel rendered successfully.
+        if is_provider and (
+            expected_channel_count <= 0
+            or rendered_channel_count != expected_channel_count
+        ):
+            continue
+
         safe_group = "".join(
             c if c.isalnum() or c in "-._" else "-"
             for c in str(group)
@@ -621,6 +690,20 @@ def main() -> int:
         )
         source_meta = provider_source_metadata.get(provider_id, {})
 
+        expected_count = int(provider_source_totals.get(provider_id, len(channels)))
+        rendered_count = len(channels)
+        complete = bool(
+            expected_count > 0
+            and rendered_count == expected_count
+            and group_info
+            and files
+        )
+        progress_percent = (
+            round((rendered_count / expected_count) * 100, 1)
+            if expected_count > 0
+            else 0.0
+        )
+
         providers_payload["providers"].append(
             {
                 "id": provider_id,
@@ -628,14 +711,14 @@ def main() -> int:
                 "description": meta["description"],
                 "countries": meta["countries"],
                 "positions": positions,
-                "channel_count": len(channels),
+                "channel_count": expected_count,
+                "curated_channel_count": rendered_count,
                 "picon_count": len(files),
-                "available": bool(group_info and files),
-                "package": (
-                    group_info["package"]
-                    if group_info and files
-                    else None
-                ),
+                "complete": complete,
+                "progress_percent": progress_percent,
+                "missing_channel_count": max(0, expected_count - rendered_count),
+                "available": complete,
+                "package": group_info["package"] if complete else None,
                 "source_generated_at": source_meta.get("generated_at"),
                 "source_stats": source_meta.get("stats") or None,
             }

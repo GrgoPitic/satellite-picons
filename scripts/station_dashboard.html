@@ -1,0 +1,59 @@
+<style>
+.station-tools{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0}.station-tools input{flex:2;min-width:180px}.station-tools select{flex:1;min-width:160px}.station-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(245px,1fr));gap:16px}.station-tile{border:1px solid #2b3d50;border-radius:16px;padding:18px;background:#101923}.station-image{height:105px;display:flex;align-items:center;justify-content:center;background:#080d13;border-radius:10px;margin-bottom:14px;color:#91a1b4}.station-image img{width:150px;height:90px;object-fit:contain}.station-tile h3{margin:0 0 8px}.station-tile p{color:#a9b8c9;font-size:13px;line-height:1.6}.station-tile button{margin-top:8px}.station-empty{padding:30px;color:#acb9c8}.station-status{color:#b6d9bf;font-size:13px}.station-help{padding:16px;background:#152333;border-radius:12px;line-height:1.7}
+</style>
+<section class="panel" data-panel-view="stations">
+<h1>Moje stanice</h1><p class="sub">Vyber stanicu, skontroluj picon a uprav jej logo.</p>
+<div class="station-help">Jednotný vzhľad: <strong>piconblack · 150 × 90 px</strong>. Najprv schváľ náhľad, potom ulož logo. Uložené zmeny odošli na web cez Publikovanie.</div>
+<div class="station-tools"><input id="stationSearch" type="search" aria-label="Vyhľadať stanicu" placeholder="Hľadať stanicu…"><select id="stationProvider" aria-label="Operátor"><option value="skylink">Skylink SK + CZ</option><option value="">Všetci operátori</option></select></div>
+<div class="station-help">Skylink SK + CZ sa aktualizuje z Vhannibal automaticky pri spustení administrácie. Na GitHube je pripravená denná synchronizácia. Logá zostávajú tvoje, naladenie určuje Vhannibal.</div>
+<p id="stationCount" role="status"></p><div id="stationGrid" class="station-grid"></div>
+</section>
+<section class="panel" data-panel-view="missing"><h1>Chýbajúce logá</h1><p class="sub">Stanice, ktorým chýba logo aspoň u jedného operátora. Pri existujúcom logu otvor priradenia.</p><div id="missingGrid" class="station-grid"></div></section>
+<!-- SCRIPT -->
+<script>
+(()=>{
+ const grouped=new Map();
+ adminChannels.forEach(ch=>{const key=ch.station_key||ch.name; if(!grouped.has(key))grouped.set(key,[]);grouped.get(key).push(ch);});
+ const stations=[...grouped.values()].sort((a,b)=>a[0].name.localeCompare(b[0].name,'sk'));
+ const search=document.querySelector('#stationSearch'),provider=document.querySelector('#stationProvider');
+ const label=id=>(providerMeta[id]||{}).name||id||'Bez operátora';
+ [...new Set(adminChannels.map(c=>c.provider_group).filter(Boolean))].sort((a,b)=>label(a).localeCompare(label(b),'sk')).forEach(id=>provider.add(new Option(label(id),id)));
+ const normalize=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+ function openPanel(name){document.querySelector(`[data-panel="${name}"]`).click();}
+ function select(ch,panel){
+   const index=adminChannels.indexOf(ch);manageChannel.value=String(index);
+   const select=document.querySelector(panel==='upload'?'#simpleUploadChannel':'#simpleEditLogo');
+   if(select){select.value=ch._identity;select.dispatchEvent(new Event('change'));}
+   openPanel(panel);
+ }
+ function card(rows){
+   const source=rows.find(c=>c._has_curated_logo)||rows[0];
+   const tile=document.createElement('article');tile.className='station-tile';
+   const picture=document.createElement('div');picture.className='station-image';
+   if(source._has_curated_logo){const img=document.createElement('img');img.loading='lazy';img.alt=source.name;img.src='/api/station-picon?identity='+encodeURIComponent(source._identity);picture.append(img);}else picture.textContent='Zatiaľ bez loga';
+   const title=document.createElement('h3');title.textContent=source.name;
+   const operators=document.createElement('p');operators.textContent=[...new Set(rows.map(c=>label(c.provider_group)))].join(' · ');
+   const status=document.createElement('div');status.className='station-status';status.textContent=`Logo má ${rows.filter(c=>c._has_curated_logo).length} z ${rows.length} výskytov stanice`;
+   tile.append(picture,title,operators,status);
+   const button=(text,fn)=>{const b=document.createElement('button');b.type='button';b.className='action secondary';b.textContent=text;b.onclick=fn;tile.append(b);};
+   button(source._has_curated_logo?'Vymeniť logo':'Nahrať logo',()=>select(source,'upload'));
+   if(source._has_curated_logo){button('Upraviť vzhľad',()=>select(source,'edit'));button('Priradiť operátorom',()=>{select(source,'upload');openPanel('library');});}
+   return tile;
+ }
+ function render(){
+   const grid=document.querySelector('#stationGrid');grid.replaceChildren();
+   const visible=stations.filter(rows=>rows.some(c=>normalize(c.name).includes(normalize(search.value)))&&(!provider.value||rows.some(c=>provider.value==='skylink'?['skylink-sk','skylink-cz'].includes(c.provider_group):c.provider_group===provider.value)));
+   visible.forEach(rows=>grid.append(card(rows)));document.querySelector('#stationCount').textContent=`Zobrazené stanice: ${visible.length} z ${stations.length}`;
+   if(!visible.length)grid.textContent='Žiadna stanica nezodpovedá vyhľadávaniu.';
+ }
+ const missing=document.querySelector('#missingGrid');stations.filter(rows=>rows.some(c=>!c._has_curated_logo)).forEach(rows=>missing.append(card(rows)));
+ if(!missing.children.length)missing.textContent='Všetky stanice majú priradené logo.';
+ search.addEventListener('input',render);provider.addEventListener('change',render);render();
+ const nav=document.querySelector('.nav');
+ const details=document.createElement('details');
+ const summary=document.createElement('summary');summary.textContent='Ďalšie nástroje';details.append(summary);
+ nav.querySelectorAll('[data-panel]').forEach(b=>{if(!['stations','missing','publish'].includes(b.dataset.panel))details.append(b);});nav.append(details);
+ // Keep existing editing panels reachable, with the station list as the entry point.
+ openPanel('stations');
+})();
+</script>

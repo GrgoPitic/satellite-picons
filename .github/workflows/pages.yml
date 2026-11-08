@@ -38,12 +38,87 @@ jobs:
 
       - name: Syntax check
         run: |
-          python -m py_compile scripts/build.py scripts/admin.py scripts/add_channel.py scripts/sync_provider.py receiver/update_picons.py receiver/plugin/Plugins/Extensions/SatellitePicons/plugin.py
+          python -m py_compile scripts/build.py scripts/build_v2.py scripts/admin.py scripts/admin_v2.py scripts/admin_curated.py scripts/catalog_common.py scripts/add_channel.py scripts/sync_provider.py scripts/sync_vhannibal.py receiver/update_picons.py receiver/plugin/Plugins/Extensions/SatellitePicons/plugin.py
           python receiver/update_picons.py --help >/dev/null
           node --check web/app.js
 
-      - name: Build picons
-        run: python scripts/build.py
+      - name: Admin curated artwork smoke test
+        run: |
+          python - <<'PY'
+          import sys
+          sys.path.insert(0, "scripts")
+          import admin_curated
+
+          rows, stats = admin_curated.load_curated_channels()
+          assert all("logo_url" not in row for row in rows), "Imported provider artwork leaked into curated admin"
+
+          client = admin_curated.hub.legacy.app.test_client()
+          page = client.get("/")
+          assert page.status_code == 200, page.status_code
+          assert b"Picon Hub" in page.data
+          assert b"Magio TV" in page.data
+          assert b'name="publish" checked' not in page.data
+
+          matches = client.get("/api/station-matches?name=Markiza")
+          assert matches.status_code == 200, matches.status_code
+          payload = matches.get_json()
+          assert payload["station_key"] == "markiza", payload
+          assert isinstance(payload.get("matches"), list), payload
+          print("Curated admin smoke test OK; local logos:", stats.get("local_logos", 0))
+          PY
+
+      - name: Professional renderer regression test
+        run: |
+          python - <<'PY'
+          import io
+          import sys
+          import tempfile
+          from pathlib import Path
+
+          from PIL import Image, ImageDraw
+
+          sys.path.insert(0, "scripts")
+          import build
+          import admin
+
+          with tempfile.TemporaryDirectory() as td:
+              source = Path(td) / "logo.png"
+
+              # Synthetic logo with transparent antialiased edges and strong colour.
+              im = Image.new("RGBA", (800, 300), (0, 0, 0, 0))
+              draw = ImageDraw.Draw(im)
+              draw.rounded_rectangle((30, 30, 770, 270), radius=55, fill=(220, 30, 40, 255))
+              im.save(source)
+
+              template = Image.open(build.TEMPLATE).convert("RGBA")
+              rendered = build.render_logo(source, template, False, 1.0, False)
+
+              assert rendered.size == (150, 90), rendered.size
+              assert rendered.mode == "RGBA", rendered.mode
+
+              # No generated artwork may extend beyond the fixed picon canvas.
+              bbox = rendered.getbbox()
+              assert bbox is not None
+              assert 0 <= bbox[0] < bbox[2] <= 150
+              assert 0 <= bbox[1] < bbox[3] <= 90
+
+              raw = source.read_bytes()
+              preview = admin.render_preview_png(
+                  raw=raw,
+                  ext=".png",
+                  dark_to_white=False,
+                  optical_scale=1.0,
+                  edge_cleanup=False,
+              )
+              preview_im = Image.open(io.BytesIO(preview)).convert("RGBA")
+              assert preview_im.size == rendered.size
+              assert preview_im.tobytes() == rendered.tobytes(), "Admin preview differs from final renderer"
+
+          print("Professional renderer regression test OK")
+          PY
+
+      - name: Build Picon Hub
+        run: python scripts/build_v2.py
 
       - name: Validate provider catalogue
         run: |
@@ -58,11 +133,25 @@ jobs:
           assert isinstance(providers.get("providers"), list)
           assert version.get("providers") == "providers.json"
 
+          deliveries = {p.get("delivery") for p in providers["providers"]}
+          assert "satellite" in deliveries, deliveries
+          assert "iptv" in deliveries, deliveries
+
           for provider in providers["providers"]:
-              if provider.get("available"):
-                  package = provider.get("package")
+              assert provider.get("delivery") in {"satellite", "iptv"}, provider
+              expected = int(provider.get("channel_count") or 0)
+              curated = int(provider.get("curated_channel_count") or 0)
+              complete = bool(provider.get("complete"))
+              package = provider.get("package")
+
+              assert complete == (expected > 0 and curated == expected), provider
+              assert bool(provider.get("available")) == complete, provider
+
+              if complete:
                   assert package, provider
                   assert (Path("public") / package).is_file(), package
+              else:
+                  assert package is None, provider
           PY
 
       - uses: actions/configure-pages@v5

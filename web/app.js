@@ -28,6 +28,7 @@
   const providerModalClose = document.querySelector('#providerModalClose');
   const providerModalBackdrop = providerModal.querySelector('.modal-backdrop');
   const providerFullPackage = document.querySelector('#providerFullPackage');
+  const providerPackageStatus = document.querySelector('#providerPackageStatus');
   const providerBouquetButton = document.querySelector('#providerBouquetButton');
   const bouquetFiles = document.querySelector('#bouquetFiles');
   const bouquetResult = document.querySelector('#bouquetResult');
@@ -35,7 +36,6 @@
   document.querySelector('#channels').textContent = index.channels.length;
   document.querySelector('#picons').textContent = version.count;
   document.querySelector('#updated').textContent = new Date(index.generated_at).toLocaleDateString('sk-SK');
-  document.querySelector('#package').href = version.package;
 
   const providerById = new Map(
     (providerCatalog.providers || []).map(provider => [provider.id, provider])
@@ -101,45 +101,51 @@
     const providers = providerCatalog.providers || [];
 
     if (!providers.length) {
-      providerGrid.innerHTML = '<div class="provider-empty">Balíky podľa operátora zatiaľ nie sú dostupné.</div>';
+      providerGrid.innerHTML = '<div class="provider-empty">Katalóg operátorov zatiaľ nie je dostupný.</div>';
       return;
     }
 
     providerGrid.innerHTML = providers.map(provider => {
+      const expected = Number(provider.channel_count || 0);
+      const curated = Number(provider.curated_channel_count || 0);
+      const complete = provider.complete === true && expected > 0 && curated === expected;
+      const progress = expected > 0 ? Math.min(100, Math.round((curated / expected) * 100)) : 0;
+      const hasAnything = curated > 0;
+
       const meta = [
         ...(provider.countries || []),
         ...(provider.positions || [])
       ].map(value => '<span>'+escapeHtml(value)+'</span>').join('');
 
-      const counts = provider.available
-        ? '<strong>'+escapeHtml(provider.channel_count)+'</strong> kanálov · <strong>'+escapeHtml(provider.picon_count)+'</strong> piconov'
-        : 'Balík sa sprístupní po doplnení kanálov';
+      const stateClass = complete ? 'complete' : (hasAnything ? 'progress' : 'pending');
+      const stateText = complete ? 'HOTOVÉ' : (hasAnything ? 'ROZPRACOVANÉ' : 'ČAKÁ NA LOGÁ');
+      const actionText = complete
+        ? 'Kompletný ZIP je pripravený'
+        : (hasAnything ? 'Otvoriť dostupné možnosti' : 'Zatiaľ bez hotových piconov');
 
       const inner =
         '<div class="provider-top">'+
           '<div>'+
-            '<p class="provider-status '+(provider.available ? 'online' : 'pending')+'">'+
-              (provider.available ? 'DOSTUPNÉ' : 'PRIPRAVUJEME')+
-            '</p>'+
+            '<p class="provider-status '+stateClass+'">'+stateText+'</p>'+
             '<h3>'+escapeHtml(provider.name)+'</h3>'+
           '</div>'+
-          '<span class="provider-arrow">'+(provider.available ? '→' : '·')+'</span>'+
+          '<span class="provider-arrow">'+(hasAnything ? '→' : '·')+'</span>'+
         '</div>'+
         '<p class="provider-description">'+escapeHtml(provider.description || '')+'</p>'+
         '<div class="provider-meta">'+meta+'</div>'+
-        '<div class="provider-foot">'+
-          '<span>'+counts+'</span>'+
-          '<span class="provider-action">'+(provider.available ? 'Možnosti stiahnutia' : 'Zatiaľ nedostupné')+'</span>'+
+        '<div class="progress-box">'+
+          '<div class="progress-row"><span>Hotové stanice</span><strong>'+curated+' / '+expected+'</strong></div>'+
+          '<div class="progress-track"><div class="progress-fill" style="width:'+progress+'%"></div></div>'+
+          '<div class="provider-action">'+actionText+'</div>'+
         '</div>';
 
-      if (provider.available && provider.package) {
-        return '<button class="provider-card available" type="button" data-provider="'+escapeHtml(provider.id)+'">'+inner+'</button>';
+      if (hasAnything) {
+        return '<button class="provider-card clickable '+(complete?'complete-card':'')+'" type="button" data-provider="'+escapeHtml(provider.id)+'">'+inner+'</button>';
       }
-
-      return '<article class="provider-card unavailable" aria-disabled="true">'+inner+'</article>';
+      return '<article class="provider-card empty-provider" aria-disabled="true">'+inner+'</article>';
     }).join('');
 
-    providerGrid.querySelectorAll('.provider-card.available').forEach(card => {
+    providerGrid.querySelectorAll('.provider-card.clickable').forEach(card => {
       card.addEventListener('click', () => {
         const provider = providerById.get(card.dataset.provider);
         if (provider) openProviderModal(provider);
@@ -154,20 +160,38 @@
     bouquetResult.hidden = true;
     bouquetResult.innerHTML = '';
 
+    const expected = Number(provider.channel_count || 0);
+    const curated = Number(provider.curated_channel_count || 0);
+    const complete = provider.complete === true && expected > 0 && curated === expected;
+    const progress = expected > 0 ? Math.round((curated / expected) * 100) : 0;
+
     providerModalTitle.textContent = provider.name || provider.id;
     providerModalDescription.textContent = provider.description || '';
     providerModalStats.innerHTML =
-      '<span><strong>'+escapeHtml(provider.channel_count || 0)+'</strong> kanálov</span>'+
-      '<span><strong>'+escapeHtml(provider.picon_count || 0)+'</strong> piconov</span>'+
+      '<span><strong>'+curated+'</strong> hotových staníc</span>'+
+      '<span><strong>'+expected+'</strong> v aktuálnom katalógu</span>'+
+      '<span><strong>'+progress+' %</strong> dokončené</span>'+
       ((provider.positions || []).length
         ? '<span>'+provider.positions.map(escapeHtml).join(' · ')+'</span>'
         : '');
 
-    providerFullPackage.href = provider.package;
-    providerFullPackage.setAttribute(
-      'download',
-      'satellite-picons-' + String(provider.id || 'provider') + '.zip'
-    );
+    if (complete && provider.package) {
+      providerFullPackage.hidden = false;
+      providerFullPackage.href = provider.package;
+      providerFullPackage.setAttribute(
+        'download',
+        'satellite-picons-' + String(provider.id || 'provider') + '.zip'
+      );
+      providerPackageStatus.className = 'package-status complete';
+      providerPackageStatus.innerHTML = '<strong>Operátor je kompletný.</strong> Kompletný ZIP obsahuje celý aktuálny katalóg.';
+    } else {
+      providerFullPackage.hidden = true;
+      providerFullPackage.removeAttribute('href');
+      providerPackageStatus.className = 'package-status';
+      providerPackageStatus.innerHTML =
+        '<strong>Kompletný ZIP zatiaľ nie je dostupný.</strong> Chýba ešte '+
+        Math.max(0, expected - curated)+' staníc. Balík sa zobrazí automaticky pri 100 % dokončení.';
+    }
 
     providerModal.hidden = false;
     document.body.classList.add('modal-open');
@@ -488,7 +512,8 @@
     const rows = index.channels.filter(c => {
       const matchesSearch = !needle ||
         c.name.toLowerCase().includes(needle) ||
-        c.service_reference.toLowerCase().includes(needle);
+        String(c.service_reference || '').toLowerCase().includes(needle) ||
+        providerLabel(c.provider_group).toLowerCase().includes(needle);
       const matchesGroup = activeGroup === 'all' || groupLabel(c) === activeGroup;
       return matchesSearch && matchesGroup;
     });

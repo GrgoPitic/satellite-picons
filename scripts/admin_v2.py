@@ -1,0 +1,1312 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+from catalog_common import current_manual_channels
+
+import io
+import json
+import os
+import re
+import time
+from pathlib import Path
+
+import yaml
+from flask import jsonify, redirect, render_template_string, request, send_file, url_for, flash
+from werkzeug.utils import secure_filename
+
+import admin as legacy
+from catalog_common import (
+    ARTWORK_CONFIG,
+    channel_identity,
+    load_station_artwork,
+    normalize_station_key,
+    provider_definitions,
+    save_station_artwork,
+)
+
+ROOT = Path(__file__).resolve().parents[1]
+DB = ROOT / "channels.yml"
+PROVIDER_DATA_DIR = ROOT / "provider-data"
+STATION_LOGOS = ROOT / "assets" / "logos" / "stations"
+
+
+def provider_groups_v2() -> list[tuple[str, str]]:
+    defs = provider_definitions()
+    result = []
+    for provider_id, meta in defs.items():
+        delivery = str(meta.get("delivery") or "satellite").lower()
+        tag = "IPTV" if delivery == "iptv" else "SAT"
+        result.append((provider_id, f"{meta.get('name') or provider_id} · {tag}"))
+    return sorted(result, key=lambda item: item[1].lower())
+
+
+def load_admin_channels_v2() -> tuple[list[dict], dict]:
+    cfg = yaml.safe_load(DB.read_text(encoding="utf-8")) or {"channels": []}
+    defs = provider_definitions()
+    merged: dict[str, dict] = {}
+    generated_count = 0
+
+    if PROVIDER_DATA_DIR.exists():
+        for path in sorted(PROVIDER_DATA_DIR.glob("*.json")):
+            try:
+                payload = json.loads(path.read_text(encoding="utf-8"))
+            except Exception:
+                continue
+            provider_id = str(payload.get("provider") or path.stem).strip().lower()
+            for channel in payload.get("channels", []) or []:
+                item = dict(channel)
+                item["provider_group"] = str(item.get("provider_group") or provider_id).strip().lower()
+                item["delivery"] = str(defs.get(item["provider_group"], {}).get("delivery") or "satellite")
+                item["station_key"] = str(item.get("station_key") or normalize_station_key(item.get("name", "")))
+                item["_generated"] = True
+                item["_manual_override"] = False
+                key = channel_identity(item, item["provider_group"])
+                merged[key] = item
+                generated_count += 1
+
+    for channel in current_manual_channels(cfg):
+        item = dict(channel)
+        provider_id = str(item.get("provider_group") or "").strip().lower()
+        item["delivery"] = str(item.get("delivery") or defs.get(provider_id, {}).get("delivery") or "satellite")
+        item["station_key"] = str(item.get("station_key") or normalize_station_key(item.get("name", "")))
+        key = channel_identity(item, provider_id)
+        base = dict(merged.get(key, {}))
+        base.update(item)
+        base["_generated"] = key in merged
+        base["_manual_override"] = True
+        merged[key] = base
+
+    artwork = load_station_artwork().get("stations") or {}
+    rows = []
+    for identity, item in merged.items():
+        row = dict(item)
+        row["_identity"] = identity
+        row["_service_key"] = legacy.service_identity(row.get("service_reference", ""))
+        art = artwork.get(row["station_key"])
+        if isinstance(art, dict):
+            targets = set(str(x) for x in art.get("targets", []) or [])
+            if identity in targets:
+                row["_shared_artwork"] = True
+                if art.get("logo"):
+                    row["logo"] = art["logo"]
+                for field in ("dark_to_white", "optical_scale", "edge_cleanup", "background_cleanup"):
+                    if field in art:
+                        row[field] = art[field]
+
+        # Curated means a real local file selected by the user. Remote/imported
+        # logo_url values never count as artwork in the admin.
+        local_logo = str(row.get("logo") or "").strip()
+        local_logo_path = (ROOT / local_logo).resolve() if local_logo else None
+        row["_has_curated_logo"] = bool(
+            local_logo_path
+            and local_logo_path.is_file()
+            and str(local_logo_path).startswith(str((ROOT / "assets" / "logos").resolve()))
+        )
+        row.pop("logo_url", None)
+        rows.append(row)
+
+    rows.sort(key=lambda ch: (
+        str(ch.get("delivery") or ""),
+        str(ch.get("provider_group") or ""),
+        int(ch.get("fastscan") or 99999),
+        str(ch.get("name") or "").lower(),
+    ))
+
+    providers = {str(ch.get("provider_group") or "") for ch in rows if ch.get("provider_group")}
+    stats = {
+        "total": len(rows),
+        "generated": generated_count,
+        "overrides": sum(1 for ch in rows if ch.get("_manual_override")),
+        "providers": len(set(provider_definitions()) | providers),
+        "satellite": sum(1 for ch in rows if ch.get("delivery") != "iptv"),
+        "iptv": sum(1 for ch in rows if ch.get("delivery") == "iptv"),
+        "curated": sum(1 for ch in rows if ch.get("_has_curated_logo")),
+        "missing_logo": sum(1 for ch in rows if not ch.get("_has_curated_logo")),
+        "shared": sum(1 for ch in rows if ch.get("_shared_artwork")),
+    }
+    return rows, stats
+
+
+
+def provider_label(provider_id: str) -> str:
+    meta = provider_definitions().get(str(provider_id or "").strip().lower(), {})
+    name = str(meta.get("name") or provider_id or "Neznámy provider")
+    delivery = str(meta.get("delivery") or "satellite").lower()
+    return f"{name} · {'IPTV' if delivery == 'iptv' else 'SAT'}"
+
+
+def logo_library_v2() -> list[dict]:
+    """Return one card per manually curated station logo.
+
+    A logo is shown once, together with where it is already assigned and where
+    the same station exists but still has no assignment.
+    """
+    rows, _ = load_admin_channels_v2()
+    by_station: dict[str, list[dict]] = {}
+    for row in rows:
+        if not row.get("_has_curated_logo"):
+            continue
+        key = str(row.get("station_key") or normalize_station_key(row.get("name", "")))
+        by_station.setdefault(key, []).append(row)
+
+    cards = []
+    all_by_station: dict[str, list[dict]] = {}
+    for row in rows:
+        key = str(row.get("station_key") or normalize_station_key(row.get("name", "")))
+        all_by_station.setdefault(key, []).append(row)
+
+    for station_key, sources in by_station.items():
+        # Prefer a direct/manual logo as the source; shared copies come after it.
+        sources = sorted(
+            sources,
+            key=lambda row: (bool(row.get("_shared_artwork")), str(row.get("provider_group") or "")),
+        )
+        source = sources[0]
+        logo = str(source.get("logo") or "")
+        if not logo:
+            continue
+
+        assigned = []
+        assigned_ids = set()
+        for row in all_by_station.get(station_key, []):
+            if not row.get("_has_curated_logo"):
+                continue
+            identity = str(row.get("_identity") or "")
+            if not identity or identity in assigned_ids:
+                continue
+            assigned_ids.add(identity)
+            assigned.append({
+                "identity": identity,
+                "provider": str(row.get("provider_group") or ""),
+                "provider_label": provider_label(str(row.get("provider_group") or "")),
+                "name": row.get("name"),
+            })
+
+        available = []
+        for row in all_by_station.get(station_key, []):
+            identity = str(row.get("_identity") or "")
+            if not identity or identity in assigned_ids:
+                continue
+            available.append({
+                "identity": identity,
+                "provider": str(row.get("provider_group") or ""),
+                "provider_label": provider_label(str(row.get("provider_group") or "")),
+                "name": row.get("name"),
+            })
+
+        cards.append({
+            "station_key": station_key,
+            "name": source.get("name") or station_key,
+            "logo": logo,
+            "source_identity": source.get("_identity"),
+            "assigned": assigned,
+            "available": available,
+        })
+
+    cards.sort(key=lambda card: str(card.get("name") or "").lower())
+    return cards
+
+def matching_channels(name: str, exclude_identity: str = "") -> list[dict]:
+    station_key = normalize_station_key(name)
+    rows, _ = load_admin_channels_v2()
+    result = []
+    seen = set()
+    for row in rows:
+        identity = str(row.get("_identity") or "")
+        if not identity or identity == exclude_identity or identity in seen:
+            continue
+        if str(row.get("station_key") or "") != station_key:
+            continue
+        seen.add(identity)
+        result.append({
+            "identity": identity,
+            "name": row.get("name"),
+            "provider_group": row.get("provider_group"),
+            "delivery": row.get("delivery") or "satellite",
+            "satellite_position": row.get("satellite_position"),
+            "tvg_id": row.get("tvg_id"),
+            "has_logo": bool(row.get("logo")),
+        })
+    return result
+
+
+def save_shared_logo(*, station_key: str, raw: bytes, ext: str) -> str:
+    """Save the user's source logo conservatively.
+
+    Transparent artwork is only trimmed. Opaque artwork is preserved as-is;
+    destructive edge/background removal is never applied during upload.
+    Visual cleanup belongs to the explicit edit controls / preview step.
+    """
+    if ext not in legacy.SUPPORTED:
+        raise ValueError("Nepodporovaný formát loga.")
+
+    STATION_LOGOS.mkdir(parents=True, exist_ok=True)
+    try:
+        image = legacy.load_uploaded_logo(raw, ext).convert("RGBA")
+    except RuntimeError as exc:
+        if ext == ".svg":
+            raise ValueError("SVG sa na Macu nepodarilo spracovať. Použi PNG alebo oprav lokálny SVG renderer.") from exc
+        raise
+
+    # Preserve opaque logos exactly. For already-transparent logos only trim
+    # empty transparent margins; do not alter colours or connected pixels.
+    if legacy.has_real_transparency(image):
+        image = legacy.trim_transparent(image)
+
+    destination = STATION_LOGOS / f"{station_key}.png"
+    image.save(destination, format="PNG", optimize=True)
+    return str(destination.relative_to(ROOT))
+
+
+def publish_v2() -> str:
+    stage = legacy.run_git("add", "-A", "station-artwork.yml", "iptv-providers.yml", "provider-data/skylink-sk.json")
+    if stage.returncode != 0:
+        raise RuntimeError(stage.stderr.strip() or "Nepodarilo sa pridať Picon Hub dáta do commitu.")
+    return ORIGINAL_PUBLISH()
+
+
+def channel_by_identity(identity: str) -> dict | None:
+    rows, _ = load_admin_channels_v2()
+    return next((row for row in rows if row.get("_identity") == identity), None)
+
+
+def replace_panel_html(page: str, panel_name: str, replacement: str) -> str:
+    pattern = re.compile(
+        rf'<section class="panel(?: active)?" data-panel-view="{re.escape(panel_name)}">.*?</section>',
+        re.S,
+    )
+    return pattern.sub(lambda match: replacement, page, count=1)
+
+
+def PAGE_V2() -> str:
+    page = legacy.PAGE
+    page = page.replace("Satellite Picons Admin", "Picon Hub Admin")
+    page = page.replace("<strong>Satellite Picons</strong>", "<strong>Picon Hub</strong>")
+    page = page.replace("<span>Admin pracovisko</span>", "<span>SAT + IPTV · spoločné logá</span>")
+    page = page.replace(
+        "</style>",
+        """
+.admin-filters{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.admin-filter-wide{grid-column:1/-1}
+.admin-filter-label{display:block;color:#7f8da0;font-size:11px;margin:0 0 5px}
+.admin-filters select,.admin-filters input{padding:9px 10px;border-radius:9px;font-size:12px}
+.logo-state{margin-top:9px;padding:8px 10px;border-radius:9px;font-size:12px;font-weight:700}
+.logo-state.ok{background:#102419;color:#9ee6b1;border:1px solid #245536}
+.logo-state.missing{background:#28191a;color:#f1aaa5;border:1px solid #5a2d2d}
+.logo-state.shared{background:#142033;color:#a9c7f6;border:1px solid #2b466d}
+.progress-card{margin-top:14px;padding:16px;border:1px solid #253242;border-radius:14px;background:#0a1017}
+.progress-line{display:flex;justify-content:space-between;gap:12px;font-size:13px}
+.progress-track{height:8px;border-radius:999px;background:#17212d;overflow:hidden;margin-top:9px}
+.progress-fill{height:100%;background:#dce9f8;border-radius:999px}
+.logo-library{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.logo-card{border:1px solid #253242;border-radius:16px;background:#0a1017;padding:15px}
+.logo-card-head{display:grid;grid-template-columns:86px 1fr;gap:12px;align-items:center}
+.logo-thumb{height:62px;border-radius:10px;background:#111822;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.logo-thumb img{max-width:78px;max-height:54px;object-fit:contain}
+.logo-card h3{margin:0;font-size:16px}.logo-card .muted{color:#7f8da0;font-size:12px;margin-top:4px}
+.assign-block{margin-top:14px;padding-top:12px;border-top:1px solid #1f2a37}
+.assign-title{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#758397;margin-bottom:7px}
+.provider-chip{display:inline-flex;align-items:center;padding:5px 8px;border:1px solid #2f4053;border-radius:999px;font-size:11px;margin:0 5px 5px 0;background:#111a25}
+.assign-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid #17212d}
+.assign-row:first-child{border-top:0}.assign-row span{font-size:12px}
+.assign-row button{width:auto;margin:0;padding:7px 10px;border-radius:8px}
+.empty-library{padding:28px;text-align:center;color:#8190a3;border:1px dashed #2b3848;border-radius:14px}
+        </style>"""
+    )
+    page = page.replace(
+        '<button type="button" data-panel="upload">Nahrať logo<small>nový obrázok</small></button>',
+        '<button type="button" data-panel="upload">Nahrať logo<small>nový obrázok</small></button>\n      <button type="button" data-panel="library">Knižnica log<small>kde sú použité a kam ich pridať</small></button>'
+    )
+    page = page.replace(
+        '        <section class="panel active" data-panel-view="edit">',
+        '''        <section class="panel" data-panel-view="library">
+          <div class="card">
+            <div class="panel-head">
+              <h2>Knižnica mojich log</h2>
+              <p>Tu vidíš všetky svoje nahraté logá, kde sú priradené a kam ich ešte môžeš pridať.</p>
+            </div>
+            {% if logo_library %}
+              <div class="logo-library">
+                {% for logo in logo_library %}
+                  <div class="logo-card">
+                    <div class="logo-card-head">
+                      <div class="logo-thumb"><img src="/library-logo/{{ logo.station_key }}" alt="{{ logo.name }}"></div>
+                      <div><h3>{{ logo.name }}</h3><div class="muted">{{ logo.station_key }}</div></div>
+                    </div>
+                    <div class="assign-block">
+                      <div class="assign-title">Použité u</div>
+                      {% for item in logo.assigned %}
+                        <span class="provider-chip">{{ item.provider_label }}</span>
+                      {% endfor %}
+                    </div>
+                    <div class="assign-block">
+                      <div class="assign-title">Pridať k ďalšiemu operátorovi</div>
+                      {% if logo.available %}
+                        {% for item in logo.available %}
+                          <form method="post" action="/library-assign" class="assign-row">
+                            <input type="hidden" name="source_identity" value="{{ logo.source_identity }}">
+                            <input type="hidden" name="target_identity" value="{{ item.identity }}">
+                            <span>{{ item.provider_label }}{% if item.name and item.name != logo.name %}<br><small>{{ item.name }}</small>{% endif %}</span>
+                            <button type="submit" class="action secondary">+ Pridať</button>
+                          </form>
+                        {% endfor %}
+                      {% else %}
+                        <div class="note">Logo je už priradené ku všetkým nájdeným výskytom.</div>
+                      {% endif %}
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            {% else %}
+              <div class="empty-library">Zatiaľ nemáš žiadne vlastné nahraté logá.</div>
+            {% endif %}
+          </div>
+        </section>
+
+        <section class="panel active" data-panel-view="edit">'''
+    )
+    page = page.replace(
+        '<div class="panel-head"><h2>Upraviť logo</h2><p>Tu riešiš iba výsledný vzhľad piconu. Zdroj loga vyber v sekcii „Nahrať logo“.</p></div>',
+        '<div class="panel-head"><h2>Upraviť moje logo</h2><p>Vyber iba zo svojich nahratých log. Synchronizované ani importované obrázky tu nie sú.</p></div><label>Moje nahraté logo</label><select id="editLogoSelect"><option value="">— Vyber moje logo —</option>{% for logo in logo_library %}<option value="{{ logo.source_identity }}">{{ logo.name }}</option>{% endfor %}</select><div class="status">Úprava vždy pracuje s tvojím uloženým zdrojovým logom.</div>'
+    )
+    page = page.replace(
+        '<input id="serviceRef" name="service_reference" placeholder="1:0:19:334F:C93:3:EB0000:0:0:0:" required>',
+        '<input id="serviceRef" name="service_reference" placeholder="1:0:19:334F:C93:3:EB0000:0:0:0:">'
+    )
+    page = page.replace(
+        '<div><label>Skupina / balík</label><select id="providerGroup" name="provider_group">',
+        '<div><label>Typ príjmu</label><select id="delivery" name="delivery"><option value="satellite">Satelit</option><option value="iptv">IPTV</option></select></div><div><label>Provider</label><select id="providerGroup" name="provider_group">'
+    )
+    page = page.replace(
+        '<label>Enigma2 service reference</label>\n            <input id="serviceRef"',
+        '<label>Enigma2 service reference <span style="color:#6f7d8e">(SAT povinné, IPTV voliteľné)</span></label>\n            <input id="serviceRef"'
+    )
+    page = page.replace(
+        '<label>Varianty service type</label>\n            <input name="variants" value="1,16,19">',
+        '<div class="grid"><div><label>IPTV tvg-id</label><input id="tvgId" name="tvg_id" placeholder="markiza.sk"></div><div><label>IPTV interné ID</label><input id="channelUid" name="channel_uid" placeholder="markiza"></div></div><label>Varianty service type</label>\n            <input name="variants" value="1,16,19">'
+    )
+    page = page.replace(
+        '<div class="status">Vybraný súbor zostane pripravený aj po prepnutí do sekcie „Upraviť logo“.</div>',
+        '<div class="status">Vybraný súbor zostane pripravený aj po prepnutí do sekcie „Upraviť logo“.</div><input type="hidden" id="currentIdentity" name="current_identity" value="">'
+    )
+    page = page.replace("'/api/logo/'+encodeURIComponent(ch._service_key||'')", "'/api/v2/logo?identity='+encodeURIComponent(ch._identity||'')")
+    page = page.replace("'/api/logo/'+encodeURIComponent(ch._service_key||'')", "'/api/v2/logo?identity='+encodeURIComponent(ch._identity||'')")
+
+    page = replace_panel_html(page, "upload", r'''
+        <section class="panel" data-panel-view="upload">
+          <div class="card">
+            <div class="panel-head">
+              <h2>Pripraviť nové / aktualizované logo</h2>
+              <p>Najprv skontroluj výsledok. Logo sa uloží až po tvojom schválení.</p>
+            </div>
+
+            <label>Stanica</label>
+            <select id="simpleUploadChannel">
+              <option value="">— Vyber stanicu —</option>
+              {% for ch in channels %}
+                <option value="{{ ch._identity }}">
+                  {{ ch.name }} · {{ ch.provider_group }} · {{ 'IPTV' if ch.delivery == 'iptv' else 'SAT' }}{% if ch._has_curated_logo %} · má moje logo{% endif %}
+                </option>
+              {% endfor %}
+            </select>
+
+            <label>Nový súbor loga</label>
+            <input id="simpleUploadFile" type="file" accept=".png,.svg,.jpg,.jpeg,.webp">
+
+            <div class="logo-preview-grid">
+              <div class="logo-preview-box">
+                <span>Dodané logo</span>
+                <div class="logo-canvas" id="simpleUploadOriginal"><div class="logo-empty">Vyber obrázok</div></div>
+              </div>
+              <div class="logo-preview-box">
+                <span>Výsledný picon</span>
+                <div class="logo-canvas" id="simpleUploadProcessed"><div class="logo-empty">Po výbere sa vytvorí náhľad</div></div>
+              </div>
+            </div>
+
+            <div class="grid">
+              <div>
+                <label>Tmavé neutrálne časti → biele</label>
+                <select id="uploadDarkToWhite">
+                  <option value="false">Nie</option>
+                  <option value="true">Áno</option>
+                </select>
+              </div>
+              <div>
+                <label>Veľkosť loga</label>
+                <input id="uploadOpticalScale" type="number" min="0.50" max="1.50" step="0.05" value="1.00">
+              </div>
+            </div>
+            <label class="check"><input id="uploadEdgeCleanup" type="checkbox">Odstrániť iba biely okraj napojený na hranu</label>
+
+            <div id="simpleUploadStatus" class="status"></div>
+            <div class="split-actions">
+              <button type="button" id="simpleUploadPreviewBtn" class="action secondary">Obnoviť náhľad</button>
+              <button type="button" id="simpleUploadBtn" class="action primary" disabled>Schváliť a uložiť logo</button>
+            </div>
+          </div>
+        </section>
+    ''')
+
+    page = replace_panel_html(page, "edit", r'''
+        <section class="panel active" data-panel-view="edit">
+          <div class="card">
+            <div class="panel-head">
+              <h2>Upraviť moje logo</h2>
+              <p>Tu sú iba tvoje nahraté logá. Synchronizované ani importované obrázky sa nezobrazujú.</p>
+            </div>
+
+            <label>Moje logo</label>
+            <select id="simpleEditLogo">
+              <option value="">— Vyber logo —</option>
+              {% for logo in logo_library %}
+                <option value="{{ logo.source_identity }}">{{ logo.name }}</option>
+              {% endfor %}
+            </select>
+
+            <div class="logo-preview-grid">
+              <div class="logo-preview-box">
+                <span>Originál</span>
+                <div class="logo-canvas" id="simpleEditOriginal"><div class="logo-empty">Vyber logo</div></div>
+              </div>
+              <div class="logo-preview-box">
+                <span>Výsledok</span>
+                <div class="logo-canvas" id="simpleEditResult"><div class="logo-empty">Najprv vyber logo</div></div>
+              </div>
+            </div>
+
+            <div class="grid">
+              <div>
+                <label>Tmavé neutrálne časti → biele</label>
+                <select id="simpleDarkToWhite">
+                  <option value="false">Nie</option>
+                  <option value="true">Áno</option>
+                </select>
+              </div>
+              <div>
+                <label>Veľkosť loga</label>
+                <input id="simpleOpticalScale" type="number" min="0.50" max="1.50" step="0.05" value="1.00">
+              </div>
+            </div>
+            <label class="check"><input id="simpleEdgeCleanup" type="checkbox">Odstrániť iba biely okraj napojený na hranu</label>
+
+            <div id="simpleEditStatus" class="status"></div>
+            <div class="split-actions">
+              <button type="button" id="simplePreviewBtn" class="action secondary">Zobraziť náhľad</button>
+              <button type="button" id="simpleSaveEditBtn" class="action primary">Uložiť úpravu</button>
+            </div>
+          </div>
+        </section>
+    ''')
+
+    extra_js = r'''
+<script>
+const providerMeta={{ provider_meta|tojson }};
+const deliverySelect=document.querySelector('#delivery');
+const tvgId=document.querySelector('#tvgId');
+const channelUid=document.querySelector('#channelUid');
+const currentIdentity=document.querySelector('#currentIdentity');
+const editLogoSelect=document.querySelector('#editLogoSelect');
+const assignLogoPreview=document.querySelector('#assignLogoPreview');
+const assignSourceInfo=document.querySelector('#assignSourceInfo');
+const assignSourceIdentity=document.querySelector('#assignSourceIdentity');
+const assignTargets=document.querySelector('#assignTargets');
+const assignTargetsList=document.querySelector('#assignTargetsList');
+const assignNoLogo=document.querySelector('#assignNoLogo');
+const assignNoMatches=document.querySelector('#assignNoMatches');
+
+function syncDeliveryFromProvider(){
+  const p=providerMeta[providerGroup.value]||{};
+  if(deliverySelect && p.delivery) deliverySelect.value=p.delivery;
+}
+if(providerGroup) providerGroup.addEventListener('change',syncDeliveryFromProvider);
+
+if(editLogoSelect){
+  editLogoSelect.addEventListener('change',()=>{
+    const identity=editLogoSelect.value;
+    if(!identity || !manageChannel) return;
+    const idx=adminChannels.findIndex(ch=>(ch._identity||'')===identity);
+    if(idx<0) return;
+    manageChannel.value=String(idx);
+    manageChannel.dispatchEvent(new Event('change'));
+  });
+}
+
+
+if(manageChannel){
+  manageChannel.addEventListener('change',()=>{
+    const idx=manageChannel.value === '' ? -1 : Number(manageChannel.value);
+    const ch=idx>=0 ? adminChannels[idx] : null;
+    if(!ch) return;
+    if(deliverySelect) deliverySelect.value=ch.delivery||'satellite';
+    if(tvgId) tvgId.value=ch.tvg_id||'';
+    if(channelUid) channelUid.value=ch.channel_uid||'';
+    if(currentIdentity) currentIdentity.value=ch._identity||'';
+    refreshAssignPanel(ch);
+  });
+}
+async function refreshAssignPanel(ch){
+  if(!assignLogoPreview || !assignSourceInfo || !assignTargets || !assignTargetsList) return;
+
+  assignTargets.style.display='none';
+  assignTargetsList.innerHTML='';
+  assignNoLogo.style.display='none';
+  assignNoMatches.style.display='none';
+
+  if(!ch){
+    assignLogoPreview.innerHTML='<div class="logo-empty">Vyber hotový kanál vľavo</div>';
+    assignSourceInfo.innerHTML='<div class="logo-empty">Zatiaľ nevybrané</div>';
+    if(assignSourceIdentity) assignSourceIdentity.value='';
+    return;
+  }
+
+  if(assignSourceIdentity) assignSourceIdentity.value=ch._identity||'';
+  assignSourceInfo.innerHTML='<div style="padding:12px;text-align:center"><strong>'+esc(ch.name||'')+'</strong><br><small>'+esc(ch.provider_group||'')+' · '+((ch.delivery||'satellite')==='iptv'?'IPTV':'SAT')+'</small></div>';
+
+  if(!ch._has_curated_logo){
+    assignLogoPreview.innerHTML='<div class="logo-empty">Kanál nemá tvoje logo</div>';
+    assignNoLogo.style.display='block';
+    return;
+  }
+
+  assignLogoPreview.innerHTML='<img src="/api/v2/logo?identity='+encodeURIComponent(ch._identity||'')+'" alt="Zdrojové logo">';
+
+  try{
+    const r=await fetch('/api/station-matches?name='+encodeURIComponent(ch.name||'')+'&exclude='+encodeURIComponent(ch._identity||''));
+    const data=await r.json();
+    const matches=(data.matches||[]).filter(m=>!m.has_logo);
+    if(!matches.length){
+      assignNoMatches.style.display='block';
+      return;
+    }
+
+    assignTargetsList.innerHTML=matches.map(m=>
+      '<label class="check" style="margin-top:10px"><input type="checkbox" name="target_identity" value="'+esc(m.identity)+'"> '+
+      '<strong>'+esc(m.provider_group||'')+'</strong> · '+(m.delivery==='iptv'?'IPTV':'SAT')+
+      (m.satellite_position?' · '+esc(m.satellite_position):'')+
+      ' <span style="color:#7f8da0">('+esc(m.name||'')+')</span></label>'
+    ).join('');
+    assignTargets.style.display='block';
+  }catch(e){
+    assignNoMatches.textContent='Nepodarilo sa načítať zhodné stanice.';
+    assignNoMatches.style.display='block';
+  }
+}
+
+const deliveryFilter=document.querySelector('#channelDeliveryFilter');
+const logoFilter=document.querySelector('#channelLogoFilter');
+const providerFilter=document.querySelector('#channelProviderFilter');
+const searchFilter=document.querySelector('#channelSearchFilter');
+const filterCount=document.querySelector('#channelFilterCount');
+const selectedLogoState=document.querySelector('#selectedLogoState');
+
+function logoStateFor(ch){
+  if(!ch) return {key:'missing', text:'Vyber kanál'};
+  if(ch._shared_artwork) return {key:'shared', text:'Zdieľané tvoje logo'};
+  if(ch._has_curated_logo) return {key:'curated', text:'Hotové · tvoje logo'};
+  return {key:'missing', text:'Chýba tvoje logo'};
+}
+function updateSelectedLogoState(ch){
+  if(!selectedLogoState) return;
+  const state=logoStateFor(ch);
+  selectedLogoState.className='logo-state '+(state.key==='curated'?'ok':state.key);
+  selectedLogoState.textContent=state.text;
+}
+function filterChannels(){
+  if(!manageChannel) return;
+  const delivery=(deliveryFilter&&deliveryFilter.value)||'';
+  const logo=(logoFilter&&logoFilter.value)||'';
+  const provider=(providerFilter&&providerFilter.value)||'';
+  const q=((searchFilter&&searchFilter.value)||'').trim().toLowerCase();
+  let shown=0;
+  [...manageChannel.options].forEach((opt, idx)=>{
+    if(idx===0){ opt.hidden=false; return; }
+    const ch=adminChannels[idx-1];
+    if(!ch){ opt.hidden=true; return; }
+    const state=logoStateFor(ch).key;
+    const match=
+      (!delivery || (ch.delivery||'satellite')===delivery) &&
+      (!provider || (ch.provider_group||'')===provider) &&
+      (!logo || state===logo || (logo==='curated' && ch._has_curated_logo)) &&
+      (!q || ((ch.name||'')+' '+(ch.provider_group||'')).toLowerCase().includes(q));
+    opt.hidden=!match;
+    if(match) shown++;
+  });
+  if(filterCount) filterCount.textContent=shown+' z '+adminChannels.length+' kanálov';
+  const current=manageChannel.options[manageChannel.selectedIndex];
+  if(current && current.hidden){ manageChannel.value=''; updateSelectedLogoState(null); }
+}
+[deliveryFilter,logoFilter,providerFilter].forEach(el=>el&&el.addEventListener('change',filterChannels));
+if(searchFilter) searchFilter.addEventListener('input',filterChannels);
+
+if(manageChannel){
+  manageChannel.addEventListener('change',()=>{
+    const idx=manageChannel.value === '' ? -1 : Number(manageChannel.value);
+    const ch=idx>=0 ? adminChannels[idx] : null;
+    updateSelectedLogoState(ch);
+    refreshAssignPanel(ch);
+  });
+}
+filterChannels();
+
+const simpleUploadChannel=document.querySelector('#simpleUploadChannel');
+const simpleUploadFile=document.querySelector('#simpleUploadFile');
+const simpleUploadOriginal=document.querySelector('#simpleUploadOriginal');
+const simpleUploadProcessed=document.querySelector('#simpleUploadProcessed');
+const simpleUploadStatus=document.querySelector('#simpleUploadStatus');
+const simpleUploadBtn=document.querySelector('#simpleUploadBtn');
+const simpleUploadPreviewBtn=document.querySelector('#simpleUploadPreviewBtn');
+const uploadDarkToWhite=document.querySelector('#uploadDarkToWhite');
+const uploadOpticalScale=document.querySelector('#uploadOpticalScale');
+const uploadEdgeCleanup=document.querySelector('#uploadEdgeCleanup');
+let uploadPreviewValid=false;
+let uploadPreviewUrl=null;
+
+function invalidateUploadPreview(){
+  uploadPreviewValid=false;
+  if(simpleUploadBtn) simpleUploadBtn.disabled=true;
+}
+
+async function previewNewLogo(){
+  const identity=(simpleUploadChannel&&simpleUploadChannel.value)||'';
+  const file=simpleUploadFile&&simpleUploadFile.files&&simpleUploadFile.files[0];
+  if(!identity){ simpleUploadStatus.textContent='Vyber stanicu.'; return; }
+  if(!file){ simpleUploadStatus.textContent='Vyber nový súbor loga.'; return; }
+
+  invalidateUploadPreview();
+  simpleUploadStatus.textContent='Spracúvam náhľad…';
+  try{
+    const fd=new FormData();
+    fd.append('identity',identity);
+    fd.append('logo',file);
+    fd.append('dark_to_white',uploadDarkToWhite.value);
+    fd.append('optical_scale',uploadOpticalScale.value);
+    if(uploadEdgeCleanup.checked) fd.append('edge_cleanup','on');
+
+    const r=await fetch('/api/v2/upload-preview',{method:'POST',body:fd});
+    if(!r.ok){
+      const data=await r.json().catch(()=>({error:'Náhľad zlyhal.'}));
+      throw new Error(data.error||'Náhľad zlyhal.');
+    }
+    const blob=await r.blob();
+    if(uploadPreviewUrl) URL.revokeObjectURL(uploadPreviewUrl);
+    uploadPreviewUrl=URL.createObjectURL(blob);
+    simpleUploadProcessed.innerHTML='<img src="'+uploadPreviewUrl+'" alt="Spracovaný picon">';
+    uploadPreviewValid=true;
+    simpleUploadBtn.disabled=false;
+
+    const ch=adminChannels.find(ch=>(ch._identity||'')===identity);
+    simpleUploadBtn.textContent=(ch&&ch._has_curated_logo)?'Schváliť a nahradiť logo':'Schváliť a uložiť logo';
+    simpleUploadStatus.textContent='Skontroluj výsledok. Ak je dobrý, schváľ uloženie.';
+  }catch(e){
+    simpleUploadProcessed.innerHTML='<div class="logo-empty">Náhľad sa nepodaril</div>';
+    simpleUploadStatus.textContent='Chyba: '+e.message;
+  }
+}
+
+if(simpleUploadFile){
+  simpleUploadFile.addEventListener('change',()=>{
+    const file=simpleUploadFile.files&&simpleUploadFile.files[0];
+    invalidateUploadPreview();
+    if(!file){
+      simpleUploadOriginal.innerHTML='<div class="logo-empty">Vyber obrázok</div>';
+      simpleUploadProcessed.innerHTML='<div class="logo-empty">Po výbere sa vytvorí náhľad</div>';
+      return;
+    }
+    const url=URL.createObjectURL(file);
+    simpleUploadOriginal.innerHTML='<img src="'+url+'" alt="Dodané logo">';
+    previewNewLogo();
+  });
+}
+if(simpleUploadChannel) simpleUploadChannel.addEventListener('change',()=>{
+  invalidateUploadPreview();
+  const file=simpleUploadFile&&simpleUploadFile.files&&simpleUploadFile.files[0];
+  if(file) previewNewLogo();
+});
+[uploadDarkToWhite,uploadOpticalScale,uploadEdgeCleanup].forEach(el=>{
+  if(!el) return;
+  el.addEventListener(el.tagName==='SELECT'||el.type==='checkbox'?'change':'input',()=>{
+    invalidateUploadPreview();
+    const file=simpleUploadFile&&simpleUploadFile.files&&simpleUploadFile.files[0];
+    if(file) previewNewLogo();
+  });
+});
+if(simpleUploadPreviewBtn) simpleUploadPreviewBtn.addEventListener('click',()=>previewNewLogo());
+
+if(simpleUploadBtn){
+  simpleUploadBtn.addEventListener('click',async()=>{
+    const identity=(simpleUploadChannel&&simpleUploadChannel.value)||'';
+    const file=simpleUploadFile&&simpleUploadFile.files&&simpleUploadFile.files[0];
+    if(!identity || !file){ simpleUploadStatus.textContent='Vyber stanicu a súbor.'; return; }
+    if(!uploadPreviewValid){ simpleUploadStatus.textContent='Najprv vytvor a skontroluj aktuálny náhľad.'; return; }
+
+    simpleUploadBtn.disabled=true;
+    simpleUploadStatus.textContent='Ukladám schválené logo…';
+    try{
+      const fd=new FormData();
+      fd.append('identity',identity);
+      fd.append('logo',file);
+      fd.append('dark_to_white',uploadDarkToWhite.value);
+      fd.append('optical_scale',uploadOpticalScale.value);
+      if(uploadEdgeCleanup.checked) fd.append('edge_cleanup','on');
+
+      const r=await fetch('/api/v2/upload-logo',{method:'POST',body:fd});
+      const data=await r.json();
+      if(!r.ok) throw new Error(data.error||'Uloženie zlyhalo.');
+      simpleUploadStatus.textContent=data.message||'Logo uložené.';
+      setTimeout(()=>location.reload(),650);
+    }catch(e){
+      simpleUploadStatus.textContent='Chyba: '+e.message;
+      simpleUploadBtn.disabled=false;
+    }
+  });
+}
+
+const simpleEditLogo=document.querySelector('#simpleEditLogo');
+const simpleEditOriginal=document.querySelector('#simpleEditOriginal');
+const simpleEditResult=document.querySelector('#simpleEditResult');
+const simpleDarkToWhite=document.querySelector('#simpleDarkToWhite');
+const simpleOpticalScale=document.querySelector('#simpleOpticalScale');
+const simpleEdgeCleanup=document.querySelector('#simpleEdgeCleanup');
+const simpleEditStatus=document.querySelector('#simpleEditStatus');
+const simplePreviewBtn=document.querySelector('#simplePreviewBtn');
+const simpleSaveEditBtn=document.querySelector('#simpleSaveEditBtn');
+
+async function loadSimpleEdit(){
+  const identity=(simpleEditLogo&&simpleEditLogo.value)||'';
+  if(!identity){
+    simpleEditOriginal.innerHTML='<div class="logo-empty">Vyber logo</div>';
+    simpleEditResult.innerHTML='<div class="logo-empty">Najprv vyber logo</div>';
+    return;
+  }
+  simpleEditOriginal.innerHTML='<img src="/api/v2/logo?identity='+encodeURIComponent(identity)+'" alt="Originál">';
+  simpleEditResult.innerHTML='<img src="/api/v2/logo?identity='+encodeURIComponent(identity)+'" alt="Výsledok">';
+  try{
+    const r=await fetch('/api/v2/logo-settings?identity='+encodeURIComponent(identity));
+    const data=await r.json();
+    if(r.ok){
+      simpleDarkToWhite.value=data.dark_to_white?'true':'false';
+      simpleOpticalScale.value=String(data.optical_scale||1);
+      simpleEdgeCleanup.checked=!!data.edge_cleanup;
+    }
+  }catch(e){}
+}
+if(simpleEditLogo) simpleEditLogo.addEventListener('change',loadSimpleEdit);
+
+async function renderSimplePreview(){
+  const identity=(simpleEditLogo&&simpleEditLogo.value)||'';
+  if(!identity){ simpleEditStatus.textContent='Vyber logo.'; return; }
+  const fd=new FormData();
+  fd.append('identity',identity);
+  fd.append('dark_to_white',simpleDarkToWhite.value);
+  fd.append('optical_scale',simpleOpticalScale.value);
+  if(simpleEdgeCleanup.checked) fd.append('edge_cleanup','on');
+  simpleEditStatus.textContent='Vytváram náhľad…';
+  const r=await fetch('/api/v2/edit-preview',{method:'POST',body:fd});
+  if(!r.ok){
+    const data=await r.json().catch(()=>({error:'Náhľad zlyhal.'}));
+    throw new Error(data.error||'Náhľad zlyhal.');
+  }
+  const blob=await r.blob();
+  simpleEditResult.innerHTML='<img src="'+URL.createObjectURL(blob)+'" alt="Výsledok">';
+  simpleEditStatus.textContent='Náhľad pripravený.';
+}
+if(simplePreviewBtn){
+  simplePreviewBtn.addEventListener('click',()=>renderSimplePreview().catch(e=>simpleEditStatus.textContent='Chyba: '+e.message));
+}
+if(simpleSaveEditBtn){
+  simpleSaveEditBtn.addEventListener('click',async()=>{
+    const identity=(simpleEditLogo&&simpleEditLogo.value)||'';
+    if(!identity){ simpleEditStatus.textContent='Vyber logo.'; return; }
+    simpleSaveEditBtn.disabled=true;
+    simpleEditStatus.textContent='Ukladám nastavenia…';
+    try{
+      const fd=new FormData();
+      fd.append('identity',identity);
+      fd.append('dark_to_white',simpleDarkToWhite.value);
+      fd.append('optical_scale',simpleOpticalScale.value);
+      if(simpleEdgeCleanup.checked) fd.append('edge_cleanup','on');
+      const r=await fetch('/api/v2/edit-save',{method:'POST',body:fd});
+      const data=await r.json();
+      if(!r.ok) throw new Error(data.error||'Uloženie zlyhalo.');
+      simpleEditStatus.textContent=data.message||'Úprava uložená.';
+      await renderSimplePreview();
+    }catch(e){
+      simpleEditStatus.textContent='Chyba: '+e.message;
+    }finally{
+      simpleSaveEditBtn.disabled=false;
+    }
+  });
+}
+</script>
+'''
+    return page.replace("</body>", extra_js + "</body>")
+
+
+@legacy.app.post("/api/v2/upload-preview")
+def api_v2_upload_preview():
+    try:
+        identity = request.form.get("identity", "").strip()
+        channel = channel_by_identity(identity)
+        if not channel:
+            raise ValueError("Vybraná stanica sa nenašla.")
+
+        upload = request.files.get("logo")
+        if not upload or not upload.filename:
+            raise ValueError("Vyber nový súbor loga.")
+
+        filename = secure_filename(upload.filename or "")
+        ext = Path(filename).suffix.lower()
+        raw = upload.read()
+        if not raw:
+            raise ValueError("Logo je prázdne.")
+
+        dark_to_white = request.form.get("dark_to_white", "false") == "true"
+        edge_cleanup = request.form.get("edge_cleanup") == "on"
+        optical_scale = max(0.50, min(1.50, float(request.form.get("optical_scale", "1.0"))))
+
+        png = legacy.render_preview_png(
+            raw=raw,
+            ext=ext,
+            dark_to_white=dark_to_white,
+            optical_scale=optical_scale,
+            edge_cleanup=edge_cleanup,
+        )
+        return send_file(io.BytesIO(png), mimetype="image/png", download_name="preview.png")
+    except Exception as exc:
+        return jsonify(error=str(exc)), 400
+
+
+@legacy.app.post("/api/v2/upload-logo")
+def api_v2_upload_logo():
+    try:
+        identity = request.form.get("identity", "").strip()
+        channel = channel_by_identity(identity)
+        if not channel:
+            raise ValueError("Vybraná stanica sa nenašla.")
+
+        upload = request.files.get("logo")
+        if not upload or not upload.filename:
+            raise ValueError("Vyber nový súbor loga.")
+
+        filename = secure_filename(upload.filename or "")
+        ext = Path(filename).suffix.lower()
+        raw = upload.read()
+        if not raw:
+            raise ValueError("Logo je prázdne.")
+
+        dark_to_white = request.form.get("dark_to_white", "false") == "true"
+        edge_cleanup = request.form.get("edge_cleanup") == "on"
+        optical_scale = max(0.50, min(1.50, float(request.form.get("optical_scale", "1.0"))))
+
+        station_key = str(channel.get("station_key") or normalize_station_key(channel.get("name", "")))
+        logo_rel = save_shared_logo(station_key=station_key, raw=raw, ext=ext)
+
+        artwork = load_station_artwork()
+        stations = artwork.setdefault("stations", {})
+        current = stations.get(station_key) if isinstance(stations.get(station_key), dict) else {}
+
+        # IMPORTANT: replacing the station artwork must never lose assignments.
+        # Keep every SAT/IPTV identity that already used this station logo.
+        targets = set(str(x) for x in current.get("targets", []) or [])
+        targets.add(identity)
+
+        stations[station_key] = {
+            "name": channel.get("name") or station_key,
+            "logo": logo_rel,
+            "dark_to_white": dark_to_white,
+            "optical_scale": optical_scale,
+            "edge_cleanup": edge_cleanup,
+            "background_cleanup": False,
+            "targets": sorted(targets),
+            "updated_at": int(time.time()),
+        }
+        save_station_artwork(artwork)
+
+        replaced = bool(current.get("logo"))
+        action = "nahradené novou verziou" if replaced else "uložené"
+        return jsonify(
+            ok=True,
+            message=f"{channel.get('name')}: logo {action}. Existujúce priradenia providerov zostali zachované.",
+        )
+    except Exception as exc:
+        return jsonify(error=str(exc)), 400
+
+
+@legacy.app.get("/api/v2/logo-settings")
+def api_v2_logo_settings():
+    identity = request.args.get("identity", "").strip()
+    channel = channel_by_identity(identity)
+    if not channel or not channel.get("_has_curated_logo"):
+        return jsonify(error="Logo sa nenašlo."), 404
+    return jsonify(
+        dark_to_white=bool(channel.get("dark_to_white", False)),
+        optical_scale=float(channel.get("optical_scale", 1.0) or 1.0),
+        edge_cleanup=bool(channel.get("edge_cleanup", False)),
+    )
+
+
+@legacy.app.post("/api/v2/edit-preview")
+def api_v2_edit_preview():
+    try:
+        identity = request.form.get("identity", "").strip()
+        channel = channel_by_identity(identity)
+        if not channel or not channel.get("_has_curated_logo") or not channel.get("logo"):
+            raise ValueError("Vybrané vlastné logo sa nenašlo.")
+
+        path = (ROOT / str(channel["logo"])).resolve()
+        if not path.is_file():
+            raise ValueError("Súbor loga sa nenašiel.")
+
+        raw = path.read_bytes()
+        ext = path.suffix.lower()
+        dark_to_white = request.form.get("dark_to_white", "false") == "true"
+        edge_cleanup = request.form.get("edge_cleanup") == "on"
+        optical_scale = float(request.form.get("optical_scale", "1.0"))
+
+        png = legacy.render_preview_png(
+            raw=raw,
+            ext=ext,
+            dark_to_white=dark_to_white,
+            optical_scale=optical_scale,
+            edge_cleanup=edge_cleanup,
+        )
+        return send_file(io.BytesIO(png), mimetype="image/png", download_name="preview.png")
+    except Exception as exc:
+        return jsonify(error=str(exc)), 400
+
+
+@legacy.app.post("/api/v2/edit-save")
+def api_v2_edit_save():
+    try:
+        identity = request.form.get("identity", "").strip()
+        channel = channel_by_identity(identity)
+        if not channel or not channel.get("_has_curated_logo"):
+            raise ValueError("Vybrané vlastné logo sa nenašlo.")
+
+        station_key = str(channel.get("station_key") or normalize_station_key(channel.get("name", "")))
+        artwork = load_station_artwork()
+        stations = artwork.setdefault("stations", {})
+        current = stations.get(station_key) if isinstance(stations.get(station_key), dict) else {}
+        if not current.get("logo"):
+            current["logo"] = channel.get("logo")
+
+        current["name"] = channel.get("name") or station_key
+        current["dark_to_white"] = request.form.get("dark_to_white", "false") == "true"
+        current["optical_scale"] = max(0.50, min(1.50, float(request.form.get("optical_scale", "1.0"))))
+        current["edge_cleanup"] = request.form.get("edge_cleanup") == "on"
+        current["background_cleanup"] = False
+        targets = set(str(x) for x in current.get("targets", []) or [])
+        targets.add(identity)
+        current["targets"] = sorted(targets)
+        current["updated_at"] = int(time.time())
+        stations[station_key] = current
+        save_station_artwork(artwork)
+        return jsonify(ok=True, message=f"{channel.get('name')}: úprava uložená.")
+    except Exception as exc:
+        return jsonify(error=str(exc)), 400
+
+
+@legacy.app.get("/api/station-matches")
+def api_station_matches():
+    name = request.args.get("name", "").strip()
+    exclude = request.args.get("exclude", "").strip()
+    return jsonify(station_key=normalize_station_key(name), matches=matching_channels(name, exclude))
+
+
+@legacy.app.get("/api/v2/logo")
+def api_v2_logo():
+    identity = request.args.get("identity", "").strip()
+    channel = channel_by_identity(identity)
+    if not channel or not channel.get("logo"):
+        return jsonify(error="Logo sa nenašlo."), 404
+    path = (ROOT / str(channel["logo"])).resolve()
+    if not path.is_file():
+        return jsonify(error="Logo sa nenašlo."), 404
+    return send_file(path)
+
+
+
+@legacy.app.get("/library-logo/<station_key>")
+def library_logo(station_key: str):
+    wanted = normalize_station_key(station_key)
+    for card in logo_library_v2():
+        if card.get("station_key") != wanted:
+            continue
+        path = (ROOT / str(card.get("logo") or "")).resolve()
+        try:
+            path.relative_to((ROOT / "assets" / "logos").resolve())
+        except ValueError:
+            break
+        if path.is_file():
+            return send_file(path)
+        break
+    return jsonify(error="Logo sa nenašlo."), 404
+
+
+@legacy.app.post("/library-assign")
+def library_assign():
+    try:
+        source_identity = request.form.get("source_identity", "").strip()
+        target_identity = request.form.get("target_identity", "").strip()
+        if not source_identity or not target_identity:
+            raise ValueError("Chýba zdroj alebo cieľ priradenia.")
+
+        source = channel_by_identity(source_identity)
+        target = channel_by_identity(target_identity)
+        if not source or not source.get("_has_curated_logo") or not source.get("logo"):
+            raise ValueError("Zdrojové logo sa nenašlo.")
+        if not target:
+            raise ValueError("Cieľový kanál sa nenašiel.")
+
+        source_key = str(source.get("station_key") or normalize_station_key(source.get("name", "")))
+        target_key = str(target.get("station_key") or normalize_station_key(target.get("name", "")))
+        if source_key != target_key:
+            raise ValueError("Vybrané kanály nie sú tá istá stanica.")
+
+        artwork = load_station_artwork()
+        stations = artwork.setdefault("stations", {})
+        current = stations.get(source_key) if isinstance(stations.get(source_key), dict) else {}
+        targets = set(str(x) for x in current.get("targets", []) or [])
+        targets.add(source_identity)
+        targets.add(target_identity)
+
+        stations[source_key] = {
+            "name": source.get("name") or source_key,
+            "logo": source["logo"],
+            "dark_to_white": bool(source.get("dark_to_white", False)),
+            "optical_scale": float(source.get("optical_scale", 1.0) or 1.0),
+            "edge_cleanup": bool(source.get("edge_cleanup", False)),
+            "background_cleanup": True,
+            "targets": sorted(targets),
+            "updated_at": int(time.time()),
+        }
+        save_station_artwork(artwork)
+
+        flash(
+            f"{source.get('name')}: logo priradené k {provider_label(str(target.get('provider_group') or ''))}."
+        )
+    except Exception as exc:
+        flash(f"Chyba priradenia loga: {exc}")
+    return redirect(url_for("index") + "#library")
+
+
+def index_v2():
+    if request.method == "GET":
+        channels, stats = load_admin_channels_v2()
+        defs = provider_definitions()
+        provider_meta = {
+            pid: {"name": meta.get("name") or pid, "delivery": meta.get("delivery") or "satellite"}
+            for pid, meta in defs.items()
+        }
+        return render_template_string(
+            PAGE_V2(),
+            channels=channels,
+            stats=stats,
+            satellite_positions=legacy.SATELLITE_POSITIONS,
+            provider_groups=provider_groups_v2(),
+            provider_defaults={},
+            provider_meta=provider_meta,
+            branch=legacy.git_branch(),
+            preview_ready=legacy.local_preview_ready(),
+            logo_library=logo_library_v2(),
+        )
+
+    try:
+        cfg = yaml.safe_load(DB.read_text(encoding="utf-8")) or {"channels": []}
+        channels = cfg.setdefault("channels", [])
+        defs = provider_definitions()
+
+        channel_id = request.form.get("channel_id", "").strip().lower()
+        name = request.form.get("name", "").strip()
+        provider_group = request.form.get("provider_group", "").strip().lower()
+        delivery = request.form.get("delivery", "").strip().lower() or str(defs.get(provider_group, {}).get("delivery") or "satellite")
+        ref = request.form.get("service_reference", "").strip()
+        tvg_id = request.form.get("tvg_id", "").strip()
+        channel_uid = request.form.get("channel_uid", "").strip() or channel_id
+        satellite_position = legacy.normalize_orbit(request.form.get("satellite_position", "").strip())
+        variants = [x.strip().upper() for x in request.form.get("variants", "1,16,19").split(",") if x.strip()]
+        dark_to_white = request.form.get("dark_to_white", "false") == "true"
+        edge_cleanup = request.form.get("edge_cleanup") == "on"
+        optical_scale = float(request.form.get("optical_scale", "1.0"))
+        publish = request.form.get("publish") == "on"
+
+        if not legacy.ID_RE.match(channel_id):
+            raise ValueError("ID môže obsahovať iba malé písmená, čísla a pomlčky.")
+        if not name:
+            raise ValueError("Názov kanála je povinný.")
+        if not provider_group:
+            raise ValueError("Vyber providera.")
+        if delivery not in {"satellite", "iptv"}:
+            raise ValueError("Neplatný typ príjmu.")
+        if delivery == "satellite":
+            if not ref:
+                raise ValueError("Satelitný kanál musí mať Enigma2 service reference.")
+            legacy.validate_ref(ref)
+        elif not (tvg_id or channel_uid):
+            raise ValueError("IPTV kanál musí mať tvg-id alebo interné ID.")
+        if not 0.50 <= optical_scale <= 1.50:
+            raise ValueError("Veľkosť loga musí byť medzi 0.50 a 1.50.")
+
+        probe = {
+            "id": channel_id,
+            "name": name,
+            "provider_group": provider_group,
+            "delivery": delivery,
+            "service_reference": ref or None,
+            "tvg_id": tvg_id or None,
+            "channel_uid": channel_uid or None,
+        }
+        identity = channel_identity(probe, provider_group)
+        existing_index = next((i for i, ch in enumerate(channels) if channel_identity(ch, ch.get("provider_group")) == identity), None)
+        existing = dict(channels[existing_index]) if existing_index is not None else {}
+
+        station_key = normalize_station_key(name)
+        entry = dict(existing)
+        entry.update({
+            "id": channel_id,
+            "name": name,
+            "station_key": station_key,
+            "delivery": delivery,
+            "provider_group": provider_group,
+            "dark_to_white": dark_to_white,
+            "optical_scale": optical_scale,
+            "edge_cleanup": edge_cleanup,
+            "background_cleanup": True,
+        })
+        if delivery == "satellite":
+            entry["service_reference"] = ref
+            entry["variant_types"] = variants or ["1", "16", "19"]
+            entry["satellite_position"] = satellite_position or None
+            entry.pop("tvg_id", None)
+            entry.pop("channel_uid", None)
+        else:
+            entry["tvg_id"] = tvg_id or None
+            entry["channel_uid"] = channel_uid
+            if ref:
+                entry["service_reference"] = ref
+                entry["variant_types"] = variants or ["4097"]
+            else:
+                entry.pop("service_reference", None)
+                entry.pop("variant_types", None)
+            entry.pop("satellite_position", None)
+
+        upload = request.files.get("logo")
+        raw = None
+        ext = None
+        if upload and upload.filename:
+            filename = secure_filename(upload.filename or "")
+            ext = Path(filename).suffix.lower()
+            raw = upload.read()
+
+        if raw:
+            if not raw:
+                raise ValueError("Logo je prázdne.")
+            logo_rel = save_shared_logo(station_key=station_key, raw=raw, ext=ext or ".png")
+            artwork = load_station_artwork()
+            previous = artwork.setdefault("stations", {}).get(station_key) or {}
+            targets = set(previous.get("targets") or [])
+            targets.add(identity)
+            artwork.setdefault("stations", {})[station_key] = {
+                "name": name,
+                "logo": logo_rel,
+                "dark_to_white": dark_to_white,
+                "optical_scale": optical_scale,
+                "edge_cleanup": edge_cleanup,
+                "background_cleanup": True,
+                "targets": sorted(targets),
+                "updated_at": int(time.time()),
+            }
+            save_station_artwork(artwork)
+            # Shared artwork is now authoritative for selected identities.
+            entry.pop("logo", None)
+
+        if existing_index is None:
+            channels.append(entry)
+        else:
+            channels[existing_index] = entry
+        DB.write_text(yaml.safe_dump(cfg, allow_unicode=True, sort_keys=False), encoding="utf-8")
+
+        message = publish_v2() if publish else "Uložené lokálne; GitHub push nebol spustený."
+        flash(f"{name}: logo uložené. Ďalším operátorom ho priradíš v „Knižnici log“. {message}")
+    except Exception as exc:
+        flash(f"Chyba: {exc}")
+    return redirect(url_for("index"))
+
+
+
+@legacy.app.post("/assign-logo")
+def assign_logo():
+    try:
+        source_identity = request.form.get("source_identity", "").strip()
+        targets = [x.strip() for x in request.form.getlist("target_identity") if x.strip()]
+
+        if not source_identity:
+            raise ValueError("Vyber zdrojový kanál s hotovým logom.")
+        if not targets:
+            raise ValueError("Vyber aspoň jedného operátora.")
+
+        source = channel_by_identity(source_identity)
+        if not source or not source.get("_has_curated_logo") or not source.get("logo"):
+            raise ValueError("Zdrojový kanál nemá tvoje vlastné logo.")
+
+        station_key = str(source.get("station_key") or normalize_station_key(source.get("name", "")))
+        artwork = load_station_artwork()
+        stations = artwork.setdefault("stations", {})
+
+        existing = stations.get(station_key) if isinstance(stations.get(station_key), dict) else {}
+        existing_targets = set(str(x) for x in existing.get("targets", []) or [])
+        existing_targets.add(source_identity)
+        existing_targets.update(targets)
+
+        stations[station_key] = {
+            "name": source.get("name") or station_key,
+            "logo": source["logo"],
+            "dark_to_white": bool(source.get("dark_to_white", False)),
+            "optical_scale": float(source.get("optical_scale", 1.0) or 1.0),
+            "edge_cleanup": bool(source.get("edge_cleanup", False)),
+            "background_cleanup": True,
+            "targets": sorted(existing_targets),
+            "updated_at": int(time.time()),
+        }
+        save_station_artwork(artwork)
+
+        flash(f"{source.get('name')}: logo priradené k {len(targets)} ďalším operátorom. Zmeny sú uložené lokálne.")
+    except Exception as exc:
+        flash(f"Chyba priraďovania loga: {exc}")
+    return redirect(url_for("index"))
+
+
+def build_preview_v2():
+    try:
+        result = legacy.subprocess.run(
+            [str(ROOT / ".venv" / "bin" / "python"), str(ROOT / "scripts" / "build_v2.py")],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            timeout=300,
+        )
+        if result.returncode != 0:
+            detail = (result.stderr or result.stdout or "Neznáma chyba buildu").strip()
+            flash("Lokálny náhľad sa nepodarilo vytvoriť: " + detail[-1200:])
+            return redirect(url_for("index"))
+        flash("Lokálny SAT + IPTV náhľad bol vytvorený z aktuálnej vetvy. Verejný web sa tým nemení.")
+        return redirect("/preview/")
+    except Exception as exc:
+        flash(f"Chyba lokálneho náhľadu: {exc}")
+        return redirect(url_for("index"))
+
+
+ORIGINAL_PUBLISH = legacy.publish_pending_changes
+legacy.publish_pending_changes = publish_v2
+legacy.load_admin_channels = load_admin_channels_v2
+legacy.load_provider_groups = provider_groups_v2
+legacy.app.view_functions["index"] = index_v2
+legacy.app.view_functions["build_preview"] = build_preview_v2
+
+
+def main() -> None:
+    legacy.main()
+
+
+if __name__ == "__main__":
+    main()

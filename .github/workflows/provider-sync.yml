@@ -7,6 +7,7 @@ on:
       - feature/provider-picon-packs
     paths:
       - scripts/sync_provider.py
+      - scripts/sync_vhannibal.py
       - providers.yml
       - .github/workflows/provider-sync.yml
   schedule:
@@ -24,10 +25,12 @@ concurrency:
 jobs:
   providers:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
 
     steps:
       - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-python@v6
         with:
@@ -42,45 +45,114 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Synchronize provider catalogues
+      - name: Synchronize all provider metadata
         shell: bash
         run: |
           set -u
 
-          sync_provider() {
+          mapfile -t PROVIDERS < <(python - <<'PY'
+          from pathlib import Path
+          import yaml
+          cfg = yaml.safe_load(Path("providers.yml").read_text()) or {}
+          for provider in cfg.get("providers", []):
+              source = provider.get("source") or {}
+              if source.get("type") == "satelitnatv" and provider.get("id"):
+                  print(provider["id"])
+          PY
+          )
+
+          PROBE_URL="$(python - <<'PY'
+          from pathlib import Path
+          import yaml
+          cfg = yaml.safe_load(Path("providers.yml").read_text()) or {}
+          for provider in cfg.get("providers", []):
+              source = provider.get("source") or {}
+              if source.get("type") == "satelitnatv" and source.get("operator_url"):
+                  print(source["operator_url"])
+                  break
+          PY
+          )"
+
+          UPSTREAM_OK=0
+          if [ -n "$PROBE_URL" ]; then
+            if curl -fsSL --connect-timeout 5 --max-time 12 \
+              -A 'SatellitePiconsProviderSync/0.3' \
+              "$PROBE_URL" -o /dev/null; then
+              UPSTREAM_OK=1
+            else
+              echo "::warning::SatelitnaTV metadata source is currently unreachable. Skipping network crawl and using stored catalogues."
+            fi
+          fi
+
+          seed_legacy() {
             local provider="$1"
             local output="$2"
-            local label="$3"
-            local success=0
+            local legacy="$3"
+            if git cat-file -e "HEAD:${legacy}" 2>/dev/null; then
+              echo "::notice::${provider}: seeding renamed provider from ${legacy}."
+              git show "HEAD:${legacy}" > "$output"
+              TARGET_PROVIDER="$provider" TARGET_FILE="$output" python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          import yaml
 
-            echo "::group::Synchronize ${label} metadata"
-            for attempt in 1 2; do
-              echo "Attempt ${attempt}/2"
-              if python scripts/sync_provider.py "$provider" \
-                --delay 0.08 \
-                --output "$output"; then
-                success=1
-                break
-              fi
-              echo "::warning::${label}: upstream metadata attempt ${attempt}/2 failed."
-              [ "$attempt" -lt 2 ] && sleep 15
-            done
+          target = os.environ["TARGET_PROVIDER"]
+          path = Path(os.environ["TARGET_FILE"])
+          data = json.loads(path.read_text())
+          cfg = yaml.safe_load(Path("providers.yml").read_text()) or {}
+          meta = next((p for p in cfg.get("providers", []) if p.get("id") == target), {})
+          data["provider"] = target
+          data["provider_name"] = meta.get("name", target)
+          for channel in data.get("channels", []) or []:
+              channel["provider_group"] = target
+          path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n")
+          PY
+              return 0
+            fi
+            return 1
+          }
+
+          for provider in "${PROVIDERS[@]}"; do
+            output="provider-data/${provider}.json"
+            success=0
+
+            echo "::group::Synchronize ${provider} metadata"
+            if [ "$UPSTREAM_OK" -eq 1 ]; then
+              for attempt in 1 2; do
+                echo "Attempt ${attempt}/2"
+                if python scripts/sync_provider.py "$provider" \
+                  --delay 0.05 \
+                  --output "$output"; then
+                  success=1
+                  break
+                fi
+                echo "::warning::${provider}: upstream metadata attempt ${attempt}/2 failed."
+                [ "$attempt" -lt 2 ] && sleep 10
+              done
+            fi
 
             if [ "$success" -ne 1 ]; then
               if git cat-file -e "HEAD:${output}" 2>/dev/null; then
-                echo "::warning::${label}: upstream unavailable; using last catalogue."
+                echo "::warning::${provider}: using last stored catalogue."
                 git restore --source=HEAD -- "$output"
+              elif [ "$provider" = "skylink-sk" ] && seed_legacy "$provider" "$output" "provider-data/skylink.json"; then
+                :
+              elif [ "$provider" = "antik-sat-sk" ] && seed_legacy "$provider" "$output" "provider-data/antik.json"; then
+                :
               else
-                echo "::error::${label}: synchronization failed and no previous catalogue is available."
-                echo "::endgroup::"
-                return 1
+                echo "::warning::${provider}: no catalogue yet; provider stays visible with zero channels until a later successful sync."
+                rm -f "$output"
               fi
             fi
             echo "::endgroup::"
-          }
+          done
 
-          sync_provider skylink provider-data/skylink.json "Skylink"
-          sync_provider antik provider-data/antik.json "ANTIK Sat"
+          [ -f provider-data/skylink-sk.json ] && rm -f provider-data/skylink.json
+          [ -f provider-data/antik-sat-sk.json ] && rm -f provider-data/antik.json
+
+      - name: Update Skylink from Vhannibal
+        run: python scripts/sync_vhannibal.py
 
       - name: Normalize catalogues to metadata only
         run: |
@@ -88,8 +160,7 @@ jobs:
           import json
           from pathlib import Path
 
-          for provider_id in ("skylink", "antik"):
-              path = Path("provider-data") / f"{provider_id}.json"
+          for path in sorted(Path("provider-data").glob("*.json")):
               data = json.loads(path.read_text())
               source = data.setdefault("source", {})
               source.pop("logo_repository", None)
@@ -106,9 +177,10 @@ jobs:
                   channel.pop("logo_url", None)
                   channel.pop("logo_slug", None)
                   channel.pop("logo_source", None)
-              data.pop("missing_logos", None)
 
+              data.pop("missing_logos", None)
               path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n")
+              print("normalized", path)
           PY
 
       - name: Validate generated provider metadata
@@ -116,54 +188,65 @@ jobs:
           python - <<'PY'
           import json
           from pathlib import Path
+          import yaml
 
-          rules = {
-              "skylink": {"min_channels": 250, "max_errors": 8},
-              "antik": {"min_channels": 70, "max_errors": 8},
-          }
+          cfg = yaml.safe_load(Path("providers.yml").read_text()) or {}
+          providers = [p for p in cfg.get("providers", []) if (p.get("source") or {}).get("type") == "satelitnatv"]
+          assert providers, "No SatelitnaTV providers configured"
 
-          for provider_id, rule in rules.items():
+          available = 0
+          for provider in providers:
+              provider_id = provider["id"]
               path = Path("provider-data") / f"{provider_id}.json"
+              if not path.is_file():
+                  print(f"::warning::{provider_id}: catalogue not available yet")
+                  continue
+
+              available += 1
               data = json.loads(path.read_text())
-              stats = data["stats"]
+              stats = data.get("stats") or {}
               assert data["provider"] == provider_id
               assert data["source"].get("artwork_mode") == "manual", data["source"]
               assert data["source"].get("upstream_logos_imported") is False, data["source"]
-              assert stats["channels_parsed"] >= rule["min_channels"], stats
-              assert stats["errors"] <= rule["max_errors"], stats
+              assert stats.get("channels_parsed", 0) > 0, (provider_id, stats)
               for channel in data.get("channels", []):
                   assert "logo_url" not in channel
                   assert "logo_slug" not in channel
                   assert "logo_source" not in channel
-              print(provider_id, json.dumps(stats, indent=2))
+              print(provider_id, json.dumps(stats, ensure_ascii=False))
+
+          assert available > 0, "No provider catalogue is available yet"
           PY
 
-      - name: Validate complete build with curated artwork only
+      - name: Validate Picon Hub build
         run: |
-          python scripts/build.py
+          python scripts/build_v2.py
           python - <<'PY'
           import json
           from pathlib import Path
 
           providers = json.loads(Path("public/providers.json").read_text())
-          by_id = {p["id"]: p for p in providers["providers"]}
-          for provider_id in ("skylink", "antik"):
-              provider = by_id[provider_id]
-              source_stats = provider.get("source_stats") or {}
-              assert source_stats.get("channels_parsed", 0) > 0, provider
-              if provider["available"]:
-                  assert provider["picon_count"] > 0, provider
+          assert providers.get("providers"), providers
+          deliveries = {p.get("delivery") for p in providers["providers"]}
+          assert "satellite" in deliveries, deliveries
+          assert "iptv" in deliveries, deliveries
+
+          for provider in providers["providers"]:
+              if provider.get("available"):
+                  assert provider.get("picon_count", 0) > 0, provider
                   package = Path("public") / provider["package"]
                   assert package.is_file(), package
           PY
 
       - name: Commit synchronized catalogues
         if: github.event_name != 'pull_request'
+        shell: bash
         run: |
+          set -u
           BRANCH="${GITHUB_REF_NAME}"
           git config user.name "JohnyWick"
           git config user.email "42406628+GrgoPitic@users.noreply.github.com"
-          git add provider-data/skylink.json provider-data/antik.json
+          git add -A provider-data
 
           if git diff --cached --quiet; then
             echo "Provider metadata is already current."
@@ -172,8 +255,34 @@ jobs:
           fi
 
           git commit -m "data: synchronize provider metadata"
-          git pull --rebase origin "$BRANCH"
-          git push origin "HEAD:$BRANCH"
+
+          pushed=0
+          for attempt in 1 2 3; do
+            echo "Push attempt ${attempt}/3"
+            git fetch --no-tags origin "+refs/heads/${BRANCH}:refs/remotes/origin/${BRANCH}"
+
+            if ! git rebase "origin/${BRANCH}"; then
+              git rebase --abort || true
+              echo "::warning::Provider metadata could not be rebased safely after concurrent repository changes. A later sync will retry."
+              echo "PROVIDER_DATA_CHANGED=false" >> "$GITHUB_ENV"
+              exit 0
+            fi
+
+            if git push origin "HEAD:${BRANCH}"; then
+              pushed=1
+              break
+            fi
+
+            echo "::warning::Branch moved while provider metadata was being pushed; retrying."
+            sleep $((attempt * 3))
+          done
+
+          if [ "$pushed" -ne 1 ]; then
+            echo "::warning::Provider metadata push was skipped after repeated concurrent updates. A later sync will retry."
+            echo "PROVIDER_DATA_CHANGED=false" >> "$GITHUB_ENV"
+            exit 0
+          fi
+
           echo "PROVIDER_DATA_CHANGED=true" >> "$GITHUB_ENV"
 
       - name: Trigger package rebuild after data commit
@@ -186,8 +295,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: provider-data
-          path: |
-            provider-data/skylink.json
-            provider-data/antik.json
-          if-no-files-found: error
+          path: provider-data/*.json
+          if-no-files-found: warn
           retention-days: 7

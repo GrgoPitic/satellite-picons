@@ -1,0 +1,2300 @@
+{
+  "provider": "skylink-sk",
+  "provider_name": "Skylink SK + CZ",
+  "source": {
+    "type": "vhannibal",
+    "url": "https://www.vhannibal.net/download_setting.php?action=download&id=6",
+    "settings": "Vhannibal Multi 9-13-16-19-23-28 est 08 nov 2026/userbouquet.dbe107.tv",
+    "sha256": "b51998579b800834ae096c8e9ecacee65f4c4ca4b2f439a24ee554d6e28fe782",
+    "artwork_mode": "manual",
+    "upstream_logos_imported": false
+  },
+  "stats": {
+    "channels_parsed": 163,
+    "upstream_logos_imported": 0
+  },
+  "channels": [
+    {
+      "id": "ct-1-pha-1f41",
+      "name": "CT 1 PHA HD",
+      "station_key": "ct-1-pha",
+      "service_reference": "1:0:19:1F41:CA1:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "ct-1-sm-1f47",
+      "name": "CT 1 SM HD",
+      "station_key": "ct-1-sm",
+      "service_reference": "1:0:19:1F47:CA1:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "ct-1-jm-1f48",
+      "name": "CT 1 JM HD",
+      "station_key": "ct-1-jm",
+      "service_reference": "1:0:19:1F48:CA1:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "ct-1-svc-1f4a",
+      "name": "CT 1 SVC HD",
+      "station_key": "ct-1-svc",
+      "service_reference": "1:0:19:1F4A:CA1:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "ct-1-jzc-1f4c",
+      "name": "CT 1 JZC HD",
+      "station_key": "ct-1-jzc",
+      "service_reference": "1:0:19:1F4C:CA1:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "ct-2-1f42",
+      "name": "CT 2 HD",
+      "station_key": "ct-2",
+      "service_reference": "1:0:19:1F42:CA1:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "nova-3391",
+      "name": "Nova HD",
+      "station_key": "nova",
+      "service_reference": "1:0:19:3391:C9D:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "nova-international-339b",
+      "name": "Nova International",
+      "station_key": "nova-international",
+      "service_reference": "1:0:16:339B:C9D:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "nova-fun-3722",
+      "name": "Nova Fun HD",
+      "station_key": "nova-fun",
+      "service_reference": "1:0:19:3722:C8E:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "prima-3392",
+      "name": "Prima HD",
+      "station_key": "prima",
+      "service_reference": "1:0:19:3392:C9D:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "prima-zoom-36e8",
+      "name": "Prima ZOOM HD",
+      "station_key": "prima-zoom",
+      "service_reference": "1:0:19:36E8:C8C:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "tv-barrandov-31c",
+      "name": "TV Barrandov",
+      "station_key": "tv-barrandov",
+      "service_reference": "1:0:16:31C:C94:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "jednotka-3c3c",
+      "name": "Jednotka HD",
+      "station_key": "jednotka",
+      "service_reference": "1:0:19:3C3C:C90:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "dvojka-3c3d",
+      "name": "Dvojka HD",
+      "station_key": "dvojka",
+      "service_reference": "1:0:19:3C3D:C90:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "markiza-3731",
+      "name": "Markiza HD",
+      "station_key": "markiza",
+      "service_reference": "1:0:19:3731:C8E:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "markiza-international-3720",
+      "name": "Markiza International",
+      "station_key": "markiza-international",
+      "service_reference": "1:0:16:3720:C8E:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "markiza-klasik-3c2b",
+      "name": "Markiza Klasik",
+      "station_key": "markiza-klasik",
+      "service_reference": "1:0:16:3C2B:C90:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "prima-sk-1f49",
+      "name": "Prima SK",
+      "station_key": "prima-sk",
+      "service_reference": "1:0:19:1F49:CA1:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "m1-17e5",
+      "name": "M1",
+      "station_key": "m1",
+      "service_reference": "1:0:16:17E5:C82:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "m2-petofi-17e6",
+      "name": "M2 / Petofi",
+      "station_key": "m2-petofi",
+      "service_reference": "1:0:16:17E6:C82:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "m5-1f51",
+      "name": "M5",
+      "station_key": "m5",
+      "service_reference": "1:0:16:1F51:CA1:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "tv2-17e9",
+      "name": "TV2",
+      "station_key": "tv2",
+      "service_reference": "1:0:16:17E9:C82:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "duna-1c16",
+      "name": "Duna SD",
+      "station_key": "duna",
+      "service_reference": "1:0:16:1C16:C88:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "duna-world-m4-sport-plus-1c10",
+      "name": "Duna World / M4 Sport+",
+      "station_key": "duna-world-m4-sport-plus",
+      "service_reference": "1:0:16:1C10:C88:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "fem3-319",
+      "name": "FEM3",
+      "station_key": "fem3",
+      "service_reference": "1:0:16:319:C94:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "canal-plus-334c",
+      "name": "CANAL+",
+      "station_key": "canal-plus",
+      "service_reference": "1:0:19:334C:C93:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "canal-plus-action-3736",
+      "name": "CANAL+ Action",
+      "station_key": "canal-plus-action",
+      "service_reference": "1:0:19:3736:C8E:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "canal-plus-crime-52b3",
+      "name": "CANAL+ Crime",
+      "station_key": "canal-plus-crime",
+      "service_reference": "1:0:19:52B3:C99:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "canal-plus-drama-3cfa",
+      "name": "CANAL+ Drama",
+      "station_key": "canal-plus-drama",
+      "service_reference": "1:0:19:3CFA:C95:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "canal-plus-classics-1f53",
+      "name": "CANAL+ Classics",
+      "station_key": "canal-plus-classics",
+      "service_reference": "1:0:19:1F53:CA1:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "filmbox-plus-one-cz-36e9",
+      "name": "FILMBOX+ One CZ",
+      "station_key": "filmbox-plus-one-cz",
+      "service_reference": "1:0:19:36E9:C8C:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "filmbox-plus-one-sk-36f2",
+      "name": "FILMBOX+ One SK",
+      "station_key": "filmbox-plus-one-sk",
+      "service_reference": "1:0:16:36F2:C8C:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "filmbox-plus-hits-3cf5",
+      "name": "FILMBOX+ Hits HD",
+      "station_key": "filmbox-plus-hits",
+      "service_reference": "1:0:19:3CF5:C95:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "filmbox-plus-emotion-3c2e",
+      "name": "FILMBOX+ Emotion HD",
+      "station_key": "filmbox-plus-emotion",
+      "service_reference": "1:0:19:3C2E:C90:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "filmbox-plus-comedy-3c34",
+      "name": "FILMBOX+ Comedy",
+      "station_key": "filmbox-plus-comedy",
+      "service_reference": "1:0:16:3C34:C90:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "filmbox-plus-love-and-crime-3cf9",
+      "name": "FILMBOX+ Love and Crime",
+      "station_key": "filmbox-plus-love-and-crime",
+      "service_reference": "1:0:16:3CF9:C95:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "film-europe-3c2d",
+      "name": "Film Europe HD",
+      "station_key": "film-europe",
+      "service_reference": "1:0:19:3C2D:C90:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "film-europe-plus-3cf7",
+      "name": "Film Europe+ HD",
+      "station_key": "film-europe-plus",
+      "service_reference": "1:0:19:3CF7:C95:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "film-plus-3cf2",
+      "name": "Film+ HD",
+      "station_key": "film-plus",
+      "service_reference": "1:0:19:3CF2:C95:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "film-plus-sk-36f8",
+      "name": "Film+ SK",
+      "station_key": "film-plus-sk",
+      "service_reference": "1:0:16:36F8:C8C:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "film-plus-hungary-1c15",
+      "name": "Film+ Hungary",
+      "station_key": "film-plus-hungary",
+      "service_reference": "1:0:16:1C15:C88:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "hbo-307",
+      "name": "HBO HD",
+      "station_key": "hbo",
+      "service_reference": "1:0:19:307:C94:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "hbo2-3cf3",
+      "name": "HBO2 HD",
+      "station_key": "hbo2",
+      "service_reference": "1:0:19:3CF3:C95:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "hbo3-3cf4",
+      "name": "HBO3 HD",
+      "station_key": "hbo3",
+      "service_reference": "1:0:19:3CF4:C95:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "cinemax-3c2c",
+      "name": "Cinemax HD",
+      "station_key": "cinemax",
+      "service_reference": "1:0:19:3C2C:C90:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "cinemax2-3cf6",
+      "name": "Cinemax2 HD",
+      "station_key": "cinemax2",
+      "service_reference": "1:0:19:3CF6:C95:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "cs-film-cs-horror-36ea",
+      "name": "CS Film/CS Horror",
+      "station_key": "cs-film-cs-horror",
+      "service_reference": "1:0:16:36EA:C8C:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "cs-mystery-334d",
+      "name": "CS Mystery",
+      "station_key": "cs-mystery",
+      "service_reference": "1:0:16:334D:C93:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "nova-cinema-3395",
+      "name": "Nova Cinema HD",
+      "station_key": "nova-cinema",
+      "service_reference": "1:0:19:3395:C9D:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "nova-action-3394",
+      "name": "Nova Action HD",
+      "station_key": "nova-action",
+      "service_reference": "1:0:19:3394:C9D:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "nova-krimi-3721",
+      "name": "Nova Krimi",
+      "station_key": "nova-krimi",
+      "service_reference": "1:0:16:3721:C8E:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "kino-barrandov-31d",
+      "name": "Kino Barrandov",
+      "station_key": "kino-barrandov",
+      "service_reference": "1:0:16:31D:C94:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "amc-36fb",
+      "name": "AMC",
+      "station_key": "amc",
+      "service_reference": "1:0:16:36FB:C8C:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "amc-sk-372b",
+      "name": "AMC SK",
+      "station_key": "amc-sk",
+      "service_reference": "1:0:16:372B:C8E:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "joj-cinema-3359",
+      "name": "JOJ Cinema HD",
+      "station_key": "joj-cinema",
+      "service_reference": "1:0:19:3359:C93:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "axn-cz-315",
+      "name": "AXN CZ",
+      "station_key": "axn-cz",
+      "service_reference": "1:0:16:315:C94:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "axn-black-central-europe-3d00",
+      "name": "AXN Black Central Europe",
+      "station_key": "axn-black-central-europe",
+      "service_reference": "1:0:16:3D00:C95:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "axn-white-central-europe-3d01",
+      "name": "AXN White Central Europe",
+      "station_key": "axn-white-central-europe",
+      "service_reference": "1:0:16:3D01:C95:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "barrandov-krimi-31e",
+      "name": "Barrandov Krimi",
+      "station_key": "barrandov-krimi",
+      "service_reference": "1:0:16:31E:C94:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "markiza-krimi-339f",
+      "name": "Markiza Krimi HD",
+      "station_key": "markiza-krimi",
+      "service_reference": "1:0:19:339F:C9D:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "doma-3732",
+      "name": "DOMA HD",
+      "station_key": "doma",
+      "service_reference": "1:0:19:3732:C8E:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "viasat-epic-drama-3700",
+      "name": "Viasat Epic Drama HD",
+      "station_key": "viasat-epic-drama",
+      "service_reference": "1:0:19:3700:C8C:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "rtl-gold-5314",
+      "name": "RTL GOLD",
+      "station_key": "rtl-gold",
+      "service_reference": "1:0:16:5314:C96:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "tv-joj-3398",
+      "name": "TV JOJ HD",
+      "station_key": "tv-joj",
+      "service_reference": "1:0:19:3398:C9D:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "joj-plus-3399",
+      "name": "JOJ PLUS HD",
+      "station_key": "joj-plus",
+      "service_reference": "1:0:19:3399:C9D:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "joj-family-3350",
+      "name": "JOJ Family",
+      "station_key": "joj-family",
+      "service_reference": "1:0:16:3350:C93:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "sorozat-plus-52a1",
+      "name": "Sorozat+",
+      "station_key": "sorozat-plus",
+      "service_reference": "1:0:16:52A1:C99:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "prima-max-36e5",
+      "name": "Prima MAX HD",
+      "station_key": "prima-max",
+      "service_reference": "1:0:19:36E5:C8C:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "prima-cool-3396",
+      "name": "Prima COOL HD",
+      "station_key": "prima-cool",
+      "service_reference": "1:0:19:3396:C9D:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "prima-cool-sk-3725",
+      "name": "Prima COOL HD SK",
+      "station_key": "prima-cool-sk",
+      "service_reference": "1:0:19:3725:C8E:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "prima-love-36ef",
+      "name": "Prima Love",
+      "station_key": "prima-love",
+      "service_reference": "1:0:16:36EF:C8C:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "prima-love-sk-3726",
+      "name": "Prima Love HD SK",
+      "station_key": "prima-love-sk",
+      "service_reference": "1:0:19:3726:C8E:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "prima-krimi-36ec",
+      "name": "Prima Krimi HD",
+      "station_key": "prima-krimi",
+      "service_reference": "1:0:19:36EC:C8C:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "prima-krimi-sk-308",
+      "name": "Prima KRIMI SK HD",
+      "station_key": "prima-krimi-sk",
+      "service_reference": "1:0:19:308:C94:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "prima-star-36ed",
+      "name": "Prima STAR",
+      "station_key": "prima-star",
+      "service_reference": "1:0:16:36ED:C8C:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "prima-show-36ee",
+      "name": "Prima Show",
+      "station_key": "prima-show",
+      "service_reference": "1:0:16:36EE:C8C:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "viasat-true-crime-36f3",
+      "name": "Viasat True Crime",
+      "station_key": "viasat-true-crime",
+      "service_reference": "1:0:16:36F3:C8C:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "nova-lady-3723",
+      "name": "Nova Lady",
+      "station_key": "nova-lady",
+      "service_reference": "1:0:16:3723:C8E:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "premium-30a",
+      "name": "Premium",
+      "station_key": "premium",
+      "service_reference": "1:0:16:30A:C94:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "slager-tv-52f5",
+      "name": "Slager TV",
+      "station_key": "slager-tv",
+      "service_reference": "1:0:16:52F5:C96:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "slager-original-334e",
+      "name": "Slager Original",
+      "station_key": "slager-original",
+      "service_reference": "1:0:16:334E:C93:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "dajto-3397",
+      "name": "DAJTO HD",
+      "station_key": "dajto",
+      "service_reference": "1:0:19:3397:C9D:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "joj-krimi-334f",
+      "name": "JOJ KRIMI",
+      "station_key": "joj-krimi",
+      "service_reference": "1:0:19:334F:C93:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "senzi-36f1",
+      "name": "Senzi",
+      "station_key": "senzi",
+      "service_reference": "1:0:16:36F1:C8C:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "supertv2-372e",
+      "name": "SuperTV2",
+      "station_key": "supertv2",
+      "service_reference": "1:0:16:372E:C8E:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "rtl-17e8",
+      "name": "RTL",
+      "station_key": "rtl",
+      "service_reference": "1:0:16:17E8:C82:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "rtl-ketto-52a0",
+      "name": "RTL KETTO",
+      "station_key": "rtl-ketto",
+      "service_reference": "1:0:16:52A0:C99:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "rtl-harom-529f",
+      "name": "RTL HAROM",
+      "station_key": "rtl-harom",
+      "service_reference": "1:0:16:529F:C99:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "cool-1c17",
+      "name": "Cool",
+      "station_key": "cool",
+      "service_reference": "1:0:16:1C17:C88:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "story-4-52b1",
+      "name": "Story 4",
+      "station_key": "story-4",
+      "service_reference": "1:0:16:52B1:C99:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "story-4-cz-17eb",
+      "name": "Story 4 CZ",
+      "station_key": "story-4-cz",
+      "service_reference": "1:0:16:17EB:C82:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "galaxy4-371f",
+      "name": "Galaxy4",
+      "station_key": "galaxy4",
+      "service_reference": "1:0:16:371F:C8E:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "tv-paprika-36fe",
+      "name": "TV Paprika",
+      "station_key": "tv-paprika",
+      "service_reference": "1:0:16:36FE:C8C:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "tv2-sef-5315",
+      "name": "TV2 Sef",
+      "station_key": "tv2-sef",
+      "service_reference": "1:0:16:5315:C96:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "canal-plus-sport-cz-3733",
+      "name": "CANAL+ Sport (CZ)",
+      "station_key": "canal-plus-sport-cz",
+      "service_reference": "1:0:19:3733:C8E:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "canal-plus-sport-sk-3734",
+      "name": "CANAL+ Sport (SK)",
+      "station_key": "canal-plus-sport-sk",
+      "service_reference": "1:0:19:3734:C8E:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "canal-plus-sport-2-cz-1f4b",
+      "name": "CANAL+ Sport 2 (CZ)",
+      "station_key": "canal-plus-sport-2-cz",
+      "service_reference": "1:0:19:1F4B:CA1:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "canal-plus-sport-2-sk-3c38",
+      "name": "CANAL+ Sport 2 (SK)",
+      "station_key": "canal-plus-sport-2-sk",
+      "service_reference": "1:0:19:3C38:C90:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "kanal1-sport-3c29",
+      "name": "Kanal1 Sport",
+      "station_key": "kanal1-sport",
+      "service_reference": "1:0:19:3C29:C90:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "kanal1-xtra-3724",
+      "name": "Kanal1 Xtra",
+      "station_key": "kanal1-xtra",
+      "service_reference": "1:0:19:3724:C8E:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "ct-sport-1f44",
+      "name": "CT sport HD",
+      "station_key": "ct-sport",
+      "service_reference": "1:0:19:1F44:CA1:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "nova-sport-1-3393",
+      "name": "Nova Sport 1 HD",
+      "station_key": "nova-sport-1",
+      "service_reference": "1:0:19:3393:C9D:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "nova-sport-2-371e",
+      "name": "Nova Sport 2 HD",
+      "station_key": "nova-sport-2",
+      "service_reference": "1:0:19:371E:C8E:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "nova-sport-3-36e6",
+      "name": "Nova Sport 3 HD",
+      "station_key": "nova-sport-3",
+      "service_reference": "1:0:19:36E6:C8C:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "nova-sport-4-36e7",
+      "name": "Nova Sport 4 HD",
+      "station_key": "nova-sport-4",
+      "service_reference": "1:0:19:36E7:C8C:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "nova-sport-5-sk-5316",
+      "name": "Nova Sport 5 HD (SK)",
+      "station_key": "nova-sport-5-sk",
+      "service_reference": "1:0:19:5316:C96:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "nova-sport-5-cz-372c",
+      "name": "Nova Sport 5 HD (CZ)",
+      "station_key": "nova-sport-5-cz",
+      "service_reference": "1:0:19:372C:C8E:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "nova-sport-6-312",
+      "name": "Nova Sport 6 HD",
+      "station_key": "nova-sport-6",
+      "service_reference": "1:0:19:312:C94:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "sport-1-sk-334b",
+      "name": "Sport 1 SK HD",
+      "station_key": "sport-1-sk",
+      "service_reference": "1:0:19:334B:C93:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "sport-1-cz-3c30",
+      "name": "Sport 1 HD CZ",
+      "station_key": "sport-1-cz",
+      "service_reference": "1:0:19:3C30:C90:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "sport-2-318",
+      "name": "Sport 2 HD",
+      "station_key": "sport-2",
+      "service_reference": "1:0:19:318:C94:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "prima-sport-3d02",
+      "name": "Prima Sport",
+      "station_key": "prima-sport",
+      "service_reference": "1:0:19:3D02:C95:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "m4-17e7",
+      "name": "M4",
+      "station_key": "m4",
+      "service_reference": "1:0:16:17E7:C82:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "rtvs-sport-3c3f",
+      "name": "RTVS SPORT HD",
+      "station_key": "rtvs-sport",
+      "service_reference": "1:0:19:3C3F:C90:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "joj-sport-339e",
+      "name": "JOJ Sport HD",
+      "station_key": "joj-sport",
+      "service_reference": "1:0:19:339E:C9D:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "joj-sport-2-30c",
+      "name": "JOJ Sport 2 HD",
+      "station_key": "joj-sport-2",
+      "service_reference": "1:0:19:30C:C94:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "automotorsport-17d0",
+      "name": "AutoMotorSport HD",
+      "station_key": "automotorsport",
+      "service_reference": "1:0:19:17D0:C82:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "golf-channel-311",
+      "name": "Golf Channel",
+      "station_key": "golf-channel",
+      "service_reference": "1:0:16:311:C94:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "nautical-1bfd",
+      "name": "Nautical HD",
+      "station_key": "nautical",
+      "service_reference": "1:0:19:1BFD:C88:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "nat-geo-302",
+      "name": "Nat Geo HD",
+      "station_key": "nat-geo",
+      "service_reference": "1:0:19:302:C94:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "nat-geo-cz-303",
+      "name": "Nat Geo HD CZ",
+      "station_key": "nat-geo-cz",
+      "service_reference": "1:0:19:303:C94:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "national-geographic-wild-304",
+      "name": "National Geographic Wild HD",
+      "station_key": "national-geographic-wild",
+      "service_reference": "1:0:19:304:C94:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "national-geographic-wild-cz-305",
+      "name": "National Geographic Wild HD CZ",
+      "station_key": "national-geographic-wild-cz",
+      "service_reference": "1:0:19:305:C94:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "viasat-nature-3cf1",
+      "name": "Viasat Nature HD",
+      "station_key": "viasat-nature",
+      "service_reference": "1:0:19:3CF1:C95:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "viasat-explore-3c2f",
+      "name": "Viasat Explore",
+      "station_key": "viasat-explore",
+      "service_reference": "1:0:16:3C2F:C90:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "viasat-history-3cf0",
+      "name": "Viasat History HD",
+      "station_key": "viasat-history",
+      "service_reference": "1:0:19:3CF0:C95:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "history-3cff",
+      "name": "History HD",
+      "station_key": "history",
+      "service_reference": "1:0:19:3CFF:C95:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "cs-history-335a",
+      "name": "CS History",
+      "station_key": "cs-history",
+      "service_reference": "1:0:16:335A:C93:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "love-nature-cz-30f",
+      "name": "Love Nature HD CZ",
+      "station_key": "love-nature-cz",
+      "service_reference": "1:0:19:30F:C94:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "ct-d-art-1f45",
+      "name": "CT :D/art HD",
+      "station_key": "ct-d-art",
+      "service_reference": "1:0:19:1F45:CA1:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "spektrum-310",
+      "name": "Spektrum HD",
+      "station_key": "spektrum",
+      "service_reference": "1:0:19:310:C94:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "spektrum-home-36f6",
+      "name": "Spektrum Home",
+      "station_key": "spektrum-home",
+      "service_reference": "1:0:16:36F6:C8C:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "joj-svet-cz-3701",
+      "name": "JOJ Svet CZ",
+      "station_key": "joj-svet-cz",
+      "service_reference": "1:0:16:3701:C8C:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "joj-svet-sk-1f4f",
+      "name": "JOJ Svet SK",
+      "station_key": "joj-svet-sk",
+      "service_reference": "1:0:16:1F4F:CA1:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "fishing-and-hunting-314",
+      "name": "Fishing and Hunting",
+      "station_key": "fishing-and-hunting",
+      "service_reference": "1:0:16:314:C94:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "slager-muzika-339d",
+      "name": "Slager Muzika",
+      "station_key": "slager-muzika",
+      "service_reference": "1:0:16:339D:C9D:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "retro-music-tv-3c3a",
+      "name": "Retro Music TV",
+      "station_key": "retro-music-tv",
+      "service_reference": "1:0:16:3C3A:C90:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "muzsika-tv-52f3",
+      "name": "Muzsika TV",
+      "station_key": "muzsika-tv",
+      "service_reference": "1:0:16:52F3:C96:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "ocko-star-309",
+      "name": "OCKO STAR",
+      "station_key": "ocko-star",
+      "service_reference": "1:0:16:309:C94:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "disney-cz-36fc",
+      "name": "Disney CZ",
+      "station_key": "disney-cz",
+      "service_reference": "1:0:16:36FC:C8C:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "cartoon-network-cz-36f5",
+      "name": "Cartoon Network CZ",
+      "station_key": "cartoon-network-cz",
+      "service_reference": "1:0:16:36F5:C8C:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "cartoonito-30b",
+      "name": "Cartoonito",
+      "station_key": "cartoonito",
+      "service_reference": "1:0:16:30B:C94:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "jimjam-cz-3c37",
+      "name": "JimJam CZ",
+      "station_key": "jimjam-cz",
+      "service_reference": "1:0:16:3C37:C90:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "minimax-3cfb",
+      "name": "Minimax",
+      "station_key": "minimax",
+      "service_reference": "1:0:16:3CFB:C95:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "jojko-339a",
+      "name": "Jojko",
+      "station_key": "jojko",
+      "service_reference": "1:0:16:339A:C9D:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "lala-tv-3c2a",
+      "name": "LALA TV",
+      "station_key": "lala-tv",
+      "service_reference": "1:0:16:3C2A:C90:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "ct-24-1f43",
+      "name": "CT 24 HD",
+      "station_key": "ct-24",
+      "service_reference": "1:0:19:1F43:CA1:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "ta3-1328",
+      "name": "TA3 HD",
+      "station_key": "ta3",
+      "service_reference": "1:0:19:1328:CA2:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "seznam-cz-335b",
+      "name": "Seznam.cz HD",
+      "station_key": "seznam-cz",
+      "service_reference": "1:0:19:335B:C93:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "rtvs-24-3c3e",
+      "name": "RTVS 24 HD",
+      "station_key": "rtvs-24",
+      "service_reference": "1:0:19:3C3E:C90:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "hirtv-17e3",
+      "name": "HirTV",
+      "station_key": "hirtv",
+      "service_reference": "1:0:16:17E3:C82:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "joj-24-33a0",
+      "name": "JOJ 24 HD",
+      "station_key": "joj-24",
+      "service_reference": "1:0:19:33A0:C9D:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "cnn-prima-news-36ff",
+      "name": "CNN Prima News HD",
+      "station_key": "cnn-prima-news",
+      "service_reference": "1:0:19:36FF:C8C:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "tv-lux-1f4e",
+      "name": "TV Lux HD",
+      "station_key": "tv-lux",
+      "service_reference": "1:0:19:1F4E:CA1:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "daystar-30d",
+      "name": "Daystar",
+      "station_key": "daystar",
+      "service_reference": "1:0:16:30D:C94:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "rtl-gold-5319",
+      "name": "RTL GOLD.",
+      "station_key": "rtl-gold",
+      "service_reference": "1:0:16:5319:C96:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "story-4-52b2",
+      "name": "Story 4.",
+      "station_key": "story-4",
+      "service_reference": "1:0:16:52B2:C99:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "test3-3cf8",
+      "name": "Test3",
+      "station_key": "test3",
+      "service_reference": "1:0:16:3CF8:C95:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "penthouse-gold-cz-1c0c",
+      "name": "Penthouse Gold CZ",
+      "station_key": "penthouse-gold-cz",
+      "service_reference": "1:0:19:1C0C:C88:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "penthouse-reality-tv-cz-1c0d",
+      "name": "Penthouse Reality TV CZ",
+      "station_key": "penthouse-reality-tv-cz",
+      "service_reference": "1:0:19:1C0D:C88:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "vixen-17e2",
+      "name": "Vixen HD",
+      "station_key": "vixen",
+      "service_reference": "1:0:19:17E2:C82:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "19",
+        "1",
+        "16"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "leo-tv-22-06-3cfc",
+      "name": "Leo TV (22-06)",
+      "station_key": "leo-tv-22-06",
+      "service_reference": "1:0:16:3CFC:C95:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    },
+    {
+      "id": "man-x-5284",
+      "name": "Man-X",
+      "station_key": "man-x",
+      "service_reference": "1:0:16:5284:C96:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E"
+    }
+  ]
+}
