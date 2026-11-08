@@ -1,16 +1,91 @@
 <style>
 .station-tools{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0}.station-tools input{flex:2;min-width:180px}.station-tools select{flex:1;min-width:160px}.station-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(245px,1fr));gap:16px}.station-tile{border:1px solid #2b3d50;border-radius:16px;padding:18px;background:#101923}.station-image{height:105px;display:flex;align-items:center;justify-content:center;background:#080d13;border-radius:10px;margin-bottom:14px;color:#91a1b4}.station-image img{width:150px;height:90px;object-fit:contain}.station-tile h3{margin:0 0 8px}.station-tile p{color:#a9b8c9;font-size:13px;line-height:1.6}.station-tile button{margin-top:8px}.station-empty{padding:30px;color:#acb9c8}.station-status{color:#b6d9bf;font-size:13px}.station-help{padding:16px;background:#152333;border-radius:12px;line-height:1.7}
+.change-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px;margin:18px 0}
+.change-stat{padding:14px;border:1px solid #2b3d50;border-radius:12px;background:#101923}
+.change-stat strong{display:block;font-size:24px;margin-bottom:4px}.change-stat span{font-size:12px;color:#9fb0c2}
+.change-list{display:grid;gap:10px;margin-top:12px}.change-item{padding:12px 14px;border:1px solid #263748;border-radius:11px;background:#0d151e}
+.change-item strong{display:block;margin-bottom:5px}.change-item small{color:#91a1b4;line-height:1.5;word-break:break-word}
+.change-section{margin-top:22px}.change-section h3{margin-bottom:8px}
+.change-empty{padding:22px;border:1px dashed #2b3d50;border-radius:12px;color:#9fb0c2}
 </style>
 <section class="panel" data-panel-view="stations">
 <h1>Moje stanice</h1><p class="sub">Vyber stanicu, skontroluj picon a uprav jej logo.</p>
 <div class="station-help">Jednotný vzhľad: <strong>piconblack · 150 × 90 px</strong>. Najprv schváľ náhľad, potom ulož logo. Uložené zmeny odošli na web cez Publikovanie.</div>
-<div class="station-tools"><input id="stationSearch" type="search" aria-label="Vyhľadať stanicu" placeholder="Hľadať stanicu…"><select id="stationProvider" aria-label="Operátor"><option value="skylink">Skylink SK + CZ</option><option value="">Všetci operátori</option></select></div>
-<div class="station-help">Skylink SK + CZ sa aktualizuje z Vhannibal automaticky pri spustení administrácie. Na GitHube je pripravená denná synchronizácia. Logá zostávajú tvoje, naladenie určuje Vhannibal.</div>
-<p id="stationCount" role="status"></p><div id="stationGrid" class="station-grid"></div>
+<div class="station-tools"><input id="stationSearch" type="search" aria-label="Vyhľadať stanicu" placeholder="Hľadať stanicu…"><select id="stationProvider" aria-label="Orbitálna pozícia"><option value="">Všetky orbitálne pozície</option></select><select id="stationOperator" aria-label="Skutočné členstvo v operátorovi"><option value="">Všetky služby Vhannibal</option></select></div>
+<div class="station-help">Vhannibal určuje služby podľa orbity; Skylink SK/CZ filtrujeme nezávisle podľa FastScan, orbity a frekvencie. Neoverené stanice sa do operátora nezaradia. Logá zostávajú tvoje.</div>
+<p id="stationCount" role="status"></p><div id="stationGrid" class="station-grid"></div><button type="button" class="action secondary" id="stationMore" style="display:none;margin-top:16px">Zobraziť ďalších 100 staníc</button>
 </section>
-<section class="panel" data-panel-view="missing"><h1>Chýbajúce logá</h1><p class="sub">Stanice, ktorým chýba logo aspoň u jedného operátora. Pri existujúcom logu otvor priradenia.</p><div id="missingGrid" class="station-grid"></div></section>
+<section class="panel" data-panel-view="missing"><h1>Chýbajúce logá</h1><p class="sub">Stanice bez hotového loga pre všetky ich service reference. Pri existujúcom logu otvor priradenia.</p><div id="missingGrid" class="station-grid"></div><button type="button" class="action secondary" id="missingMore" style="display:none;margin-top:16px">Zobraziť ďalších 100 chýbajúcich</button></section>
+
+<section class="panel" data-panel-view="vhannibal">
+<h1>Zmeny Vhannibal</h1>
+<p class="sub">Posledná automatická synchronizácia Vhannibal. Tu vidíš, čo sa oproti predchádzajúcemu katalógu zmenilo.</p>
+{% if vhannibal_report.error %}
+  <div class="change-empty">{{ vhannibal_report.error }}</div>
+{% else %}
+  <div class="station-help">
+    <strong>Posledná synchronizácia:</strong>
+    <span id="vhannibalSyncedAt" data-ts="{{ vhannibal_report.synced_at or '' }}">—</span><br>
+    Predtým: {{ vhannibal_report.previous_channels or 0 }} služieb · teraz: {{ vhannibal_report.current_channels or 0 }} služieb.
+    {% if vhannibal_report.counts and vhannibal_report.counts.artwork_assignments_updated %}
+      Automaticky bolo doplnených {{ vhannibal_report.counts.artwork_assignments_updated }} priradení existujúceho loga.
+    {% endif %}
+  </div>
+  <div class="change-summary">
+    <div class="change-stat"><strong>{{ vhannibal_report.counts.added or 0 }}</strong><span>nové služby</span></div>
+    <div class="change-stat"><strong>{{ vhannibal_report.counts.removed or 0 }}</strong><span>odstránené služby</span></div>
+    <div class="change-stat"><strong>{{ vhannibal_report.counts.renamed or 0 }}</strong><span>premenovania</span></div>
+    <div class="change-stat"><strong>{{ vhannibal_report.counts.tuning_changed or 0 }}</strong><span>zmeny ladenia</span></div>
+    <div class="change-stat"><strong>{{ vhannibal_report.counts.metadata_changed or 0 }}</strong><span>iné zmeny</span></div>
+  </div>
+
+  {% if not vhannibal_report.changed %}
+    <div class="change-empty">Od posledného uloženého katalógu sa nič podstatné nezmenilo.</div>
+  {% endif %}
+
+  {% if vhannibal_report.tuning_changed %}
+  <div class="change-section"><h3>Zmenené ladenie / service reference</h3><div class="change-list">
+    {% for item in vhannibal_report.tuning_changed %}
+    <div class="change-item"><strong>{{ item.name }}</strong><small>Predtým: {{ item.old_reference }}<br>Teraz: {{ item.new_reference }}</small></div>
+    {% endfor %}
+  </div></div>
+  {% endif %}
+
+  {% if vhannibal_report.added %}
+  <div class="change-section"><h3>Nové služby</h3><div class="change-list">
+    {% for item in vhannibal_report.added %}
+    <div class="change-item"><strong>{{ item.name }}</strong><small>{{ item.identity }}</small></div>
+    {% endfor %}
+  </div></div>
+  {% endif %}
+
+  {% if vhannibal_report.removed %}
+  <div class="change-section"><h3>Odstránené služby</h3><div class="change-list">
+    {% for item in vhannibal_report.removed %}
+    <div class="change-item"><strong>{{ item.name }}</strong><small>{{ item.identity }}</small></div>
+    {% endfor %}
+  </div></div>
+  {% endif %}
+
+  {% if vhannibal_report.renamed %}
+  <div class="change-section"><h3>Premenované služby</h3><div class="change-list">
+    {% for item in vhannibal_report.renamed %}
+    <div class="change-item"><strong>{{ item.old_name }} → {{ item.new_name }}</strong><small>{{ item.identity }}</small></div>
+    {% endfor %}
+  </div></div>
+  {% endif %}
+
+  {% if vhannibal_report.metadata_changed %}
+  <div class="change-section"><h3>Ostatné zmeny</h3><div class="change-list">
+    {% for item in vhannibal_report.metadata_changed %}
+    <div class="change-item"><strong>{{ item.name }}</strong><small>Zmenené polia: {{ item.fields|join(', ') }}</small></div>
+    {% endfor %}
+  </div></div>
+  {% endif %}
+{% endif %}
+</section>
 <section class="panel" data-panel-view="changes">
-<h1>Zmeny operátorov</h1>
+<h1>História synchronizácie</h1>
 <p class="sub">Zmeny oproti poslednému úspešne načítanému katalógu. Nedostupnosť zdroja nie je odstránenie stanice.</p>
 <p id="catalogueChangeStatus" role="status" class="station-help">Načítavam históriu aktualizácií…</p>
 <div class="station-tools"><select id="catalogueChangeOperator" aria-label="Filtrovať zmeny podľa operátora"><option value="">Všetci operátori</option></select></div>
@@ -53,9 +128,17 @@
  const grouped=new Map();
  adminChannels.forEach(ch=>{const key=ch.station_key||ch.name; if(!grouped.has(key))grouped.set(key,[]);grouped.get(key).push(ch);});
  const stations=[...grouped.values()].sort((a,b)=>a[0].name.localeCompare(b[0].name,'sk'));
- const search=document.querySelector('#stationSearch'),provider=document.querySelector('#stationProvider');
+ const search=document.querySelector('#stationSearch'),provider=document.querySelector('#stationProvider'),operator=document.querySelector('#stationOperator');
  const label=id=>(providerMeta[id]||{}).name||id||'Bez operátora';
- [...new Set(adminChannels.map(c=>c.provider_group).filter(Boolean))].sort((a,b)=>label(a).localeCompare(label(b),'sk')).forEach(id=>provider.add(new Option(label(id),id)));
+ fetch('/api/operator-registry',{cache:'no-store'})
+   .then(r=>{if(!r.ok)throw Error('Neplatný register');return r.json();})
+   .then(data=>{
+     (data.operators||[]).forEach(op=>operator.add(new Option(op.name+' – overené služby',op.id)));
+   })
+   .catch(()=>{[...new Set(adminChannels.flatMap(c=>c._operators||[]))].sort()
+     .forEach(id=>operator.add(new Option(id+' – overené služby',id)));});
+
+ [...new Set(adminChannels.map(c=>c.satellite_position).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'sk')).forEach(position=>provider.add(new Option(position,position)));
  const normalize=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
  function openPanel(name){document.querySelector(`[data-panel="${name}"]`).click();}
  function select(ch,panel){
@@ -70,27 +153,48 @@
    const picture=document.createElement('div');picture.className='station-image';
    if(source._has_curated_logo){const img=document.createElement('img');img.loading='lazy';img.alt=source.name;img.src='/api/station-picon?identity='+encodeURIComponent(source._identity);picture.append(img);}else picture.textContent='Zatiaľ bez loga';
    const title=document.createElement('h3');title.textContent=source.name;
-   const operators=document.createElement('p');operators.textContent=[...new Set(rows.map(c=>label(c.provider_group)))].join(' · ');
+   const operators=document.createElement('p');const orbits=[...new Set(rows.map(c=>c.satellite_position).filter(Boolean))].join(' · ');const verified=[...new Set(rows.flatMap(c=>c._operators||[]))];operators.textContent=orbits+' · '+(verified.length?verified.join(' / '):'Len Vhannibal, operátor neoverený');
    const status=document.createElement('div');status.className='station-status';status.textContent=`Logo má ${rows.filter(c=>c._has_curated_logo).length} z ${rows.length} výskytov stanice`;
    tile.append(picture,title,operators,status);
    const button=(text,fn)=>{const b=document.createElement('button');b.type='button';b.className='action secondary';b.textContent=text;b.onclick=fn;tile.append(b);};
    button(source._has_curated_logo?'Vymeniť logo':'Nahrať logo',()=>select(source,'upload'));
-   if(source._has_curated_logo){button('Upraviť vzhľad',()=>select(source,'edit'));button('Priradiť operátorom',()=>{select(source,'upload');openPanel('library');});}
+   if(source._has_curated_logo){button('Upraviť vzhľad',()=>select(source,'edit'));button('Priradiť službám',()=>{select(source,'upload');openPanel('library');});}
    return tile;
  }
+ let stationLimit=100, missingLimit=100;
+ const stationMore=document.querySelector('#stationMore');
+ const missingMore=document.querySelector('#missingMore');
+ const missingRows=stations.filter(rows=>rows.some(c=>!c._has_curated_logo));
  function render(){
    const grid=document.querySelector('#stationGrid');grid.replaceChildren();
-   const visible=stations.filter(rows=>rows.some(c=>normalize(c.name).includes(normalize(search.value)))&&(!provider.value||rows.some(c=>provider.value==='skylink'?['skylink-sk','skylink-cz'].includes(c.provider_group):c.provider_group===provider.value)));
-   visible.forEach(rows=>grid.append(card(rows)));document.querySelector('#stationCount').textContent=`Zobrazené stanice: ${visible.length} z ${stations.length}`;
+   const term=normalize(search.value.trim());
+   const visible=stations.filter(rows=>rows.some(c=>normalize(c.name).includes(term)) &&
+       (!provider.value || rows.some(c=>c.satellite_position===provider.value)) &&
+       (!operator.value || rows.some(c=>(c._operators||[]).includes(operator.value))));
+   visible.slice(0,stationLimit).forEach(rows=>grid.append(card(rows)));
+   document.querySelector('#stationCount').textContent=
+     `Zobrazené stanice: ${Math.min(visible.length,stationLimit)} z ${visible.length} · celkom ${stations.length}`;
+   stationMore.style.display=visible.length>stationLimit?'block':'none';
    if(!visible.length)grid.textContent='Žiadna stanica nezodpovedá vyhľadávaniu.';
  }
- const missing=document.querySelector('#missingGrid');stations.filter(rows=>rows.some(c=>!c._has_curated_logo)).forEach(rows=>missing.append(card(rows)));
- if(!missing.children.length)missing.textContent='Všetky stanice majú priradené logo.';
- search.addEventListener('input',render);provider.addEventListener('change',render);render();
+ function renderMissing(){
+   const missing=document.querySelector('#missingGrid');missing.replaceChildren();
+   missingRows.slice(0,missingLimit).forEach(rows=>missing.append(card(rows)));
+   missingMore.style.display=missingRows.length>missingLimit?'block':'none';
+   if(!missingRows.length)missing.textContent='Všetky stanice majú priradené logo.';
+ }
+ stationMore.addEventListener('click',()=>{stationLimit+=100;render();});
+ missingMore.addEventListener('click',()=>{missingLimit+=100;renderMissing();});
+ search.addEventListener('input',()=>{stationLimit=100;render();});
+ provider.addEventListener('change',()=>{stationLimit=100;render();});
+ operator.addEventListener('change',()=>{stationLimit=100;render();});
+ render();renderMissing();
  const nav=document.querySelector('.nav');
  const details=document.createElement('details');
  const summary=document.createElement('summary');summary.textContent='Ďalšie nástroje';details.append(summary);
- nav.querySelectorAll('[data-panel]').forEach(b=>{if(!['stations','missing','changes','publish'].includes(b.dataset.panel))details.append(b);});nav.append(details);
+ nav.querySelectorAll('[data-panel]').forEach(b=>{if(!['stations','missing','vhannibal','changes','publish'].includes(b.dataset.panel))details.append(b);});nav.append(details);
+ const vhTs=document.querySelector('#vhannibalSyncedAt');
+ if(vhTs&&vhTs.dataset.ts){const d=new Date(Number(vhTs.dataset.ts)*1000);if(!Number.isNaN(d.getTime()))vhTs.textContent=d.toLocaleString('sk-SK');}
  // Keep existing editing panels reachable, with the station list as the entry point.
  openPanel('stations');
 })();

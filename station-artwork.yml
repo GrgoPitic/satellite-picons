@@ -12,7 +12,8 @@ stations:
     - sat:freesat-sk:7AAD_2CC_600_E080000
     - sat:orange-tv-sat:339E_C9D_3_EB0000
     - sat:skylink-sk:339E_C9D_3_EB0000
-    updated_at: 1794145675
+    - sat:skylink-sk:7DB_9E98_16E_A00000
+    updated_at: 1794147907
   joj-cinema:
     name: JOJ Cinema
     logo: assets/logos/joj-cinema.png
@@ -29,8 +30,9 @@ stations:
     - sat:magio-sat-sk:1789_AF6_BB_E080000
     - sat:orange-tv-sat:3359_C93_3_EB0000
     - sat:skylink-sk:3359_C93_3_EB0000
+    - sat:skylink-sk:4C5_76C1_16E_A00000
     - sat:telly-cz:1789_AF6_BB_E080000
-    updated_at: 1794145675
+    updated_at: 1794147907
   viasat-explore:
     name: Viasat Explore
     logo: assets/logos/viasat-explore.png
@@ -49,9 +51,16 @@ stations:
     - sat:mts-bosna:4E9F_CA4_3_EB0000
     - sat:mts-srbija:4E9F_CA4_3_EB0000
     - sat:orange-tv-sat:3C2F_C90_3_EB0000
+    - sat:skylink-sk:262_2774_13E_820000
     - sat:skylink-sk:3C2F_C90_3_EB0000
+    - sat:skylink-sk:44E_526C_16E_A00000
+    - sat:skylink-sk:454_526C_16E_A00000
+    - sat:skylink-sk:45B_526C_16E_A00000
+    - sat:skylink-sk:46D_8_AA_5A0000
+    - sat:skylink-sk:4E9F_CA4_3_EB0000
+    - sat:skylink-sk:78_251C_D5_820000
     - sat:telly-cz:FB6_AF4_BB_E080000
-    updated_at: 1794145675
+    updated_at: 1794147907
   markiza-krimi:
     name: Markiza Krimi HD
     logo: assets/logos/markiza-krimi-hd-85db4865d2.png
@@ -65,7 +74,8 @@ stations:
     - sat:magio-sat-sk:FAD_AF4_BB_E080000
     - sat:orange-tv-sat:339F_C9D_3_EB0000
     - sat:skylink-sk:339F_C9D_3_EB0000
-    updated_at: 1794145675
+    - sat:skylink-sk:7D9_9E98_16E_A00000
+    updated_at: 1794147907
   viasat-nature:
     name: Viasat Nature
     logo: assets/logos/viasat-nature.svg
@@ -88,9 +98,16 @@ stations:
     - sat:mts-bosna:4E3C_CA7_3_EB0000
     - sat:mts-srbija:4E3C_CA7_3_EB0000
     - sat:orange-tv-sat:3CF1_C95_3_EB0000
+    - sat:skylink-sk:261_2774_13E_820000
     - sat:skylink-sk:3CF1_C95_3_EB0000
+    - sat:skylink-sk:44D_526C_16E_A00000
+    - sat:skylink-sk:45A_526C_16E_A00000
+    - sat:skylink-sk:46C_8_AA_5A0000
+    - sat:skylink-sk:4E3C_CA7_3_EB0000
+    - sat:skylink-sk:59_3_40_A00000
+    - sat:skylink-sk:D4_25E4_D5_820000
     - sat:telly-cz:177C_AF6_BB_E080000
-    updated_at: 1794145675
+    updated_at: 1794147907
   joj-family:
     name: JOJ Family
     logo: assets/logos/stations/joj-family.png
@@ -119,9 +136,14 @@ stations:
     - sat:mts-bosna:4E5A_C9C_3_EB0000
     - sat:mts-srbija:4E5A_C9C_3_EB0000
     - sat:polsat-box-pl:1401_5DC_13E_820000
+    - sat:skylink-sk:12A_3_40_A00000
+    - sat:skylink-sk:1401_5DC_13E_820000
     - sat:skylink-sk:36FB_C8C_3_EB0000
+    - sat:skylink-sk:47F_76C0_16E_A00000
+    - sat:skylink-sk:4E5A_C9C_3_EB0000
+    - sat:skylink-sk:76_25E4_D5_820000
     - sat:telly-cz:177E_AF6_BB_E080000
-    updated_at: 1794145675
+    updated_at: 1794147907
   amc-sk:
     name: AMC SK
     logo: assets/logos/stations/amc-sk.png
@@ -189,7 +211,7 @@ stations:
     - sat:polsat-box-pl:C25_1E78_71_820000
     - sat:polsat-box-pl:C2A_1E78_71_820000
     - sat:skylink-sk:315_C94_3_EB0000
-    updated_at: 1794145675
+    updated_at: 1794151581
   axn-white-central-europe:
     name: AXN White Central Europe
     logo: assets/logos/stations/axn-white-central-europe.png
@@ -236,9 +258,19 @@ stations:
     - sat:mts-bosna:4EC9_C9C_3_EB0000
     - sat:mts-srbija:4EC9_C9C_3_EB0000
     - sat:orange-tv-sat:30B_C94_3_EB0000
+    - sat:skylink-sk:1BD2_17D4_13E_820000
+    - sat:skylink-sk:1C_C_85_C00000
+    - sat:skylink-sk:28A_C418_16E_A00000
     - sat:skylink-sk:30B_C94_3_EB0000
+    - sat:skylink-sk:33_1_40_A00000
+    - sat:skylink-sk:4EC9_C9C_3_EB0000
+    - sat:skylink-sk:84D_389_110_5A0000
+    - sat:skylink-sk:851_389_110_5A0000
+    - sat:skylink-sk:85_4B0_110_820000
+    - sat:skylink-sk:CD0C_7E1_2_11A0000
+    - sat:skylink-sk:E4_25E4_D5_820000
     - sat:tivusat-it:85_4B0_110_820000
-    updated_at: 1794145675
+    updated_at: 1794147907
   cinemax:
     name: Cinemax HD
     logo: assets/logos/stations/cinemax.png
@@ -251,7 +283,6 @@ stations:
     trim_logo: true
     targets:
     - sat:antik-sat-sk:79A_C6D4_16E_A00000
-    - sat:canal-plus-pl:3A9F_514_13E_820000
     - sat:digi-tv-hu:44C_1_1_E080000
     - sat:digi-tv-ro:44C_1_1_E080000
     - sat:digi-tv-sk:1B65_AF7_BB_E080000
@@ -265,9 +296,14 @@ stations:
     - sat:mts-srbija:4E69_CA8_3_EB0000
     - sat:orange-tv-sat:3C2C_C90_3_EB0000
     - sat:polsat-box-pl:3A9F_514_13E_820000
+    - sat:skylink-sk:3A9F_514_13E_820000
     - sat:skylink-sk:3C2C_C90_3_EB0000
+    - sat:skylink-sk:4E69_CA8_3_EB0000
+    - sat:skylink-sk:786_C6D4_16E_A00000
+    - sat:skylink-sk:79A_C6D4_16E_A00000
+    - sat:skylink-sk:E2_251C_D5_820000
     - sat:telly-cz:1B65_AF7_BB_E080000
-    updated_at: 1794147667
+    updated_at: 1794147907
   canal-plus-action:
     name: CANAL+ Action
     logo: assets/logos/stations/canal-plus-action.png
@@ -287,8 +323,10 @@ stations:
     - sat:magenta-tv-sat-cz:2346_AF9_BB_E080000
     - sat:magio-sat-sk:2346_AF9_BB_E080000
     - sat:orange-tv-sat:3736_C8E_3_EB0000
+    - sat:skylink-sk:101C_451_35_C00000
+    - sat:skylink-sk:17CF_C82_3_EB0000
     - sat:skylink-sk:3736_C8E_3_EB0000
-    updated_at: 1794145675
+    updated_at: 1794147907
   canal-plus:
     name: CANAL+
     logo: assets/logos/stations/canal-plus.png
@@ -301,8 +339,10 @@ stations:
     trim_logo: true
     targets:
     - sat:orange-tv-sat:334C_C93_3_EB0000
+    - sat:skylink-sk:2261_438_1_C00000
+    - sat:skylink-sk:22CD_434_1_C00000
     - sat:skylink-sk:334C_C93_3_EB0000
-    updated_at: 1794145675
+    updated_at: 1794147907
   canal-plus-classics:
     name: CANAL+ Classics
     logo: assets/logos/stations/canal-plus-classics.png
@@ -368,7 +408,8 @@ stations:
     - sat:antik-sat-sk:491_76C0_16E_A00000
     - sat:orange-tv-sat:17D0_C82_3_EB0000
     - sat:skylink-sk:17D0_C82_3_EB0000
-    updated_at: 1794145632
+    - sat:skylink-sk:491_76C0_16E_A00000
+    updated_at: 1794147907
   canal-plus-sport-cz:
     name: CANAL+ Sport (CZ)
     logo: assets/logos/stations/canal-plus-sport-cz.png
@@ -387,5 +428,18 @@ stations:
     - sat:magio-sat-sk:1B67_AF7_BB_E080000
     - sat:orange-tv-sat:3734_C8E_3_EB0000
     - sat:skylink-sk:3733_C8E_3_EB0000
-    - sat:skylink-sk:3734_C8E_3_EB0000
-    updated_at: 1794147667
+    updated_at: 1794151581
+  '24':
+    name: :24
+    logo: assets/logos/stations/24.png
+    source_logo: assets/source-logos/stations/24.svg
+    dark_to_white: false
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: false
+    background_tolerance: 28
+    trim_logo: true
+    render_preset: original
+    targets:
+    - sat:skylink-sk:4B5_76C1_16E_A00000
+    updated_at: 1794149694

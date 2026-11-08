@@ -1,10 +1,14 @@
 (async () => {
+  try {
   // Always read the current deployment instead of a cached older catalogue.
   const cacheToken = Date.now();
-  const [index, version, providerCatalog] = await Promise.all([
+  const [index, version, orbitCatalog, operatorCatalog] = await Promise.all([
     fetch('index.json?v=' + cacheToken, { cache: 'no-store' }).then(r => r.json()),
     fetch('version.json?v=' + cacheToken, { cache: 'no-store' }).then(r => r.json()),
-    fetch('providers.json?v=' + cacheToken, { cache: 'no-store' })
+    fetch('orbits.json?v=' + cacheToken, { cache: 'no-store' })
+      .then(r => r.ok ? r.json() : { orbits: [] })
+      .catch(() => ({ orbits: [] })),
+    fetch('operators.json?v=' + cacheToken, { cache: 'no-store' })
       .then(r => r.ok ? r.json() : { providers: [] })
       .catch(() => ({ providers: [] }))
   ]);
@@ -38,13 +42,12 @@
   document.querySelector('#updated').textContent =
     new Date(index.generated_at).toLocaleDateString('sk-SK');
 
-  const providers = providerCatalog.providers || [];
+  const orbitProviders = (orbitCatalog.orbits || []).map(p => ({...p, group: 'orbit'}));
+  const operatorProviders = (operatorCatalog.providers || []).map(p => ({...p, group: 'operator'}));
+  const providers = [...orbitProviders, ...operatorProviders];
   const providerById = new Map(providers.map(provider => [provider.id, provider]));
 
-  let activeProviderId =
-    providers.find(provider => Number(provider.curated_channel_count || 0) > 0)?.id ||
-    providers[0]?.id ||
-    null;
+  let activeProviderId = providers.find(p => Number(p.curated_channel_count || 0) > 0)?.id || providers[0]?.id || null;
 
   function escapeHtml(value) {
     return String(value ?? '').replace(/[&<>"']/g, char => ({
@@ -53,11 +56,13 @@
   }
 
   function providerChannels(providerId) {
-    return index.channels.filter(
-      channel =>
-        String(channel.provider_group || '').toLowerCase() ===
-        String(providerId || '').toLowerCase()
-    );
+    const selected = providerById.get(providerId);
+    if (selected?.group === 'operator' || selected?.group === 'orbit') {
+      // Orbit and operator catalogues list EVERY channel, even without a logo.
+      // Never imply an uncurated service has a downloadable picon.
+      return selected.channels || [];
+    }
+    return [];
   }
 
   function primaryFile(channel) {
@@ -75,14 +80,18 @@
 
   function renderOperators() {
     if (!providers.length) {
-      operatorList.innerHTML = '<div class="empty-state">Žiadni operátori.</div>';
+      operatorList.innerHTML = '<div class="empty-state">Zatiaľ nie sú dostupné orbitálne katalógy.</div>';
       return;
     }
 
-    operatorList.innerHTML = providers.map(provider => {
+    operatorList.innerHTML = providers.map((provider, index) => {
+      const previous = providers[index - 1];
+      const heading = index === 0 || previous.group !== provider.group
+        ? '<p class="sidebar-section-title">' + (provider.group === 'operator' ? 'OPERÁTORI · OVERENÉ ZOZNAMY' : 'ORBITÁLNE POZÍCIE') + '</p>'
+        : '';
       const { expected, curated, complete } = providerProgress(provider);
       const state = complete ? 'complete' : (curated > 0 ? 'progress' : '');
-      return (
+      return heading + (
         '<button class="operator-item '+state+(provider.id===activeProviderId?' active':'')+'" '+
           'type="button" data-provider="'+escapeHtml(provider.id)+'">'+
           '<span>'+
@@ -107,19 +116,19 @@
   }
 
   function renderPackage(provider) {
-    const { expected, curated, complete } = providerProgress(provider);
+    const { expected, curated } = providerProgress(provider);
 
-    if (complete && provider.package) {
+    if (curated > 0 && provider.package) {
       operatorPackageArea.innerHTML =
         '<a class="package-download" href="'+escapeHtml(provider.package)+'" download>'+
-          'Stiahnuť kompletný ZIP · '+curated+' staníc'+
+          'Stiahnuť picony · '+curated+' staníc'+
         '</a>';
       return;
     }
 
     operatorPackageArea.innerHTML =
       '<div class="package-waiting">'+
-        'Kompletný ZIP až po dokončení · chýba '+
+        'Picony zatiaľ nie sú pripravené · bez loga '+
         Math.max(0, expected - curated)+' staníc'+
       '</div>';
   }
@@ -127,7 +136,7 @@
   function renderActiveProvider() {
     const provider = providerById.get(activeProviderId);
     if (!provider) {
-      operatorTitle.textContent = 'Žiadny operátor';
+      operatorTitle.textContent = 'Žiadna kategória';
       operatorDescription.textContent = '';
       logoGrid.innerHTML = '';
       operatorEmpty.hidden = false;
@@ -164,31 +173,45 @@
     if (!rows.length) {
       logoGrid.innerHTML = '';
       operatorEmpty.textContent = needle
-        ? 'Pre toto vyhľadávanie sa nenašlo žiadne logo.'
-        : 'Tento operátor zatiaľ nemá žiadne hotové logá.';
+        ? 'Pre toto vyhľadávanie sa nenašla žiadna stanica.'
+        : 'Táto kategória zatiaľ neobsahuje žiadne overené služby.';
       return;
     }
 
+    const statusLabels = {
+      missing_logo: 'Logo ešte chýba',
+      unresolved: 'Stanica zatiaľ nie je spárovaná s Vhannibal',
+      ambiguous: 'Nejednoznačná DVB referencia',
+      unverified_frequency: 'Čaká na overenie frekvencie',
+      frequency_mismatch: 'Nesúlad frekvencie – nepriraďovať'
+    };
     logoGrid.innerHTML = rows.map(channel => {
       const primary = primaryFile(channel);
-      if (!primary) return '';
+      const available = Boolean(primary);
+      const caption = available
+        ? escapeHtml(channel.satellite_position || channel.position || '')
+        : escapeHtml(statusLabels[channel.status] || 'Bez hotového piconu');
       return (
-        '<article class="logo-card" tabindex="0" role="button" '+
-          'aria-label="Otvoriť '+escapeHtml(channel.name)+'">'+
+        '<article class="logo-card'+(available?'':' unavailable')+'" '+
+          (available ? 'tabindex="0" role="button" ' : '')+
+          'aria-label="'+escapeHtml(channel.name)+(available?' – otvoriť logo':' – bez loga')+'">'+
           '<div class="logo-preview">'+
-            '<img src="picons/'+encodeURIComponent(primary)+'?v='+piconVersion+'" '+
-              'alt="'+escapeHtml(channel.name)+'" loading="lazy">'+
+            (available
+              ? '<img src="picons/'+encodeURIComponent(primary)+'?v='+piconVersion+'" '+
+                  'alt="'+escapeHtml(channel.name)+'" loading="lazy">'
+              : '<span class="logo-placeholder">PICON<br>NEDOSTUPNÝ</span>')+
           '</div>'+
           '<div class="logo-meta">'+
             '<h3>'+escapeHtml(channel.name)+'</h3>'+
-            '<span>'+escapeHtml(channel.satellite_position || '')+'</span>'+
+            '<span>'+caption+'</span>'+
+            (channel.fastscan ? '<span>FastScan '+Number(channel.fastscan)+'</span>' : '')+
           '</div>'+
         '</article>'
       );
     }).join('');
 
     const renderedRows = rows.filter(primaryFile);
-    logoGrid.querySelectorAll('.logo-card').forEach((card, index) => {
+    logoGrid.querySelectorAll('.logo-card[role="button"]').forEach((card, index) => {
       const channel = renderedRows[index];
       const open = () => openLogo(channel);
       card.addEventListener('click', open);
@@ -209,7 +232,10 @@
     modalImage.alt = channel.name || '';
     modalTitle.textContent = channel.name || '';
     modalRef.textContent = channel.service_reference || '';
-    modalGroup.textContent = providerById.get(channel.provider_group)?.name || channel.provider_group || '';
+    const active = providerById.get(activeProviderId);
+    modalGroup.textContent = active?.group === 'operator'
+      ? active.name + ' · ' + (channel.position || '')
+      : channel.satellite_position || '';
 
     modalDownloads.innerHTML = (channel.files || []).map(file =>
       '<a href="picons/'+encodeURIComponent(file)+'" download>'+
@@ -291,4 +317,16 @@
     })
     .catch(() => { changeStatus.textContent = 'História aktualizácií momentálne nie je dostupná.'; });
 
+  } catch (error) {
+    console.error('Picon Hub: verejný katalóg sa nepodarilo načítať', error);
+    const list = document.querySelector('#operatorList');
+    const empty = document.querySelector('#operatorEmpty');
+    const grid = document.querySelector('#logoGrid');
+    if (list) list.textContent = 'Katalóg sa nepodarilo načítať. Obnov stránku alebo to skús neskôr.';
+    if (grid) grid.replaceChildren();
+    if (empty) {
+      empty.textContent = 'Dátové súbory sú dočasne nedostupné; žiadne neoverené picony nezobrazujeme.';
+      empty.hidden = false;
+    }
+  }
 })();

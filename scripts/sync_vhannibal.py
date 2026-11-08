@@ -1,15 +1,17 @@
 #!/usr/bin/env python3
-"""Generate the combined Skylink catalogue from Vhannibal settings, keeping artwork."""
+"""Generate orbital Vhannibal services while preserving curated artwork."""
 import hashlib
 import io
 import json
 import os
+import re
 from pathlib import Path
 import tempfile
 import zipfile
 import requests
 from catalog_common import (
     channel_identity,
+    is_real_station_name,
     load_station_artwork,
     normalize_station_key,
     save_station_artwork,
@@ -29,33 +31,95 @@ def parse(blob):
         if len(dbs)!=1: raise ValueError('Expected one lamedb')
         lines=z.read(dbs[0]).decode('utf-8-sig').splitlines()
         if lines[0]!='eDVB services /4/': raise ValueError('Unsupported lamedb version')
+        # Extract physical transponder frequencies from Enigma2 lamedb v4.
+        # The FastScan list is independent; compare it against this frequency
+        # before assigning a Skylink-specific service reference.
+        transponders = {}
+        try:
+            first = lines.index('transponders') + 1
+            last = lines.index('end', first)
+            current = None
+            for line in lines[first:last]:
+                clean = line.strip()
+                pieces = clean.split(':')
+                if len(pieces) == 3 and all(re.fullmatch(r'[0-9a-fA-F]+', part) for part in pieces):
+                    current = tuple(int(part, 16) for part in pieces)
+                elif current is not None and clean.lower().startswith('s '):
+                    raw_freq = clean[2:].split(':', 1)[0]
+                    if raw_freq.isdigit():
+                        frequency = round(int(raw_freq) / 1000)
+                        if 10000 <= frequency <= 14000:
+                            transponders[current] = frequency
+        except ValueError:
+            pass
         start=lines.index('services')+1; end=lines.index('end',start); services={}
         if (end-start)%3: raise ValueError('Incomplete services section')
         for i in range(start,end,3):
             p=lines[i].split(':');sid,ns,tid,nid=[int(v,16) for v in p[:4]]
             services[(sid,tid,nid,ns)]=lines[i+1]
-        candidates=[]
-        for n in z.namelist():
-            if not n.endswith('.tv') or 'userbouquet' not in n: continue
-            text=z.read(n).decode('utf-8-sig')
-            if 'General Czech Republic' in text and 'General Slovakia' in text: candidates.append((n,text))
-        if len(candidates)!=1: raise ValueError('Cannot uniquely identify the Czech/Slovak bouquet; previous catalogue retained')
-        rows={}; section=''
-        for line in candidates[0][1].splitlines():
-            if line.startswith('#DESCRIPTION '): section=line
-            if not line.startswith('#SERVICE 1:0:'): continue
-            p=line[9:].strip().split(':')
-            if len(p)<10: raise ValueError('Invalid bouquet reference')
-            key=tuple(int(v,16) for v in p[3:7]);name=services.get(key)
-            if not name: raise ValueError('Bouquet service missing in lamedb')
-            ref=':'.join(f'{int(v,16):X}' for v in p[:10])+':'
-            station=normalize_station_key(name)
-            rows[key]={'id':station+'-'+format(key[0],'x'),'name':name,'station_key':station,
-                       'service_reference':ref,'provider_group':'skylink-sk','delivery':'satellite',
-                       'variant_types':list(dict.fromkeys([p[2].upper(),'1','16','19'])),
-                       'satellite_position':f'{(key[3]>>16)/10:g}E'}
-        if len(rows)<50: raise ValueError('Unexpectedly small Skylink catalogue; previous catalogue retained')
-        return list(rows.values()),candidates[0][0]
+        # Parse all satellite TV bouquets from the selected Vhannibal settings.
+        # The previous importer selected only the CZ/SK General bouquet and
+        # therefore incorrectly limited the orbit catalogue to 23.5E.
+        bouquets = [n for n in z.namelist()
+                    if n.rsplit('/', 1)[-1].startswith('userbouquet.')
+                    and n.endswith('.tv')]
+        if not bouquets:
+            raise ValueError('Vhannibal archive contains no TV bouquets; previous catalogue retained')
+        rows = {}
+        invalid = 0
+        nonstation = 0
+        for bouquet_name in sorted(bouquets):
+            bouquet = z.read(bouquet_name).decode('utf-8-sig', errors='replace')
+            for line in bouquet.splitlines():
+                if not line.startswith('#SERVICE 1:0:'):
+                    continue
+                parts = line[9:].strip().split(':')
+                if len(parts) < 10:
+                    invalid += 1
+                    continue
+                try:
+                    key = tuple(int(value, 16) for value in parts[3:7])
+                except ValueError:
+                    invalid += 1
+                    continue
+                name = services.get(key)
+                if not name:
+                    # A bouquet can refer to stale or non-satellite services.
+                    # Never invent a service from an unresolved reference.
+                    invalid += 1
+                    continue
+                if not is_real_station_name(name):
+                    nonstation += 1
+                    continue
+                orbital_tenths = (key[3] >> 16) & 0xFFFF
+                if not (0 < orbital_tenths < 3600):
+                    invalid += 1
+                    continue
+                if orbital_tenths <= 1800:
+                    position = f'{orbital_tenths/10:g}E'
+                else:
+                    position = f'{(3600-orbital_tenths)/10:g}W'
+                ref = ':'.join(f'{int(value,16):X}' for value in parts[:10]) + ':'
+                station = normalize_station_key(name)
+                if key not in rows:
+                    rows[key] = {
+                        'id': station + '-' + format(key[0], 'x'),
+                        'name': name,
+                        'station_key': station,
+                        'service_reference': ref,
+                        'provider_group': 'skylink-sk',
+                        'delivery': 'satellite',
+                        'variant_types': list(dict.fromkeys([parts[2].upper(), '1', '16', '19'])),
+                        'satellite_position': position,
+                        'frequency_mhz': transponders.get((key[3], key[1], key[2])),
+                    }
+        if len(rows) < 50 or len(rows) > 15000:
+            raise ValueError(f'Unexpected Vhannibal catalogue size: {len(rows)}; previous catalogue retained')
+        positions = sorted(set(row['satellite_position'] for row in rows.values()))
+        print(f'Parsed {len(rows)} services from {len(bouquets)} bouquets on {len(positions)} orbits; '
+              f'skipped {invalid} invalid/unresolved references and {nonstation} technical placeholders')
+        return list(rows.values()), f'Vhannibal TV bouquets ({len(bouquets)} files)'
+
 
 
 def sync(blob=None):
@@ -79,29 +143,39 @@ def sync(blob=None):
         key = str(row.get("station_key") or normalize_station_key(row.get("name", "")))
         new_by_station.setdefault(key, []).append(row)
 
+    # Keep all explicitly assigned service references that still exist.
+    # Do not collapse a curated logo to one identically named service:
+    # aliases such as ':24' and 'RTVS 24 HD' can share approved artwork.
+    valid_identities = {
+        channel_identity(row, "skylink-sk") for row in rows
+    }
     artwork_changed = False
     for station_key, art in stations.items():
         if not isinstance(art, dict):
             continue
         targets = [str(x) for x in art.get("targets", []) or []]
-        skylink_targets = [
+        current_vhannibal = [
+            x for x in targets if x in valid_identities
+        ]
+        if current_vhannibal:
+            # At least one valid explicit DVB assignment still exists.
+            # Never delete or overwrite additional explicit assignments.
+            continue
+
+        # Migrate stale legacy assignments only on a UNIQUE exact match.
+        legacy_targets = [
             x for x in targets
             if x.startswith("sat:skylink-sk:") or x.startswith("sat:skylink-cz:")
         ]
-        if not skylink_targets:
+        if not legacy_targets:
             continue
-
         candidates = new_by_station.get(str(station_key), [])
         if len(candidates) != 1:
-            # Ambiguous or missing upstream match: preserve old assignment.
             continue
-
         new_identity = channel_identity(candidates[0], "skylink-sk")
-        preserved = [
-            x for x in targets
-            if not (x.startswith("sat:skylink-sk:") or x.startswith("sat:skylink-cz:"))
-        ]
-        migrated = sorted(set(preserved + [new_identity]))
+        # Retain stale refs for audit / possible recovery; add the verified
+        # current identity without destroying historical user assignments.
+        migrated = sorted(set(targets + [new_identity]))
         if migrated != sorted(set(targets)):
             art["targets"] = migrated
             artwork_changed = True
@@ -113,7 +187,7 @@ def sync(blob=None):
         for field in ("logo", "dark_to_white", "optical_scale", "edge_cleanup", "background_cleanup"):
             row.pop(field, None)
 
-    payload={'provider':'skylink-sk','provider_name':'Skylink SK + CZ','source':{
+    payload={'provider':'skylink-sk','provider_name':'Vhannibal · satelitný katalóg','source':{
         'type':'vhannibal','url':URL,'settings':source,'sha256':hashlib.sha256(blob).hexdigest(),
         'artwork_mode':'manual','upstream_logos_imported':False},
         'stats':{'channels_parsed':len(rows),'upstream_logos_imported':0},'channels':rows}

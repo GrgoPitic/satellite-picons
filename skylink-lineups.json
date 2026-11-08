@@ -1,0 +1,3739 @@
+{
+  "schema": 1,
+  "sources": {
+    "skylink-sk": "https://www.satelitnatv.sk/frekvencie/skylink-sk/",
+    "skylink-cz": "https://www.satelitnatv.sk/frekvencie/skylink-cz/"
+  },
+  "providers": {
+    "skylink-sk": [
+      {
+        "name": "Jednotka HD",
+        "position": "23.5E",
+        "frequency_mhz": 12012,
+        "fastscan": 1
+      },
+      {
+        "name": "Dvojka HD",
+        "position": "23.5E",
+        "frequency_mhz": 12012,
+        "fastscan": 2
+      },
+      {
+        "name": "Markiza HD",
+        "position": "23.5E",
+        "frequency_mhz": 11973,
+        "fastscan": 3
+      },
+      {
+        "name": "TV JOJ HD",
+        "position": "23.5E",
+        "frequency_mhz": 12266,
+        "fastscan": 4
+      },
+      {
+        "name": "CANAL+",
+        "position": "23.5E",
+        "frequency_mhz": 12070,
+        "fastscan": 5
+      },
+      {
+        "name": "CANAL+ Classics",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 6
+      },
+      {
+        "name": "CANAL+ Action",
+        "position": "23.5E",
+        "frequency_mhz": 11973,
+        "fastscan": 7
+      },
+      {
+        "name": "CANAL+ Crime",
+        "position": "23.5E",
+        "frequency_mhz": 12188,
+        "fastscan": 8
+      },
+      {
+        "name": "CANAL+ Drama",
+        "position": "23.5E",
+        "frequency_mhz": 12110,
+        "fastscan": 9
+      },
+      {
+        "name": "FILMBOX+ One SK",
+        "position": "23.5E",
+        "frequency_mhz": 11934,
+        "fastscan": 11
+      },
+      {
+        "name": "FILMBOX+ Love and Crime",
+        "position": "23.5E",
+        "frequency_mhz": 12110,
+        "fastscan": 12
+      },
+      {
+        "name": "DOMA HD",
+        "position": "23.5E",
+        "frequency_mhz": 11973,
+        "fastscan": 13
+      },
+      {
+        "name": "DAJTO HD",
+        "position": "23.5E",
+        "frequency_mhz": 12266,
+        "fastscan": 14
+      },
+      {
+        "name": "Markiza Krimi HD",
+        "position": "23.5E",
+        "frequency_mhz": 12266,
+        "fastscan": 15
+      },
+      {
+        "name": "Markiza Klasik",
+        "position": "23.5E",
+        "frequency_mhz": 12012,
+        "fastscan": 16
+      },
+      {
+        "name": "JOJ PLUS HD",
+        "position": "23.5E",
+        "frequency_mhz": 12266,
+        "fastscan": 17
+      },
+      {
+        "name": "JOJ KRIMI",
+        "position": "23.5E",
+        "frequency_mhz": 12070,
+        "fastscan": 18
+      },
+      {
+        "name": "JOJ 24 HD",
+        "position": "23.5E",
+        "frequency_mhz": 12266,
+        "fastscan": 19
+      },
+      {
+        "name": "RTVS 24 HD",
+        "position": "23.5E",
+        "frequency_mhz": 12012,
+        "fastscan": 21
+      },
+      {
+        "name": "FILMBOX+ Emotion HD",
+        "position": "23.5E",
+        "frequency_mhz": 12012,
+        "fastscan": 23
+      },
+      {
+        "name": "FILMBOX+ Hits HD",
+        "position": "23.5E",
+        "frequency_mhz": 12110,
+        "fastscan": 24
+      },
+      {
+        "name": "FILMBOX+ Comedy",
+        "position": "23.5E",
+        "frequency_mhz": 12012,
+        "fastscan": 25
+      },
+      {
+        "name": "TA3 HD",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 26
+      },
+      {
+        "name": "TV Lux HD",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 27
+      },
+      {
+        "name": "Spektrum Home",
+        "position": "23.5E",
+        "frequency_mhz": 11934,
+        "fastscan": 28
+      },
+      {
+        "name": "JOJ Cinema HD",
+        "position": "23.5E",
+        "frequency_mhz": 12070,
+        "fastscan": 29
+      },
+      {
+        "name": "CS Film/CS Horror",
+        "position": "23.5E",
+        "frequency_mhz": 11934,
+        "fastscan": 30
+      },
+      {
+        "name": "Viasat Epic Drama HD",
+        "position": "23.5E",
+        "frequency_mhz": 11934,
+        "fastscan": 31
+      },
+      {
+        "name": "Film+ SK",
+        "position": "23.5E",
+        "frequency_mhz": 11934,
+        "fastscan": 32
+      },
+      {
+        "name": "Film Europe+ HD",
+        "position": "23.5E",
+        "frequency_mhz": 12110,
+        "fastscan": 33
+      },
+      {
+        "name": "AXN CZ",
+        "position": "23.5E",
+        "frequency_mhz": 12090,
+        "fastscan": 34
+      },
+      {
+        "name": "AXN Black Central Europe",
+        "position": "23.5E",
+        "frequency_mhz": 12110,
+        "fastscan": 35
+      },
+      {
+        "name": "AXN White Central Europe",
+        "position": "23.5E",
+        "frequency_mhz": 12110,
+        "fastscan": 36
+      },
+      {
+        "name": "AMC SK",
+        "position": "23.5E",
+        "frequency_mhz": 11973,
+        "fastscan": 37
+      },
+      {
+        "name": "Film Europe HD",
+        "position": "23.5E",
+        "frequency_mhz": 12012,
+        "fastscan": 38
+      },
+      {
+        "name": "Film+ HD",
+        "position": "23.5E",
+        "frequency_mhz": 12110,
+        "fastscan": 40
+      },
+      {
+        "name": "Story 4 CZ",
+        "position": "23.5E",
+        "frequency_mhz": 11739,
+        "fastscan": 41
+      },
+      {
+        "name": "CT 1 PHA HD",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 42
+      },
+      {
+        "name": "CT 2 HD",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 43
+      },
+      {
+        "name": "Nova International",
+        "position": "23.5E",
+        "frequency_mhz": 12266,
+        "fastscan": 44
+      },
+      {
+        "name": "Prima SK",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 45
+      },
+      {
+        "name": "CNN Prima News HD",
+        "position": "23.5E",
+        "frequency_mhz": 11934,
+        "fastscan": 46
+      },
+      {
+        "name": "CT 24 HD",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 47
+      },
+      {
+        "name": "CT :D/art HD",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 48
+      },
+      {
+        "name": "Prima COOL HD SK",
+        "position": "23.5E",
+        "frequency_mhz": 11973,
+        "fastscan": 49
+      },
+      {
+        "name": "Prima KRIMI SK HD",
+        "position": "23.5E",
+        "frequency_mhz": 12090,
+        "fastscan": 51
+      },
+      {
+        "name": "Prima Love HD SK",
+        "position": "23.5E",
+        "frequency_mhz": 11973,
+        "fastscan": 52
+      },
+      {
+        "name": "TV Barrandov",
+        "position": "23.5E",
+        "frequency_mhz": 12090,
+        "fastscan": 55
+      },
+      {
+        "name": "Kino Barrandov",
+        "position": "23.5E",
+        "frequency_mhz": 12090,
+        "fastscan": 56
+      },
+      {
+        "name": "Barrandov Krimi",
+        "position": "23.5E",
+        "frequency_mhz": 12090,
+        "fastscan": 57
+      },
+      {
+        "name": "HBO HD",
+        "position": "23.5E",
+        "frequency_mhz": 12090,
+        "fastscan": 60
+      },
+      {
+        "name": "HBO2 HD",
+        "position": "23.5E",
+        "frequency_mhz": 12110,
+        "fastscan": 61
+      },
+      {
+        "name": "HBO3 HD",
+        "position": "23.5E",
+        "frequency_mhz": 12110,
+        "fastscan": 62
+      },
+      {
+        "name": "Cinemax HD",
+        "position": "23.5E",
+        "frequency_mhz": 12012,
+        "fastscan": 63
+      },
+      {
+        "name": "Cinemax2 HD",
+        "position": "23.5E",
+        "frequency_mhz": 12110,
+        "fastscan": 64
+      },
+      {
+        "name": "Nat Geo HD CZ",
+        "position": "23.5E",
+        "frequency_mhz": 12090,
+        "fastscan": 70
+      },
+      {
+        "name": "Viasat Nature HD",
+        "position": "23.5E",
+        "frequency_mhz": 12110,
+        "fastscan": 71
+      },
+      {
+        "name": "Viasat History HD",
+        "position": "23.5E",
+        "frequency_mhz": 12110,
+        "fastscan": 72
+      },
+      {
+        "name": "Viasat Explore",
+        "position": "23.5E",
+        "frequency_mhz": 12012,
+        "fastscan": 73
+      },
+      {
+        "name": "Viasat True Crime",
+        "position": "23.5E",
+        "frequency_mhz": 11934,
+        "fastscan": 74
+      },
+      {
+        "name": "JOJ Svet SK",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 75
+      },
+      {
+        "name": "CS Mystery",
+        "position": "23.5E",
+        "frequency_mhz": 12070,
+        "fastscan": 76
+      },
+      {
+        "name": "CS History",
+        "position": "23.5E",
+        "frequency_mhz": 12070,
+        "fastscan": 77
+      },
+      {
+        "name": "Fishing and Hunting",
+        "position": "23.5E",
+        "frequency_mhz": 12090,
+        "fastscan": 79
+      },
+      {
+        "name": "National Geographic Wild HD CZ",
+        "position": "23.5E",
+        "frequency_mhz": 12090,
+        "fastscan": 80
+      },
+      {
+        "name": "Spektrum HD",
+        "position": "23.5E",
+        "frequency_mhz": 12090,
+        "fastscan": 81
+      },
+      {
+        "name": "History HD",
+        "position": "23.5E",
+        "frequency_mhz": 12110,
+        "fastscan": 82
+      },
+      {
+        "name": "Love Nature HD CZ",
+        "position": "23.5E",
+        "frequency_mhz": 12090,
+        "fastscan": 83
+      },
+      {
+        "name": "DOCUBOX",
+        "position": "23.5E",
+        "frequency_mhz": 12129,
+        "fastscan": 85
+      },
+      {
+        "name": "Nautical HD",
+        "position": "23.5E",
+        "frequency_mhz": 11856,
+        "fastscan": 86
+      },
+      {
+        "name": "TV Paprika",
+        "position": "23.5E",
+        "frequency_mhz": 11934,
+        "fastscan": 87
+      },
+      {
+        "name": "INPLUS",
+        "position": "19.2E",
+        "frequency_mhz": 12515,
+        "fastscan": 88
+      },
+      {
+        "name": "TV8",
+        "position": "23.5E",
+        "frequency_mhz": 12129,
+        "fastscan": 89
+      },
+      {
+        "name": "CANAL+ Sport (SK)",
+        "position": "23.5E",
+        "frequency_mhz": 11973,
+        "fastscan": 90
+      },
+      {
+        "name": "CANAL+ Sport 2 (SK)",
+        "position": "23.5E",
+        "frequency_mhz": 12012,
+        "fastscan": 91
+      },
+      {
+        "name": "JOJ Sport HD",
+        "position": "23.5E",
+        "frequency_mhz": 12266,
+        "fastscan": 99
+      },
+      {
+        "name": "JOJ Sport 2 HD",
+        "position": "23.5E",
+        "frequency_mhz": 12090,
+        "fastscan": 100
+      },
+      {
+        "name": "Nova Sport 1 HD",
+        "position": "23.5E",
+        "frequency_mhz": 12266,
+        "fastscan": 101
+      },
+      {
+        "name": "Nova Sport 2 HD",
+        "position": "23.5E",
+        "frequency_mhz": 11973,
+        "fastscan": 102
+      },
+      {
+        "name": "Nova Sport 3 HD",
+        "position": "23.5E",
+        "frequency_mhz": 11934,
+        "fastscan": 103
+      },
+      {
+        "name": "Nova Sport 4 HD",
+        "position": "23.5E",
+        "frequency_mhz": 11934,
+        "fastscan": 104
+      },
+      {
+        "name": "Nova Sport 5 HD (SK)",
+        "position": "23.5E",
+        "frequency_mhz": 12129,
+        "fastscan": 105
+      },
+      {
+        "name": "Nova Sport 6 HD",
+        "position": "23.5E",
+        "frequency_mhz": 12090,
+        "fastscan": 106
+      },
+      {
+        "name": "RTVS SPORT HD",
+        "position": "23.5E",
+        "frequency_mhz": 12012,
+        "fastscan": 107
+      },
+      {
+        "name": "Golf Channel",
+        "position": "23.5E",
+        "frequency_mhz": 12090,
+        "fastscan": 108
+      },
+      {
+        "name": "Sport 1 SK HD",
+        "position": "23.5E",
+        "frequency_mhz": 12070,
+        "fastscan": 109
+      },
+      {
+        "name": "Sport 2 HD",
+        "position": "23.5E",
+        "frequency_mhz": 12090,
+        "fastscan": 110
+      },
+      {
+        "name": "Kanal1 Sport",
+        "position": "23.5E",
+        "frequency_mhz": 12012,
+        "fastscan": 111
+      },
+      {
+        "name": "Kanal1 Xtra",
+        "position": "23.5E",
+        "frequency_mhz": 11973,
+        "fastscan": 112
+      },
+      {
+        "name": "AutoMotorSport HD",
+        "position": "23.5E",
+        "frequency_mhz": 11739,
+        "fastscan": 113
+      },
+      {
+        "name": "FIGHTBOX",
+        "position": "23.5E",
+        "frequency_mhz": 11739,
+        "fastscan": 114
+      },
+      {
+        "name": "Jojko",
+        "position": "23.5E",
+        "frequency_mhz": 12266,
+        "fastscan": 120
+      },
+      {
+        "name": "JimJam CZ",
+        "position": "23.5E",
+        "frequency_mhz": 12012,
+        "fastscan": 121
+      },
+      {
+        "name": "Minimax",
+        "position": "23.5E",
+        "frequency_mhz": 12110,
+        "fastscan": 122
+      },
+      {
+        "name": "LALA TV",
+        "position": "23.5E",
+        "frequency_mhz": 12012,
+        "fastscan": 127
+      },
+      {
+        "name": "Disney CZ",
+        "position": "23.5E",
+        "frequency_mhz": 11934,
+        "fastscan": 128
+      },
+      {
+        "name": "Cartoon Network CZ",
+        "position": "23.5E",
+        "frequency_mhz": 11934,
+        "fastscan": 129
+      },
+      {
+        "name": "Cartoonito",
+        "position": "23.5E",
+        "frequency_mhz": 12090,
+        "fastscan": 130
+      },
+      {
+        "name": "Retro Music TV",
+        "position": "23.5E",
+        "frequency_mhz": 12012,
+        "fastscan": 140
+      },
+      {
+        "name": "Slager Original",
+        "position": "23.5E",
+        "frequency_mhz": 12070,
+        "fastscan": 141
+      },
+      {
+        "name": "Slager Muzika",
+        "position": "23.5E",
+        "frequency_mhz": 12266,
+        "fastscan": 142
+      },
+      {
+        "name": "Premium",
+        "position": "23.5E",
+        "frequency_mhz": 12090,
+        "fastscan": 143
+      },
+      {
+        "name": "Senzi",
+        "position": "23.5E",
+        "frequency_mhz": 11934,
+        "fastscan": 144
+      },
+      {
+        "name": "OCKO STAR",
+        "position": "23.5E",
+        "frequency_mhz": 12090,
+        "fastscan": 148
+      },
+      {
+        "name": "Daystar",
+        "position": "23.5E",
+        "frequency_mhz": 12090,
+        "fastscan": 166
+      },
+      {
+        "name": "M1",
+        "position": "23.5E",
+        "frequency_mhz": 11739,
+        "fastscan": 200
+      },
+      {
+        "name": "M2 / Petofi",
+        "position": "23.5E",
+        "frequency_mhz": 11739,
+        "fastscan": 201
+      },
+      {
+        "name": "M4",
+        "position": "23.5E",
+        "frequency_mhz": 11739,
+        "fastscan": 202
+      },
+      {
+        "name": "M5",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 203
+      },
+      {
+        "name": "Duna SD",
+        "position": "23.5E",
+        "frequency_mhz": 11856,
+        "fastscan": 204
+      },
+      {
+        "name": "Duna World / M4 Sport+",
+        "position": "23.5E",
+        "frequency_mhz": 11856,
+        "fastscan": 205
+      },
+      {
+        "name": "HirTV",
+        "position": "23.5E",
+        "frequency_mhz": 11739,
+        "fastscan": 206
+      },
+      {
+        "name": "RTL GOLD",
+        "position": "23.5E",
+        "frequency_mhz": 12129,
+        "fastscan": 207
+      },
+      {
+        "name": "RTL",
+        "position": "23.5E",
+        "frequency_mhz": 11739,
+        "fastscan": 208
+      },
+      {
+        "name": "RTL KETTO",
+        "position": "23.5E",
+        "frequency_mhz": 12188,
+        "fastscan": 209
+      },
+      {
+        "name": "RTL HAROM",
+        "position": "23.5E",
+        "frequency_mhz": 12188,
+        "fastscan": 210
+      },
+      {
+        "name": "TV2",
+        "position": "23.5E",
+        "frequency_mhz": 11739,
+        "fastscan": 211
+      },
+      {
+        "name": "SuperTV2",
+        "position": "23.5E",
+        "frequency_mhz": 11973,
+        "fastscan": 212
+      },
+      {
+        "name": "Story 4",
+        "position": "23.5E",
+        "frequency_mhz": 12188,
+        "fastscan": 214
+      },
+      {
+        "name": "Cool",
+        "position": "23.5E",
+        "frequency_mhz": 11856,
+        "fastscan": 215
+      },
+      {
+        "name": "Sorozat+",
+        "position": "23.5E",
+        "frequency_mhz": 12188,
+        "fastscan": 217
+      },
+      {
+        "name": "Film+ Hungary",
+        "position": "23.5E",
+        "frequency_mhz": 11856,
+        "fastscan": 222
+      },
+      {
+        "name": "Galaxy4",
+        "position": "23.5E",
+        "frequency_mhz": 11973,
+        "fastscan": 223
+      },
+      {
+        "name": "FEM3",
+        "position": "23.5E",
+        "frequency_mhz": 12090,
+        "fastscan": 225
+      },
+      {
+        "name": "TV2 Sef",
+        "position": "23.5E",
+        "frequency_mhz": 12129,
+        "fastscan": 226
+      },
+      {
+        "name": "Slager TV",
+        "position": "23.5E",
+        "frequency_mhz": 12129,
+        "fastscan": 229
+      },
+      {
+        "name": "Muzsika TV",
+        "position": "23.5E",
+        "frequency_mhz": 12129,
+        "fastscan": 230
+      },
+      {
+        "name": "France 24 (en Anglais)",
+        "position": "19.2E",
+        "frequency_mhz": 11538,
+        "fastscan": 235
+      },
+      {
+        "name": "Leo TV (22-06)",
+        "position": "23.5E",
+        "frequency_mhz": 12110,
+        "fastscan": 300
+      },
+      {
+        "name": "Vixen HD",
+        "position": "23.5E",
+        "frequency_mhz": 11739,
+        "fastscan": 302
+      },
+      {
+        "name": "Penthouse Gold CZ",
+        "position": "23.5E",
+        "frequency_mhz": 11856,
+        "fastscan": 303
+      },
+      {
+        "name": "Hustler TV CZ",
+        "position": "19.2E",
+        "frequency_mhz": 12515,
+        "fastscan": 308
+      },
+      {
+        "name": "Penthouse Reality TV CZ",
+        "position": "23.5E",
+        "frequency_mhz": 11856,
+        "fastscan": 309
+      },
+      {
+        "name": "Man-X",
+        "position": "23.5E",
+        "frequency_mhz": 12129,
+        "fastscan": 310
+      },
+      {
+        "name": "RTLZWEI",
+        "position": "19.2E",
+        "frequency_mhz": 12187,
+        "fastscan": 400
+      },
+      {
+        "name": "RTL Austria",
+        "position": "19.2E",
+        "frequency_mhz": 12226,
+        "fastscan": 401
+      },
+      {
+        "name": "SUPER RTL",
+        "position": "19.2E",
+        "frequency_mhz": 12187,
+        "fastscan": 402
+      },
+      {
+        "name": "SAT.1",
+        "position": "19.2E",
+        "frequency_mhz": 12544,
+        "fastscan": 403
+      },
+      {
+        "name": "SAT.1 Gold Österreich",
+        "position": "19.2E",
+        "frequency_mhz": 11671,
+        "fastscan": 404
+      },
+      {
+        "name": "ProSieben",
+        "position": "19.2E",
+        "frequency_mhz": 12544,
+        "fastscan": 405
+      },
+      {
+        "name": "Pro7 MAXX Austria",
+        "position": "19.2E",
+        "frequency_mhz": 11671,
+        "fastscan": 406
+      },
+      {
+        "name": "kabel eins",
+        "position": "19.2E",
+        "frequency_mhz": 12544,
+        "fastscan": 407
+      },
+      {
+        "name": "VOX",
+        "position": "19.2E",
+        "frequency_mhz": 12187,
+        "fastscan": 408
+      },
+      {
+        "name": "Das Erste HD",
+        "position": "19.2E",
+        "frequency_mhz": 11494,
+        "fastscan": 409
+      },
+      {
+        "name": "ZDF HD",
+        "position": "19.2E",
+        "frequency_mhz": 11362,
+        "fastscan": 410
+      },
+      {
+        "name": "SPORT1",
+        "position": "19.2E",
+        "frequency_mhz": 12480,
+        "fastscan": 411
+      },
+      {
+        "name": "Eurosport 1 Deutschland",
+        "position": "19.2E",
+        "frequency_mhz": 12226,
+        "fastscan": 412
+      },
+      {
+        "name": "ORF 2 EUROPE HD",
+        "position": "19.2E",
+        "frequency_mhz": 11273,
+        "fastscan": 413
+      },
+      {
+        "name": "Disney Channel",
+        "position": "19.2E",
+        "frequency_mhz": 12460,
+        "fastscan": 414
+      },
+      {
+        "name": "AnixeHD Serie",
+        "position": "19.2E",
+        "frequency_mhz": 10773,
+        "fastscan": 415
+      },
+      {
+        "name": "kabel eins Doku",
+        "position": "19.2E",
+        "frequency_mhz": 12544,
+        "fastscan": 416
+      },
+      {
+        "name": "DF1 HD",
+        "position": "19.2E",
+        "frequency_mhz": 11303,
+        "fastscan": 417
+      },
+      {
+        "name": "SWR BW HD",
+        "position": "19.2E",
+        "frequency_mhz": 11494,
+        "fastscan": 418
+      },
+      {
+        "name": "SR Fernsehen HD",
+        "position": "19.2E",
+        "frequency_mhz": 11053,
+        "fastscan": 419
+      },
+      {
+        "name": "TELE 5",
+        "position": "19.2E",
+        "frequency_mhz": 12480,
+        "fastscan": 420
+      },
+      {
+        "name": "RTLup",
+        "position": "19.2E",
+        "frequency_mhz": 12187,
+        "fastscan": 421
+      },
+      {
+        "name": "TOGGO plus",
+        "position": "19.2E",
+        "frequency_mhz": 12187,
+        "fastscan": 422
+      },
+      {
+        "name": "BR Fernsehen Nord HD",
+        "position": "19.2E",
+        "frequency_mhz": 11582,
+        "fastscan": 423
+      },
+      {
+        "name": "MDR Sachsen HD",
+        "position": "19.2E",
+        "frequency_mhz": 10891,
+        "fastscan": 424
+      },
+      {
+        "name": "NDR FS HH HD",
+        "position": "19.2E",
+        "frequency_mhz": 11582,
+        "fastscan": 425
+      },
+      {
+        "name": "WDR HD Köln",
+        "position": "19.2E",
+        "frequency_mhz": 11523,
+        "fastscan": 426
+      },
+      {
+        "name": "Radio Bremen HD",
+        "position": "19.2E",
+        "frequency_mhz": 11053,
+        "fastscan": 427
+      },
+      {
+        "name": "rbb Berlin HD",
+        "position": "19.2E",
+        "frequency_mhz": 10891,
+        "fastscan": 428
+      },
+      {
+        "name": "zdf_neo HD",
+        "position": "19.2E",
+        "frequency_mhz": 11362,
+        "fastscan": 429
+      },
+      {
+        "name": "ZDFinfo HD",
+        "position": "19.2E",
+        "frequency_mhz": 11347,
+        "fastscan": 430
+      },
+      {
+        "name": "tagesschau24 HD",
+        "position": "19.2E",
+        "frequency_mhz": 11053,
+        "fastscan": 431
+      },
+      {
+        "name": "oe24.TV HD",
+        "position": "19.2E",
+        "frequency_mhz": 11273,
+        "fastscan": 432
+      },
+      {
+        "name": "ONE HD",
+        "position": "19.2E",
+        "frequency_mhz": 11053,
+        "fastscan": 433
+      },
+      {
+        "name": "N24 DOKU",
+        "position": "19.2E",
+        "frequency_mhz": 12460,
+        "fastscan": 434
+      },
+      {
+        "name": "3sat HD",
+        "position": "19.2E",
+        "frequency_mhz": 11347,
+        "fastscan": 435
+      },
+      {
+        "name": "arte HD",
+        "position": "19.2E",
+        "frequency_mhz": 11494,
+        "fastscan": 436
+      },
+      {
+        "name": "hr-fernsehen HD",
+        "position": "19.2E",
+        "frequency_mhz": 10891,
+        "fastscan": 437
+      },
+      {
+        "name": "R9 Oesterreich HD",
+        "position": "19.2E",
+        "frequency_mhz": 11273,
+        "fastscan": 438
+      },
+      {
+        "name": "REGIO TV",
+        "position": "19.2E",
+        "frequency_mhz": 12480,
+        "fastscan": 439
+      },
+      {
+        "name": "ARD alpha HD",
+        "position": "19.2E",
+        "frequency_mhz": 11053,
+        "fastscan": 441
+      },
+      {
+        "name": "NITRO Austria",
+        "position": "19.2E",
+        "frequency_mhz": 12662,
+        "fastscan": 442
+      },
+      {
+        "name": "TLC",
+        "position": "19.2E",
+        "frequency_mhz": 12460,
+        "fastscan": 443
+      },
+      {
+        "name": "sixx",
+        "position": "19.2E",
+        "frequency_mhz": 12544,
+        "fastscan": 444
+      },
+      {
+        "name": "TV1 OOE NEU",
+        "position": "19.2E",
+        "frequency_mhz": 11273,
+        "fastscan": 445
+      },
+      {
+        "name": "KiKA HD",
+        "position": "19.2E",
+        "frequency_mhz": 11347,
+        "fastscan": 446
+      },
+      {
+        "name": "Nick/Comedy Central+1",
+        "position": "19.2E",
+        "frequency_mhz": 11973,
+        "fastscan": 447
+      },
+      {
+        "name": "RiC NEU",
+        "position": "19.2E",
+        "frequency_mhz": 11303,
+        "fastscan": 448
+      },
+      {
+        "name": "Comedy Central",
+        "position": "19.2E",
+        "frequency_mhz": 11973,
+        "fastscan": 449
+      },
+      {
+        "name": "DELUXE  MUSIC",
+        "position": "19.2E",
+        "frequency_mhz": 12148,
+        "fastscan": 450
+      },
+      {
+        "name": "Deluxe Dance by Kontor",
+        "position": "19.2E",
+        "frequency_mhz": 12109,
+        "fastscan": 453
+      },
+      {
+        "name": "Deluxe Rap",
+        "position": "19.2E",
+        "frequency_mhz": 12109,
+        "fastscan": 454
+      },
+      {
+        "name": "MTV",
+        "position": "19.2E",
+        "frequency_mhz": 11973,
+        "fastscan": 455
+      },
+      {
+        "name": "Stimmungsgarten TV",
+        "position": "19.2E",
+        "frequency_mhz": 11273,
+        "fastscan": 456
+      },
+      {
+        "name": "TELEGOLD SD",
+        "position": "19.2E",
+        "frequency_mhz": 12633,
+        "fastscan": 457
+      },
+      {
+        "name": "DMAX",
+        "position": "19.2E",
+        "frequency_mhz": 12480,
+        "fastscan": 458
+      },
+      {
+        "name": "LILO.TV",
+        "position": "19.2E",
+        "frequency_mhz": 11244,
+        "fastscan": 459
+      },
+      {
+        "name": "Melodie TV NEU",
+        "position": "19.2E",
+        "frequency_mhz": 11273,
+        "fastscan": 460
+      },
+      {
+        "name": "BBC News",
+        "position": "19.2E",
+        "frequency_mhz": 11229,
+        "fastscan": 467
+      },
+      {
+        "name": "CNN Int.",
+        "position": "19.2E",
+        "frequency_mhz": 11739,
+        "fastscan": 468
+      },
+      {
+        "name": "Sky News Intl",
+        "position": "19.2E",
+        "frequency_mhz": 12603,
+        "fastscan": 469
+      },
+      {
+        "name": "EURONEWS GERMAN SD PAL",
+        "position": "19.2E",
+        "frequency_mhz": 11376,
+        "fastscan": 470
+      },
+      {
+        "name": "CGTN HD",
+        "position": "19.2E",
+        "frequency_mhz": 11778,
+        "fastscan": 471
+      },
+      {
+        "name": "France 24 (en Francais)",
+        "position": "19.2E",
+        "frequency_mhz": 11538,
+        "fastscan": 472
+      },
+      {
+        "name": "Al Jazeera English HD",
+        "position": "19.2E",
+        "frequency_mhz": 11229,
+        "fastscan": 473
+      },
+      {
+        "name": "WELT",
+        "position": "19.2E",
+        "frequency_mhz": 12544,
+        "fastscan": 474
+      },
+      {
+        "name": "ntv",
+        "position": "19.2E",
+        "frequency_mhz": 12187,
+        "fastscan": 475
+      },
+      {
+        "name": "NHK WORLD-JPN",
+        "position": "19.2E",
+        "frequency_mhz": 11229,
+        "fastscan": 476
+      },
+      {
+        "name": "CNEWS",
+        "position": "19.2E",
+        "frequency_mhz": 12207,
+        "fastscan": 478
+      },
+      {
+        "name": "LCP",
+        "position": "19.2E",
+        "frequency_mhz": 12168,
+        "fastscan": 479
+      },
+      {
+        "name": "CNBC HD",
+        "position": "19.2E",
+        "frequency_mhz": 11376,
+        "fastscan": 480
+      },
+      {
+        "name": "Bloomberg Europe TV",
+        "position": "19.2E",
+        "frequency_mhz": 12603,
+        "fastscan": 481
+      },
+      {
+        "name": "CGTN Documentary",
+        "position": "19.2E",
+        "frequency_mhz": 11376,
+        "fastscan": 482
+      },
+      {
+        "name": "CGTN FRANCAIS HD",
+        "position": "19.2E",
+        "frequency_mhz": 11778,
+        "fastscan": 483
+      },
+      {
+        "name": "TV5 MONDE EUROPE HD",
+        "position": "19.2E",
+        "frequency_mhz": 11538,
+        "fastscan": 484
+      },
+      {
+        "name": "phoenix HD",
+        "position": "19.2E",
+        "frequency_mhz": 11582,
+        "fastscan": 485
+      },
+      {
+        "name": "DW English HD",
+        "position": "19.2E",
+        "frequency_mhz": 11778,
+        "fastscan": 486
+      },
+      {
+        "name": "ARAGON TV INT",
+        "position": "19.2E",
+        "frequency_mhz": 11317,
+        "fastscan": 487
+      },
+      {
+        "name": "CANAL SUR A.",
+        "position": "19.2E",
+        "frequency_mhz": 11156,
+        "fastscan": 490
+      },
+      {
+        "name": "ARIRANG HD",
+        "position": "19.2E",
+        "frequency_mhz": 11538,
+        "fastscan": 492
+      },
+      {
+        "name": "Cubavision Internacional",
+        "position": "19.2E",
+        "frequency_mhz": 11778,
+        "fastscan": 500
+      },
+      {
+        "name": "Canal Algerie",
+        "position": "19.2E",
+        "frequency_mhz": 12551,
+        "fastscan": 502
+      },
+      {
+        "name": "TRT WORLD HD",
+        "position": "19.2E",
+        "frequency_mhz": 11538,
+        "fastscan": 503
+      },
+      {
+        "name": "SBN International",
+        "position": "19.2E",
+        "frequency_mhz": 12551,
+        "fastscan": 504
+      },
+      {
+        "name": "EWTN katholisches TV HD",
+        "position": "19.2E",
+        "frequency_mhz": 12662,
+        "fastscan": 505
+      },
+      {
+        "name": "K-TV HD",
+        "position": "19.2E",
+        "frequency_mhz": 11112,
+        "fastscan": 506
+      },
+      {
+        "name": "Bibel TV HD",
+        "position": "19.2E",
+        "frequency_mhz": 11244,
+        "fastscan": 507
+      },
+      {
+        "name": "UHD1 by ASTRA / HD+",
+        "position": "19.2E",
+        "frequency_mhz": 10994,
+        "fastscan": 557
+      },
+      {
+        "name": "M1",
+        "position": "23.5E",
+        "frequency_mhz": 11914,
+        "fastscan": 560
+      },
+      {
+        "name": "M2",
+        "position": "23.5E",
+        "frequency_mhz": 12480,
+        "fastscan": 561
+      },
+      {
+        "name": "VLNA ZS",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 800
+      },
+      {
+        "name": "Slovensko",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 801
+      },
+      {
+        "name": "ReginaBA",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 802
+      },
+      {
+        "name": "ReginaBB",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 803
+      },
+      {
+        "name": "ReginaKE",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 804
+      },
+      {
+        "name": "Devin",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 805
+      },
+      {
+        "name": "Radio_FM",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 806
+      },
+      {
+        "name": "Melody Z",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 807
+      },
+      {
+        "name": "Melody S",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 808
+      },
+      {
+        "name": "Melody V",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 809
+      },
+      {
+        "name": "Expres Z",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 810
+      },
+      {
+        "name": "Radio Lumen",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 811
+      },
+      {
+        "name": "Junior",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 812
+      },
+      {
+        "name": "Litera",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 813
+      },
+      {
+        "name": "Slovakia",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 814
+      },
+      {
+        "name": "PatriaFM",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 815
+      },
+      {
+        "name": "PatriaRD",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 816
+      },
+      {
+        "name": "Europa 2 S",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 817
+      },
+      {
+        "name": "Europa 2 V",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 818
+      },
+      {
+        "name": "FUNRADIO Z",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 819
+      },
+      {
+        "name": "FUNRADIO S",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 820
+      },
+      {
+        "name": "FUNRADIO V",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 821
+      },
+      {
+        "name": "CRo RADIOZURNAL",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 830
+      },
+      {
+        "name": "CRo DVOJKA",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 831
+      },
+      {
+        "name": "CRo VLTAVA",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 832
+      },
+      {
+        "name": "CRo PLUS",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 833
+      },
+      {
+        "name": "CRo RADIO WAVE",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 834
+      },
+      {
+        "name": "CRo RADIO JUNIOR",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 835
+      },
+      {
+        "name": "CRo D-DUR",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 836
+      },
+      {
+        "name": "CRo JAZZ",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 837
+      },
+      {
+        "name": "CRo RADIO PRAHA",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 838
+      },
+      {
+        "name": "CRo STREDNI CECHY",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 839
+      },
+      {
+        "name": "CRo RADIO PRAGUE Int",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 840
+      },
+      {
+        "name": "CRo BRNO",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 841
+      },
+      {
+        "name": "CRo C.BUDEJOVICE",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 842
+      },
+      {
+        "name": "CRo H.KRALOVE",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 843
+      },
+      {
+        "name": "CRo KARLOVY VARY",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 844
+      },
+      {
+        "name": "CRo LIBEREC",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 845
+      },
+      {
+        "name": "CRo VYSOCINA",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 846
+      },
+      {
+        "name": "CRo PARDUBICE",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 847
+      },
+      {
+        "name": "CRo PLZEN",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 848
+      },
+      {
+        "name": "CRo OLOMOUC",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 849
+      },
+      {
+        "name": "CRo OSTRAVA",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 850
+      },
+      {
+        "name": "CRo SEVER",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 851
+      },
+      {
+        "name": "CRo ZLIN",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 852
+      },
+      {
+        "name": "BEAT JM",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 853
+      },
+      {
+        "name": "BEAT JZ",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 854
+      },
+      {
+        "name": "BEAT SM",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 855
+      },
+      {
+        "name": "BEAT SV",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 856
+      },
+      {
+        "name": "BEAT",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 857
+      },
+      {
+        "name": "COUNTRY JM",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 858
+      },
+      {
+        "name": "COUNTRY JZ",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 859
+      },
+      {
+        "name": "COUNTRY SV",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 860
+      },
+      {
+        "name": "Proglas",
+        "position": "23.5E",
+        "frequency_mhz": 11973,
+        "fastscan": 861
+      },
+      {
+        "name": "Pyramida",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 862
+      },
+      {
+        "name": "PROSTOR",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 863
+      },
+      {
+        "name": "ORF OE1",
+        "position": "19.2E",
+        "frequency_mhz": 11303,
+        "fastscan": 870
+      },
+      {
+        "name": "ORF RADIO OE1 DOLBY",
+        "position": "19.2E",
+        "frequency_mhz": 11303,
+        "fastscan": 871
+      },
+      {
+        "name": "ORF B",
+        "position": "19.2E",
+        "frequency_mhz": 11303,
+        "fastscan": 872
+      },
+      {
+        "name": "ORF K",
+        "position": "19.2E",
+        "frequency_mhz": 11303,
+        "fastscan": 873
+      },
+      {
+        "name": "ORF NOE",
+        "position": "19.2E",
+        "frequency_mhz": 11303,
+        "fastscan": 874
+      },
+      {
+        "name": "ORF OOE",
+        "position": "19.2E",
+        "frequency_mhz": 11303,
+        "fastscan": 875
+      },
+      {
+        "name": "ORF S",
+        "position": "19.2E",
+        "frequency_mhz": 11303,
+        "fastscan": 876
+      },
+      {
+        "name": "ORF STMK",
+        "position": "19.2E",
+        "frequency_mhz": 11303,
+        "fastscan": 877
+      },
+      {
+        "name": "ORF T",
+        "position": "19.2E",
+        "frequency_mhz": 11303,
+        "fastscan": 878
+      },
+      {
+        "name": "ORF V",
+        "position": "19.2E",
+        "frequency_mhz": 11303,
+        "fastscan": 879
+      },
+      {
+        "name": "ORF WIEN",
+        "position": "19.2E",
+        "frequency_mhz": 11303,
+        "fastscan": 880
+      },
+      {
+        "name": "ORF HITRADIO OE3",
+        "position": "19.2E",
+        "frequency_mhz": 11303,
+        "fastscan": 881
+      },
+      {
+        "name": "ORF HITRADIO OE3 VISUAL",
+        "position": "19.2E",
+        "frequency_mhz": 11303,
+        "fastscan": 882
+      },
+      {
+        "name": "Radio Veronica De Beste 80s",
+        "position": "23.5E",
+        "frequency_mhz": 11739,
+        "fastscan": 883
+      },
+      {
+        "name": "RADIO MARIA",
+        "position": "19.2E",
+        "frequency_mhz": 12662,
+        "fastscan": 884
+      },
+      {
+        "name": "ANTENNE  BAYERN",
+        "position": "19.2E",
+        "frequency_mhz": 12148,
+        "fastscan": 886
+      },
+      {
+        "name": "Bayern 1",
+        "position": "19.2E",
+        "frequency_mhz": 11053,
+        "fastscan": 887
+      },
+      {
+        "name": "Bayern 2",
+        "position": "19.2E",
+        "frequency_mhz": 11053,
+        "fastscan": 888
+      },
+      {
+        "name": "BAYERN 3",
+        "position": "19.2E",
+        "frequency_mhz": 11053,
+        "fastscan": 889
+      },
+      {
+        "name": "BR-KLASSIK",
+        "position": "19.2E",
+        "frequency_mhz": 11053,
+        "fastscan": 890
+      },
+      {
+        "name": "BR24",
+        "position": "19.2E",
+        "frequency_mhz": 11053,
+        "fastscan": 891
+      },
+      {
+        "name": "BR Schlager",
+        "position": "19.2E",
+        "frequency_mhz": 11053,
+        "fastscan": 892
+      },
+      {
+        "name": "BR-Heimat",
+        "position": "19.2E",
+        "frequency_mhz": 11053,
+        "fastscan": 894
+      },
+      {
+        "name": "hr1",
+        "position": "19.2E",
+        "frequency_mhz": 10891,
+        "fastscan": 895
+      },
+      {
+        "name": "hr2",
+        "position": "19.2E",
+        "frequency_mhz": 10891,
+        "fastscan": 896
+      },
+      {
+        "name": "hr3",
+        "position": "19.2E",
+        "frequency_mhz": 10891,
+        "fastscan": 897
+      },
+      {
+        "name": "hr4",
+        "position": "19.2E",
+        "frequency_mhz": 10891,
+        "fastscan": 898
+      },
+      {
+        "name": "DASDING vom hr",
+        "position": "19.2E",
+        "frequency_mhz": 10891,
+        "fastscan": 899
+      }
+    ],
+    "skylink-cz": [
+      {
+        "name": "CT 1 PHA HD",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 1
+      },
+      {
+        "name": "CT 2 HD",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 2
+      },
+      {
+        "name": "Nova HD",
+        "position": "23.5E",
+        "frequency_mhz": 12266,
+        "fastscan": 3
+      },
+      {
+        "name": "Prima HD",
+        "position": "23.5E",
+        "frequency_mhz": 12266,
+        "fastscan": 4
+      },
+      {
+        "name": "CANAL+",
+        "position": "23.5E",
+        "frequency_mhz": 12070,
+        "fastscan": 5
+      },
+      {
+        "name": "CANAL+ Classics",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 6
+      },
+      {
+        "name": "CANAL+ Action",
+        "position": "23.5E",
+        "frequency_mhz": 11973,
+        "fastscan": 7
+      },
+      {
+        "name": "CANAL+ Crime",
+        "position": "23.5E",
+        "frequency_mhz": 12188,
+        "fastscan": 8
+      },
+      {
+        "name": "CANAL+ Drama",
+        "position": "23.5E",
+        "frequency_mhz": 12110,
+        "fastscan": 9
+      },
+      {
+        "name": "FILMBOX+ One CZ",
+        "position": "23.5E",
+        "frequency_mhz": 11934,
+        "fastscan": 11
+      },
+      {
+        "name": "FILMBOX+ Love and Crime",
+        "position": "23.5E",
+        "frequency_mhz": 12110,
+        "fastscan": 12
+      },
+      {
+        "name": "CT 24 HD",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 13
+      },
+      {
+        "name": "Nova Cinema HD",
+        "position": "23.5E",
+        "frequency_mhz": 12266,
+        "fastscan": 15
+      },
+      {
+        "name": "Nova Action HD",
+        "position": "23.5E",
+        "frequency_mhz": 12266,
+        "fastscan": 16
+      },
+      {
+        "name": "Nova Fun HD",
+        "position": "23.5E",
+        "frequency_mhz": 11973,
+        "fastscan": 17
+      },
+      {
+        "name": "Nova Krimi",
+        "position": "23.5E",
+        "frequency_mhz": 11973,
+        "fastscan": 18
+      },
+      {
+        "name": "Nova Lady",
+        "position": "23.5E",
+        "frequency_mhz": 11973,
+        "fastscan": 19
+      },
+      {
+        "name": "Prima MAX HD",
+        "position": "23.5E",
+        "frequency_mhz": 11934,
+        "fastscan": 21
+      },
+      {
+        "name": "Prima COOL HD",
+        "position": "23.5E",
+        "frequency_mhz": 12266,
+        "fastscan": 22
+      },
+      {
+        "name": "Prima ZOOM HD",
+        "position": "23.5E",
+        "frequency_mhz": 11934,
+        "fastscan": 23
+      },
+      {
+        "name": "CNN Prima News HD",
+        "position": "23.5E",
+        "frequency_mhz": 11934,
+        "fastscan": 24
+      },
+      {
+        "name": "Prima Krimi HD",
+        "position": "23.5E",
+        "frequency_mhz": 11934,
+        "fastscan": 25
+      },
+      {
+        "name": "Prima Love",
+        "position": "23.5E",
+        "frequency_mhz": 11934,
+        "fastscan": 26
+      },
+      {
+        "name": "Prima Show",
+        "position": "23.5E",
+        "frequency_mhz": 11934,
+        "fastscan": 27
+      },
+      {
+        "name": "Prima STAR",
+        "position": "23.5E",
+        "frequency_mhz": 11934,
+        "fastscan": 28
+      },
+      {
+        "name": "Seznam.cz HD",
+        "position": "23.5E",
+        "frequency_mhz": 12070,
+        "fastscan": 30
+      },
+      {
+        "name": "Spektrum Home",
+        "position": "23.5E",
+        "frequency_mhz": 11934,
+        "fastscan": 31
+      },
+      {
+        "name": "FILMBOX+ Emotion HD",
+        "position": "23.5E",
+        "frequency_mhz": 12012,
+        "fastscan": 32
+      },
+      {
+        "name": "FILMBOX+ Hits HD",
+        "position": "23.5E",
+        "frequency_mhz": 12110,
+        "fastscan": 33
+      },
+      {
+        "name": "FILMBOX+ Comedy",
+        "position": "23.5E",
+        "frequency_mhz": 12012,
+        "fastscan": 34
+      },
+      {
+        "name": "TV Barrandov",
+        "position": "23.5E",
+        "frequency_mhz": 12090,
+        "fastscan": 35
+      },
+      {
+        "name": "JOJ Cinema HD",
+        "position": "23.5E",
+        "frequency_mhz": 12070,
+        "fastscan": 36
+      },
+      {
+        "name": "CS Film/CS Horror",
+        "position": "23.5E",
+        "frequency_mhz": 11934,
+        "fastscan": 37
+      },
+      {
+        "name": "CT :D/art HD",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 38
+      },
+      {
+        "name": "Barrandov Krimi",
+        "position": "23.5E",
+        "frequency_mhz": 12090,
+        "fastscan": 40
+      },
+      {
+        "name": "Kino Barrandov",
+        "position": "23.5E",
+        "frequency_mhz": 12090,
+        "fastscan": 41
+      },
+      {
+        "name": "Viasat Epic Drama HD",
+        "position": "23.5E",
+        "frequency_mhz": 11934,
+        "fastscan": 42
+      },
+      {
+        "name": "Film+ HD",
+        "position": "23.5E",
+        "frequency_mhz": 12110,
+        "fastscan": 43
+      },
+      {
+        "name": "Film Europe+ HD",
+        "position": "23.5E",
+        "frequency_mhz": 12110,
+        "fastscan": 44
+      },
+      {
+        "name": "AXN CZ",
+        "position": "23.5E",
+        "frequency_mhz": 12090,
+        "fastscan": 45
+      },
+      {
+        "name": "AXN Black Central Europe",
+        "position": "23.5E",
+        "frequency_mhz": 12110,
+        "fastscan": 46
+      },
+      {
+        "name": "AXN White Central Europe",
+        "position": "23.5E",
+        "frequency_mhz": 12110,
+        "fastscan": 47
+      },
+      {
+        "name": "AMC",
+        "position": "23.5E",
+        "frequency_mhz": 11934,
+        "fastscan": 48
+      },
+      {
+        "name": "Film Europe HD",
+        "position": "23.5E",
+        "frequency_mhz": 12012,
+        "fastscan": 49
+      },
+      {
+        "name": "Story 4 CZ",
+        "position": "23.5E",
+        "frequency_mhz": 11739,
+        "fastscan": 51
+      },
+      {
+        "name": "Jednotka HD",
+        "position": "23.5E",
+        "frequency_mhz": 12012,
+        "fastscan": 52
+      },
+      {
+        "name": "Dvojka HD",
+        "position": "23.5E",
+        "frequency_mhz": 12012,
+        "fastscan": 53
+      },
+      {
+        "name": "Markiza International",
+        "position": "23.5E",
+        "frequency_mhz": 11973,
+        "fastscan": 54
+      },
+      {
+        "name": "JOJ Family",
+        "position": "23.5E",
+        "frequency_mhz": 12070,
+        "fastscan": 55
+      },
+      {
+        "name": "RTVS 24 HD",
+        "position": "23.5E",
+        "frequency_mhz": 12012,
+        "fastscan": 56
+      },
+      {
+        "name": "TA3 HD",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 57
+      },
+      {
+        "name": "HBO HD",
+        "position": "23.5E",
+        "frequency_mhz": 12090,
+        "fastscan": 60
+      },
+      {
+        "name": "HBO2 HD",
+        "position": "23.5E",
+        "frequency_mhz": 12110,
+        "fastscan": 61
+      },
+      {
+        "name": "HBO3 HD",
+        "position": "23.5E",
+        "frequency_mhz": 12110,
+        "fastscan": 62
+      },
+      {
+        "name": "Cinemax HD",
+        "position": "23.5E",
+        "frequency_mhz": 12012,
+        "fastscan": 63
+      },
+      {
+        "name": "Cinemax2 HD",
+        "position": "23.5E",
+        "frequency_mhz": 12110,
+        "fastscan": 64
+      },
+      {
+        "name": "JOJ Svet CZ",
+        "position": "23.5E",
+        "frequency_mhz": 11934,
+        "fastscan": 69
+      },
+      {
+        "name": "Nat Geo HD CZ",
+        "position": "23.5E",
+        "frequency_mhz": 12090,
+        "fastscan": 70
+      },
+      {
+        "name": "Viasat Nature HD",
+        "position": "23.5E",
+        "frequency_mhz": 12110,
+        "fastscan": 71
+      },
+      {
+        "name": "Viasat History HD",
+        "position": "23.5E",
+        "frequency_mhz": 12110,
+        "fastscan": 72
+      },
+      {
+        "name": "Viasat Explore",
+        "position": "23.5E",
+        "frequency_mhz": 12012,
+        "fastscan": 73
+      },
+      {
+        "name": "Viasat True Crime",
+        "position": "23.5E",
+        "frequency_mhz": 11934,
+        "fastscan": 74
+      },
+      {
+        "name": "CS History",
+        "position": "23.5E",
+        "frequency_mhz": 12070,
+        "fastscan": 75
+      },
+      {
+        "name": "CS Mystery",
+        "position": "23.5E",
+        "frequency_mhz": 12070,
+        "fastscan": 76
+      },
+      {
+        "name": "Fishing and Hunting",
+        "position": "23.5E",
+        "frequency_mhz": 12090,
+        "fastscan": 78
+      },
+      {
+        "name": "National Geographic Wild HD CZ",
+        "position": "23.5E",
+        "frequency_mhz": 12090,
+        "fastscan": 79
+      },
+      {
+        "name": "Spektrum HD",
+        "position": "23.5E",
+        "frequency_mhz": 12090,
+        "fastscan": 80
+      },
+      {
+        "name": "History HD",
+        "position": "23.5E",
+        "frequency_mhz": 12110,
+        "fastscan": 81
+      },
+      {
+        "name": "Love Nature HD CZ",
+        "position": "23.5E",
+        "frequency_mhz": 12090,
+        "fastscan": 82
+      },
+      {
+        "name": "DOCUBOX",
+        "position": "23.5E",
+        "frequency_mhz": 12129,
+        "fastscan": 84
+      },
+      {
+        "name": "Nautical HD",
+        "position": "23.5E",
+        "frequency_mhz": 11856,
+        "fastscan": 85
+      },
+      {
+        "name": "TV Paprika",
+        "position": "23.5E",
+        "frequency_mhz": 11934,
+        "fastscan": 87
+      },
+      {
+        "name": "INPLUS",
+        "position": "19.2E",
+        "frequency_mhz": 12515,
+        "fastscan": 88
+      },
+      {
+        "name": "TV8",
+        "position": "23.5E",
+        "frequency_mhz": 12129,
+        "fastscan": 89
+      },
+      {
+        "name": "CANAL+ Sport (CZ)",
+        "position": "23.5E",
+        "frequency_mhz": 11973,
+        "fastscan": 90
+      },
+      {
+        "name": "CANAL+ Sport 2 (CZ)",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 91
+      },
+      {
+        "name": "Nova Sport 1 HD",
+        "position": "23.5E",
+        "frequency_mhz": 12266,
+        "fastscan": 100
+      },
+      {
+        "name": "Nova Sport 2 HD",
+        "position": "23.5E",
+        "frequency_mhz": 11973,
+        "fastscan": 101
+      },
+      {
+        "name": "Nova Sport 3 HD",
+        "position": "23.5E",
+        "frequency_mhz": 11934,
+        "fastscan": 102
+      },
+      {
+        "name": "Nova Sport 4 HD",
+        "position": "23.5E",
+        "frequency_mhz": 11934,
+        "fastscan": 103
+      },
+      {
+        "name": "Nova Sport 5 HD (CZ)",
+        "position": "23.5E",
+        "frequency_mhz": 11973,
+        "fastscan": 104
+      },
+      {
+        "name": "Nova Sport 6 HD",
+        "position": "23.5E",
+        "frequency_mhz": 12090,
+        "fastscan": 105
+      },
+      {
+        "name": "CT sport HD",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 106
+      },
+      {
+        "name": "Prima Sport",
+        "position": "23.5E",
+        "frequency_mhz": 12110,
+        "fastscan": 107
+      },
+      {
+        "name": "Golf Channel",
+        "position": "23.5E",
+        "frequency_mhz": 12090,
+        "fastscan": 108
+      },
+      {
+        "name": "Sport 1 HD CZ",
+        "position": "23.5E",
+        "frequency_mhz": 12012,
+        "fastscan": 109
+      },
+      {
+        "name": "Sport 2 HD",
+        "position": "23.5E",
+        "frequency_mhz": 12090,
+        "fastscan": 110
+      },
+      {
+        "name": "Kanal1 Sport",
+        "position": "23.5E",
+        "frequency_mhz": 12012,
+        "fastscan": 111
+      },
+      {
+        "name": "Kanal1 Xtra",
+        "position": "23.5E",
+        "frequency_mhz": 11973,
+        "fastscan": 112
+      },
+      {
+        "name": "AutoMotorSport HD",
+        "position": "23.5E",
+        "frequency_mhz": 11739,
+        "fastscan": 113
+      },
+      {
+        "name": "FIGHTBOX",
+        "position": "23.5E",
+        "frequency_mhz": 11739,
+        "fastscan": 114
+      },
+      {
+        "name": "JimJam CZ",
+        "position": "23.5E",
+        "frequency_mhz": 12012,
+        "fastscan": 121
+      },
+      {
+        "name": "Minimax",
+        "position": "23.5E",
+        "frequency_mhz": 12110,
+        "fastscan": 122
+      },
+      {
+        "name": "LALA TV",
+        "position": "23.5E",
+        "frequency_mhz": 12012,
+        "fastscan": 127
+      },
+      {
+        "name": "Disney CZ",
+        "position": "23.5E",
+        "frequency_mhz": 11934,
+        "fastscan": 128
+      },
+      {
+        "name": "Cartoon Network CZ",
+        "position": "23.5E",
+        "frequency_mhz": 11934,
+        "fastscan": 129
+      },
+      {
+        "name": "Cartoonito",
+        "position": "23.5E",
+        "frequency_mhz": 12090,
+        "fastscan": 130
+      },
+      {
+        "name": "Retro Music TV",
+        "position": "23.5E",
+        "frequency_mhz": 12012,
+        "fastscan": 140
+      },
+      {
+        "name": "Slager Original",
+        "position": "23.5E",
+        "frequency_mhz": 12070,
+        "fastscan": 141
+      },
+      {
+        "name": "Slager Muzika",
+        "position": "23.5E",
+        "frequency_mhz": 12266,
+        "fastscan": 142
+      },
+      {
+        "name": "Premium",
+        "position": "23.5E",
+        "frequency_mhz": 12090,
+        "fastscan": 143
+      },
+      {
+        "name": "Senzi",
+        "position": "23.5E",
+        "frequency_mhz": 11934,
+        "fastscan": 144
+      },
+      {
+        "name": "OCKO STAR",
+        "position": "23.5E",
+        "frequency_mhz": 12090,
+        "fastscan": 148
+      },
+      {
+        "name": "TV Lux HD",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 160
+      },
+      {
+        "name": "CT 1 JM HD",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 161
+      },
+      {
+        "name": "CT 1 SM HD",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 162
+      },
+      {
+        "name": "CT 1 JZC HD",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 163
+      },
+      {
+        "name": "CT 1 SVC HD",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 164
+      },
+      {
+        "name": "Daystar",
+        "position": "23.5E",
+        "frequency_mhz": 12090,
+        "fastscan": 169
+      },
+      {
+        "name": "M1",
+        "position": "23.5E",
+        "frequency_mhz": 11739,
+        "fastscan": 200
+      },
+      {
+        "name": "M2 / Petofi",
+        "position": "23.5E",
+        "frequency_mhz": 11739,
+        "fastscan": 201
+      },
+      {
+        "name": "M4",
+        "position": "23.5E",
+        "frequency_mhz": 11739,
+        "fastscan": 202
+      },
+      {
+        "name": "M5",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 203
+      },
+      {
+        "name": "Duna SD",
+        "position": "23.5E",
+        "frequency_mhz": 11856,
+        "fastscan": 204
+      },
+      {
+        "name": "Duna World / M4 Sport+",
+        "position": "23.5E",
+        "frequency_mhz": 11856,
+        "fastscan": 205
+      },
+      {
+        "name": "HirTV",
+        "position": "23.5E",
+        "frequency_mhz": 11739,
+        "fastscan": 206
+      },
+      {
+        "name": "RTL GOLD",
+        "position": "23.5E",
+        "frequency_mhz": 12129,
+        "fastscan": 207
+      },
+      {
+        "name": "RTL",
+        "position": "23.5E",
+        "frequency_mhz": 11739,
+        "fastscan": 208
+      },
+      {
+        "name": "RTL KETTO",
+        "position": "23.5E",
+        "frequency_mhz": 12188,
+        "fastscan": 209
+      },
+      {
+        "name": "RTL HAROM",
+        "position": "23.5E",
+        "frequency_mhz": 12188,
+        "fastscan": 210
+      },
+      {
+        "name": "TV2",
+        "position": "23.5E",
+        "frequency_mhz": 11739,
+        "fastscan": 211
+      },
+      {
+        "name": "SuperTV2",
+        "position": "23.5E",
+        "frequency_mhz": 11973,
+        "fastscan": 212
+      },
+      {
+        "name": "Story 4",
+        "position": "23.5E",
+        "frequency_mhz": 12188,
+        "fastscan": 214
+      },
+      {
+        "name": "Cool",
+        "position": "23.5E",
+        "frequency_mhz": 11856,
+        "fastscan": 215
+      },
+      {
+        "name": "Sorozat+",
+        "position": "23.5E",
+        "frequency_mhz": 12188,
+        "fastscan": 217
+      },
+      {
+        "name": "Film+ Hungary",
+        "position": "23.5E",
+        "frequency_mhz": 11856,
+        "fastscan": 222
+      },
+      {
+        "name": "Galaxy4",
+        "position": "23.5E",
+        "frequency_mhz": 11973,
+        "fastscan": 223
+      },
+      {
+        "name": "FEM3",
+        "position": "23.5E",
+        "frequency_mhz": 12090,
+        "fastscan": 225
+      },
+      {
+        "name": "TV2 Sef",
+        "position": "23.5E",
+        "frequency_mhz": 12129,
+        "fastscan": 226
+      },
+      {
+        "name": "Slager TV",
+        "position": "23.5E",
+        "frequency_mhz": 12129,
+        "fastscan": 229
+      },
+      {
+        "name": "Muzsika TV",
+        "position": "23.5E",
+        "frequency_mhz": 12129,
+        "fastscan": 230
+      },
+      {
+        "name": "France 24 (en Anglais)",
+        "position": "19.2E",
+        "frequency_mhz": 11538,
+        "fastscan": 235
+      },
+      {
+        "name": "Leo TV (22-06)",
+        "position": "23.5E",
+        "frequency_mhz": 12110,
+        "fastscan": 300
+      },
+      {
+        "name": "Vixen HD",
+        "position": "23.5E",
+        "frequency_mhz": 11739,
+        "fastscan": 302
+      },
+      {
+        "name": "Penthouse Gold CZ",
+        "position": "23.5E",
+        "frequency_mhz": 11856,
+        "fastscan": 303
+      },
+      {
+        "name": "Hustler TV CZ",
+        "position": "19.2E",
+        "frequency_mhz": 12515,
+        "fastscan": 308
+      },
+      {
+        "name": "Penthouse Reality TV CZ",
+        "position": "23.5E",
+        "frequency_mhz": 11856,
+        "fastscan": 309
+      },
+      {
+        "name": "Man-X",
+        "position": "23.5E",
+        "frequency_mhz": 12129,
+        "fastscan": 310
+      },
+      {
+        "name": "RTLZWEI",
+        "position": "19.2E",
+        "frequency_mhz": 12187,
+        "fastscan": 400
+      },
+      {
+        "name": "RTL Austria",
+        "position": "19.2E",
+        "frequency_mhz": 12226,
+        "fastscan": 401
+      },
+      {
+        "name": "SUPER RTL",
+        "position": "19.2E",
+        "frequency_mhz": 12187,
+        "fastscan": 402
+      },
+      {
+        "name": "SAT.1",
+        "position": "19.2E",
+        "frequency_mhz": 12544,
+        "fastscan": 403
+      },
+      {
+        "name": "SAT.1 Gold Österreich",
+        "position": "19.2E",
+        "frequency_mhz": 11671,
+        "fastscan": 404
+      },
+      {
+        "name": "ProSieben",
+        "position": "19.2E",
+        "frequency_mhz": 12544,
+        "fastscan": 405
+      },
+      {
+        "name": "Pro7 MAXX Austria",
+        "position": "19.2E",
+        "frequency_mhz": 11671,
+        "fastscan": 406
+      },
+      {
+        "name": "kabel eins",
+        "position": "19.2E",
+        "frequency_mhz": 12544,
+        "fastscan": 407
+      },
+      {
+        "name": "VOX",
+        "position": "19.2E",
+        "frequency_mhz": 12187,
+        "fastscan": 408
+      },
+      {
+        "name": "Das Erste HD",
+        "position": "19.2E",
+        "frequency_mhz": 11494,
+        "fastscan": 409
+      },
+      {
+        "name": "ZDF HD",
+        "position": "19.2E",
+        "frequency_mhz": 11362,
+        "fastscan": 410
+      },
+      {
+        "name": "SPORT1",
+        "position": "19.2E",
+        "frequency_mhz": 12480,
+        "fastscan": 411
+      },
+      {
+        "name": "Eurosport 1 Deutschland",
+        "position": "19.2E",
+        "frequency_mhz": 12226,
+        "fastscan": 412
+      },
+      {
+        "name": "ORF 2 EUROPE HD",
+        "position": "19.2E",
+        "frequency_mhz": 11273,
+        "fastscan": 413
+      },
+      {
+        "name": "Disney Channel",
+        "position": "19.2E",
+        "frequency_mhz": 12460,
+        "fastscan": 414
+      },
+      {
+        "name": "AnixeHD Serie",
+        "position": "19.2E",
+        "frequency_mhz": 10773,
+        "fastscan": 415
+      },
+      {
+        "name": "kabel eins Doku",
+        "position": "19.2E",
+        "frequency_mhz": 12544,
+        "fastscan": 416
+      },
+      {
+        "name": "DF1 HD",
+        "position": "19.2E",
+        "frequency_mhz": 11303,
+        "fastscan": 417
+      },
+      {
+        "name": "SWR BW HD",
+        "position": "19.2E",
+        "frequency_mhz": 11494,
+        "fastscan": 418
+      },
+      {
+        "name": "SR Fernsehen HD",
+        "position": "19.2E",
+        "frequency_mhz": 11053,
+        "fastscan": 419
+      },
+      {
+        "name": "TELE 5",
+        "position": "19.2E",
+        "frequency_mhz": 12480,
+        "fastscan": 420
+      },
+      {
+        "name": "RTLup",
+        "position": "19.2E",
+        "frequency_mhz": 12187,
+        "fastscan": 421
+      },
+      {
+        "name": "TOGGO plus",
+        "position": "19.2E",
+        "frequency_mhz": 12187,
+        "fastscan": 422
+      },
+      {
+        "name": "BR Fernsehen Nord HD",
+        "position": "19.2E",
+        "frequency_mhz": 11582,
+        "fastscan": 423
+      },
+      {
+        "name": "MDR Sachsen HD",
+        "position": "19.2E",
+        "frequency_mhz": 10891,
+        "fastscan": 424
+      },
+      {
+        "name": "NDR FS HH HD",
+        "position": "19.2E",
+        "frequency_mhz": 11582,
+        "fastscan": 425
+      },
+      {
+        "name": "WDR HD Köln",
+        "position": "19.2E",
+        "frequency_mhz": 11523,
+        "fastscan": 426
+      },
+      {
+        "name": "Radio Bremen HD",
+        "position": "19.2E",
+        "frequency_mhz": 11053,
+        "fastscan": 427
+      },
+      {
+        "name": "rbb Berlin HD",
+        "position": "19.2E",
+        "frequency_mhz": 10891,
+        "fastscan": 428
+      },
+      {
+        "name": "zdf_neo HD",
+        "position": "19.2E",
+        "frequency_mhz": 11362,
+        "fastscan": 429
+      },
+      {
+        "name": "ZDFinfo HD",
+        "position": "19.2E",
+        "frequency_mhz": 11347,
+        "fastscan": 430
+      },
+      {
+        "name": "tagesschau24 HD",
+        "position": "19.2E",
+        "frequency_mhz": 11053,
+        "fastscan": 431
+      },
+      {
+        "name": "oe24.TV HD",
+        "position": "19.2E",
+        "frequency_mhz": 11273,
+        "fastscan": 432
+      },
+      {
+        "name": "ONE HD",
+        "position": "19.2E",
+        "frequency_mhz": 11053,
+        "fastscan": 433
+      },
+      {
+        "name": "N24 DOKU",
+        "position": "19.2E",
+        "frequency_mhz": 12460,
+        "fastscan": 434
+      },
+      {
+        "name": "3sat HD",
+        "position": "19.2E",
+        "frequency_mhz": 11347,
+        "fastscan": 435
+      },
+      {
+        "name": "arte HD",
+        "position": "19.2E",
+        "frequency_mhz": 11494,
+        "fastscan": 436
+      },
+      {
+        "name": "hr-fernsehen HD",
+        "position": "19.2E",
+        "frequency_mhz": 10891,
+        "fastscan": 437
+      },
+      {
+        "name": "R9 Oesterreich HD",
+        "position": "19.2E",
+        "frequency_mhz": 11273,
+        "fastscan": 438
+      },
+      {
+        "name": "REGIO TV",
+        "position": "19.2E",
+        "frequency_mhz": 12480,
+        "fastscan": 439
+      },
+      {
+        "name": "ARD alpha HD",
+        "position": "19.2E",
+        "frequency_mhz": 11053,
+        "fastscan": 441
+      },
+      {
+        "name": "NITRO Austria",
+        "position": "19.2E",
+        "frequency_mhz": 12662,
+        "fastscan": 442
+      },
+      {
+        "name": "TLC",
+        "position": "19.2E",
+        "frequency_mhz": 12460,
+        "fastscan": 443
+      },
+      {
+        "name": "sixx",
+        "position": "19.2E",
+        "frequency_mhz": 12544,
+        "fastscan": 444
+      },
+      {
+        "name": "TV1 OOE NEU",
+        "position": "19.2E",
+        "frequency_mhz": 11273,
+        "fastscan": 445
+      },
+      {
+        "name": "KiKA HD",
+        "position": "19.2E",
+        "frequency_mhz": 11347,
+        "fastscan": 446
+      },
+      {
+        "name": "Nick/Comedy Central+1",
+        "position": "19.2E",
+        "frequency_mhz": 11973,
+        "fastscan": 447
+      },
+      {
+        "name": "RiC NEU",
+        "position": "19.2E",
+        "frequency_mhz": 11303,
+        "fastscan": 448
+      },
+      {
+        "name": "Comedy Central",
+        "position": "19.2E",
+        "frequency_mhz": 11973,
+        "fastscan": 449
+      },
+      {
+        "name": "DELUXE  MUSIC",
+        "position": "19.2E",
+        "frequency_mhz": 12148,
+        "fastscan": 450
+      },
+      {
+        "name": "Deluxe Dance by Kontor",
+        "position": "19.2E",
+        "frequency_mhz": 12109,
+        "fastscan": 453
+      },
+      {
+        "name": "Deluxe Rap",
+        "position": "19.2E",
+        "frequency_mhz": 12109,
+        "fastscan": 454
+      },
+      {
+        "name": "MTV",
+        "position": "19.2E",
+        "frequency_mhz": 11973,
+        "fastscan": 455
+      },
+      {
+        "name": "Stimmungsgarten TV",
+        "position": "19.2E",
+        "frequency_mhz": 11273,
+        "fastscan": 456
+      },
+      {
+        "name": "TELEGOLD SD",
+        "position": "19.2E",
+        "frequency_mhz": 12633,
+        "fastscan": 457
+      },
+      {
+        "name": "DMAX",
+        "position": "19.2E",
+        "frequency_mhz": 12480,
+        "fastscan": 458
+      },
+      {
+        "name": "LILO.TV",
+        "position": "19.2E",
+        "frequency_mhz": 11244,
+        "fastscan": 459
+      },
+      {
+        "name": "Melodie TV NEU",
+        "position": "19.2E",
+        "frequency_mhz": 11273,
+        "fastscan": 460
+      },
+      {
+        "name": "BBC News",
+        "position": "19.2E",
+        "frequency_mhz": 11229,
+        "fastscan": 467
+      },
+      {
+        "name": "CNN Int.",
+        "position": "19.2E",
+        "frequency_mhz": 11739,
+        "fastscan": 468
+      },
+      {
+        "name": "Sky News Intl",
+        "position": "19.2E",
+        "frequency_mhz": 12603,
+        "fastscan": 469
+      },
+      {
+        "name": "EURONEWS GERMAN SD PAL",
+        "position": "19.2E",
+        "frequency_mhz": 11376,
+        "fastscan": 470
+      },
+      {
+        "name": "CGTN HD",
+        "position": "19.2E",
+        "frequency_mhz": 11778,
+        "fastscan": 471
+      },
+      {
+        "name": "France 24 (en Francais)",
+        "position": "19.2E",
+        "frequency_mhz": 11538,
+        "fastscan": 472
+      },
+      {
+        "name": "Al Jazeera English HD",
+        "position": "19.2E",
+        "frequency_mhz": 11229,
+        "fastscan": 473
+      },
+      {
+        "name": "WELT",
+        "position": "19.2E",
+        "frequency_mhz": 12544,
+        "fastscan": 474
+      },
+      {
+        "name": "ntv",
+        "position": "19.2E",
+        "frequency_mhz": 12187,
+        "fastscan": 475
+      },
+      {
+        "name": "NHK WORLD-JPN",
+        "position": "19.2E",
+        "frequency_mhz": 11229,
+        "fastscan": 476
+      },
+      {
+        "name": "CNEWS",
+        "position": "19.2E",
+        "frequency_mhz": 12207,
+        "fastscan": 478
+      },
+      {
+        "name": "LCP",
+        "position": "19.2E",
+        "frequency_mhz": 12168,
+        "fastscan": 479
+      },
+      {
+        "name": "CNBC HD",
+        "position": "19.2E",
+        "frequency_mhz": 11376,
+        "fastscan": 480
+      },
+      {
+        "name": "Bloomberg Europe TV",
+        "position": "19.2E",
+        "frequency_mhz": 12603,
+        "fastscan": 481
+      },
+      {
+        "name": "CGTN Documentary",
+        "position": "19.2E",
+        "frequency_mhz": 11376,
+        "fastscan": 482
+      },
+      {
+        "name": "CGTN FRANCAIS HD",
+        "position": "19.2E",
+        "frequency_mhz": 11778,
+        "fastscan": 483
+      },
+      {
+        "name": "TV5 MONDE EUROPE HD",
+        "position": "19.2E",
+        "frequency_mhz": 11538,
+        "fastscan": 484
+      },
+      {
+        "name": "phoenix HD",
+        "position": "19.2E",
+        "frequency_mhz": 11582,
+        "fastscan": 485
+      },
+      {
+        "name": "DW English HD",
+        "position": "19.2E",
+        "frequency_mhz": 11778,
+        "fastscan": 486
+      },
+      {
+        "name": "ARAGON TV INT",
+        "position": "19.2E",
+        "frequency_mhz": 11317,
+        "fastscan": 487
+      },
+      {
+        "name": "CANAL SUR A.",
+        "position": "19.2E",
+        "frequency_mhz": 11156,
+        "fastscan": 490
+      },
+      {
+        "name": "ARIRANG HD",
+        "position": "19.2E",
+        "frequency_mhz": 11538,
+        "fastscan": 492
+      },
+      {
+        "name": "Cubavision Internacional",
+        "position": "19.2E",
+        "frequency_mhz": 11778,
+        "fastscan": 500
+      },
+      {
+        "name": "Canal Algerie",
+        "position": "19.2E",
+        "frequency_mhz": 12551,
+        "fastscan": 502
+      },
+      {
+        "name": "TRT WORLD HD",
+        "position": "19.2E",
+        "frequency_mhz": 11538,
+        "fastscan": 503
+      },
+      {
+        "name": "SBN International",
+        "position": "19.2E",
+        "frequency_mhz": 12551,
+        "fastscan": 504
+      },
+      {
+        "name": "EWTN katholisches TV HD",
+        "position": "19.2E",
+        "frequency_mhz": 12662,
+        "fastscan": 505
+      },
+      {
+        "name": "K-TV HD",
+        "position": "19.2E",
+        "frequency_mhz": 11112,
+        "fastscan": 506
+      },
+      {
+        "name": "Bibel TV HD",
+        "position": "19.2E",
+        "frequency_mhz": 11244,
+        "fastscan": 507
+      },
+      {
+        "name": "UHD1 by ASTRA / HD+",
+        "position": "19.2E",
+        "frequency_mhz": 10994,
+        "fastscan": 557
+      },
+      {
+        "name": "M1",
+        "position": "23.5E",
+        "frequency_mhz": 11914,
+        "fastscan": 560
+      },
+      {
+        "name": "M2",
+        "position": "23.5E",
+        "frequency_mhz": 12480,
+        "fastscan": 561
+      },
+      {
+        "name": "Test3",
+        "position": "23.5E",
+        "frequency_mhz": 12110,
+        "fastscan": 562
+      },
+      {
+        "name": "CRo RADIOZURNAL",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 800
+      },
+      {
+        "name": "CRo DVOJKA",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 801
+      },
+      {
+        "name": "CRo VLTAVA",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 802
+      },
+      {
+        "name": "CRo PLUS",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 803
+      },
+      {
+        "name": "CRo RADIO WAVE",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 804
+      },
+      {
+        "name": "CRo RADIO JUNIOR",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 805
+      },
+      {
+        "name": "CRo D-DUR",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 806
+      },
+      {
+        "name": "CRo JAZZ",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 807
+      },
+      {
+        "name": "CRo RADIO PRAHA",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 808
+      },
+      {
+        "name": "CRo STREDNI CECHY",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 809
+      },
+      {
+        "name": "CRo RADIO PRAGUE Int",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 810
+      },
+      {
+        "name": "CRo BRNO",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 811
+      },
+      {
+        "name": "CRo C.BUDEJOVICE",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 812
+      },
+      {
+        "name": "CRo H.KRALOVE",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 813
+      },
+      {
+        "name": "CRo KARLOVY VARY",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 814
+      },
+      {
+        "name": "CRo LIBEREC",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 815
+      },
+      {
+        "name": "CRo VYSOCINA",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 816
+      },
+      {
+        "name": "CRo PARDUBICE",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 817
+      },
+      {
+        "name": "CRo PLZEN",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 818
+      },
+      {
+        "name": "CRo OLOMOUC",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 819
+      },
+      {
+        "name": "CRo OSTRAVA",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 820
+      },
+      {
+        "name": "CRo SEVER",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 821
+      },
+      {
+        "name": "CRo ZLIN",
+        "position": "23.5E",
+        "frequency_mhz": 12343,
+        "fastscan": 822
+      },
+      {
+        "name": "BEAT JM",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 823
+      },
+      {
+        "name": "BEAT JZ",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 824
+      },
+      {
+        "name": "BEAT SM",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 825
+      },
+      {
+        "name": "BEAT SV",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 826
+      },
+      {
+        "name": "BEAT",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 827
+      },
+      {
+        "name": "COUNTRY JM",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 828
+      },
+      {
+        "name": "COUNTRY JZ",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 829
+      },
+      {
+        "name": "COUNTRY SV",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 830
+      },
+      {
+        "name": "Proglas",
+        "position": "23.5E",
+        "frequency_mhz": 11973,
+        "fastscan": 831
+      },
+      {
+        "name": "PROSTOR",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 832
+      },
+      {
+        "name": "VLNA ZS",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 840
+      },
+      {
+        "name": "Slovensko",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 841
+      },
+      {
+        "name": "ReginaBA",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 842
+      },
+      {
+        "name": "ReginaBB",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 843
+      },
+      {
+        "name": "ReginaKE",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 844
+      },
+      {
+        "name": "Devin",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 845
+      },
+      {
+        "name": "Radio_FM",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 846
+      },
+      {
+        "name": "Melody Z",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 847
+      },
+      {
+        "name": "Melody S",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 848
+      },
+      {
+        "name": "Melody V",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 849
+      },
+      {
+        "name": "Radio Lumen",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 850
+      },
+      {
+        "name": "Junior",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 852
+      },
+      {
+        "name": "Litera",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 853
+      },
+      {
+        "name": "Slovakia",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 854
+      },
+      {
+        "name": "PatriaFM",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 855
+      },
+      {
+        "name": "PatriaRD",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 856
+      },
+      {
+        "name": "Pyramida",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 857
+      },
+      {
+        "name": "Europa 2 S",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 858
+      },
+      {
+        "name": "Europa 2 V",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 859
+      },
+      {
+        "name": "FUNRADIO Z",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 860
+      },
+      {
+        "name": "FUNRADIO S",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 861
+      },
+      {
+        "name": "FUNRADIO V",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 862
+      },
+      {
+        "name": "Expres Z",
+        "position": "23.5E",
+        "frequency_mhz": 12363,
+        "fastscan": 863
+      },
+      {
+        "name": "ORF OE1",
+        "position": "19.2E",
+        "frequency_mhz": 11303,
+        "fastscan": 870
+      },
+      {
+        "name": "ORF RADIO OE1 DOLBY",
+        "position": "19.2E",
+        "frequency_mhz": 11303,
+        "fastscan": 871
+      },
+      {
+        "name": "ORF B",
+        "position": "19.2E",
+        "frequency_mhz": 11303,
+        "fastscan": 872
+      },
+      {
+        "name": "ORF K",
+        "position": "19.2E",
+        "frequency_mhz": 11303,
+        "fastscan": 873
+      },
+      {
+        "name": "ORF NOE",
+        "position": "19.2E",
+        "frequency_mhz": 11303,
+        "fastscan": 874
+      },
+      {
+        "name": "ORF OOE",
+        "position": "19.2E",
+        "frequency_mhz": 11303,
+        "fastscan": 875
+      },
+      {
+        "name": "ORF S",
+        "position": "19.2E",
+        "frequency_mhz": 11303,
+        "fastscan": 876
+      },
+      {
+        "name": "ORF STMK",
+        "position": "19.2E",
+        "frequency_mhz": 11303,
+        "fastscan": 877
+      },
+      {
+        "name": "ORF T",
+        "position": "19.2E",
+        "frequency_mhz": 11303,
+        "fastscan": 878
+      },
+      {
+        "name": "ORF V",
+        "position": "19.2E",
+        "frequency_mhz": 11303,
+        "fastscan": 879
+      },
+      {
+        "name": "ORF WIEN",
+        "position": "19.2E",
+        "frequency_mhz": 11303,
+        "fastscan": 880
+      },
+      {
+        "name": "ORF HITRADIO OE3",
+        "position": "19.2E",
+        "frequency_mhz": 11303,
+        "fastscan": 881
+      },
+      {
+        "name": "ORF HITRADIO OE3 VISUAL",
+        "position": "19.2E",
+        "frequency_mhz": 11303,
+        "fastscan": 882
+      },
+      {
+        "name": "Radio Veronica De Beste 80s",
+        "position": "23.5E",
+        "frequency_mhz": 11739,
+        "fastscan": 883
+      },
+      {
+        "name": "RADIO MARIA",
+        "position": "19.2E",
+        "frequency_mhz": 12662,
+        "fastscan": 884
+      },
+      {
+        "name": "ANTENNE  BAYERN",
+        "position": "19.2E",
+        "frequency_mhz": 12148,
+        "fastscan": 886
+      },
+      {
+        "name": "Bayern 1",
+        "position": "19.2E",
+        "frequency_mhz": 11053,
+        "fastscan": 887
+      },
+      {
+        "name": "Bayern 2",
+        "position": "19.2E",
+        "frequency_mhz": 11053,
+        "fastscan": 888
+      },
+      {
+        "name": "BAYERN 3",
+        "position": "19.2E",
+        "frequency_mhz": 11053,
+        "fastscan": 889
+      },
+      {
+        "name": "BR-KLASSIK",
+        "position": "19.2E",
+        "frequency_mhz": 11053,
+        "fastscan": 890
+      },
+      {
+        "name": "BR24",
+        "position": "19.2E",
+        "frequency_mhz": 11053,
+        "fastscan": 891
+      },
+      {
+        "name": "BR Schlager",
+        "position": "19.2E",
+        "frequency_mhz": 11053,
+        "fastscan": 892
+      },
+      {
+        "name": "BR-Heimat",
+        "position": "19.2E",
+        "frequency_mhz": 11053,
+        "fastscan": 894
+      },
+      {
+        "name": "hr1",
+        "position": "19.2E",
+        "frequency_mhz": 10891,
+        "fastscan": 895
+      },
+      {
+        "name": "hr2",
+        "position": "19.2E",
+        "frequency_mhz": 10891,
+        "fastscan": 896
+      },
+      {
+        "name": "hr3",
+        "position": "19.2E",
+        "frequency_mhz": 10891,
+        "fastscan": 897
+      },
+      {
+        "name": "hr4",
+        "position": "19.2E",
+        "frequency_mhz": 10891,
+        "fastscan": 898
+      },
+      {
+        "name": "DASDING vom hr",
+        "position": "19.2E",
+        "frequency_mhz": 10891,
+        "fastscan": 899
+      }
+    ]
+  }
+}

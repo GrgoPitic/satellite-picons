@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from catalog_common import is_real_station_name
 import admin_v2 as hub
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -32,6 +33,22 @@ def load_curated_channels() -> tuple[list[dict], dict]:
     stored under assets/logos (manual uploads / curated local artwork).
     """
     rows, stats = _ORIGINAL_LOAD()
+    # Only stations currently present in Vhannibal are active; preserve all
+    # historical artwork and archived operator catalogues on disk.
+    rows = [row for row in rows if row.get("provider_group") == "skylink-sk"
+            and row.get("_generated")
+            # Use the same conservative filter as the Vhannibal importer.
+            and is_real_station_name(row.get("name") or "")]
+    # Vhannibal defines DVB existence, NOT Skylink operator membership.
+    # Attach only independently verified SK/CZ FastScan memberships.
+    from operator_membership import load_operator_membership
+    memberships = load_operator_membership(rows)
+    for row in rows:
+        reference = str(row.get("service_reference") or "").upper()
+        slots = memberships.get(reference, [])
+        row["_operators"] = sorted({slot["operator"] for slot in slots})
+        row["_operator_slots"] = slots
+        row["_catalogue_source"] = "vhannibal"
     hidden_imported = 0
     local_logos = 0
 
@@ -51,6 +68,15 @@ def load_curated_channels() -> tuple[list[dict], dict]:
 
     stats = dict(stats)
     stats["local_logos"] = local_logos
+    stats["total"] = len(rows)
+    stats["generated"] = len(rows)
+    stats["curated"] = local_logos
+    stats["missing_logo"] = len(rows) - local_logos
+    stats["satellite"] = len(rows)
+    stats["iptv"] = 0
+    stats["providers"] = 2
+    stats["verified_skylink_sk"] = sum("skylink-sk" in row["_operators"] for row in rows)
+    stats["verified_skylink_cz"] = sum("skylink-cz" in row["_operators"] for row in rows)
     stats["hidden_imported_logos"] = hidden_imported
     return rows, stats
 
@@ -92,7 +118,7 @@ def page_curated() -> str:
     page = page.replace("Odstrániť override", "Odstrániť vlastnú úpravu")
     page = page.replace(
         '<h1>Prehľad</h1><p class="sub">Vyber vľavo, čo chceš práve riešiť. Ostatné nástroje sa skryjú.</p>',
-        '<h1>Moje picony</h1><p class="sub">1. Vyber kanál vľavo. 2. Nahraj a ulož logo. 3. V Knižnici log ho priraď ďalším operátorom. 4. Skontroluj náhľad a publikuj.</p>'
+        '<h1>Moje picony</h1><p class="sub">1. Vyber stanicu. 2. Nahraj a skontroluj logo. 3. Priraď ho ďalším service reference. 4. Publikuj po schválení.</p>'
     )
     page = page.replace(
         '<h2>Publikovanie</h2>',
@@ -140,6 +166,17 @@ def catalogue_changes():
     return response
 
 
+@hub.legacy.app.get("/api/operator-registry")
+def operator_registry():
+    """Shared operator metadata for dynamically rendered admin controls."""
+    from flask import jsonify
+    from operator_membership import active_operators
+    return jsonify({"operators": [
+        {"id": str(op["id"]), "name": str(op.get("name") or op["id"])}
+        for op in active_operators()
+    ]})
+
+
 from vhannibal_check import register
 register(hub.legacy.app, load_curated_channels)
 
@@ -147,7 +184,7 @@ register(hub.legacy.app, load_curated_channels)
 def main() -> None:
     from sync_vhannibal import sync
     try:
-        print("Vhannibal: aktualizovaných", sync(), "kanálov Skylinku.")
+        print("Vhannibal: aktualizovaných", sync(), "satelitných DVB služieb.")
     except Exception as exc:
         print("Vhannibal nedostupný; používam posledný uložený katalóg:", exc)
     hub.main()

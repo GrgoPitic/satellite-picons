@@ -1,0 +1,21 @@
+# Operator registry is independent from Vhannibal orbital services.
+# To add an operator later, register its id/name/source here and supply a
+# verified FastScan-style lineup in the named snapshot. No web UI edits needed.
+schema: 1
+operators:
+  - id: skylink-sk
+    name: Skylink SK
+    enabled: true
+    order: 10
+    source_type: fastscan
+    snapshot: skylink-lineups.json
+    source_id: skylink-sk
+    source_url: https://www.satelitnatv.sk/frekvencie/skylink-sk/
+  - id: skylink-cz
+    name: Skylink CZ
+    enabled: true
+    order: 20
+    source_type: fastscan
+    snapshot: skylink-lineups.json
+    source_id: skylink-cz
+    source_url: https://www.satelitnatv.sk/frekvencie/skylink-cz/

@@ -13,6 +13,33 @@ IPTV_PROVIDERS_CONFIG = ROOT / "iptv-providers.yml"
 ARTWORK_CONFIG = ROOT / "station-artwork.yml"
 
 
+
+# Technical placeholders are present in some Vhannibal lamedb/bouquets.
+# Do not treat those entries as broadcast channels or logo upload targets.
+_TECHNICAL_SID_NAME = re.compile(
+    r"^\s*\d{4,6}\s*[HV]\s+SID\s+0x[0-9a-f]+\s*$",
+    re.IGNORECASE,
+)
+_DOTTED_SEPARATOR = re.compile(r"^\s*\.\s*\d+\s*\.\s*$")
+
+def is_real_station_name(name: str) -> bool:
+    """Reject known service-list separators, not genuine numeric brand names.
+
+    Conservatively preserve titles such as '1+1', '123.live', '24Kitchen',
+    '3sat', and even a purely numeric station name.
+    """
+    value = str(name or "").strip()
+    if not value:
+        return False
+    if not any(ch.isalnum() for ch in value):
+        return False
+    if _DOTTED_SEPARATOR.fullmatch(value):
+        return False
+    if _TECHNICAL_SID_NAME.fullmatch(value):
+        return False
+    return True
+
+
 def normalize_station_key(name: str) -> str:
     """Return a conservative canonical key shared across SAT/IPTV providers.
 
@@ -22,9 +49,11 @@ def normalize_station_key(name: str) -> str:
     """
     value = unicodedata.normalize("NFKD", str(name or ""))
     value = "".join(ch for ch in value if not unicodedata.combining(ch))
-    value = value.lower().replace("+", " plus ")
+    value = value.casefold().replace("+", " plus ")
     value = re.sub(r"\b(?:uhd|4k|full\s*hd|fhd|hd|sd)\b", " ", value, flags=re.I)
-    value = re.sub(r"[^a-z0-9]+", "-", value)
+    # Preserve Unicode letters/digits; България 24 must never become "24".
+    value = re.sub(r"[^\w]+", "-", value, flags=re.UNICODE)
+    value = re.sub(r"_+", "-", value)
     return value.strip("-") or "channel"
 
 
@@ -32,7 +61,6 @@ def provider_definitions() -> dict[str, dict]:
     result: dict[str, dict] = {}
     for path, default_delivery in (
         (PROVIDERS_CONFIG, "satellite"),
-        (IPTV_PROVIDERS_CONFIG, "iptv"),
     ):
         if not path.exists():
             continue
@@ -123,7 +151,7 @@ def current_manual_channels(cfg):
         ref = str(channel.get("service_reference") or "")
         if ref:
             by_ref[service_identity(ref)] = channel
-        key = str(channel.get("station_key") or normalize_station_key(channel.get("name", "")))
+        key = normalize_station_key(channel.get("name", ""))
         by_station.setdefault(key, []).append(channel)
 
     result = []
@@ -134,7 +162,7 @@ def current_manual_channels(cfg):
 
         current = by_ref.get(service_identity(row.get("service_reference", "")))
         if current is None:
-            station_key = str(row.get("station_key") or normalize_station_key(row.get("name", "")))
+            station_key = normalize_station_key(row.get("name", ""))
             candidates = by_station.get(station_key, [])
             if len(candidates) == 1:
                 current = candidates[0]
@@ -148,7 +176,7 @@ def current_manual_channels(cfg):
         item = dict(row)
         item["provider_group"] = "skylink-sk"
         item["station_key"] = str(
-            current.get("station_key") or normalize_station_key(current.get("name", row.get("name", "")))
+            normalize_station_key(current.get("name", row.get("name", "")))
         )
         for key in ("service_reference", "variant_types", "satellite_position"):
             if current.get(key) is not None:

@@ -4,6 +4,8 @@ from catalog_common import current_manual_channels
 
 import json
 import re
+import zipfile
+from collections import defaultdict
 from pathlib import Path
 
 import yaml
@@ -11,6 +13,7 @@ import yaml
 import build as legacy
 from catalog_common import (
     channel_identity,
+    is_real_station_name,
     load_station_artwork,
     normalize_station_key,
     provider_definitions,
@@ -25,16 +28,17 @@ def safe_token(value: str) -> str:
     return value or "channel"
 
 
-def enrich_artwork(channel: dict) -> dict:
+def enrich_artwork(channel: dict, stations: dict | None = None) -> dict:
     item = dict(channel)
     provider_id = str(item.get("provider_group") or "").strip().lower()
     provider = provider_definitions().get(provider_id, {})
     item["delivery"] = str(item.get("delivery") or provider.get("delivery") or "satellite").lower()
-    station_key = str(item.get("station_key") or normalize_station_key(item.get("name", "")))
+    station_key = normalize_station_key(item.get("name", ""))
     item["station_key"] = station_key
     identity = channel_identity(item, provider_id)
 
-    stations = load_station_artwork().get("stations") or {}
+    if stations is None:
+        stations = load_station_artwork().get("stations") or {}
     artwork = stations.get(station_key)
 
     # An explicit service assignment takes precedence over name variations.
@@ -72,22 +76,37 @@ def enrich_artwork(channel: dict) -> dict:
 
 
 def merged_channels_v2(cfg: dict) -> tuple[list[dict], dict[str, dict]]:
-    synced, provider_metadata = legacy.load_synced_provider_data()
-    merged: dict[str, dict] = {}
-
-    for channel in synced:
-        provider_id = str(channel.get("provider_group") or "").strip().lower()
-        if provider_id:
-            merged[channel_identity(channel, provider_id)] = dict(channel)
+    # Vhannibal is the single source of *which services exist*. Keep stored
+    # artwork overrides, but do not expose services absent from its catalogue.
+    synced_all, metadata = legacy.load_synced_provider_data()
+    synced = [ch for ch in synced_all
+              if str(ch.get("provider_group") or "").lower() == "skylink-sk"
+              and is_real_station_name(ch.get("name") or "")]
+    if not synced:
+        raise RuntimeError("Vhannibal catalogue is empty or unavailable; refusing empty public build.")
+    provider_metadata = {"skylink-sk": metadata.get("skylink-sk", {})}
+    merged: dict[str, dict] = {
+        channel_identity(ch, "skylink-sk"): dict(ch) for ch in synced
+    }
 
     for channel in current_manual_channels(cfg):
         provider_id = str(channel.get("provider_group") or "").strip().lower()
-        key = channel_identity(channel, provider_id)
-        base = dict(merged.get(key, {}))
-        base.update(channel)
+        if provider_id not in {"skylink-sk", "skylink-cz"}:
+            continue
+        key = channel_identity(channel, "skylink-sk")
+        if key not in merged:
+            # Preserve the artwork on disk; only hide outdated service refs.
+            continue
+        base = dict(merged[key])
+        # Keep the *current* Vhannibal tuning, never restore a stale ref.
+        for field in ("logo", "dark_to_white", "optical_scale",
+                      "edge_cleanup", "background_cleanup"):
+            if field in channel:
+                base[field] = channel[field]
         merged[key] = base
 
-    rows = [enrich_artwork(item) for item in merged.values()]
+    artwork_stations = load_station_artwork().get("stations") or {}
+    rows = [enrich_artwork(item, artwork_stations) for item in merged.values()]
     rows.sort(key=lambda ch: (
         str(ch.get("delivery") or ""),
         str(ch.get("provider_group") or ""),
@@ -203,6 +222,96 @@ def postprocess_public() -> None:
         index_path.write_text(json.dumps(index, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
+def build_orbit_catalogue() -> None:
+    """Build complete Vhannibal orbital service lists and curated-only ZIP packs.
+
+    Every valid DVB service is listed even without artwork. ZIP archives contain
+    only real, rendered picon files. No duplicate service reference is allowed.
+    """
+    catalogue_file = ROOT / "provider-data" / "skylink-sk.json"
+    source = json.loads(catalogue_file.read_text(encoding="utf-8"))
+    public = ROOT / "public"
+    index = json.loads((public / "index.json").read_text(encoding="utf-8"))
+
+    ready_by_identity = {}
+    for rendered in index.get("channels", []):
+        identity = channel_identity(rendered, "skylink-sk")
+        if identity in ready_by_identity:
+            raise ValueError(f"Duplicate rendered DVB identity: {identity}")
+        ready_by_identity[identity] = rendered
+
+    services_by_orbit = defaultdict(list)
+    seen = set()
+    for channel in source.get("channels", []):
+        if not is_real_station_name(channel.get("name") or ""):
+            continue
+        position = str(channel.get("satellite_position") or "").strip()
+        if not re.fullmatch(r"(?:[0-9]+(?:\.[0-9]+)?)[EW]", position):
+            raise ValueError(f"Invalid orbital position: {position!r}")
+        identity = channel_identity(channel, "skylink-sk")
+        if identity in seen:
+            raise ValueError(f"Duplicate Vhannibal DVB identity: {identity}")
+        seen.add(identity)
+        rendered = ready_by_identity.get(identity)
+        if rendered is not None and str(rendered.get("satellite_position")) != position:
+            raise ValueError(f"Orbit mismatch for {identity}: {position} != {rendered.get('satellite_position')}")
+        files = list(rendered.get("files", [])) if rendered else []
+        services_by_orbit[position].append({
+            "name": channel["name"],
+            "station_key": normalize_station_key(channel["name"]),
+            "satellite_position": position,
+            "service_reference": channel["service_reference"],
+            "frequency_mhz": channel.get("frequency_mhz"),
+            "status": "ready" if files else "missing_logo",
+            "files": files,
+        })
+
+    # Rendered channels without a matching source identity are unsafe to publish.
+    unknown = set(ready_by_identity) - seen
+    if unknown:
+        raise ValueError(f"Rendered services not present in Vhannibal: {sorted(unknown)[:3]}")
+
+    packages_dir = public / "packages"
+    packages_dir.mkdir(exist_ok=True)
+    orbits = []
+    for position in sorted(services_by_orbit, key=lambda v: (
+        v[-1] == "W", float(v[:-1])
+    )):
+        services = sorted(services_by_orbit[position],
+                          key=lambda ch: (ch["name"].casefold(), ch["service_reference"]))
+        files = sorted({file for ch in services for file in ch["files"]})
+        count_ready = sum(bool(ch["files"]) for ch in services)
+        token = re.sub(r"[^a-z0-9]+", "-", position.lower()).strip("-")
+        package = None
+        if files:
+            package = f"packages/vhannibal-{token}-curated.zip"
+            with zipfile.ZipFile(public / package, "w", compression=zipfile.ZIP_DEFLATED,
+                                 compresslevel=9) as archive:
+                for filename in files:
+                    picon = public / "picons" / filename
+                    if not picon.is_file():
+                        raise FileNotFoundError(picon)
+                    archive.write(picon, arcname=filename)
+        orbits.append({
+            "id": position, "name": position, "positions": [position],
+            "channel_count": len(services),
+            "curated_channel_count": count_ready,
+            "picon_count": len(files),
+            "package": package,
+            "complete": bool(services) and count_ready == len(services),
+            "available": bool(files),
+            "description": "Vhannibal · kompletný zoznam DVB služieb na orbite " + position
+                           + " · picony dopĺňame postupne",
+            "channels": services,
+        })
+
+    (public / "orbits.json").write_text(json.dumps({
+        "schema": 2, "source": "Vhannibal", "orbits": orbits,
+    }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+
+
 def copy_catalogue_change_history() -> None:
     """Expose the same public change history as the administrator."""
     history = ROOT / "catalogue-changes.json"
@@ -221,6 +330,14 @@ def main() -> int:
     if rc == 0:
         postprocess_public()
         copy_catalogue_change_history()
+        build_orbit_catalogue()
+        from skylink_lineups import SNAPSHOT, build as build_skylink
+        # A missing snapshot is explicit. Never label an orbit as the complete
+        # Skylink operator lineup or invent FastScan service identities.
+        snapshot = json.loads(SNAPSHOT.read_text(encoding="utf-8")) if SNAPSHOT.exists() else {"providers": {}}
+        vhannibal = json.loads((ROOT / "provider-data/skylink-sk.json").read_text(encoding="utf-8"))
+        index = json.loads((ROOT / "public/index.json").read_text(encoding="utf-8"))
+        build_skylink(index, vhannibal.get("channels", []), snapshot)
     return rc
 
 
