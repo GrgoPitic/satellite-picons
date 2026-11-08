@@ -13,9 +13,9 @@
 <div class="station-help">Jednotný vzhľad: <strong>piconblack · 150 × 90 px</strong>. Najprv schváľ náhľad, potom ulož logo. Uložené zmeny odošli na web cez Publikovanie.</div>
 <div class="station-tools"><input id="stationSearch" type="search" aria-label="Vyhľadať stanicu" placeholder="Hľadať stanicu…"><select id="stationProvider" aria-label="Orbitálna pozícia"><option value="">Všetky orbitálne pozície</option></select></div>
 <div class="station-help">Vhannibal je jediným zdrojom kanálov. Synchronizácia sa spúšťa každých šesť hodín. Logá a ich úpravy zostávajú tvoje.</div>
-<p id="stationCount" role="status"></p><div id="stationGrid" class="station-grid"></div>
+<p id="stationCount" role="status"></p><div id="stationGrid" class="station-grid"></div><button type="button" class="action secondary" id="stationMore" style="display:none;margin-top:16px">Zobraziť ďalších 100 staníc</button>
 </section>
-<section class="panel" data-panel-view="missing"><h1>Chýbajúce logá</h1><p class="sub">Stanice, ktorým chýba logo aspoň u jedného operátora. Pri existujúcom logu otvor priradenia.</p><div id="missingGrid" class="station-grid"></div></section>
+<section class="panel" data-panel-view="missing"><h1>Chýbajúce logá</h1><p class="sub">Stanice, ktorým chýba logo aspoň u jedného operátora. Pri existujúcom logu otvor priradenia.</p><div id="missingGrid" class="station-grid"></div><button type="button" class="action secondary" id="missingMore" style="display:none;margin-top:16px">Zobraziť ďalších 100 chýbajúcich</button></section>
 
 <section class="panel" data-panel-view="vhannibal">
 <h1>Zmeny Vhannibal</h1>
@@ -153,15 +153,32 @@
    if(source._has_curated_logo){button('Upraviť vzhľad',()=>select(source,'edit'));button('Priradiť operátorom',()=>{select(source,'upload');openPanel('library');});}
    return tile;
  }
+ let stationLimit=100, missingLimit=100;
+ const stationMore=document.querySelector('#stationMore');
+ const missingMore=document.querySelector('#missingMore');
+ const missingRows=stations.filter(rows=>rows.some(c=>!c._has_curated_logo));
  function render(){
    const grid=document.querySelector('#stationGrid');grid.replaceChildren();
-   const visible=stations.filter(rows=>rows.some(c=>normalize(c.name).includes(normalize(search.value)))&&(!provider.value||rows.some(c=>c.satellite_position===provider.value)));
-   visible.forEach(rows=>grid.append(card(rows)));document.querySelector('#stationCount').textContent=`Zobrazené stanice: ${visible.length} z ${stations.length}`;
+   const term=normalize(search.value.trim());
+   const visible=stations.filter(rows=>rows.some(c=>normalize(c.name).includes(term)) &&
+       (!provider.value || rows.some(c=>c.satellite_position===provider.value)));
+   visible.slice(0,stationLimit).forEach(rows=>grid.append(card(rows)));
+   document.querySelector('#stationCount').textContent=
+     `Zobrazené stanice: ${Math.min(visible.length,stationLimit)} z ${visible.length} · celkom ${stations.length}`;
+   stationMore.style.display=visible.length>stationLimit?'block':'none';
    if(!visible.length)grid.textContent='Žiadna stanica nezodpovedá vyhľadávaniu.';
  }
- const missing=document.querySelector('#missingGrid');stations.filter(rows=>rows.some(c=>!c._has_curated_logo)).forEach(rows=>missing.append(card(rows)));
- if(!missing.children.length)missing.textContent='Všetky stanice majú priradené logo.';
- search.addEventListener('input',render);provider.addEventListener('change',render);render();
+ function renderMissing(){
+   const missing=document.querySelector('#missingGrid');missing.replaceChildren();
+   missingRows.slice(0,missingLimit).forEach(rows=>missing.append(card(rows)));
+   missingMore.style.display=missingRows.length>missingLimit?'block':'none';
+   if(!missingRows.length)missing.textContent='Všetky stanice majú priradené logo.';
+ }
+ stationMore.addEventListener('click',()=>{stationLimit+=100;render();});
+ missingMore.addEventListener('click',()=>{missingLimit+=100;renderMissing();});
+ search.addEventListener('input',()=>{stationLimit=100;render();});
+ provider.addEventListener('change',()=>{stationLimit=100;render();});
+ render();renderMissing();
  const nav=document.querySelector('.nav');
  const details=document.createElement('details');
  const summary=document.createElement('summary');summary.textContent='Ďalšie nástroje';details.append(summary);
