@@ -57,7 +57,7 @@
   function providerChannels(providerId) {
     const selected = providerById.get(providerId);
     if (selected?.group === 'skylink') {
-      return (selected.channels || []).filter(ch => ch.status === 'ready');
+      return selected.channels || [];
     }
     return index.channels.filter(
       channel =>
@@ -179,26 +179,40 @@
       return;
     }
 
+    const statusLabels = {
+      missing_logo: 'Logo ešte chýba',
+      unresolved: 'Stanica zatiaľ nie je spárovaná s Vhannibal',
+      ambiguous: 'Nejednoznačná DVB referencia',
+      unverified_frequency: 'Čaká na overenie frekvencie',
+      frequency_mismatch: 'Nesúlad frekvencie – nepriraďovať'
+    };
     logoGrid.innerHTML = rows.map(channel => {
       const primary = primaryFile(channel);
-      if (!primary) return '';
+      const available = Boolean(primary);
+      const caption = available
+        ? escapeHtml(channel.satellite_position || channel.position || '')
+        : escapeHtml(statusLabels[channel.status] || 'Bez hotového piconu');
       return (
-        '<article class="logo-card" tabindex="0" role="button" '+
-          'aria-label="Otvoriť '+escapeHtml(channel.name)+'">'+
+        '<article class="logo-card'+(available?'':' unavailable')+'" '+
+          (available ? 'tabindex="0" role="button" ' : '')+
+          'aria-label="'+escapeHtml(channel.name)+(available?' – otvoriť logo':' – bez loga')+'">'+
           '<div class="logo-preview">'+
-            '<img src="picons/'+encodeURIComponent(primary)+'?v='+piconVersion+'" '+
-              'alt="'+escapeHtml(channel.name)+'" loading="lazy">'+
+            (available
+              ? '<img src="picons/'+encodeURIComponent(primary)+'?v='+piconVersion+'" '+
+                  'alt="'+escapeHtml(channel.name)+'" loading="lazy">'
+              : '<span class="logo-placeholder">PICON<br>NEDOSTUPNÝ</span>')+
           '</div>'+
           '<div class="logo-meta">'+
             '<h3>'+escapeHtml(channel.name)+'</h3>'+
-            '<span>'+escapeHtml(channel.satellite_position || channel.position || '')+'</span>'+
+            '<span>'+caption+'</span>'+
+            (channel.fastscan ? '<span>FastScan '+Number(channel.fastscan)+'</span>' : '')+
           '</div>'+
         '</article>'
       );
     }).join('');
 
     const renderedRows = rows.filter(primaryFile);
-    logoGrid.querySelectorAll('.logo-card').forEach((card, index) => {
+    logoGrid.querySelectorAll('.logo-card[role="button"]').forEach((card, index) => {
       const channel = renderedRows[index];
       const open = () => openLogo(channel);
       card.addEventListener('click', open);
