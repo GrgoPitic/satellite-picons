@@ -118,6 +118,19 @@ button{color:inherit}
 .operator-item.complete .operator-item-count{background:#112017;color:#97d4a8}
 .operator-item.progress .operator-item-count{background:#201c11;color:#ddc783}
 
+.logo-card.unavailable{
+  cursor:default;
+  opacity:.74;
+}
+.logo-placeholder{
+  display:block;
+  color:#8597a9;
+  text-align:center;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.1em;
+  line-height:1.7;
+}
 .operator-content{min-width:0}
 .operator-header{
   position:sticky;
