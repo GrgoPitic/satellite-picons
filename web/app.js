@@ -1,12 +1,15 @@
 (async () => {
   // Always read the current deployment instead of a cached older catalogue.
   const cacheToken = Date.now();
-  const [index, version, orbitCatalog] = await Promise.all([
+  const [index, version, orbitCatalog, skylinkCatalog] = await Promise.all([
     fetch('index.json?v=' + cacheToken, { cache: 'no-store' }).then(r => r.json()),
     fetch('version.json?v=' + cacheToken, { cache: 'no-store' }).then(r => r.json()),
     fetch('orbits.json?v=' + cacheToken, { cache: 'no-store' })
       .then(r => r.ok ? r.json() : { orbits: [] })
-      .catch(() => ({ orbits: [] }))
+      .catch(() => ({ orbits: [] })),
+    fetch('skylink.json?v=' + cacheToken, { cache: 'no-store' })
+      .then(r => r.ok ? r.json() : { providers: [] })
+      .catch(() => ({ providers: [] }))
   ]);
 
   // A picon filename stays the same when the logo is replaced.
@@ -38,7 +41,9 @@
   document.querySelector('#updated').textContent =
     new Date(index.generated_at).toLocaleDateString('sk-SK');
 
-  const providers = orbitCatalog.orbits || [];
+  const orbitProviders = (orbitCatalog.orbits || []).map(p => ({...p, group: 'orbit'}));
+  const skylinkProviders = (skylinkCatalog.providers || []).map(p => ({...p, group: 'skylink'}));
+  const providers = [...orbitProviders, ...skylinkProviders];
   const providerById = new Map(providers.map(provider => [provider.id, provider]));
 
   let activeProviderId = providers.find(p => Number(p.curated_channel_count || 0) > 0)?.id || providers[0]?.id || null;
@@ -50,6 +55,10 @@
   }
 
   function providerChannels(providerId) {
+    const selected = providerById.get(providerId);
+    if (selected?.group === 'skylink') {
+      return (selected.channels || []).filter(ch => ch.status === 'ready');
+    }
     return index.channels.filter(
       channel =>
         String(channel.satellite_position || '').toLowerCase() ===
@@ -72,14 +81,18 @@
 
   function renderOperators() {
     if (!providers.length) {
-      operatorList.innerHTML = '<div class="empty-state">Žiadni operátori.</div>';
+      operatorList.innerHTML = '<div class="empty-state">Zatiaľ nie sú dostupné orbitálne katalógy.</div>';
       return;
     }
 
-    operatorList.innerHTML = providers.map(provider => {
+    operatorList.innerHTML = providers.map((provider, index) => {
+      const previous = providers[index - 1];
+      const heading = index === 0 || previous.group !== provider.group
+        ? '<p class="sidebar-section-title">' + (provider.group === 'skylink' ? 'SKYLINK · FASTSCAN' : 'ORBITÁLNE POZÍCIE') + '</p>'
+        : '';
       const { expected, curated, complete } = providerProgress(provider);
       const state = complete ? 'complete' : (curated > 0 ? 'progress' : '');
-      return (
+      return heading + (
         '<button class="operator-item '+state+(provider.id===activeProviderId?' active':'')+'" '+
           'type="button" data-provider="'+escapeHtml(provider.id)+'">'+
           '<span>'+
@@ -124,7 +137,7 @@
   function renderActiveProvider() {
     const provider = providerById.get(activeProviderId);
     if (!provider) {
-      operatorTitle.textContent = 'Žiadny operátor';
+      operatorTitle.textContent = 'Žiadna kategória';
       operatorDescription.textContent = '';
       logoGrid.innerHTML = '';
       operatorEmpty.hidden = false;
@@ -178,7 +191,7 @@
           '</div>'+
           '<div class="logo-meta">'+
             '<h3>'+escapeHtml(channel.name)+'</h3>'+
-            '<span>'+escapeHtml(channel.satellite_position || '')+'</span>'+
+            '<span>'+escapeHtml(channel.satellite_position || channel.position || '')+'</span>'+
           '</div>'+
         '</article>'
       );
@@ -206,7 +219,10 @@
     modalImage.alt = channel.name || '';
     modalTitle.textContent = channel.name || '';
     modalRef.textContent = channel.service_reference || '';
-    modalGroup.textContent = channel.satellite_position || '';
+    const active = providerById.get(activeProviderId);
+    modalGroup.textContent = active?.group === 'skylink'
+      ? active.name + ' · ' + (channel.position || '')
+      : channel.satellite_position || '';
 
     modalDownloads.innerHTML = (channel.files || []).map(file =>
       '<a href="picons/'+encodeURIComponent(file)+'" download>'+
