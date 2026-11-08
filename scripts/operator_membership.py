@@ -58,12 +58,14 @@ def build_operator_membership(channels: list[dict], snapshot: dict) -> dict[str,
         for slot in (source.get("providers") or {}).get(source_id, []) or []:
             key = (normalize_station_key(slot.get("name") or ""), str(slot.get("position") or ""))
             candidates = by_station.get(key, [])
-            # Duplicate station names on the orbit are ambiguous; refuse to guess.
+            # Resolve same-name feeds by verified transponder first.
+            candidates = [
+                candidate for candidate in candidates
+                if abs(int(candidate["frequency_mhz"]) - int(slot["frequency_mhz"])) <= 2
+            ]
             if len(candidates) != 1:
-                continue
+                continue  # Still ambiguous or not verified: never guess.
             candidate = candidates[0]
-            if abs(int(candidate["frequency_mhz"]) - int(slot["frequency_mhz"])) > 2:
-                continue
             ref = str(candidate["service_reference"]).upper()
             membership[ref].append({
                 "operator": operator_id,
