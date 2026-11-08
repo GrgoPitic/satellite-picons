@@ -488,3 +488,17 @@ stations:
     - sat:skylink-sk:3C3D_C90_3_EB0000
     - sat:skylink-sk:7D2_9E98_16E_A00000
     updated_at: 1794163158
+  tv-joj:
+    name: TV JOJ HD
+    logo: assets/logos/stations/tv-joj.png
+    source_logo: assets/source-logos/stations/tv-joj.svg
+    dark_to_white: false
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: false
+    background_tolerance: 28
+    trim_logo: true
+    render_preset: original
+    targets:
+    - sat:skylink-sk:3398_C9D_3_EB0000
+    updated_at: 1794163438
