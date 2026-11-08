@@ -1411,7 +1411,7 @@ def publish():
         flash(publish_pending_changes())
     except Exception as exc:
         flash(f"Chyba publikovania: {exc}")
-    return redirect(url_for("index"))
+    return redirect(url_for("index", panel="publish"))
 
 @app.route("/", methods=["GET", "POST"])
 def index():
