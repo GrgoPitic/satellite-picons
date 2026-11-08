@@ -332,7 +332,7 @@ stations:
     - sat:skylink-sk:101C_451_35_C00000
     - sat:skylink-sk:17CF_C82_3_EB0000
     - sat:skylink-sk:3736_C8E_3_EB0000
-    updated_at: 1794163594
+    updated_at: 1794167058
   canal-plus:
     name: CANAL+
     logo: assets/logos/stations/canal-plus.png
