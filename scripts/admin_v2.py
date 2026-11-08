@@ -78,21 +78,36 @@ def load_admin_channels_v2() -> tuple[list[dict], dict]:
         merged[key] = base
 
     artwork = load_station_artwork().get("stations") or {}
+    artwork_by_target = {}
+    for artwork_key, candidate_art in artwork.items():
+        if not isinstance(candidate_art, dict):
+            continue
+        for target in candidate_art.get("targets", []) or []:
+            artwork_by_target.setdefault(str(target), (str(artwork_key), candidate_art))
+
     rows = []
     for identity, item in merged.items():
         row = dict(item)
         row["_identity"] = identity
         row["_service_key"] = legacy.service_identity(row.get("service_reference", ""))
-        art = artwork.get(row["station_key"])
+        direct_art = artwork.get(row["station_key"])
+        target_match = artwork_by_target.get(identity)
+        art = None
+        artwork_key = None
+        if isinstance(direct_art, dict) and identity in set(str(x) for x in direct_art.get("targets", []) or []):
+            art = direct_art
+            artwork_key = row["station_key"]
+        elif target_match:
+            artwork_key, art = target_match
+
         if isinstance(art, dict):
-            targets = set(str(x) for x in art.get("targets", []) or [])
-            if identity in targets:
-                row["_shared_artwork"] = True
-                if art.get("logo"):
-                    row["logo"] = art["logo"]
-                for field in ("dark_to_white", "optical_scale", "edge_cleanup", "background_cleanup", "background_tolerance", "trim_logo"):
-                    if field in art:
-                        row[field] = art[field]
+            row["_shared_artwork"] = True
+            row["_artwork_key"] = artwork_key
+            if art.get("logo"):
+                row["logo"] = art["logo"]
+            for field in ("dark_to_white", "optical_scale", "edge_cleanup", "background_cleanup", "background_tolerance", "trim_logo"):
+                if field in art:
+                    row[field] = art[field]
 
         # Curated means a real local file selected by the user. Remote/imported
         # logo_url values never count as artwork in the admin.
@@ -207,14 +222,48 @@ def logo_library_v2() -> list[dict]:
     cards.sort(key=lambda card: str(card.get("name") or "").lower())
     return cards
 
+def station_family_key(value: str) -> str:
+    """Conservative brand matching across provider naming variants.
+
+    Only generic trailing delivery/locale markers are removed. Descriptors such
+    as Black, White, Sport, Crime, etc. stay part of the key.
+    """
+    key = normalize_station_key(value)
+    changed = True
+    while changed:
+        changed = False
+        for suffix in ("-cz", "-sk", "-hd", "-sd"):
+            if key.endswith(suffix) and len(key) > len(suffix):
+                key = key[:-len(suffix)]
+                changed = True
+    return key
+
+
 def matching_target_identities(station_key: str) -> list[str]:
     rows, _ = load_admin_channels_v2()
-    wanted = str(station_key or "").strip()
-    return sorted({
-        str(row.get("_identity") or "")
-        for row in rows
-        if str(row.get("station_key") or "") == wanted and row.get("_identity")
-    })
+    wanted_family = station_family_key(station_key)
+
+    # Do not steal an identity that already belongs to another curated artwork.
+    stations = load_station_artwork().get("stations") or {}
+    target_owner = {}
+    for owner_key, art in stations.items():
+        if not isinstance(art, dict):
+            continue
+        for target in art.get("targets", []) or []:
+            target_owner[str(target)] = str(owner_key)
+
+    matches = set()
+    for row in rows:
+        identity = str(row.get("_identity") or "")
+        if not identity:
+            continue
+        if station_family_key(str(row.get("station_key") or row.get("name") or "")) != wanted_family:
+            continue
+        owner = target_owner.get(identity)
+        if owner and owner != station_key:
+            continue
+        matches.add(identity)
+    return sorted(matches)
 
 
 def load_vhannibal_report() -> dict:
