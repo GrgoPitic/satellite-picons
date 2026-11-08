@@ -392,7 +392,7 @@ def PAGE_V2() -> str:
     page = legacy.PAGE
     page = page.replace("Satellite Picons Admin", "Picon Hub Admin")
     page = page.replace("<strong>Satellite Picons</strong>", "<strong>Picon Hub</strong>")
-    page = page.replace("<span>Admin pracovisko</span>", "<span>SAT + IPTV · spoločné logá</span>")
+    page = page.replace("<span>Admin pracovisko</span>", "<span>Vhannibal · satelitné picony podľa orbít</span>")
     page = page.replace(
         "</style>",
         """
@@ -1534,7 +1534,7 @@ def build_preview_v2():
             detail = (result.stderr or result.stdout or "Neznáma chyba buildu").strip()
             flash("Lokálny náhľad sa nepodarilo vytvoriť: " + detail[-1200:])
             return redirect(url_for("index"))
-        flash("Lokálny SAT + IPTV náhľad bol vytvorený z aktuálnej vetvy. Verejný web sa tým nemení.")
+        flash("Lokálny Vhannibal náhľad bol vytvorený z aktuálnej vetvy. Verejný web sa tým nemení.")
         return redirect("/preview/")
     except Exception as exc:
         flash(f"Chyba lokálneho náhľadu: {exc}")
