@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "events": [
+    {
+      "provider": "antik-sat-sk",
+      "kind": "catalogue_added",
+      "name": "ANTIK Sat (SK)",
+      "count": 78,
+      "provider_name": "ANTIK Sat (SK)",
+      "at": "2026-11-08T14:16:51.320512+00:00"
+    }
+  ],
+  "last_change_at": "2026-11-08T14:16:51.320512+00:00"
+}
