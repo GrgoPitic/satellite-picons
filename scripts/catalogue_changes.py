@@ -114,9 +114,15 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--before", type=Path, required=True)
     parser.add_argument("--after", type=Path, default=ROOT / "provider-data")
+    parser.add_argument("--provider", action="append",
+                        help="Limit comparison to the selected catalogue")
     args = parser.parse_args()
 
     old, new = snapshot(args.before), snapshot(args.after)
+    if args.provider:
+        allowed = set(args.provider)
+        new = {key: value for key, value in new.items() if key in allowed}
+        old = {key: value for key, value in old.items() if key in allowed}
     if REPORT.is_file():
         history = json.loads(REPORT.read_text(encoding="utf-8"))
     else:
