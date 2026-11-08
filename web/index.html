@@ -25,7 +25,7 @@
     <header class="topbar">
       <div>
         <div class="brand">PICON HUB</div>
-        <p>Kurátorované picony pre Enigma2 · Vhannibal metadata · 150 × 90 px</p>
+        <p>Satelitné picony podľa Vhannibal · 150 × 90 px · orbity</p>
       </div>
       <div class="top-stats">
         <span><strong id="channels">—</strong> staníc</span>
@@ -37,8 +37,8 @@
     <div class="workspace">
       <aside class="operator-sidebar">
         <div class="sidebar-head">
-          <p>OPERÁTORI</p>
-          <h1>Vyber operátora</h1>
+          <p>ORBITÁLNE POZÍCIE</p>
+          <h1>Vyber orbitu</h1>
         </div>
         <div id="operatorList" class="operator-list" aria-label="Zoznam operátorov"></div>
       </aside>
@@ -47,7 +47,7 @@
         <div class="operator-header">
           <div class="operator-title-row">
             <div>
-              <p class="eyebrow">VYBRANÝ OPERÁTOR</p>
+              <p class="eyebrow">VYBRANÁ ORBITÁLNA POZÍCIA</p>
               <h2 id="operatorTitle">—</h2>
               <p id="operatorDescription" class="operator-description"></p>
             </div>
@@ -57,7 +57,7 @@
           <div class="operator-toolbar">
             <div class="search-box">
               <span>⌕</span>
-              <input id="operatorSearch" type="search" placeholder="Hľadať logo v tomto operátorovi…" autocomplete="off">
+              <input id="operatorSearch" type="search" placeholder="Hľadať logo na tejto orbite…" autocomplete="off">
             </div>
             <div id="operatorPackageArea" class="package-area"></div>
           </div>
@@ -72,7 +72,7 @@
         </div>
 
         <div id="operatorEmpty" class="empty-state" hidden>
-          Tento operátor zatiaľ nemá žiadne hotové logá.
+          Na tejto orbite zatiaľ nemáme hotové picony.
         </div>
 
         <div id="logoGrid" class="logo-grid" aria-live="polite"></div>
@@ -81,8 +81,8 @@
 
     <section class="change-history" aria-labelledby="changeHistoryTitle">
       <div class="change-history-header">
-        <div><p class="eyebrow">AUTOMATICKÉ AKTUALIZÁCIE</p><h2 id="changeHistoryTitle">Čo sa zmenilo u operátorov</h2>
-          <p>Nové stanice, odstránené služby, zmeny názvov a naladenia oproti posledným úspešným synchronizáciám.</p></div>
+        <div><p class="eyebrow">AUTOMATICKÉ AKTUALIZÁCIE</p><h2 id="changeHistoryTitle">Čo sa zmenilo vo Vhannibale</h2>
+          <p>Nové stanice, odstránené služby, zmeny názvov a naladenia z pravidelnej synchronizácie Vhannibal.</p></div>
         <select id="publicChangeProvider" aria-label="Operátor v histórii zmien"><option value="">Všetci operátori</option></select>
       </div>
       <p id="publicChangeStatus" role="status">Načítavam históriu aktualizácií…</p>
@@ -108,6 +108,6 @@
       <span>Vhannibal metadata · vlastný artwork</span>
     </footer>
   </main>
-  <script src="app.js?v=20261108-change-history"></script>
+  <script src="app.js?v=vhannibal-orbits-20261108"></script>
 </body>
 </html>
