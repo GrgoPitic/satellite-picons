@@ -34,28 +34,64 @@ def parse(blob):
         for i in range(start,end,3):
             p=lines[i].split(':');sid,ns,tid,nid=[int(v,16) for v in p[:4]]
             services[(sid,tid,nid,ns)]=lines[i+1]
-        candidates=[]
-        for n in z.namelist():
-            if not n.endswith('.tv') or 'userbouquet' not in n: continue
-            text=z.read(n).decode('utf-8-sig')
-            if 'General Czech Republic' in text and 'General Slovakia' in text: candidates.append((n,text))
-        if len(candidates)!=1: raise ValueError('Cannot uniquely identify the Czech/Slovak bouquet; previous catalogue retained')
-        rows={}; section=''
-        for line in candidates[0][1].splitlines():
-            if line.startswith('#DESCRIPTION '): section=line
-            if not line.startswith('#SERVICE 1:0:'): continue
-            p=line[9:].strip().split(':')
-            if len(p)<10: raise ValueError('Invalid bouquet reference')
-            key=tuple(int(v,16) for v in p[3:7]);name=services.get(key)
-            if not name: raise ValueError('Bouquet service missing in lamedb')
-            ref=':'.join(f'{int(v,16):X}' for v in p[:10])+':'
-            station=normalize_station_key(name)
-            rows[key]={'id':station+'-'+format(key[0],'x'),'name':name,'station_key':station,
-                       'service_reference':ref,'provider_group':'skylink-sk','delivery':'satellite',
-                       'variant_types':list(dict.fromkeys([p[2].upper(),'1','16','19'])),
-                       'satellite_position':f'{(key[3]>>16)/10:g}E'}
-        if len(rows)<50: raise ValueError('Unexpectedly small Skylink catalogue; previous catalogue retained')
-        return list(rows.values()),candidates[0][0]
+        # Parse all satellite TV bouquets from the selected Vhannibal settings.
+        # The previous importer selected only the CZ/SK General bouquet and
+        # therefore incorrectly limited the orbit catalogue to 23.5E.
+        bouquets = [n for n in z.namelist()
+                    if n.rsplit('/', 1)[-1].startswith('userbouquet.')
+                    and n.endswith('.tv')]
+        if not bouquets:
+            raise ValueError('Vhannibal archive contains no TV bouquets; previous catalogue retained')
+        rows = {}
+        invalid = 0
+        for bouquet_name in sorted(bouquets):
+            bouquet = z.read(bouquet_name).decode('utf-8-sig', errors='replace')
+            for line in bouquet.splitlines():
+                if not line.startswith('#SERVICE 1:0:'):
+                    continue
+                parts = line[9:].strip().split(':')
+                if len(parts) < 10:
+                    invalid += 1
+                    continue
+                try:
+                    key = tuple(int(value, 16) for value in parts[3:7])
+                except ValueError:
+                    invalid += 1
+                    continue
+                name = services.get(key)
+                if not name:
+                    # A bouquet can refer to stale or non-satellite services.
+                    # Never invent a service from an unresolved reference.
+                    invalid += 1
+                    continue
+                orbital_tenths = (key[3] >> 16) & 0xFFFF
+                if not (0 < orbital_tenths < 3600):
+                    invalid += 1
+                    continue
+                if orbital_tenths <= 1800:
+                    position = f'{orbital_tenths/10:g}E'
+                else:
+                    position = f'{(3600-orbital_tenths)/10:g}W'
+                ref = ':'.join(f'{int(value,16):X}' for value in parts[:10]) + ':'
+                station = normalize_station_key(name)
+                if key not in rows:
+                    rows[key] = {
+                        'id': station + '-' + format(key[0], 'x'),
+                        'name': name,
+                        'station_key': station,
+                        'service_reference': ref,
+                        'provider_group': 'skylink-sk',
+                        'delivery': 'satellite',
+                        'variant_types': list(dict.fromkeys([parts[2].upper(), '1', '16', '19'])),
+                        'satellite_position': position,
+                    }
+        if len(rows) < 50 or len(rows) > 15000:
+            raise ValueError(f'Unexpected Vhannibal catalogue size: {len(rows)}; previous catalogue retained')
+        positions = sorted(set(row['satellite_position'] for row in rows.values()))
+        print(f'Parsed {len(rows)} services from {len(bouquets)} bouquets on {len(positions)} orbits; '
+              f'skipped {invalid} invalid/unresolved references')
+        return list(rows.values()), f'Vhannibal TV bouquets ({len(bouquets)} files)'
+
 
 
 def sync(blob=None):
