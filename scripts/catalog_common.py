@@ -32,7 +32,6 @@ def provider_definitions() -> dict[str, dict]:
     result: dict[str, dict] = {}
     for path, default_delivery in (
         (PROVIDERS_CONFIG, "satellite"),
-        (IPTV_PROVIDERS_CONFIG, "iptv"),
     ):
         if not path.exists():
             continue
