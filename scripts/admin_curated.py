@@ -32,8 +32,8 @@ def load_curated_channels() -> tuple[list[dict], dict]:
     stored under assets/logos (manual uploads / curated local artwork).
     """
     rows, stats = _ORIGINAL_LOAD()
-    # A Vhannibal-only admin must not surface unrelated SAT/IPTV provider
-    # entries. Their stored catalogues and manually curated logos remain on disk.
+    # Only stations currently present in Vhannibal are active; preserve all
+    # historical artwork and archived operator catalogues on disk.
     rows = [row for row in rows if row.get("provider_group") == "skylink-sk"
             and row.get("_generated")]
     hidden_imported = 0
@@ -55,13 +55,13 @@ def load_curated_channels() -> tuple[list[dict], dict]:
 
     stats = dict(stats)
     stats["local_logos"] = local_logos
-    stats["curated"] = local_logos
     stats["total"] = len(rows)
     stats["generated"] = len(rows)
+    stats["curated"] = local_logos
     stats["missing_logo"] = len(rows) - local_logos
-    stats["providers"] = 1
     stats["satellite"] = len(rows)
     stats["iptv"] = 0
+    stats["providers"] = 1
     stats["hidden_imported_logos"] = hidden_imported
     return rows, stats
 
