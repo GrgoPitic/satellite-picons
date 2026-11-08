@@ -27,12 +27,12 @@ class SkylinkTests(unittest.TestCase):
             root = Path(tmp)
             (root / "public" / "picons").mkdir(parents=True)
             (root / "operators.yml").write_text(
-                "operators:\\n  - id: skylink-sk\\n    name: Skylink SK\\n    enabled: true\\n"
-                "    order: 1\\n    source_type: fastscan\\n"
-                "    snapshot: skylink-lineups.json\\n", encoding="utf-8")
-            with patch.object(skylink_lineups, "ROOT", root), \\
-                 patch.object(skylink_lineups, "SNAPSHOT", root / "skylink-lineups.json"), \\
-                 patch.object(skylink_lineups, "REGISTRY", root / "operators.yml"):
+                "operators:\n  - id: skylink-sk\n    name: Skylink SK\n    enabled: true\n"
+                "    order: 1\n    source_type: fastscan\n"
+                "    snapshot: skylink-lineups.json\n", encoding="utf-8")
+            with (patch.object(skylink_lineups, "ROOT", root),
+                  patch.object(skylink_lineups, "SNAPSHOT", root / "skylink-lineups.json"),
+                  patch.object(skylink_lineups, "REGISTRY", root / "operators.yml")):
                 result = build(
                     {"channels": [{"service_reference": right, "files": []}]},
                     rows, {"providers": {"skylink-sk": [slot]}}
@@ -53,12 +53,12 @@ class SkylinkTests(unittest.TestCase):
             root = Path(tmp)
             (root / "public").mkdir()
             (root / "operators.yml").write_text(
-                "operators:\\n  - id: skylink-sk\\n    name: Skylink SK\\n"
-                "    enabled: true\\n    order: 1\\n    source_type: fastscan\\n"
-                "    snapshot: skylink-lineups.json\\n", encoding="utf-8")
-            with patch.object(skylink_lineups, "ROOT", root), \\
-                 patch.object(skylink_lineups, "SNAPSHOT", root / "skylink-lineups.json"), \\
-                 patch.object(skylink_lineups, "REGISTRY", root / "operators.yml"):
+                "operators:\n  - id: skylink-sk\n    name: Skylink SK\n"
+                "    enabled: true\n    order: 1\n    source_type: fastscan\n"
+                "    snapshot: skylink-lineups.json\n", encoding="utf-8")
+            with (patch.object(skylink_lineups, "ROOT", root),
+                  patch.object(skylink_lineups, "SNAPSHOT", root / "skylink-lineups.json"),
+                  patch.object(skylink_lineups, "REGISTRY", root / "operators.yml")):
                 result = build({"channels": []}, rows,
                                {"providers": {"skylink-sk": [slot]}})
         self.assertEqual(result["providers"][0]["channels"][0]["status"], "ambiguous")
