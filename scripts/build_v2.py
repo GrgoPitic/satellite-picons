@@ -246,7 +246,7 @@ def build_orbit_catalogue() -> None:
         if not is_real_station_name(channel.get("name") or ""):
             continue
         position = str(channel.get("satellite_position") or "").strip()
-        if not re.fullmatch(r"(?:[0-9]+(?:\\.[0-9]+)?)[EW]", position):
+        if not re.fullmatch(r"(?:[0-9]+(?:\.[0-9]+)?)[EW]", position):
             raise ValueError(f"Invalid orbital position: {position!r}")
         identity = channel_identity(channel, "skylink-sk")
         if identity in seen:
