@@ -185,3 +185,29 @@ stations:
     targets:
     - sat:skylink-sk:3736_C8E_3_EB0000
     updated_at: 1794143857
+  canal-plus:
+    name: CANAL+
+    logo: assets/logos/stations/canal-plus.png
+    source_logo: assets/source-logos/stations/canal-plus.webp
+    dark_to_white: false
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: false
+    background_tolerance: 28
+    trim_logo: true
+    targets:
+    - sat:skylink-sk:334C_C93_3_EB0000
+    updated_at: 1794144087
+  canal-plus-classics:
+    name: CANAL+ Classics
+    logo: assets/logos/stations/canal-plus-classics.png
+    source_logo: assets/source-logos/stations/canal-plus-classics.svg
+    dark_to_white: false
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: false
+    background_tolerance: 28
+    trim_logo: true
+    targets:
+    - sat:skylink-sk:1F53_CA1_3_EB0000
+    updated_at: 1794144188
