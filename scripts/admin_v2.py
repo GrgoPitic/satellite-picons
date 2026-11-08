@@ -15,6 +15,7 @@ from werkzeug.utils import secure_filename
 
 import admin as legacy
 from logo_presets import apply_preset
+from station_aliases import artwork_family, unique_family_artwork
 from catalog_common import (
     ARTWORK_CONFIG,
     channel_identity,
@@ -100,6 +101,13 @@ def load_admin_channels_v2() -> tuple[list[dict], dict]:
             artwork_key = row["station_key"]
         elif target_match:
             artwork_key, art = target_match
+        else:
+            # One unambiguous manually approved brand logo may be reused on
+            # equivalent Vhannibal services even with different feed labels.
+            # Explicit assignments always take precedence.
+            alias_match = unique_family_artwork(row.get("name", ""), artwork)
+            if alias_match:
+                artwork_key, art = alias_match
 
         if isinstance(art, dict):
             row["_shared_artwork"] = True
@@ -224,20 +232,8 @@ def logo_library_v2() -> list[dict]:
     return cards
 
 def station_family_key(value: str) -> str:
-    """Conservative brand matching across provider naming variants.
-
-    Only generic trailing delivery/locale markers are removed. Descriptors such
-    as Black, White, Sport, Crime, etc. stay part of the key.
-    """
-    key = normalize_station_key(value)
-    changed = True
-    while changed:
-        changed = False
-        for suffix in ("-cz", "-sk", "-hd", "-sd"):
-            if key.endswith(suffix) and len(key) > len(suffix):
-                key = key[:-len(suffix)]
-                changed = True
-    return key
+    """Share approved artwork only across known, explicitly safe brand aliases."""
+    return artwork_family(value)
 
 
 def matching_target_identities(station_key: str) -> list[str]:
