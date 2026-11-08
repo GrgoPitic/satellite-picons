@@ -210,12 +210,7 @@ stations:
     - sat:polsat-box-pl:1C96_1CE8_71_820000
     - sat:polsat-box-pl:C25_1E78_71_820000
     - sat:polsat-box-pl:C2A_1E78_71_820000
-    - sat:skylink-sk:1C96_1CE8_71_820000
     - sat:skylink-sk:315_C94_3_EB0000
-    - sat:skylink-sk:4EA_76C1_16E_A00000
-    - sat:skylink-sk:7477_3F0_1_C00000
-    - sat:skylink-sk:C25_1E78_71_820000
-    - sat:skylink-sk:C2A_1E78_71_820000
     updated_at: 1794151581
   axn-white-central-europe:
     name: AXN White Central Europe
@@ -432,10 +427,19 @@ stations:
     - sat:digi-tv-sk:1B67_AF7_BB_E080000
     - sat:magio-sat-sk:1B67_AF7_BB_E080000
     - sat:orange-tv-sat:3734_C8E_3_EB0000
-    - sat:skylink-sk:2264_438_1_C00000
-    - sat:skylink-sk:32DE_190_13E_820000
-    - sat:skylink-sk:32FC_190_13E_820000
-    - sat:skylink-sk:3324_190_13E_820000
     - sat:skylink-sk:3733_C8E_3_EB0000
-    - sat:skylink-sk:3734_C8E_3_EB0000
     updated_at: 1794151581
+  '24':
+    name: :24
+    logo: assets/logos/stations/24.png
+    source_logo: assets/source-logos/stations/24.svg
+    dark_to_white: false
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: false
+    background_tolerance: 28
+    trim_logo: true
+    render_preset: original
+    targets:
+    - sat:skylink-sk:4B5_76C1_16E_A00000
+    updated_at: 1794149694
