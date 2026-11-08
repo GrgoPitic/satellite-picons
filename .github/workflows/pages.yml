@@ -38,7 +38,7 @@ jobs:
 
       - name: Syntax check
         run: |
-          python -m py_compile scripts/build.py scripts/build_v2.py scripts/admin.py scripts/admin_v2.py scripts/admin_curated.py scripts/catalog_common.py scripts/add_channel.py scripts/catalogue_changes.py scripts/sync_vhannibal.py receiver/update_picons.py receiver/plugin/Plugins/Extensions/SatellitePicons/plugin.py
+          python -m py_compile scripts/build.py scripts/build_v2.py scripts/admin.py scripts/admin_v2.py scripts/admin_curated.py scripts/catalog_common.py scripts/add_channel.py scripts/catalogue_changes.py scripts/logo_presets.py scripts/sync_vhannibal.py receiver/update_picons.py receiver/plugin/Plugins/Extensions/SatellitePicons/plugin.py
           python receiver/update_picons.py --help >/dev/null
           node --check web/app.js
 
@@ -65,6 +65,32 @@ jobs:
           assert payload["station_key"] == "markiza", payload
           assert isinstance(payload.get("matches"), list), payload
           print("Curated admin smoke test OK; local logos:", stats.get("local_logos", 0))
+          PY
+
+      - name: SVG cleanup preset regression tests
+        run: |
+          python - <<'PY'
+          from PIL import Image, ImageDraw
+          import sys
+          sys.path.insert(0, "scripts")
+          from logo_presets import apply_preset
+
+          # AMC-style opaque black backdrop with light lettering.
+          text = Image.new("RGBA", (400, 180), (0, 0, 0, 255))
+          ImageDraw.Draw(text).rectangle((55, 40, 340, 142), fill=(255, 255, 255, 255))
+          cleaned = apply_preset(text, "light-text")
+          assert cleaned.getpixel((0, 0))[3] == 0
+          assert cleaned.getpixel((90, 90))[3] == 255
+
+          # Cartoon Network-style black/white artwork with padded lower area.
+          tiled = Image.new("RGBA", (400, 260), (0, 0, 0, 255))
+          ImageDraw.Draw(tiled).rectangle((200, 0, 399, 139), fill=(255, 255, 255, 255))
+          cropped = apply_preset(tiled, "segmented")
+          assert cropped.width == 400 and cropped.height < 200
+          assert cropped.getpixel((0, 0))[3] == 255
+          assert cropped.getpixel((300, 20))[:3] == (255, 255, 255)
+          assert apply_preset(tiled, "original").size == tiled.size
+          print("Presets keep design tiles, remove opaque empty padding and transparent dark canvas.")
           PY
 
       - name: Professional renderer regression test
