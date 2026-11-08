@@ -145,3 +145,30 @@ stations:
     targets:
     - sat:skylink-sk:31E_C94_3_EB0000
     updated_at: 1794140024
+  cartoonito:
+    name: Cartoonito
+    logo: assets/logos/stations/cartoonito.png
+    source_logo: assets/source-logos/stations/cartoonito.svg
+    dark_to_white: true
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: false
+    background_tolerance: 28
+    trim_logo: true
+    targets:
+    - sat:skylink-sk:30B_C94_3_EB0000
+    updated_at: 1794143011
+  cinemax:
+    name: Cinemax HD
+    logo: assets/logos/stations/cinemax.png
+    source_logo: assets/source-logos/stations/cinemax.svg
+    dark_to_white: true
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: false
+    background_tolerance: 28
+    trim_logo: true
+    targets:
+    - sat:antik-sat-sk:79A_C6D4_16E_A00000
+    - sat:skylink-sk:3C2C_C90_3_EB0000
+    updated_at: 1794143036
