@@ -216,7 +216,7 @@ stations:
     - sat:skylink-sk:7477_3F0_1_C00000
     - sat:skylink-sk:C25_1E78_71_820000
     - sat:skylink-sk:C2A_1E78_71_820000
-    updated_at: 1794147907
+    updated_at: 1794149715
   axn-white-central-europe:
     name: AXN White Central Europe
     logo: assets/logos/stations/axn-white-central-europe.png
@@ -438,4 +438,4 @@ stations:
     - sat:skylink-sk:3324_190_13E_820000
     - sat:skylink-sk:3733_C8E_3_EB0000
     - sat:skylink-sk:3734_C8E_3_EB0000
-    updated_at: 1794147907
+    updated_at: 1794149715
