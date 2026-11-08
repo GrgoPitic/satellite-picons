@@ -551,3 +551,18 @@ stations:
     targets:
     - sat:skylink-sk:3CF9_C95_3_EB0000
     updated_at: 1794165963
+  doma:
+    name: DOMA HD
+    logo: assets/logos/stations/doma.png
+    source_logo: assets/source-logos/stations/doma.svg
+    dark_to_white: false
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: false
+    background_tolerance: 28
+    trim_logo: true
+    render_preset: original
+    targets:
+    - sat:skylink-sk:3732_C8E_3_EB0000
+    - sat:skylink-sk:7D5_9E98_16E_A00000
+    updated_at: 1794166061
