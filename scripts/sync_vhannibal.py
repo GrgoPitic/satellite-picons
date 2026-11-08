@@ -10,6 +10,7 @@ import zipfile
 import requests
 from catalog_common import (
     channel_identity,
+    is_real_station_name,
     load_station_artwork,
     normalize_station_key,
     save_station_artwork,
@@ -44,6 +45,7 @@ def parse(blob):
             raise ValueError('Vhannibal archive contains no TV bouquets; previous catalogue retained')
         rows = {}
         invalid = 0
+        nonstation = 0
         for bouquet_name in sorted(bouquets):
             bouquet = z.read(bouquet_name).decode('utf-8-sig', errors='replace')
             for line in bouquet.splitlines():
@@ -63,6 +65,9 @@ def parse(blob):
                     # A bouquet can refer to stale or non-satellite services.
                     # Never invent a service from an unresolved reference.
                     invalid += 1
+                    continue
+                if not is_real_station_name(name):
+                    nonstation += 1
                     continue
                 orbital_tenths = (key[3] >> 16) & 0xFFFF
                 if not (0 < orbital_tenths < 3600):
@@ -89,7 +94,7 @@ def parse(blob):
             raise ValueError(f'Unexpected Vhannibal catalogue size: {len(rows)}; previous catalogue retained')
         positions = sorted(set(row['satellite_position'] for row in rows.values()))
         print(f'Parsed {len(rows)} services from {len(bouquets)} bouquets on {len(positions)} orbits; '
-              f'skipped {invalid} invalid/unresolved references')
+              f'skipped {invalid} invalid/unresolved references and {nonstation} technical placeholders')
         return list(rows.values()), f'Vhannibal TV bouquets ({len(bouquets)} files)'
 
 
