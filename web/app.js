@@ -1,12 +1,12 @@
 (async () => {
   // Always read the current deployment instead of a cached older catalogue.
   const cacheToken = Date.now();
-  const [index, version, providerCatalog] = await Promise.all([
+  const [index, version, orbitCatalog] = await Promise.all([
     fetch('index.json?v=' + cacheToken, { cache: 'no-store' }).then(r => r.json()),
     fetch('version.json?v=' + cacheToken, { cache: 'no-store' }).then(r => r.json()),
-    fetch('providers.json?v=' + cacheToken, { cache: 'no-store' })
-      .then(r => r.ok ? r.json() : { providers: [] })
-      .catch(() => ({ providers: [] }))
+    fetch('orbits.json?v=' + cacheToken, { cache: 'no-store' })
+      .then(r => r.ok ? r.json() : { orbits: [] })
+      .catch(() => ({ orbits: [] }))
   ]);
 
   // A picon filename stays the same when the logo is replaced.
@@ -38,13 +38,10 @@
   document.querySelector('#updated').textContent =
     new Date(index.generated_at).toLocaleDateString('sk-SK');
 
-  const providers = providerCatalog.providers || [];
+  const providers = orbitCatalog.orbits || [];
   const providerById = new Map(providers.map(provider => [provider.id, provider]));
 
-  let activeProviderId =
-    providers.find(provider => Number(provider.curated_channel_count || 0) > 0)?.id ||
-    providers[0]?.id ||
-    null;
+  let activeProviderId = providers.find(p => Number(p.curated_channel_count || 0) > 0)?.id || providers[0]?.id || null;
 
   function escapeHtml(value) {
     return String(value ?? '').replace(/[&<>"']/g, char => ({
@@ -55,7 +52,7 @@
   function providerChannels(providerId) {
     return index.channels.filter(
       channel =>
-        String(channel.provider_group || '').toLowerCase() ===
+        String(channel.satellite_position || '').toLowerCase() ===
         String(providerId || '').toLowerCase()
     );
   }
@@ -109,17 +106,17 @@
   function renderPackage(provider) {
     const { expected, curated, complete } = providerProgress(provider);
 
-    if (complete && provider.package) {
+    if (curated > 0 && provider.package) {
       operatorPackageArea.innerHTML =
         '<a class="package-download" href="'+escapeHtml(provider.package)+'" download>'+
-          'Stiahnuť kompletný ZIP · '+curated+' staníc'+
+          'Stiahnuť picony · '+curated+' staníc'+
         '</a>';
       return;
     }
 
     operatorPackageArea.innerHTML =
       '<div class="package-waiting">'+
-        'Kompletný ZIP až po dokončení · chýba '+
+        'Picony zatiaľ nie sú pripravené · bez loga '+
         Math.max(0, expected - curated)+' staníc'+
       '</div>';
   }
@@ -209,7 +206,7 @@
     modalImage.alt = channel.name || '';
     modalTitle.textContent = channel.name || '';
     modalRef.textContent = channel.service_reference || '';
-    modalGroup.textContent = providerById.get(channel.provider_group)?.name || channel.provider_group || '';
+    modalGroup.textContent = channel.satellite_position || '';
 
     modalDownloads.innerHTML = (channel.files || []).map(file =>
       '<a href="picons/'+encodeURIComponent(file)+'" download>'+
