@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import tempfile
 import html
 import io
 import json
@@ -1102,7 +1103,15 @@ def run_git(*args: str, timeout: int = 25) -> subprocess.CompletedProcess:
         raise RuntimeError("Git operácia prekročila časový limit.") from exc
 
 def publish_pending_changes() -> str:
-    add_paths = ["channels.yml", "assets/logos"]
+    """Publish curated artwork safely.
+
+    The working branch keeps the local/Admin history. When the Admin is running
+    from a feature branch, only the new curated-artwork commit is cherry-picked
+    into production main through a temporary worktree. This prevents unfinished
+    feature code from leaking to the public site while making approved logos
+    visible automatically.
+    """
+    add_paths = ["channels.yml", "station-artwork.yml", "assets/logos"]
     if (ROOT / "assets" / "source-logos").exists():
         add_paths.append("assets/source-logos")
 
@@ -1121,45 +1130,98 @@ def publish_pending_changes() -> str:
     if diff.returncode not in (0, 1):
         raise RuntimeError(diff.stderr.strip() or "Kontrola zmien zlyhala.")
 
-    if diff.returncode == 1:
-        commit = run_git("commit", "-m", "Update satellite picons")
-        if commit.returncode != 0:
-            raise RuntimeError(commit.stderr.strip() or commit.stdout.strip() or "git commit zlyhal")
+    if diff.returncode == 0:
+        return "Nie sú žiadne nové artwork zmeny na publikovanie."
 
-    fetch = run_git("fetch", "origin", branch)
-    if fetch.returncode != 0:
-        raise RuntimeError(fetch.stderr.strip() or fetch.stdout.strip() or f"Načítanie origin/{branch} zlyhalo.")
+    commit = run_git("commit", "-m", "Update curated picons")
+    if commit.returncode != 0:
+        raise RuntimeError(commit.stderr.strip() or commit.stdout.strip() or "git commit zlyhal")
 
-    ahead = run_git("rev-list", "--count", "FETCH_HEAD..HEAD")
+    commit_sha_result = run_git("rev-parse", "HEAD")
+    if commit_sha_result.returncode != 0:
+        raise RuntimeError("Nepodarilo sa zistiť SHA artwork commitu.")
+    artwork_commit = commit_sha_result.stdout.strip()
+
+    fetch_branch = run_git("fetch", "origin", branch)
+    if fetch_branch.returncode != 0:
+        raise RuntimeError(fetch_branch.stderr.strip() or f"Načítanie origin/{branch} zlyhalo.")
+
+    # Preserve any newer remote work on the current branch before pushing.
     behind = run_git("rev-list", "--count", "HEAD..FETCH_HEAD")
-    if ahead.returncode != 0 or behind.returncode != 0:
-        raise RuntimeError("Kontrola stavu lokálnej vetvy zlyhala.")
-
-    ahead_count = int(ahead.stdout.strip() or "0")
-    behind_count = int(behind.stdout.strip() or "0")
-
-    if behind_count:
+    if behind.returncode != 0:
+        raise RuntimeError("Kontrola vzdialenej pracovnej vetvy zlyhala.")
+    if int(behind.stdout.strip() or "0"):
         rebase = run_git("rebase", "FETCH_HEAD", timeout=45)
         if rebase.returncode != 0:
             run_git("rebase", "--abort")
             raise RuntimeError(
-                f"GitHub vetva {branch} obsahuje novšie zmeny a automatické zlúčenie nebolo bezpečné. "
-                "Lokálne zmeny zostali zachované; publikovanie bolo zastavené."
+                f"Vetva {branch} obsahuje novšie zmeny a artwork commit sa nepodarilo bezpečne rebasovať."
             )
-
-        ahead = run_git("rev-list", "--count", "FETCH_HEAD..HEAD")
-        if ahead.returncode != 0:
-            raise RuntimeError("Kontrola lokálnych commitov po synchronizácii zlyhala.")
-        ahead_count = int(ahead.stdout.strip() or "0")
-
-    if ahead_count == 0:
-        return f"Nie sú žiadne lokálne zmeny pre vetvu {branch}."
+        commit_sha_result = run_git("rev-parse", "HEAD")
+        artwork_commit = commit_sha_result.stdout.strip()
 
     push = run_git("push", "origin", f"HEAD:{branch}", timeout=30)
     if push.returncode != 0:
-        raise RuntimeError(push.stderr.strip() or push.stdout.strip() or "git push zlyhal")
+        raise RuntimeError(push.stderr.strip() or push.stdout.strip() or "git push pracovnej vetvy zlyhal")
 
-    return f"Publikované do vetvy {branch}: {ahead_count} lokálny commit."
+    if branch == "main":
+        return f"Publikované do produkcie main: {artwork_commit[:12]}."
+
+    fetch_main = run_git("fetch", "origin", "main")
+    if fetch_main.returncode != 0:
+        raise RuntimeError(
+            "Artwork je uložený v pracovnej vetve, ale nepodarilo sa načítať produkčný main: "
+            + (fetch_main.stderr.strip() or fetch_main.stdout.strip())
+        )
+
+    with tempfile.TemporaryDirectory(prefix="picon-main-publish-") as temp_dir:
+        worktree = Path(temp_dir) / "main"
+        add_worktree = run_git("worktree", "add", "--detach", str(worktree), "FETCH_HEAD", timeout=30)
+        if add_worktree.returncode != 0:
+            raise RuntimeError(add_worktree.stderr.strip() or "Nepodarilo sa pripraviť produkčný worktree.")
+
+        def run_main_git(*args: str, timeout: int = 30):
+            env = os.environ.copy()
+            env["GIT_TERMINAL_PROMPT"] = "0"
+            env["GIT_SSH_COMMAND"] = "ssh -o BatchMode=yes -o ConnectTimeout=10"
+            return subprocess.run(
+                ["git", *args],
+                cwd=worktree,
+                text=True,
+                capture_output=True,
+                check=False,
+                timeout=timeout,
+                env=env,
+            )
+
+        try:
+            cherry = run_main_git("cherry-pick", artwork_commit, timeout=45)
+            if cherry.returncode != 0:
+                run_main_git("cherry-pick", "--abort")
+                raise RuntimeError(
+                    "Logo je bezpečne uložené v pracovnej vetve, ale automatické publikovanie do main malo konflikt. "
+                    "Produkcia zostala nezmenená. Detail: "
+                    + (cherry.stderr.strip() or cherry.stdout.strip())
+                )
+
+            production_sha = run_main_git("rev-parse", "HEAD")
+            if production_sha.returncode != 0:
+                raise RuntimeError("Nepodarilo sa zistiť produkčný artwork commit.")
+
+            push_main = run_main_git("push", "origin", "HEAD:main", timeout=30)
+            if push_main.returncode != 0:
+                raise RuntimeError(
+                    "Logo je uložené v pracovnej vetve, ale push do main zlyhal: "
+                    + (push_main.stderr.strip() or push_main.stdout.strip())
+                )
+            production_commit = production_sha.stdout.strip()
+        finally:
+            run_git("worktree", "remove", "--force", str(worktree), timeout=30)
+
+    return (
+        f"Artwork publikovaný: pracovná vetva {branch} + produkčný main "
+        f"({production_commit[:12]}). Web sa aktualizuje cez GitHub Pages."
+    )
 
 @app.get("/health")
 def health():
