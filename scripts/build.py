@@ -76,7 +76,7 @@ def load_logo_image(logo_path: Path) -> Image.Image:
         try:
             png_bytes = cairosvg.svg2png(
                 bytestring=svg_bytes,
-                output_width=512,
+                output_width=1024,
             )
         except Exception:
             # librsvg is more tolerant of a few complex SVG mask constructs.
@@ -87,7 +87,7 @@ def load_logo_image(logo_path: Path) -> Image.Image:
                 raise
 
             proc = subprocess.run(
-                [rsvg, "--width", "512", "--format", "png"],
+                [rsvg, "--width", "1024", "--format", "png"],
                 input=svg_bytes,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
@@ -203,15 +203,57 @@ def recolor_neutral_dark_to_white(im: Image.Image) -> Image.Image:
 
 
 def trim_alpha(im: Image.Image) -> Image.Image:
+    """Crop only truly transparent outer space without altering the artwork."""
+    im = im.convert("RGBA")
     alpha = im.getchannel("A")
-    bbox = alpha.getbbox()
+    # Ignore only effectively invisible alpha noise. Visible antialiasing remains.
+    mask = alpha.point(lambda a: 255 if a >= 2 else 0)
+    bbox = mask.getbbox()
     if not bbox:
         raise ValueError("Logo is fully transparent")
     return im.crop(bbox)
 
 
+def resize_rgba_premultiplied(im: Image.Image, size: tuple[int, int]) -> Image.Image:
+    """Resize RGBA without bright/dark colour fringes around transparent edges."""
+    im = im.convert("RGBA")
+    if im.size == size:
+        return im
+
+    r, g, b, a = im.split()
+
+    # Premultiply RGB by alpha before Lanczos resampling. Pillow otherwise
+    # interpolates hidden RGB values in transparent pixels, which can create
+    # white/black halos on small broadcast logos.
+    def premultiply(channel: Image.Image) -> Image.Image:
+        return Image.merge("LA", (channel, a)).convert("RGBA").split()[0]
+
+    # Use integer math through Pillow's point operation for deterministic output.
+    alpha_values = list(a.getdata())
+    channels = []
+    for channel in (r, g, b):
+        values = list(channel.getdata())
+        premul = Image.new("L", im.size)
+        premul.putdata([(c * av + 127) // 255 for c, av in zip(values, alpha_values)])
+        channels.append(premul.resize(size, Image.Resampling.LANCZOS))
+
+    a2 = a.resize(size, Image.Resampling.LANCZOS)
+    alpha2 = list(a2.getdata())
+    out_channels = []
+    for channel in channels:
+        values = list(channel.getdata())
+        restored = Image.new("L", size)
+        restored.putdata([
+            0 if av <= 0 else min(255, (c * 255 + av // 2) // av)
+            for c, av in zip(values, alpha2)
+        ])
+        out_channels.append(restored)
+
+    return Image.merge("RGBA", (*out_channels, a2))
+
+
 def fit_logo(im: Image.Image, max_size=MAX_LOGO, optical_scale: float = 1.0) -> Image.Image:
-    """Fill almost the entire picon while preserving the logo aspect ratio."""
+    """Fit a clean logo into the fixed picon area with no extra graphics."""
     w, h = im.size
     if w <= 0 or h <= 0:
         raise ValueError("Invalid logo size")
@@ -227,7 +269,7 @@ def fit_logo(im: Image.Image, max_size=MAX_LOGO, optical_scale: float = 1.0) -> 
         new_w = max(1, int(round(new_w * cap)))
         new_h = max(1, int(round(new_h * cap)))
 
-    return im.resize((new_w, new_h), Image.Resampling.LANCZOS)
+    return resize_rgba_premultiplied(im, (new_w, new_h))
 
 
 def render_logo(
@@ -253,6 +295,8 @@ def render_logo(
     x = (CANVAS[0] - logo.width) // 2
     y = (CANVAS[1] - logo.height) // 2
     out.alpha_composite(logo, (x, y))
+    if out.size != CANVAS:
+        raise ValueError(f"Rendered picon must be {CANVAS[0]}x{CANVAS[1]}, got {out.size}")
     return out
 
 
