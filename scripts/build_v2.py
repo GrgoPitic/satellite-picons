@@ -33,7 +33,7 @@ def enrich_artwork(channel: dict, stations: dict | None = None) -> dict:
     provider_id = str(item.get("provider_group") or "").strip().lower()
     provider = provider_definitions().get(provider_id, {})
     item["delivery"] = str(item.get("delivery") or provider.get("delivery") or "satellite").lower()
-    station_key = str(item.get("station_key") or normalize_station_key(item.get("name", "")))
+    station_key = normalize_station_key(item.get("name", ""))
     item["station_key"] = station_key
     identity = channel_identity(item, provider_id)
 
