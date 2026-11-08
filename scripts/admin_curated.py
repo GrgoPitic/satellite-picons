@@ -98,7 +98,8 @@ def page_curated() -> str:
         '<h2>Publikovanie</h2>',
         '<h2>Odoslať picony na web</h2><p>Uložiť znamená uložiť do tohto počítača. Publikovanie odošle zmeny do repozitára. Po úspešnom zostavení a nasadení vetvy main sa nový balík sprístupní na webe aj prijímaču OpenPLi.</p>'
     )
-    return page
+    from station_dashboard import enhance
+    return enhance(page)
 
 
 # admin_v2 registered its routes during import. The route functions resolve these
@@ -106,6 +107,23 @@ def page_curated() -> str:
 hub.load_admin_channels_v2 = load_curated_channels
 hub.legacy.load_admin_channels = load_curated_channels
 hub.PAGE_V2 = page_curated
+
+
+@hub.legacy.app.get("/api/station-picon")
+def station_picon():
+    import io
+    from flask import request, send_file, jsonify
+    row = hub.channel_by_identity(request.args.get("identity", ""))
+    if not row or not _is_local_user_logo(str(row.get("logo") or "")):
+        return jsonify(error="Logo sa nenašlo."), 404
+    path = ROOT / row["logo"]
+    png = hub.legacy.render_preview_png(
+        raw=path.read_bytes(), ext=path.suffix.lower(),
+        dark_to_white=bool(row.get("dark_to_white", False)),
+        optical_scale=float(row.get("optical_scale", 1)),
+        edge_cleanup=bool(row.get("edge_cleanup", False)),
+    )
+    return send_file(io.BytesIO(png), mimetype="image/png")
 
 
 def main() -> None:

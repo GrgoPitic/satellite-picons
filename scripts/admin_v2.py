@@ -270,10 +270,10 @@ def channel_by_identity(identity: str) -> dict | None:
 
 def replace_panel_html(page: str, panel_name: str, replacement: str) -> str:
     pattern = re.compile(
-        rf'<section class="panel(?: active)?" data-panel-view="{re.escape(panel_name)}">[\\s\\S]*?</section>',
-        re.M,
+        rf'<section class="panel(?: active)?" data-panel-view="{re.escape(panel_name)}">.*?</section>',
+        re.S,
     )
-    return pattern.sub(replacement, page, count=1)
+    return pattern.sub(lambda match: replacement, page, count=1)
 
 
 def PAGE_V2() -> str:
