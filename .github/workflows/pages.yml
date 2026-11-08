@@ -219,6 +219,25 @@ jobs:
           orbit = json.loads(Path("public/orbits.json").read_text(encoding="utf-8"))
           assert orbit["source"] == "Vhannibal"
           assert orbit["orbits"]
+          from collections import Counter
+          from pathlib import Path
+          import zipfile
+          all_refs = []
+          for group in orbit["orbits"]:
+              services = group["channels"]
+              assert len(services) == group["channel_count"], group["id"]
+              assert sum(bool(ch["files"]) for ch in services) == group["curated_channel_count"], group["id"]
+              assert all(ch["satellite_position"] == group["id"] for ch in services)
+              refs = [ch["service_reference"].upper() for ch in services]
+              assert len(refs) == len(set(refs)), group["id"]
+              all_refs.extend(refs)
+              package = group.get("package")
+              if package:
+                  with zipfile.ZipFile(Path("public") / package) as z:
+                      expected_files = {f for ch in services for f in ch["files"]}
+                      assert set(z.namelist()) == expected_files, group["id"]
+          assert len(all_refs) == len(set(all_refs)), "Duplicate DVB references between orbital groups"
+          print("Verified", len(orbit["orbits"]), "orbits and", len(all_refs), "unique DVB services")
           rendered_positions = {ch["satellite_position"] for ch in index["channels"]}
           assert rendered_positions <= {p["id"] for p in orbit["orbits"]}
           print("Vhannibal orbit packs and curated Cartoonito/Cinemax picons verified")
