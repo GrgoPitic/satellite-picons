@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from catalog_common import is_real_station_name
 import admin_v2 as hub
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -36,8 +37,8 @@ def load_curated_channels() -> tuple[list[dict], dict]:
     # historical artwork and archived operator catalogues on disk.
     rows = [row for row in rows if row.get("provider_group") == "skylink-sk"
             and row.get("_generated")
-            # Vhannibal bouquet separators such as "•" are not stations.
-            and any(ch.isalnum() for ch in str(row.get("name") or ""))]
+            # Use the same conservative filter as the Vhannibal importer.
+            and is_real_station_name(row.get("name") or "")]
     hidden_imported = 0
     local_logos = 0
 
