@@ -4,8 +4,8 @@
 <section class="panel" data-panel-view="stations">
 <h1>Moje stanice</h1><p class="sub">Vyber stanicu, skontroluj picon a uprav jej logo.</p>
 <div class="station-help">Jednotný vzhľad: <strong>piconblack · 150 × 90 px</strong>. Najprv schváľ náhľad, potom ulož logo. Uložené zmeny odošli na web cez Publikovanie.</div>
-<div class="station-tools"><input id="stationSearch" type="search" aria-label="Vyhľadať stanicu" placeholder="Hľadať stanicu…"><select id="stationProvider" aria-label="Operátor"><option value="skylink">Skylink SK + CZ</option><option value="">Všetci operátori</option></select></div>
-<div class="station-help">Skylink SK + CZ sa aktualizuje z Vhannibal automaticky pri spustení administrácie. Na GitHube je pripravená denná synchronizácia. Logá zostávajú tvoje, naladenie určuje Vhannibal.</div>
+<div class="station-tools"><input id="stationSearch" type="search" aria-label="Vyhľadať stanicu" placeholder="Hľadať stanicu…"><select id="stationProvider" aria-label="Orbitálna pozícia"><option value="">Všetky orbitálne pozície</option></select></div>
+<div class="station-help">Jediným zdrojom staníc je Vhannibal. GitHub kontroluje aktualizácie každých šesť hodín. Orbitálne pozície vznikajú iba z reálnych referencií. Tvoje vlastné logá zostávajú zachované.</div>
 <p id="stationCount" role="status"></p><div id="stationGrid" class="station-grid"></div>
 </section>
 <section class="panel" data-panel-view="missing"><h1>Chýbajúce logá</h1><p class="sub">Stanice, ktorým chýba logo aspoň u jedného operátora. Pri existujúcom logu otvor priradenia.</p><div id="missingGrid" class="station-grid"></div></section>
@@ -55,7 +55,7 @@
  const stations=[...grouped.values()].sort((a,b)=>a[0].name.localeCompare(b[0].name,'sk'));
  const search=document.querySelector('#stationSearch'),provider=document.querySelector('#stationProvider');
  const label=id=>(providerMeta[id]||{}).name||id||'Bez operátora';
- [...new Set(adminChannels.map(c=>c.provider_group).filter(Boolean))].sort((a,b)=>label(a).localeCompare(label(b),'sk')).forEach(id=>provider.add(new Option(label(id),id)));
+ [...new Set(adminChannels.map(c=>c.satellite_position).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'sk')).forEach(position=>provider.add(new Option(position,position)));
  const normalize=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
  function openPanel(name){document.querySelector(`[data-panel="${name}"]`).click();}
  function select(ch,panel){
@@ -70,7 +70,7 @@
    const picture=document.createElement('div');picture.className='station-image';
    if(source._has_curated_logo){const img=document.createElement('img');img.loading='lazy';img.alt=source.name;img.src='/api/station-picon?identity='+encodeURIComponent(source._identity);picture.append(img);}else picture.textContent='Zatiaľ bez loga';
    const title=document.createElement('h3');title.textContent=source.name;
-   const operators=document.createElement('p');operators.textContent=[...new Set(rows.map(c=>label(c.provider_group)))].join(' · ');
+   const operators=document.createElement('p');operators.textContent=[...new Set(rows.map(c=>c.satellite_position).filter(Boolean))].join(' · ');
    const status=document.createElement('div');status.className='station-status';status.textContent=`Logo má ${rows.filter(c=>c._has_curated_logo).length} z ${rows.length} výskytov stanice`;
    tile.append(picture,title,operators,status);
    const button=(text,fn)=>{const b=document.createElement('button');b.type='button';b.className='action secondary';b.textContent=text;b.onclick=fn;tile.append(b);};
@@ -80,7 +80,7 @@
  }
  function render(){
    const grid=document.querySelector('#stationGrid');grid.replaceChildren();
-   const visible=stations.filter(rows=>rows.some(c=>normalize(c.name).includes(normalize(search.value)))&&(!provider.value||rows.some(c=>provider.value==='skylink'?['skylink-sk','skylink-cz'].includes(c.provider_group):c.provider_group===provider.value)));
+   const visible=stations.filter(rows=>rows.some(c=>normalize(c.name).includes(normalize(search.value)))&&(!provider.value||rows.some(c=>c.satellite_position===provider.value)));
    visible.forEach(rows=>grid.append(card(rows)));document.querySelector('#stationCount').textContent=`Zobrazené stanice: ${visible.length} z ${stations.length}`;
    if(!visible.length)grid.textContent='Žiadna stanica nezodpovedá vyhľadávaniu.';
  }
