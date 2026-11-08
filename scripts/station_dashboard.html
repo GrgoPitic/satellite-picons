@@ -11,7 +11,7 @@
 <section class="panel" data-panel-view="stations">
 <h1>Moje stanice</h1><p class="sub">Vyber stanicu, skontroluj picon a uprav jej logo.</p>
 <div class="station-help">Jednotný vzhľad: <strong>piconblack · 150 × 90 px</strong>. Najprv schváľ náhľad, potom ulož logo. Uložené zmeny odošli na web cez Publikovanie.</div>
-<div class="station-tools"><input id="stationSearch" type="search" aria-label="Vyhľadať stanicu" placeholder="Hľadať stanicu…"><select id="stationProvider" aria-label="Orbitálna pozícia"><option value="">Všetky orbitálne pozície</option></select><select id="stationOperator" aria-label="Skutočné členstvo v operátorovi"><option value="">Všetky služby Vhannibal</option><option value="skylink-sk">Skylink SK – overené služby</option><option value="skylink-cz">Skylink CZ – overené služby</option></select></div>
+<div class="station-tools"><input id="stationSearch" type="search" aria-label="Vyhľadať stanicu" placeholder="Hľadať stanicu…"><select id="stationProvider" aria-label="Orbitálna pozícia"><option value="">Všetky orbitálne pozície</option></select><select id="stationOperator" aria-label="Skutočné členstvo v operátorovi"><option value="">Všetky služby Vhannibal</option></select></div>
 <div class="station-help">Vhannibal určuje služby podľa orbity; Skylink SK/CZ filtrujeme nezávisle podľa FastScan, orbity a frekvencie. Neoverené stanice sa do operátora nezaradia. Logá zostávajú tvoje.</div>
 <p id="stationCount" role="status"></p><div id="stationGrid" class="station-grid"></div><button type="button" class="action secondary" id="stationMore" style="display:none;margin-top:16px">Zobraziť ďalších 100 staníc</button>
 </section>
@@ -130,6 +130,14 @@
  const stations=[...grouped.values()].sort((a,b)=>a[0].name.localeCompare(b[0].name,'sk'));
  const search=document.querySelector('#stationSearch'),provider=document.querySelector('#stationProvider'),operator=document.querySelector('#stationOperator');
  const label=id=>(providerMeta[id]||{}).name||id||'Bez operátora';
+ fetch('/api/operator-registry',{cache:'no-store'})
+   .then(r=>{if(!r.ok)throw Error('Neplatný register');return r.json();})
+   .then(data=>{
+     (data.operators||[]).forEach(op=>operator.add(new Option(op.name+' – overené služby',op.id)));
+   })
+   .catch(()=>{[...new Set(adminChannels.flatMap(c=>c._operators||[]))].sort()
+     .forEach(id=>operator.add(new Option(id+' – overené služby',id)));});
+
  [...new Set(adminChannels.map(c=>c.satellite_position).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'sk')).forEach(position=>provider.add(new Option(position,position)));
  const normalize=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
  function openPanel(name){document.querySelector(`[data-panel="${name}"]`).click();}
@@ -145,7 +153,7 @@
    const picture=document.createElement('div');picture.className='station-image';
    if(source._has_curated_logo){const img=document.createElement('img');img.loading='lazy';img.alt=source.name;img.src='/api/station-picon?identity='+encodeURIComponent(source._identity);picture.append(img);}else picture.textContent='Zatiaľ bez loga';
    const title=document.createElement('h3');title.textContent=source.name;
-   const operators=document.createElement('p');const orbits=[...new Set(rows.map(c=>c.satellite_position).filter(Boolean))].join(' · ');const verified=[...new Set(rows.flatMap(c=>c._operators||[]))].map(o=>o==='skylink-sk'?'Skylink SK':o==='skylink-cz'?'Skylink CZ':o);operators.textContent=orbits+' · '+(verified.length?verified.join(' / '):'Len Vhannibal, operátor neoverený');
+   const operators=document.createElement('p');const orbits=[...new Set(rows.map(c=>c.satellite_position).filter(Boolean))].join(' · ');const verified=[...new Set(rows.flatMap(c=>c._operators||[]))];operators.textContent=orbits+' · '+(verified.length?verified.join(' / '):'Len Vhannibal, operátor neoverený');
    const status=document.createElement('div');status.className='station-status';status.textContent=`Logo má ${rows.filter(c=>c._has_curated_logo).length} z ${rows.length} výskytov stanice`;
    tile.append(picture,title,operators,status);
    const button=(text,fn)=>{const b=document.createElement('button');b.type='button';b.className='action secondary';b.textContent=text;b.onclick=fn;tile.append(b);};
