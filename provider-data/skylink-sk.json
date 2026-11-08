@@ -152,11 +152,7 @@
         "1",
         "16"
       ],
-      "satellite_position": "23.5E",
-      "logo": "assets/logos/prima-televize.svg",
-      "dark_to_white": false,
-      "optical_scale": 1.0,
-      "edge_cleanup": false
+      "satellite_position": "23.5E"
     },
     {
       "id": "prima-zoom-36e8",
@@ -226,11 +222,7 @@
         "1",
         "16"
       ],
-      "satellite_position": "23.5E",
-      "logo": "assets/logos/markiza.png",
-      "dark_to_white": false,
-      "optical_scale": 1.0,
-      "edge_cleanup": false
+      "satellite_position": "23.5E"
     },
     {
       "id": "markiza-international-3720",
@@ -692,10 +684,7 @@
         "1",
         "19"
       ],
-      "satellite_position": "23.5E",
-      "logo": "assets/logos/cs-mystery.png",
-      "dark_to_white": true,
-      "optical_scale": 1.0
+      "satellite_position": "23.5E"
     },
     {
       "id": "nova-cinema-3395",
@@ -793,11 +782,7 @@
         "1",
         "16"
       ],
-      "satellite_position": "23.5E",
-      "logo": "assets/logos/joj-cinema.png",
-      "dark_to_white": true,
-      "optical_scale": 1.0,
-      "edge_cleanup": false
+      "satellite_position": "23.5E"
     },
     {
       "id": "axn-cz-315",
@@ -867,11 +852,7 @@
         "1",
         "16"
       ],
-      "satellite_position": "23.5E",
-      "logo": "assets/logos/markiza-krimi-hd-85db4865d2.png",
-      "dark_to_white": false,
-      "optical_scale": 1.0,
-      "edge_cleanup": false
+      "satellite_position": "23.5E"
     },
     {
       "id": "doma-3732",
@@ -1193,10 +1174,7 @@
         "1",
         "16"
       ],
-      "satellite_position": "23.5E",
-      "logo": "assets/logos/joj-krimi.png",
-      "dark_to_white": true,
-      "optical_scale": 1.0
+      "satellite_position": "23.5E"
     },
     {
       "id": "senzi-36f1",
@@ -1602,11 +1580,7 @@
         "1",
         "16"
       ],
-      "satellite_position": "23.5E",
-      "logo": "assets/logos/prima-sport-czech.png",
-      "dark_to_white": false,
-      "optical_scale": 1.0,
-      "edge_cleanup": false
+      "satellite_position": "23.5E"
     },
     {
       "id": "m4-17e7",
@@ -1648,11 +1622,7 @@
         "1",
         "16"
       ],
-      "satellite_position": "23.5E",
-      "logo": "assets/logos/joj-sport.png",
-      "dark_to_white": true,
-      "optical_scale": 1.0,
-      "edge_cleanup": false
+      "satellite_position": "23.5E"
     },
     {
       "id": "joj-sport-2-30c",
@@ -1666,10 +1636,7 @@
         "1",
         "16"
       ],
-      "satellite_position": "23.5E",
-      "logo": "assets/logos/joj-sport-2.png",
-      "dark_to_white": true,
-      "optical_scale": 1.0
+      "satellite_position": "23.5E"
     },
     {
       "id": "automotorsport-17d0",
@@ -1781,11 +1748,7 @@
         "1",
         "16"
       ],
-      "satellite_position": "23.5E",
-      "logo": "assets/logos/viasat-nature.svg",
-      "dark_to_white": true,
-      "optical_scale": 1.0,
-      "edge_cleanup": false
+      "satellite_position": "23.5E"
     },
     {
       "id": "viasat-explore-3c2f",
@@ -1799,11 +1762,7 @@
         "1",
         "19"
       ],
-      "satellite_position": "23.5E",
-      "logo": "assets/logos/viasat-explore.png",
-      "dark_to_white": true,
-      "optical_scale": 1.0,
-      "edge_cleanup": false
+      "satellite_position": "23.5E"
     },
     {
       "id": "viasat-history-3cf0",
@@ -1929,10 +1888,7 @@
         "1",
         "19"
       ],
-      "satellite_position": "23.5E",
-      "logo": "assets/logos/joj-svet.png",
-      "dark_to_white": true,
-      "optical_scale": 1.0
+      "satellite_position": "23.5E"
     },
     {
       "id": "fishing-and-hunting-314",
