@@ -294,6 +294,13 @@ def main() -> int:
         postprocess_public()
         copy_catalogue_change_history()
         build_orbit_catalogue()
+        from skylink_lineups import SNAPSHOT, build as build_skylink
+        # A missing snapshot is explicit. Never label an orbit as the complete
+        # Skylink operator lineup or invent FastScan service identities.
+        snapshot = json.loads(SNAPSHOT.read_text(encoding="utf-8")) if SNAPSHOT.exists() else {"providers": {}}
+        vhannibal = json.loads((ROOT / "provider-data/skylink-sk.json").read_text(encoding="utf-8"))
+        index = json.loads((ROOT / "public/index.json").read_text(encoding="utf-8"))
+        build_skylink(index, vhannibal.get("channels", []), snapshot)
     return rc
 
 
