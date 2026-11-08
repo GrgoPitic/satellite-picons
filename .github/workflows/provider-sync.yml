@@ -7,6 +7,7 @@ on:
       - feature/vhannibal-orbit-hub
     paths:
       - scripts/sync_vhannibal.py
+      - scripts/skylink_lineups.py
       - scripts/catalogue_changes.py
       - scripts/assign_station_artwork.py
       - .github/workflows/provider-sync.yml
@@ -36,6 +37,15 @@ jobs:
           cache: pip
       - name: Install dependencies
         run: pip install -r requirements.txt
+      - name: Update independent Skylink SK/CZ FastScan lineups
+        shell: bash
+        run: |
+          if python scripts/skylink_lineups.py --sync; then
+            echo "SKYLINK_OK=true" >> "$GITHUB_ENV"
+          else
+            echo "::warning::Skylink listing unavailable or incomplete; preserving last good snapshot."
+            echo "SKYLINK_OK=false" >> "$GITHUB_ENV"
+          fi
       - name: Preserve prior catalogue for diff
         run: |
           mkdir -p "${RUNNER_TEMP}/provider-before"
@@ -69,12 +79,13 @@ jobs:
           print("Vhannibal metadata validated:", len(data["channels"]))
           PY
       - name: Commit changed metadata and history
-        if: env.SYNC_OK == 'true'
+        if: env.SYNC_OK == 'true' || env.SKYLINK_OK == 'true'
         shell: bash
         run: |
           git config user.name "JohnyWick"
           git config user.email "42406628+GrgoPitic@users.noreply.github.com"
           git add provider-data/skylink-sk.json station-artwork.yml catalogue-changes.json
+          if test -f skylink-lineups.json; then git add skylink-lineups.json; fi
           if git diff --cached --quiet; then
             echo "No changes in Vhannibal metadata."
             exit 0
@@ -89,7 +100,7 @@ jobs:
           fi
           git push origin "HEAD:${BRANCH}"
       - name: Rebuild current public catalogue
-        if: env.SYNC_OK == 'true'
+        if: env.SYNC_OK == 'true' || env.SKYLINK_OK == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow run pages.yml --ref "${GITHUB_REF_NAME}"
