@@ -105,3 +105,43 @@ stations:
     targets:
     - sat:skylink-sk:3CFA_C95_3_EB0000
     updated_at: 1794139278
+  axn-black-central-europe:
+    name: AXN Black Central Europe
+    logo: assets/logos/stations/axn-black-central-europe.png
+    dark_to_white: false
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: false
+    targets:
+    - sat:skylink-sk:3D00_C95_3_EB0000
+    updated_at: 1794139647
+  axn-cz:
+    name: AXN CZ
+    logo: assets/logos/stations/axn-cz.png
+    dark_to_white: false
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: false
+    targets:
+    - sat:skylink-sk:315_C94_3_EB0000
+    updated_at: 1794139698
+  axn-white-central-europe:
+    name: AXN White Central Europe
+    logo: assets/logos/stations/axn-white-central-europe.png
+    dark_to_white: false
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: false
+    targets:
+    - sat:skylink-sk:3D01_C95_3_EB0000
+    updated_at: 1794139786
+  barrandov-krimi:
+    name: Barrandov Krimi
+    logo: assets/logos/stations/barrandov-krimi.png
+    dark_to_white: false
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: false
+    targets:
+    - sat:skylink-sk:31E_C94_3_EB0000
+    updated_at: 1794140024
