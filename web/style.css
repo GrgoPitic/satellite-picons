@@ -77,6 +77,16 @@ button{color:inherit}
 }
 .sidebar-head h1{margin:0;font-size:18px;letter-spacing:-.03em}
 .operator-list{overflow:auto;padding:8px}
+.sidebar-section-title{
+  margin:17px 10px 7px;
+  padding-top:10px;
+  border-top:1px solid #253241;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.13em;
+  color:#aabed3;
+}
+.sidebar-section-title:first-child{margin-top:4px;border-top:0;padding-top:0}
 .operator-item{
   width:100%;
   display:grid;
