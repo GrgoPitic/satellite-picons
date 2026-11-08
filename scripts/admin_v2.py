@@ -59,7 +59,7 @@ def load_admin_channels_v2() -> tuple[list[dict], dict]:
                 item = dict(channel)
                 item["provider_group"] = str(item.get("provider_group") or provider_id).strip().lower()
                 item["delivery"] = str(defs.get(item["provider_group"], {}).get("delivery") or "satellite")
-                item["station_key"] = str(item.get("station_key") or normalize_station_key(item.get("name", "")))
+                item["station_key"] = normalize_station_key(item.get("name", ""))
                 item["_generated"] = True
                 item["_manual_override"] = False
                 key = channel_identity(item, item["provider_group"])
@@ -258,7 +258,7 @@ def matching_target_identities(station_key: str) -> list[str]:
         identity = str(row.get("_identity") or "")
         if not identity:
             continue
-        if station_family_key(str(row.get("station_key") or row.get("name") or "")) != wanted_family:
+        if station_family_key(str(row.get("name") or "")) != wanted_family:
             continue
         owner = target_owner.get(identity)
         if owner and owner != station_key:
