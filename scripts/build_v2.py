@@ -13,6 +13,7 @@ import yaml
 import build as legacy
 from catalog_common import (
     channel_identity,
+    is_real_station_name,
     load_station_artwork,
     normalize_station_key,
     provider_definitions,
@@ -79,7 +80,8 @@ def merged_channels_v2(cfg: dict) -> tuple[list[dict], dict[str, dict]]:
     # artwork overrides, but do not expose services absent from its catalogue.
     synced_all, metadata = legacy.load_synced_provider_data()
     synced = [ch for ch in synced_all
-              if str(ch.get("provider_group") or "").lower() == "skylink-sk"]
+              if str(ch.get("provider_group") or "").lower() == "skylink-sk"
+              and is_real_station_name(ch.get("name") or "")]
     if not synced:
         raise RuntimeError("Vhannibal catalogue is empty or unavailable; refusing empty public build.")
     provider_metadata = {"skylink-sk": metadata.get("skylink-sk", {})}
@@ -228,6 +230,8 @@ def build_orbit_catalogue() -> None:
     index = json.loads((public / "index.json").read_text(encoding="utf-8"))
     expected = defaultdict(int)
     for channel in source.get("channels", []):
+        if not is_real_station_name(channel.get("name") or ""):
+            continue
         position = str(channel.get("satellite_position") or "").strip()
         if position:
             expected[position] += 1
