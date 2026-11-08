@@ -251,6 +251,7 @@ stations:
     trim_logo: true
     targets:
     - sat:antik-sat-sk:79A_C6D4_16E_A00000
+    - sat:canal-plus-pl:3A9F_514_13E_820000
     - sat:digi-tv-hu:44C_1_1_E080000
     - sat:digi-tv-ro:44C_1_1_E080000
     - sat:digi-tv-sk:1B65_AF7_BB_E080000
@@ -266,7 +267,7 @@ stations:
     - sat:polsat-box-pl:3A9F_514_13E_820000
     - sat:skylink-sk:3C2C_C90_3_EB0000
     - sat:telly-cz:1B65_AF7_BB_E080000
-    updated_at: 1794145675
+    updated_at: 1794147667
   canal-plus-action:
     name: CANAL+ Action
     logo: assets/logos/stations/canal-plus-action.png
@@ -387,4 +388,4 @@ stations:
     - sat:orange-tv-sat:3734_C8E_3_EB0000
     - sat:skylink-sk:3733_C8E_3_EB0000
     - sat:skylink-sk:3734_C8E_3_EB0000
-    updated_at: 1794145694
+    updated_at: 1794147667
