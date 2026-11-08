@@ -159,9 +159,45 @@
     renderLogos();
   }
 
+  // Orbit catalogue retains every DVB service and every picon filename.
+  // The grid collapses multiple references with the same station name into
+  // one visual card; operator FastScan order remains entirely unchanged.
+  function groupOrbitalCards(channels) {
+    const result = new Map();
+    for (const channel of channels) {
+      // Strip only technical HD/SD presentation markers, not SK/CZ/feed names.
+      const nameKey = String(channel.name || '').normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '').toLowerCase()
+        .replace(/\b(?:hd|sd|fhd|uhd|4k)\b/g, '')
+        .replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
+      const key = nameKey || channel.service_reference;
+      if (!result.has(key)) {
+        result.set(key, {...channel, files: [], service_count: 0, ready_count: 0, references: []});
+      }
+      const entry = result.get(key);
+      entry.service_count += 1;
+      if (primaryFile(channel)) {
+        entry.ready_count += 1;
+        if (!entry.files.length) {
+          entry.service_reference = channel.service_reference;
+          entry.name = channel.name;
+        }
+        entry.status = 'ready';
+      }
+      if (channel.service_reference) entry.references.push(channel.service_reference);
+      for (const filename of channel.files || []) {
+        if (!entry.files.includes(filename)) entry.files.push(filename);
+      }
+    }
+    return [...result.values()];
+  }
+
   function renderLogos() {
     const needle = operatorSearch.value.trim().toLowerCase();
-    const rows = providerChannels(activeProviderId).filter(channel => {
+    const provider = providerById.get(activeProviderId);
+    const allRows = providerChannels(activeProviderId);
+    const cards = provider?.group === 'orbit' ? groupOrbitalCards(allRows) : allRows;
+    const rows = cards.filter(channel => {
       if (!needle) return true;
       return (
         String(channel.name || '').toLowerCase().includes(needle) ||
@@ -204,7 +240,8 @@
           '<div class="logo-meta">'+
             '<h3>'+escapeHtml(channel.name)+'</h3>'+
             '<span>'+caption+'</span>'+
-            (channel.fastscan ? '<span>FastScan '+Number(channel.fastscan)+'</span>' : '')+
+            (channel.service_count > 1 ? '<span>'+channel.ready_count+'/'+channel.service_count+' DVB služby s piconom</span>' : '')+
+            (channel.fastscan && provider?.group === 'operator' ? '<span>FastScan '+Number(channel.fastscan)+'</span>' : '')+
           '</div>'+
         '</article>'
       );
@@ -231,7 +268,7 @@
     modalImage.src = 'picons/' + encodeURIComponent(primary) + '?v=' + piconVersion;
     modalImage.alt = channel.name || '';
     modalTitle.textContent = channel.name || '';
-    modalRef.textContent = channel.service_reference || '';
+    modalRef.textContent = (channel.service_reference || '') + (channel.service_count > 1 ? ' · ' + channel.service_count + ' DVB referencií' : '');
     const active = providerById.get(activeProviderId);
     modalGroup.textContent = active?.group === 'operator'
       ? active.name + ' · ' + (channel.position || '')
