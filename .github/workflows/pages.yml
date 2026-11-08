@@ -154,6 +154,39 @@ jobs:
                   assert package is None, provider
           PY
 
+      - name: Verify published logos and provider assignments
+        run: |
+          python - <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+          import yaml
+
+          sys.path.insert(0, "scripts")
+          from catalog_common import channel_identity
+
+          index = json.loads(Path("public/index.json").read_text(encoding="utf-8"))
+          stations = yaml.safe_load(Path("station-artwork.yml").read_text(encoding="utf-8"))["stations"]
+          rendered = {}
+          for channel in index["channels"]:
+              key = channel_identity(channel, channel.get("provider_group"))
+              rendered[key] = channel
+
+          # These are real previously published uploads, not synthetic fixtures.
+          for station in ("cartoonito", "cinemax"):
+              artwork = stations[station]
+              for target in artwork["targets"]:
+                  assert target in rendered, f"{station}: missing published service {target}"
+                  channel = rendered[target]
+                  assert channel.get("files"), f"{station}: no generated picons for {target}"
+                  for filename in channel["files"]:
+                      assert (Path("public/picons") / filename).is_file(), (
+                          f"{station}: missing picon {filename}"
+                      )
+
+          print("Published artwork verified: Cartoonito and Cinemax (Skylink / ANTIK Sat)")
+          PY
+
       - uses: actions/configure-pages@v5
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
 
