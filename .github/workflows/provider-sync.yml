@@ -183,6 +183,9 @@ jobs:
               print("normalized", path)
           PY
 
+      - name: Assign uploaded logos to newly imported operator services
+        run: python scripts/assign_station_artwork.py
+
       - name: Validate generated provider metadata
         run: |
           python - <<'PY'
@@ -246,7 +249,7 @@ jobs:
           BRANCH="${GITHUB_REF_NAME}"
           git config user.name "JohnyWick"
           git config user.email "42406628+GrgoPitic@users.noreply.github.com"
-          git add -A provider-data
+          git add -A provider-data station-artwork.yml
 
           if git diff --cached --quiet; then
             echo "Provider metadata is already current."
