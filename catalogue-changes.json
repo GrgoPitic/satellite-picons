@@ -4,6 +4,126 @@
     {
       "provider": "skylink-sk",
       "kind": "removed",
+      "name": ".1.",
+      "reference": "1:0:1:126E:417:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T15:23:14.922882+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "removed",
+      "name": ".2.",
+      "reference": "1:0:1:126F:417:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T15:23:14.922882+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "removed",
+      "name": ".3.",
+      "reference": "1:0:1:1270:417:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T15:23:14.922882+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "removed",
+      "name": ".4.",
+      "reference": "1:0:1:1271:417:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T15:23:14.922882+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "removed",
+      "name": "12363V SID 0x2391",
+      "reference": "1:0:1:2391:44A:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T15:23:14.922882+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "removed",
+      "name": "12363V SID 0x2392",
+      "reference": "1:0:1:2392:44A:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T15:23:14.922882+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "removed",
+      "name": "12363V SID 0x2393",
+      "reference": "1:0:1:2393:44A:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T15:23:14.922882+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "removed",
+      "name": "12363V SID 0x2394",
+      "reference": "1:0:1:2394:44A:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T15:23:14.922882+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "removed",
+      "name": "12363V SID 0x23aa",
+      "reference": "1:0:1:23AA:44A:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T15:23:14.922882+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "removed",
+      "name": "12363V SID 0x23bc",
+      "reference": "1:0:1:23BC:44A:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T15:23:14.922882+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "removed",
+      "name": "12363V SID 0x23d2",
+      "reference": "1:0:1:23D2:44A:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T15:23:14.922882+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "removed",
+      "name": "12363V SID 0x23ec",
+      "reference": "1:0:1:23EC:44A:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T15:23:14.922882+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "removed",
+      "name": "11097V SID 0x7573",
+      "reference": "1:0:1:7573:412:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T15:23:14.922882+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "removed",
+      "name": "10847V SID 0x75f4",
+      "reference": "1:0:1:75F4:422:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T15:23:14.922882+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "removed",
+      "name": "10936V SID 0x7828",
+      "reference": "1:0:1:7828:428:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T15:23:14.922882+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "removed",
       "name": ".",
       "reference": "1:0:16:1523:455:1:C00000:0:0:0:",
       "provider_name": "Vhannibal SAT",
@@ -4680,127 +4800,7 @@
       "reference": "1:0:1:185:1C84:13E:820000:0:0:0:",
       "provider_name": "Vhannibal SAT",
       "at": "2026-11-08T14:25:07.136725+00:00"
-    },
-    {
-      "provider": "skylink-sk",
-      "kind": "added",
-      "name": "Da Vinci HD UG",
-      "reference": "1:0:1:186:1C84:13E:820000:0:0:0:",
-      "provider_name": "Vhannibal SAT",
-      "at": "2026-11-08T14:25:07.136725+00:00"
-    },
-    {
-      "provider": "skylink-sk",
-      "kind": "added",
-      "name": "SkySp Tennis",
-      "reference": "1:0:1:188D:7E4:2:11A0000:0:0:0:",
-      "provider_name": "Vhannibal SAT",
-      "at": "2026-11-08T14:25:07.136725+00:00"
-    },
-    {
-      "provider": "skylink-sk",
-      "kind": "added",
-      "name": "Discovery Central Europe Clean HD",
-      "reference": "1:0:19:189C:C3BE:9E:5A0000:0:0:0:",
-      "provider_name": "Vhannibal SAT",
-      "at": "2026-11-08T14:25:07.136725+00:00"
-    },
-    {
-      "provider": "skylink-sk",
-      "kind": "added",
-      "name": "Test 1",
-      "reference": "1:0:16:189D:C97:3:EB0000:0:0:0:",
-      "provider_name": "Vhannibal SAT",
-      "at": "2026-11-08T14:25:07.136725+00:00"
-    },
-    {
-      "provider": "skylink-sk",
-      "kind": "added",
-      "name": "Test 2",
-      "reference": "1:0:16:189E:C97:3:EB0000:0:0:0:",
-      "provider_name": "Vhannibal SAT",
-      "at": "2026-11-08T14:25:07.136725+00:00"
-    },
-    {
-      "provider": "skylink-sk",
-      "kind": "added",
-      "name": "Test 3",
-      "reference": "1:0:16:189F:C97:3:EB0000:0:0:0:",
-      "provider_name": "Vhannibal SAT",
-      "at": "2026-11-08T14:25:07.136725+00:00"
-    },
-    {
-      "provider": "skylink-sk",
-      "kind": "added",
-      "name": "Test 4",
-      "reference": "1:0:19:18A0:C97:3:EB0000:0:0:0:",
-      "provider_name": "Vhannibal SAT",
-      "at": "2026-11-08T14:25:07.136725+00:00"
-    },
-    {
-      "provider": "skylink-sk",
-      "kind": "added",
-      "name": "Test 5",
-      "reference": "1:0:16:18A1:C97:3:EB0000:0:0:0:",
-      "provider_name": "Vhannibal SAT",
-      "at": "2026-11-08T14:25:07.136725+00:00"
-    },
-    {
-      "provider": "skylink-sk",
-      "kind": "added",
-      "name": "SkySp F1",
-      "reference": "1:0:1:18A2:7E7:2:11A0000:0:0:0:",
-      "provider_name": "Vhannibal SAT",
-      "at": "2026-11-08T14:25:07.136725+00:00"
-    },
-    {
-      "provider": "skylink-sk",
-      "kind": "added",
-      "name": "Test 6",
-      "reference": "1:0:16:18A2:C97:3:EB0000:0:0:0:",
-      "provider_name": "Vhannibal SAT",
-      "at": "2026-11-08T14:25:07.136725+00:00"
-    },
-    {
-      "provider": "skylink-sk",
-      "kind": "added",
-      "name": "Test 7",
-      "reference": "1:0:16:18A3:C97:3:EB0000:0:0:0:",
-      "provider_name": "Vhannibal SAT",
-      "at": "2026-11-08T14:25:07.136725+00:00"
-    },
-    {
-      "provider": "skylink-sk",
-      "kind": "added",
-      "name": "BBC Parl HD",
-      "reference": "1:0:19:18A4:7FD:2:11A0000:0:0:0:",
-      "provider_name": "Vhannibal SAT",
-      "at": "2026-11-08T14:25:07.136725+00:00"
-    },
-    {
-      "provider": "skylink-sk",
-      "kind": "added",
-      "name": "Test 8",
-      "reference": "1:0:1:18A4:C97:3:EB0000:0:0:0:",
-      "provider_name": "Vhannibal SAT",
-      "at": "2026-11-08T14:25:07.136725+00:00"
-    },
-    {
-      "provider": "skylink-sk",
-      "kind": "added",
-      "name": "SkySpMainEv",
-      "reference": "1:0:1:18A5:7E4:2:11A0000:0:0:0:",
-      "provider_name": "Vhannibal SAT",
-      "at": "2026-11-08T14:25:07.136725+00:00"
-    },
-    {
-      "provider": "skylink-sk",
-      "kind": "added",
-      "name": "Test 9",
-      "reference": "1:0:1:18A5:C97:3:EB0000:0:0:0:",
-      "provider_name": "Vhannibal SAT",
-      "at": "2026-11-08T14:25:07.136725+00:00"
     }
   ],
-  "last_change_at": "2026-11-08T14:55:15.077225+00:00"
+  "last_change_at": "2026-11-08T15:23:14.922882+00:00"
 }

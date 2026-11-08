@@ -10,7 +10,7 @@
     "upstream_logos_imported": false
   },
   "stats": {
-    "channels_parsed": 4519,
+    "channels_parsed": 4504,
     "upstream_logos_imported": 0
   },
   "channels": [
@@ -5133,9 +5133,9 @@
       "satellite_position": "13E"
     },
     {
-      "id": "1-17a",
+      "id": "ερτ1-17a",
       "name": "ΕΡΤ1 HD",
-      "station_key": "1",
+      "station_key": "ερτ1",
       "service_reference": "1:0:1:17A:1C84:13E:820000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -5147,9 +5147,9 @@
       "satellite_position": "13E"
     },
     {
-      "id": "2-185",
+      "id": "ερτ2-σπορ-185",
       "name": "ΕΡΤ2 ΣΠΟΡ",
-      "station_key": "2",
+      "station_key": "ερτ2-σπορ",
       "service_reference": "1:0:1:185:1C84:13E:820000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -5357,9 +5357,9 @@
       "satellite_position": "13E"
     },
     {
-      "id": "1-67",
+      "id": "бнт1-67",
       "name": "БНТ1 HD",
-      "station_key": "1",
+      "station_key": "бнт1",
       "service_reference": "1:0:19:67:251C:D5:820000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -5371,9 +5371,9 @@
       "satellite_position": "13E"
     },
     {
-      "id": "2-72",
+      "id": "бнт-2-72",
       "name": "БНТ 2",
-      "station_key": "2",
+      "station_key": "бнт-2",
       "service_reference": "1:0:16:72:251C:D5:820000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -5385,9 +5385,9 @@
       "satellite_position": "13E"
     },
     {
-      "id": "3-138",
+      "id": "бнт-3-138",
       "name": "БНТ 3",
-      "station_key": "3",
+      "station_key": "бнт-3",
       "service_reference": "1:0:16:138:2648:D5:820000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -5469,9 +5469,9 @@
       "satellite_position": "13E"
     },
     {
-      "id": "channel-ea",
+      "id": "скат-ea",
       "name": "СКАТ",
-      "station_key": "channel",
+      "station_key": "скат",
       "service_reference": "1:0:16:EA:25E4:D5:820000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -8041,9 +8041,9 @@
       "satellite_position": "13E"
     },
     {
-      "id": "channel-74",
+      "id": "диема-74",
       "name": "Диема HD",
-      "station_key": "channel",
+      "station_key": "диема",
       "service_reference": "1:0:19:74:251C:D5:820000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -8055,9 +8055,9 @@
       "satellite_position": "13E"
     },
     {
-      "id": "channel-75",
+      "id": "диема-фемили-75",
       "name": "Диема Фемили HD",
-      "station_key": "channel",
+      "station_key": "диема-фемили",
       "service_reference": "1:0:19:75:251C:D5:820000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -10270,9 +10270,9 @@
       "satellite_position": "13E"
     },
     {
-      "id": "plus-139a",
+      "id": "бг-plus-139a",
       "name": "БГ+",
-      "station_key": "plus",
+      "station_key": "бг-plus",
       "service_reference": "1:0:16:139A:2710:D5:820000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -16170,9 +16170,9 @@
       "satellite_position": "9E"
     },
     {
-      "id": "2-458",
+      "id": "ερτ2-σπορ-458",
       "name": "ΕΡΤ2 ΣΠΟΡ",
-      "station_key": "2",
+      "station_key": "ερτ2-σπορ",
       "service_reference": "1:0:1:458:9:AA:5A0000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -19183,9 +19183,9 @@
       "satellite_position": "13E"
     },
     {
-      "id": "channel-d6",
+      "id": "без-багаж-d6",
       "name": "Без Багаж",
-      "station_key": "channel",
+      "station_key": "без-багаж",
       "service_reference": "1:0:16:D6:25E4:D5:820000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -19211,9 +19211,9 @@
       "satellite_position": "13E"
     },
     {
-      "id": "channel-86",
+      "id": "ловно-рибарски-клуб-86",
       "name": "Ловно-рибарски клуб",
-      "station_key": "channel",
+      "station_key": "ловно-рибарски-клуб",
       "service_reference": "1:0:16:86:251C:D5:820000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -20233,9 +20233,9 @@
       "satellite_position": "13E"
     },
     {
-      "id": "channel-13d",
+      "id": "планета-13d",
       "name": "Планета HD",
-      "station_key": "channel",
+      "station_key": "планета",
       "service_reference": "1:0:19:13D:2648:D5:820000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -20247,9 +20247,9 @@
       "satellite_position": "13E"
     },
     {
-      "id": "channel-d1",
+      "id": "планета-фолк-d1",
       "name": "Планета Фолк",
-      "station_key": "channel",
+      "station_key": "планета-фолк",
       "service_reference": "1:0:16:D1:25E4:D5:820000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -20275,9 +20275,9 @@
       "satellite_position": "13E"
     },
     {
-      "id": "channel-139b",
+      "id": "фен-фолк-139b",
       "name": "Фен Фолк",
-      "station_key": "channel",
+      "station_key": "фен-фолк",
       "service_reference": "1:0:16:139B:2710:D5:820000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -20303,9 +20303,9 @@
       "satellite_position": "13E"
     },
     {
-      "id": "channel-d3",
+      "id": "фолклор-тв-d3",
       "name": "Фолклор ТВ",
-      "station_key": "channel",
+      "station_key": "фолклор-тв",
       "service_reference": "1:0:16:D3:25E4:D5:820000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -20317,9 +20317,9 @@
       "satellite_position": "13E"
     },
     {
-      "id": "channel-cc",
+      "id": "тянков-фолк-cc",
       "name": "Тянков Фолк",
-      "station_key": "channel",
+      "station_key": "тянков-фолк",
       "service_reference": "1:0:16:CC:25E4:D5:820000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -26995,9 +26995,9 @@
       "satellite_position": "23.5E"
     },
     {
-      "id": "channel-1",
+      "id": "армія-тб-1",
       "name": "Армія ТБ",
-      "station_key": "channel",
+      "station_key": "армія-тб",
       "service_reference": "1:0:16:1:A:2C:EB0000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -27009,9 +27009,9 @@
       "satellite_position": "23.5E"
     },
     {
-      "id": "channel-2",
+      "id": "рада-2",
       "name": "Рада",
-      "station_key": "channel",
+      "station_key": "рада",
       "service_reference": "1:0:19:2:A:2C:EB0000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -27023,9 +27023,9 @@
       "satellite_position": "23.5E"
     },
     {
-      "id": "gogo-3",
+      "id": "меgogo-спорт-3",
       "name": "МЕGOGO СПОРТ",
-      "station_key": "gogo",
+      "station_key": "меgogo-спорт",
       "service_reference": "1:0:16:3:A:2C:EB0000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -27093,9 +27093,9 @@
       "satellite_position": "23.5E"
     },
     {
-      "id": "8-8",
+      "id": "тест8-8",
       "name": "ТЕСТ8",
-      "station_key": "8",
+      "station_key": "тест8",
       "service_reference": "1:0:19:8:A:2C:EB0000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -27107,9 +27107,9 @@
       "satellite_position": "23.5E"
     },
     {
-      "id": "channel-9",
+      "id": "першии-9",
       "name": "Перший",
-      "station_key": "channel",
+      "station_key": "першии",
       "service_reference": "1:0:16:9:A:2C:EB0000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -27121,9 +27121,9 @@
       "satellite_position": "23.5E"
     },
     {
-      "id": "channel-a",
+      "id": "суспільне-культура-a",
       "name": "Суспільне Культура",
-      "station_key": "channel",
+      "station_key": "суспільне-культура",
       "service_reference": "1:0:16:A:A:2C:EB0000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -27135,9 +27135,9 @@
       "satellite_position": "23.5E"
     },
     {
-      "id": "11-b",
+      "id": "тест11-b",
       "name": "ТЕСТ11",
-      "station_key": "11",
+      "station_key": "тест11",
       "service_reference": "1:0:16:B:A:2C:EB0000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -27149,9 +27149,9 @@
       "satellite_position": "23.5E"
     },
     {
-      "id": "12-c",
+      "id": "тест12-c",
       "name": "ТЕСТ12",
-      "station_key": "12",
+      "station_key": "тест12",
       "service_reference": "1:0:16:C:A:2C:EB0000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -36007,9 +36007,9 @@
       "satellite_position": "13E"
     },
     {
-      "id": "news-1bbd",
+      "id": "ερτ-news-1bbd",
       "name": "ΕΡΤ NEWS",
-      "station_key": "news",
+      "station_key": "ερτ-news",
       "service_reference": "1:0:1:1BBD:17D4:13E:820000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -36035,9 +36035,9 @@
       "satellite_position": "13E"
     },
     {
-      "id": "channel-13f",
+      "id": "βουλη-13f",
       "name": "Βουλή",
-      "station_key": "channel",
+      "station_key": "βουλη",
       "service_reference": "1:0:1:13F:157C:13E:820000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -36063,9 +36063,9 @@
       "satellite_position": "13E"
     },
     {
-      "id": "24-109",
+      "id": "българия-24-109",
       "name": "България 24",
-      "station_key": "24",
+      "station_key": "българия-24",
       "service_reference": "1:0:16:109:25E4:D5:820000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -40074,9 +40074,9 @@
       "satellite_position": "13E"
     },
     {
-      "id": "free-1396",
+      "id": "freeдом-1396",
       "name": "FREEДОМ",
-      "station_key": "free",
+      "station_key": "freeдом",
       "service_reference": "1:0:16:1396:2710:D5:820000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -41348,9 +41348,9 @@
       "satellite_position": "13E"
     },
     {
-      "id": "al-malakoot-sat-the-kingdom-sat-233a",
+      "id": "al-malakoot-sat-the-kingdom-sat-الملكوت-سات-233a",
       "name": "AL MALAKOOT SAT – THE KINGDOM SAT الملكوت سات",
-      "station_key": "al-malakoot-sat-the-kingdom-sat",
+      "station_key": "al-malakoot-sat-the-kingdom-sat-الملكوت-سات",
       "service_reference": "1:0:1:233A:2328:13E:820000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -45030,118 +45030,6 @@
       "satellite_position": "19.2E"
     },
     {
-      "id": "12363v-sid-0x2391-2391",
-      "name": "12363V SID 0x2391",
-      "station_key": "12363v-sid-0x2391",
-      "service_reference": "1:0:1:2391:44A:1:C00000:0:0:0:",
-      "provider_group": "skylink-sk",
-      "delivery": "satellite",
-      "variant_types": [
-        "1",
-        "16",
-        "19"
-      ],
-      "satellite_position": "19.2E"
-    },
-    {
-      "id": "12363v-sid-0x2392-2392",
-      "name": "12363V SID 0x2392",
-      "station_key": "12363v-sid-0x2392",
-      "service_reference": "1:0:1:2392:44A:1:C00000:0:0:0:",
-      "provider_group": "skylink-sk",
-      "delivery": "satellite",
-      "variant_types": [
-        "1",
-        "16",
-        "19"
-      ],
-      "satellite_position": "19.2E"
-    },
-    {
-      "id": "12363v-sid-0x2393-2393",
-      "name": "12363V SID 0x2393",
-      "station_key": "12363v-sid-0x2393",
-      "service_reference": "1:0:1:2393:44A:1:C00000:0:0:0:",
-      "provider_group": "skylink-sk",
-      "delivery": "satellite",
-      "variant_types": [
-        "1",
-        "16",
-        "19"
-      ],
-      "satellite_position": "19.2E"
-    },
-    {
-      "id": "12363v-sid-0x2394-2394",
-      "name": "12363V SID 0x2394",
-      "station_key": "12363v-sid-0x2394",
-      "service_reference": "1:0:1:2394:44A:1:C00000:0:0:0:",
-      "provider_group": "skylink-sk",
-      "delivery": "satellite",
-      "variant_types": [
-        "1",
-        "16",
-        "19"
-      ],
-      "satellite_position": "19.2E"
-    },
-    {
-      "id": "12363v-sid-0x23aa-23aa",
-      "name": "12363V SID 0x23aa",
-      "station_key": "12363v-sid-0x23aa",
-      "service_reference": "1:0:1:23AA:44A:1:C00000:0:0:0:",
-      "provider_group": "skylink-sk",
-      "delivery": "satellite",
-      "variant_types": [
-        "1",
-        "16",
-        "19"
-      ],
-      "satellite_position": "19.2E"
-    },
-    {
-      "id": "12363v-sid-0x23bc-23bc",
-      "name": "12363V SID 0x23bc",
-      "station_key": "12363v-sid-0x23bc",
-      "service_reference": "1:0:1:23BC:44A:1:C00000:0:0:0:",
-      "provider_group": "skylink-sk",
-      "delivery": "satellite",
-      "variant_types": [
-        "1",
-        "16",
-        "19"
-      ],
-      "satellite_position": "19.2E"
-    },
-    {
-      "id": "12363v-sid-0x23d2-23d2",
-      "name": "12363V SID 0x23d2",
-      "station_key": "12363v-sid-0x23d2",
-      "service_reference": "1:0:1:23D2:44A:1:C00000:0:0:0:",
-      "provider_group": "skylink-sk",
-      "delivery": "satellite",
-      "variant_types": [
-        "1",
-        "16",
-        "19"
-      ],
-      "satellite_position": "19.2E"
-    },
-    {
-      "id": "12363v-sid-0x23ec-23ec",
-      "name": "12363V SID 0x23ec",
-      "station_key": "12363v-sid-0x23ec",
-      "service_reference": "1:0:1:23EC:44A:1:C00000:0:0:0:",
-      "provider_group": "skylink-sk",
-      "delivery": "satellite",
-      "variant_types": [
-        "1",
-        "16",
-        "19"
-      ],
-      "satellite_position": "19.2E"
-    },
-    {
       "id": "histoire-428d",
       "name": "Histoire",
       "station_key": "histoire",
@@ -46173,48 +46061,6 @@
       "satellite_position": "19.2E"
     },
     {
-      "id": "10847v-sid-0x75f4-75f4",
-      "name": "10847V SID 0x75f4",
-      "station_key": "10847v-sid-0x75f4",
-      "service_reference": "1:0:1:75F4:422:1:C00000:0:0:0:",
-      "provider_group": "skylink-sk",
-      "delivery": "satellite",
-      "variant_types": [
-        "1",
-        "16",
-        "19"
-      ],
-      "satellite_position": "19.2E"
-    },
-    {
-      "id": "10936v-sid-0x7828-7828",
-      "name": "10936V SID 0x7828",
-      "station_key": "10936v-sid-0x7828",
-      "service_reference": "1:0:1:7828:428:1:C00000:0:0:0:",
-      "provider_group": "skylink-sk",
-      "delivery": "satellite",
-      "variant_types": [
-        "1",
-        "16",
-        "19"
-      ],
-      "satellite_position": "19.2E"
-    },
-    {
-      "id": "11097v-sid-0x7573-7573",
-      "name": "11097V SID 0x7573",
-      "station_key": "11097v-sid-0x7573",
-      "service_reference": "1:0:1:7573:412:1:C00000:0:0:0:",
-      "provider_group": "skylink-sk",
-      "delivery": "satellite",
-      "variant_types": [
-        "1",
-        "16",
-        "19"
-      ],
-      "satellite_position": "19.2E"
-    },
-    {
       "id": "vamos-bar-7589",
       "name": "Vamos Bar HD",
       "station_key": "vamos-bar",
@@ -46663,62 +46509,6 @@
       "satellite_position": "19.2E"
     },
     {
-      "id": "1-126e",
-      "name": ".1.",
-      "station_key": "1",
-      "service_reference": "1:0:1:126E:417:1:C00000:0:0:0:",
-      "provider_group": "skylink-sk",
-      "delivery": "satellite",
-      "variant_types": [
-        "1",
-        "16",
-        "19"
-      ],
-      "satellite_position": "19.2E"
-    },
-    {
-      "id": "2-126f",
-      "name": ".2.",
-      "station_key": "2",
-      "service_reference": "1:0:1:126F:417:1:C00000:0:0:0:",
-      "provider_group": "skylink-sk",
-      "delivery": "satellite",
-      "variant_types": [
-        "1",
-        "16",
-        "19"
-      ],
-      "satellite_position": "19.2E"
-    },
-    {
-      "id": "3-1270",
-      "name": ".3.",
-      "station_key": "3",
-      "service_reference": "1:0:1:1270:417:1:C00000:0:0:0:",
-      "provider_group": "skylink-sk",
-      "delivery": "satellite",
-      "variant_types": [
-        "1",
-        "16",
-        "19"
-      ],
-      "satellite_position": "19.2E"
-    },
-    {
-      "id": "4-1271",
-      "name": ".4.",
-      "station_key": "4",
-      "service_reference": "1:0:1:1271:417:1:C00000:0:0:0:",
-      "provider_group": "skylink-sk",
-      "delivery": "satellite",
-      "variant_types": [
-        "1",
-        "16",
-        "19"
-      ],
-      "satellite_position": "19.2E"
-    },
-    {
       "id": "more-than-sports-tv-313e",
       "name": "More Than Sports TV",
       "station_key": "more-than-sports-tv",
@@ -46859,9 +46649,9 @@
       "satellite_position": "19.2E"
     },
     {
-      "id": "erotika-tv-neu-alt-315f",
+      "id": "erotika-tv-neu--alt-315f",
       "name": "EROTIKA TV - NEU!_ALT",
-      "station_key": "erotika-tv-neu-alt",
+      "station_key": "erotika-tv-neu--alt",
       "service_reference": "1:0:1:315F:459:1:C00000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -61313,9 +61103,9 @@
       "satellite_position": "9E"
     },
     {
-      "id": "1-402",
+      "id": "ερτ1-402",
       "name": "ΕΡΤ1 HD",
-      "station_key": "1",
+      "station_key": "ερτ1",
       "service_reference": "1:0:1:402:5:AA:5A0000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -61327,9 +61117,9 @@
       "satellite_position": "9E"
     },
     {
-      "id": "3-451",
+      "id": "ερτ3-451",
       "name": "ΕΡΤ3 HD",
-      "station_key": "3",
+      "station_key": "ερτ3",
       "service_reference": "1:0:1:451:9:AA:5A0000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -61383,9 +61173,9 @@
       "satellite_position": "9E"
     },
     {
-      "id": "channel-441",
+      "id": "σκαι-441",
       "name": "ΣΚΑΪ HD",
-      "station_key": "channel",
+      "station_key": "σκαι",
       "service_reference": "1:0:1:441:4:AA:5A0000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -61495,9 +61285,9 @@
       "satellite_position": "9E"
     },
     {
-      "id": "tv-3fd",
+      "id": "κρητη-tv-3fd",
       "name": "ΚΡΗΤΗ TV",
-      "station_key": "tv",
+      "station_key": "κρητη-tv",
       "service_reference": "1:0:1:3FD:1:AA:5A0000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -61537,9 +61327,9 @@
       "satellite_position": "9E"
     },
     {
-      "id": "star-437",
+      "id": "star-κεντρικησ-ελλαδασ-437",
       "name": "Star Κεντρικής Ελλάδας",
-      "station_key": "star",
+      "station_key": "star-κεντρικησ-ελλαδασ",
       "service_reference": "1:0:1:437:1:AA:5A0000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -61565,9 +61355,9 @@
       "satellite_position": "9E"
     },
     {
-      "id": "channel-463",
+      "id": "κρητη-νεα-τηλεοραση-463",
       "name": "Κρήτη Νέα Τηλεόραση",
-      "station_key": "channel",
+      "station_key": "κρητη-νεα-τηλεοραση",
       "service_reference": "1:0:1:463:8:AA:5A0000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -61579,9 +61369,9 @@
       "satellite_position": "9E"
     },
     {
-      "id": "tv-44a",
+      "id": "μακεδονια-tv-44a",
       "name": "Μακεδονία TV HD",
-      "station_key": "tv",
+      "station_key": "μακεδονια-tv",
       "service_reference": "1:0:1:44A:2:AA:5A0000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -61775,9 +61565,9 @@
       "satellite_position": "9E"
     },
     {
-      "id": "tv-3f9",
+      "id": "βεργινα-tv-3f9",
       "name": "Βεργίνα TV",
-      "station_key": "tv",
+      "station_key": "βεργινα-tv",
       "service_reference": "1:0:1:3F9:9:AA:5A0000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -62125,9 +61915,9 @@
       "satellite_position": "9E"
     },
     {
-      "id": "news-3ea",
+      "id": "ερτ-news-3ea",
       "name": "ΕΡΤ NEWS",
-      "station_key": "news",
+      "station_key": "ερτ-news",
       "service_reference": "1:0:1:3EA:9:AA:5A0000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -62153,9 +61943,9 @@
       "satellite_position": "9E"
     },
     {
-      "id": "channel-3ed",
+      "id": "βουλη-3ed",
       "name": "ΒΟΥΛΗ HD",
-      "station_key": "channel",
+      "station_key": "βουλη",
       "service_reference": "1:0:1:3ED:2:AA:5A0000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -62419,9 +62209,9 @@
       "satellite_position": "9E"
     },
     {
-      "id": "channel-3fa",
+      "id": "αρτ-3fa",
       "name": "ΑΡΤ",
-      "station_key": "channel",
+      "station_key": "αρτ",
       "service_reference": "1:0:1:3FA:6:AA:5A0000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -62517,9 +62307,9 @@
       "satellite_position": "9E"
     },
     {
-      "id": "8-423",
+      "id": "τεστ-8-423",
       "name": "ΤΕΣΤ 8",
-      "station_key": "8",
+      "station_key": "τεστ-8",
       "service_reference": "1:0:1:423:6:AA:5A0000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
