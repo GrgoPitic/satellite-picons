@@ -176,6 +176,14 @@ jobs:
           for station in ("cartoonito", "cinemax"):
               artwork = stations[station]
               for target in artwork["targets"]:
+                  # A curated target can exist before that operator's catalogue
+                  # has been imported. Validate current catalogues strictly;
+                  # do not block publication on a not-yet-imported provider.
+                  parts = target.split(":")
+                  provider = parts[1] if len(parts) > 2 else ""
+                  if not (Path("provider-data") / (provider + ".json")).is_file():
+                      print(f"::warning::{station}: pending provider catalogue {provider}")
+                      continue
                   assert target in rendered, f"{station}: missing published service {target}"
                   channel = rendered[target]
                   assert channel.get("files"), f"{station}: no generated picons for {target}"
