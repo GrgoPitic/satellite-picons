@@ -84,8 +84,46 @@
   {% endif %}
 {% endif %}
 </section>
+<section class="panel" data-panel-view="changes">
+<h1>Zmeny operátorov</h1>
+<p class="sub">Zmeny oproti poslednému úspešne načítanému katalógu. Nedostupnosť zdroja nie je odstránenie stanice.</p>
+<p id="catalogueChangeStatus" role="status" class="station-help">Načítavam históriu aktualizácií…</p>
+<div class="station-tools"><select id="catalogueChangeOperator" aria-label="Filtrovať zmeny podľa operátora"><option value="">Všetci operátori</option></select></div>
+<div id="catalogueChangeList" class="station-grid"></div>
+</section>
 <!-- SCRIPT -->
 <script>
+(()=>{
+ const list=document.querySelector('#catalogueChangeList');
+ const status=document.querySelector('#catalogueChangeStatus');
+ const select=document.querySelector('#catalogueChangeOperator');
+ const kinds={added:'Nová stanica',removed:'Odstránená služba',renamed:'Premenovanie',tuning_changed:'Zmena naladenia',metadata_changed:'Zmena parametrov',catalogue_added:'Prvý import katalógu'};
+ fetch('/api/catalogue-changes',{cache:'no-store'})
+  .then(r=>{if(!r.ok)throw Error('Históriu sa nepodarilo načítať');return r.json();})
+  .then(data=>{
+    const events=Array.isArray(data.events)?data.events:[];
+    const providers=[...new Map(events.map(e=>[e.provider,e.provider_name||e.provider])).entries()].sort((a,b)=>a[1].localeCompare(b[1],'sk'));
+    providers.forEach(([id,name])=>select.add(new Option(name,id)));
+    function render(){
+      list.replaceChildren();
+      const filtered=events.filter(e=>!select.value||e.provider===select.value);
+      status.textContent=filtered.length?'Zaznamenaných zmien: '+filtered.length+' · najnovšie navrchu':'Zatiaľ nie sú zaznamenané zmeny oproti predchádzajúcej úspešnej synchronizácii.';
+      filtered.slice(0,150).forEach(e=>{
+        const card=document.createElement('article');card.className='station-tile';
+        const heading=document.createElement('h3');heading.textContent=(kinds[e.kind]||e.kind)+' · '+(e.name||'Stanica');
+        const provider=document.createElement('p');provider.textContent=e.provider_name||e.provider||'';
+        const details=document.createElement('p');
+        details.textContent=e.kind==='renamed'?'Pôvodne: '+(e.old_name||''):e.kind==='tuning_changed'?'Zmenená service reference':e.kind==='catalogue_added'?'Načítaných staníc: '+e.count:'';
+        const date=document.createElement('p');date.textContent=e.at?new Date(e.at).toLocaleString('sk-SK'):'';
+        card.append(heading,provider,details,date);list.append(card);
+      });
+    }
+    select.addEventListener('change',render);
+    render();
+  })
+  .catch(e=>status.textContent='Chyba načítania: '+e.message);
+})();
+
 (()=>{
  const grouped=new Map();
  adminChannels.forEach(ch=>{const key=ch.station_key||ch.name; if(!grouped.has(key))grouped.set(key,[]);grouped.get(key).push(ch);});
