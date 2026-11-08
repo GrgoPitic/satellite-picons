@@ -1,6 +1,6 @@
 {
   "provider": "skylink-sk",
-  "provider_name": "Skylink SK + CZ",
+  "provider_name": "Vhannibal · satelitný katalóg",
   "source": {
     "type": "vhannibal",
     "url": "https://www.vhannibal.net/download_setting.php?action=download&id=6",
