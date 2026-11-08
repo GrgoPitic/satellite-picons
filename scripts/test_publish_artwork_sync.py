@@ -86,6 +86,19 @@ class PublishArtworkTests(unittest.TestCase):
             sync_curated_artwork(self.src, self.dst)
         self.assertEqual(set(self.published()), {"existing"})
 
+    def test_publish_does_not_rebase_or_push_working_branch(self):
+        # The local feature branch can diverge during UI development; pushing
+        # curated artwork must remain independent of that branch history.
+        from unittest.mock import patch
+        import admin
+        source = Path(admin.__file__).read_text(encoding="utf-8")
+        function = source.split("def publish_pending_changes() -> str:", 1)[1].split(
+            '@app.get("/health")', 1
+        )[0]
+        self.assertNotIn('run_git("rebase"', function)
+        self.assertNotIn('run_git("push", "origin", f"HEAD:{branch}"', function)
+        self.assertIn('run_git("fetch", "origin", "main")', function)
+
     def test_symlinked_worktree_path_on_macos(self):
         # macOS /var is a symlink to /private/var. Copying to the resolved
         # destination previously failed when computing git-relative paths.
