@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the combined Skylink catalogue from Vhannibal settings, keeping artwork."""
+"""Generate orbital Vhannibal services while preserving curated artwork."""
 import hashlib
 import io
 import json
@@ -143,29 +143,39 @@ def sync(blob=None):
         key = str(row.get("station_key") or normalize_station_key(row.get("name", "")))
         new_by_station.setdefault(key, []).append(row)
 
+    # Keep all explicitly assigned service references that still exist.
+    # Do not collapse a curated logo to one identically named service:
+    # aliases such as ':24' and 'RTVS 24 HD' can share approved artwork.
+    valid_identities = {
+        channel_identity(row, "skylink-sk") for row in rows
+    }
     artwork_changed = False
     for station_key, art in stations.items():
         if not isinstance(art, dict):
             continue
         targets = [str(x) for x in art.get("targets", []) or []]
-        skylink_targets = [
+        current_vhannibal = [
+            x for x in targets if x in valid_identities
+        ]
+        if current_vhannibal:
+            # At least one valid explicit DVB assignment still exists.
+            # Never delete or overwrite additional explicit assignments.
+            continue
+
+        # Migrate stale legacy assignments only on a UNIQUE exact match.
+        legacy_targets = [
             x for x in targets
             if x.startswith("sat:skylink-sk:") or x.startswith("sat:skylink-cz:")
         ]
-        if not skylink_targets:
+        if not legacy_targets:
             continue
-
         candidates = new_by_station.get(str(station_key), [])
         if len(candidates) != 1:
-            # Ambiguous or missing upstream match: preserve old assignment.
             continue
-
         new_identity = channel_identity(candidates[0], "skylink-sk")
-        preserved = [
-            x for x in targets
-            if not (x.startswith("sat:skylink-sk:") or x.startswith("sat:skylink-cz:"))
-        ]
-        migrated = sorted(set(preserved + [new_identity]))
+        # Retain stale refs for audit / possible recovery; add the verified
+        # current identity without destroying historical user assignments.
+        migrated = sorted(set(targets + [new_identity]))
         if migrated != sorted(set(targets)):
             art["targets"] = migrated
             artwork_changed = True
@@ -177,7 +187,7 @@ def sync(blob=None):
         for field in ("logo", "dark_to_white", "optical_scale", "edge_cleanup", "background_cleanup"):
             row.pop(field, None)
 
-    payload={'provider':'skylink-sk','provider_name':'Skylink SK + CZ','source':{
+    payload={'provider':'skylink-sk','provider_name':'Vhannibal · satelitný katalóg','source':{
         'type':'vhannibal','url':URL,'settings':source,'sha256':hashlib.sha256(blob).hexdigest(),
         'artwork_mode':'manual','upstream_logos_imported':False},
         'stats':{'channels_parsed':len(rows),'upstream_logos_imported':0},'channels':rows}
