@@ -1107,8 +1107,8 @@ def publish_pending_changes() -> str:
 
     Uploading and saving stays local until Publish is explicitly clicked.
     Every publish compares station-artwork.yml against main, including artwork
-    already committed in previous feature commits. No provider catalogue,
-    website code or unfinished branch changes are pushed to production.
+    already committed in previous feature commits. No feature branch rebase,
+    provider catalogue, website code or unfinished code is pushed to production.
     """
     from publish_artwork_sync import sync_curated_artwork
 
@@ -1139,23 +1139,11 @@ def publish_pending_changes() -> str:
         if commit.returncode != 0:
             raise RuntimeError(commit.stderr.strip() or commit.stdout.strip() or "git commit zlyhal")
 
-    fetch_branch = run_git("fetch", "origin", branch)
-    if fetch_branch.returncode != 0:
-        raise RuntimeError(fetch_branch.stderr.strip() or f"Načítanie origin/{branch} zlyhalo.")
-
-    behind = run_git("rev-list", "--count", "HEAD..FETCH_HEAD")
-    if behind.returncode != 0:
-        raise RuntimeError("Kontrola vzdialenej pracovnej vetvy zlyhala.")
-    if int(behind.stdout.strip() or "0"):
-        rebase = run_git("rebase", "FETCH_HEAD", timeout=45)
-        if rebase.returncode != 0:
-            run_git("rebase", "--abort")
-            raise RuntimeError(f"Vetva {branch} má novšie zmeny; bezpečný rebase zlyhal.")
-
-    if branch != "main":
-        push = run_git("push", "origin", f"HEAD:{branch}", timeout=45)
-        if push.returncode != 0:
-            raise RuntimeError(push.stderr.strip() or push.stdout.strip() or "Git push pracovnej vetvy zlyhal")
+    # No fetch/rebase/push of the working feature branch is needed.
+    # The local artwork commit is a durable snapshot; only approved artwork
+    # is reconciled into a fresh main worktree below. The user may have newer
+    # local commits or an older branch without preventing publication.
+    # Never rewrite the user's working branch during publication.
 
     fetch_main = run_git("fetch", "origin", "main")
     if fetch_main.returncode != 0:
