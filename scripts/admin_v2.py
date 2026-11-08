@@ -258,9 +258,8 @@ def save_shared_logo(*, station_key: str, raw: bytes, ext: str) -> str:
 
 
 def publish_v2() -> str:
-    stage = legacy.run_git("add", "-A", "station-artwork.yml", "iptv-providers.yml", "provider-data/skylink-sk.json")
-    if stage.returncode != 0:
-        raise RuntimeError(stage.stderr.strip() or "Nepodarilo sa pridať Picon Hub dáta do commitu.")
+    # Artwork publication is intentionally isolated from provider metadata.
+    # Vhannibal/provider synchronization has its own workflow.
     return ORIGINAL_PUBLISH()
 
 
