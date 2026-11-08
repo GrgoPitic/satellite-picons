@@ -482,9 +482,10 @@ stations:
     trim_logo: true
     render_preset: original
     targets:
+    - sat:antik-sat-sk:7D1_9E98_16E_A00000
     - sat:skylink-sk:3C3C_C90_3_EB0000
     - sat:skylink-sk:7D1_9E98_16E_A00000
-    updated_at: 1794163141
+    updated_at: 1794167442
   dvojka:
     name: Dvojka HD
     logo: assets/logos/stations/dvojka.png
@@ -497,9 +498,10 @@ stations:
     trim_logo: true
     render_preset: original
     targets:
+    - sat:antik-sat-sk:7D2_9E98_16E_A00000
     - sat:skylink-sk:3C3D_C90_3_EB0000
     - sat:skylink-sk:7D2_9E98_16E_A00000
-    updated_at: 1794163158
+    updated_at: 1794167442
   tv-joj:
     name: TV JOJ HD
     logo: assets/logos/stations/tv-joj.png
@@ -526,8 +528,9 @@ stations:
     trim_logo: true
     render_preset: original
     targets:
+    - sat:antik-sat-sk:7D4_9E98_16E_A00000
     - sat:skylink-sk:7D4_9E98_16E_A00000
-    updated_at: 1794163766
+    updated_at: 1794167442
   filmbox-plus-one:
     name: FILMBOX+ one
     logo: assets/logos/stations/filmbox-plus-one.png
@@ -574,9 +577,10 @@ stations:
     trim_logo: true
     render_preset: original
     targets:
+    - sat:antik-sat-sk:7D5_9E98_16E_A00000
     - sat:skylink-sk:3732_C8E_3_EB0000
     - sat:skylink-sk:7D5_9E98_16E_A00000
-    updated_at: 1794166061
+    updated_at: 1794167442
   hustler-tv:
     name: Hustler TV
     logo: assets/logos/stations/hustler-tv.png
@@ -622,6 +626,7 @@ stations:
     trim_logo: true
     render_preset: original
     targets:
+    - sat:antik-sat-sk:7D7_9E98_16E_A00000
     - sat:skylink-sk:3397_C9D_3_EB0000
     - sat:skylink-sk:7D7_9E98_16E_A00000
-    updated_at: 1794166976
+    updated_at: 1794167442
