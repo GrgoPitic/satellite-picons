@@ -27,6 +27,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DB = ROOT / "channels.yml"
 PROVIDER_DATA_DIR = ROOT / "provider-data"
 STATION_LOGOS = ROOT / "assets" / "logos" / "stations"
+SOURCE_STATION_LOGOS = ROOT / "assets" / "source-logos" / "stations"
 
 
 def provider_groups_v2() -> list[tuple[str, str]]:
@@ -88,7 +89,7 @@ def load_admin_channels_v2() -> tuple[list[dict], dict]:
                 row["_shared_artwork"] = True
                 if art.get("logo"):
                     row["logo"] = art["logo"]
-                for field in ("dark_to_white", "optical_scale", "edge_cleanup", "background_cleanup"):
+                for field in ("dark_to_white", "optical_scale", "edge_cleanup", "background_cleanup", "background_tolerance", "trim_logo"):
                     if field in art:
                         row[field] = art[field]
 
@@ -229,31 +230,60 @@ def matching_channels(name: str, exclude_identity: str = "") -> list[dict]:
     return result
 
 
-def save_shared_logo(*, station_key: str, raw: bytes, ext: str) -> str:
-    """Save the user's source logo conservatively.
-
-    Transparent artwork is only trimmed. Opaque artwork is preserved as-is;
-    destructive edge/background removal is never applied during upload.
-    Visual cleanup belongs to the explicit edit controls / preview step.
-    """
+def save_source_logo(*, station_key: str, raw: bytes, ext: str) -> str:
+    """Keep the untouched upload so cleanup can always be changed later."""
     if ext not in legacy.SUPPORTED:
         raise ValueError("Nepodporovaný formát loga.")
+    SOURCE_STATION_LOGOS.mkdir(parents=True, exist_ok=True)
+    destination = SOURCE_STATION_LOGOS / f"{station_key}{ext}"
+    for old in SOURCE_STATION_LOGOS.glob(f"{station_key}.*"):
+        if old != destination and old.is_file():
+            old.unlink()
+    destination.write_bytes(raw)
+    return str(destination.relative_to(ROOT))
 
-    STATION_LOGOS.mkdir(parents=True, exist_ok=True)
+
+def process_logo_image(*, raw: bytes, ext: str, background_cleanup: bool, background_tolerance: int, trim_logo: bool):
+    if ext not in legacy.SUPPORTED:
+        raise ValueError("Nepodporovaný formát loga.")
     try:
         image = legacy.load_uploaded_logo(raw, ext).convert("RGBA")
     except RuntimeError as exc:
         if ext == ".svg":
             raise ValueError("SVG sa na Macu nepodarilo spracovať. Použi PNG alebo oprav lokálny SVG renderer.") from exc
         raise
-
-    # Preserve opaque logos exactly. For already-transparent logos only trim
-    # empty transparent margins; do not alter colours or connected pixels.
-    if legacy.has_real_transparency(image):
+    if background_cleanup:
+        image = legacy.remove_corner_connected_background(
+            image, tolerance=max(0, min(96, int(background_tolerance)))
+        )
+    if trim_logo and legacy.has_real_transparency(image):
         image = legacy.trim_transparent(image)
+    return image
 
+
+def processed_logo_png(*, raw: bytes, ext: str, background_cleanup: bool, background_tolerance: int, trim_logo: bool) -> bytes:
+    image = process_logo_image(
+        raw=raw, ext=ext,
+        background_cleanup=background_cleanup,
+        background_tolerance=background_tolerance,
+        trim_logo=trim_logo,
+    )
+    out = io.BytesIO()
+    image.save(out, format="PNG", optimize=True)
+    return out.getvalue()
+
+
+def save_shared_logo(*, station_key: str, raw: bytes, ext: str, background_cleanup: bool = False,
+                     background_tolerance: int = 28, trim_logo: bool = True) -> str:
+    STATION_LOGOS.mkdir(parents=True, exist_ok=True)
+    png = processed_logo_png(
+        raw=raw, ext=ext,
+        background_cleanup=background_cleanup,
+        background_tolerance=background_tolerance,
+        trim_logo=trim_logo,
+    )
     destination = STATION_LOGOS / f"{station_key}.png"
-    image.save(destination, format="PNG", optimize=True)
+    destination.write_bytes(png)
     return str(destination.relative_to(ROOT))
 
 
@@ -309,6 +339,10 @@ def PAGE_V2() -> str:
 .assign-row:first-child{border-top:0}.assign-row span{font-size:12px}
 .assign-row button{width:auto;margin:0;padding:7px 10px;border-radius:8px}
 .empty-library{padding:28px;text-align:center;color:#8190a3;border:1px dashed #2b3848;border-radius:14px}
+.cleanup-box{margin-top:14px;padding:14px;border:1px solid #253242;border-radius:12px;background:#0b121b}
+.cleanup-box .range-row{display:grid;grid-template-columns:1fr 76px;gap:10px;align-items:center}
+.cleanup-box input[type=range]{width:100%}
+.preview-note{font-size:11px;color:#7f8da0;margin-top:6px;line-height:1.45}
         </style>"""
     )
     page = page.replace(
@@ -435,7 +469,16 @@ def PAGE_V2() -> str:
                 <input id="uploadOpticalScale" type="number" min="0.50" max="1.50" step="0.05" value="1.00">
               </div>
             </div>
-            <label class="check"><input id="uploadEdgeCleanup" type="checkbox">Odstrániť iba biely okraj napojený na hranu</label>
+            <div class="cleanup-box">
+              <div class="grid">
+                <div><label>Odstrániť pozadie</label><select id="uploadBackgroundCleanup"><option value="false">Nie</option><option value="true">Áno – pozadie napojené na rohy</option></select></div>
+                <div><label>Orezať transparentné okraje</label><select id="uploadTrimLogo"><option value="true">Áno</option><option value="false">Nie</option></select></div>
+              </div>
+              <label>Tolerancia odstránenia pozadia</label>
+              <div class="range-row"><input id="uploadBackgroundTolerance" type="range" min="0" max="96" step="1" value="28"><input id="uploadBackgroundToleranceValue" type="number" min="0" max="96" step="1" value="28"></div>
+              <div class="preview-note">Vyššia tolerancia odstráni aj jemne gradientné pozadie. Nižšia je bezpečnejšia pri detailných logách.</div>
+            </div>
+            <label class="check"><input id="uploadEdgeCleanup" type="checkbox">Vyčistiť biely lem po okrajoch výsledného loga</label>
 
             <div id="simpleUploadStatus" class="status"></div>
             <div class="split-actions">
@@ -486,7 +529,16 @@ def PAGE_V2() -> str:
                 <input id="simpleOpticalScale" type="number" min="0.50" max="1.50" step="0.05" value="1.00">
               </div>
             </div>
-            <label class="check"><input id="simpleEdgeCleanup" type="checkbox">Odstrániť iba biely okraj napojený na hranu</label>
+            <div class="cleanup-box">
+              <div class="grid">
+                <div><label>Odstrániť pozadie</label><select id="simpleBackgroundCleanup"><option value="false">Nie</option><option value="true">Áno – pozadie napojené na rohy</option></select></div>
+                <div><label>Orezať transparentné okraje</label><select id="simpleTrimLogo"><option value="true">Áno</option><option value="false">Nie</option></select></div>
+              </div>
+              <label>Tolerancia odstránenia pozadia</label>
+              <div class="range-row"><input id="simpleBackgroundTolerance" type="range" min="0" max="96" step="1" value="28"><input id="simpleBackgroundToleranceValue" type="number" min="0" max="96" step="1" value="28"></div>
+              <div class="preview-note">Náhľad sa počíta z uloženého originálu, takže môžeš nastavenie meniť bez degradácie obrázka.</div>
+            </div>
+            <label class="check"><input id="simpleEdgeCleanup" type="checkbox">Vyčistiť biely lem po okrajoch výsledného loga</label>
 
             <div id="simpleEditStatus" class="status"></div>
             <div class="split-actions">
@@ -657,6 +709,10 @@ const simpleUploadPreviewBtn=document.querySelector('#simpleUploadPreviewBtn');
 const uploadDarkToWhite=document.querySelector('#uploadDarkToWhite');
 const uploadOpticalScale=document.querySelector('#uploadOpticalScale');
 const uploadEdgeCleanup=document.querySelector('#uploadEdgeCleanup');
+const uploadBackgroundCleanup=document.querySelector('#uploadBackgroundCleanup');
+const uploadBackgroundTolerance=document.querySelector('#uploadBackgroundTolerance');
+const uploadBackgroundToleranceValue=document.querySelector('#uploadBackgroundToleranceValue');
+const uploadTrimLogo=document.querySelector('#uploadTrimLogo');
 let uploadPreviewValid=false;
 let uploadPreviewUrl=null;
 
@@ -679,6 +735,9 @@ async function previewNewLogo(){
     fd.append('logo',file);
     fd.append('dark_to_white',uploadDarkToWhite.value);
     fd.append('optical_scale',uploadOpticalScale.value);
+    fd.append('background_cleanup',uploadBackgroundCleanup?.value||'false');
+    fd.append('background_tolerance',uploadBackgroundToleranceValue?.value||'28');
+    fd.append('trim_logo',uploadTrimLogo?.value||'true');
     if(uploadEdgeCleanup.checked) fd.append('edge_cleanup','on');
 
     const r=await fetch('/api/v2/upload-preview',{method:'POST',body:fd});
@@ -721,7 +780,7 @@ if(simpleUploadChannel) simpleUploadChannel.addEventListener('change',()=>{
   const file=simpleUploadFile&&simpleUploadFile.files&&simpleUploadFile.files[0];
   if(file) previewNewLogo();
 });
-[uploadDarkToWhite,uploadOpticalScale,uploadEdgeCleanup].forEach(el=>{
+[uploadDarkToWhite,uploadOpticalScale,uploadEdgeCleanup,uploadBackgroundCleanup,uploadBackgroundTolerance,uploadBackgroundToleranceValue,uploadTrimLogo].forEach(el=>{
   if(!el) return;
   el.addEventListener(el.tagName==='SELECT'||el.type==='checkbox'?'change':'input',()=>{
     invalidateUploadPreview();
@@ -769,6 +828,21 @@ const simpleEdgeCleanup=document.querySelector('#simpleEdgeCleanup');
 const simpleEditStatus=document.querySelector('#simpleEditStatus');
 const simplePreviewBtn=document.querySelector('#simplePreviewBtn');
 const simpleSaveEditBtn=document.querySelector('#simpleSaveEditBtn');
+const simpleBackgroundCleanup=document.querySelector('#simpleBackgroundCleanup');
+const simpleBackgroundTolerance=document.querySelector('#simpleBackgroundTolerance');
+const simpleBackgroundToleranceValue=document.querySelector('#simpleBackgroundToleranceValue');
+const simpleTrimLogo=document.querySelector('#simpleTrimLogo');
+
+function bindRangePair(rangeEl,numberEl){
+  if(!rangeEl||!numberEl) return;
+  rangeEl.addEventListener('input',()=>numberEl.value=rangeEl.value);
+  numberEl.addEventListener('input',()=>{
+    const n=Math.max(Number(rangeEl.min||0),Math.min(Number(rangeEl.max||96),Number(numberEl.value||0)));
+    rangeEl.value=String(n); numberEl.value=String(n);
+  });
+}
+bindRangePair(uploadBackgroundTolerance,uploadBackgroundToleranceValue);
+bindRangePair(simpleBackgroundTolerance,simpleBackgroundToleranceValue);
 
 async function loadSimpleEdit(){
   const identity=(simpleEditLogo&&simpleEditLogo.value)||'';
@@ -786,6 +860,10 @@ async function loadSimpleEdit(){
       simpleDarkToWhite.value=data.dark_to_white?'true':'false';
       simpleOpticalScale.value=String(data.optical_scale||1);
       simpleEdgeCleanup.checked=!!data.edge_cleanup;
+      if(simpleBackgroundCleanup) simpleBackgroundCleanup.value=data.background_cleanup?'true':'false';
+      if(simpleBackgroundTolerance) simpleBackgroundTolerance.value=String(data.background_tolerance??28);
+      if(simpleBackgroundToleranceValue) simpleBackgroundToleranceValue.value=String(data.background_tolerance??28);
+      if(simpleTrimLogo) simpleTrimLogo.value=data.trim_logo===false?'false':'true';
     }
   }catch(e){}
 }
@@ -798,6 +876,9 @@ async function renderSimplePreview(){
   fd.append('identity',identity);
   fd.append('dark_to_white',simpleDarkToWhite.value);
   fd.append('optical_scale',simpleOpticalScale.value);
+  fd.append('background_cleanup',simpleBackgroundCleanup?.value||'false');
+  fd.append('background_tolerance',simpleBackgroundToleranceValue?.value||'28');
+  fd.append('trim_logo',simpleTrimLogo?.value||'true');
   if(simpleEdgeCleanup.checked) fd.append('edge_cleanup','on');
   simpleEditStatus.textContent='Vytváram náhľad…';
   const r=await fetch('/api/v2/edit-preview',{method:'POST',body:fd});
@@ -823,6 +904,9 @@ if(simpleSaveEditBtn){
       fd.append('identity',identity);
       fd.append('dark_to_white',simpleDarkToWhite.value);
       fd.append('optical_scale',simpleOpticalScale.value);
+      fd.append('background_cleanup',simpleBackgroundCleanup?.value||'false');
+      fd.append('background_tolerance',simpleBackgroundToleranceValue?.value||'28');
+      fd.append('trim_logo',simpleTrimLogo?.value||'true');
       if(simpleEdgeCleanup.checked) fd.append('edge_cleanup','on');
       const r=await fetch('/api/v2/edit-save',{method:'POST',body:fd});
       const data=await r.json();
@@ -862,10 +946,19 @@ def api_v2_upload_preview():
         dark_to_white = request.form.get("dark_to_white", "false") == "true"
         edge_cleanup = request.form.get("edge_cleanup") == "on"
         optical_scale = max(0.50, min(1.50, float(request.form.get("optical_scale", "1.0"))))
+        background_cleanup = request.form.get("background_cleanup", "false") == "true"
+        background_tolerance = max(0, min(96, int(request.form.get("background_tolerance", "28"))))
+        trim_logo = request.form.get("trim_logo", "true") == "true"
+        processed = processed_logo_png(
+            raw=raw, ext=ext,
+            background_cleanup=background_cleanup,
+            background_tolerance=background_tolerance,
+            trim_logo=trim_logo,
+        )
 
         png = legacy.render_preview_png(
-            raw=raw,
-            ext=ext,
+            raw=processed,
+            ext=".png",
             dark_to_white=dark_to_white,
             optical_scale=optical_scale,
             edge_cleanup=edge_cleanup,
@@ -896,9 +989,18 @@ def api_v2_upload_logo():
         dark_to_white = request.form.get("dark_to_white", "false") == "true"
         edge_cleanup = request.form.get("edge_cleanup") == "on"
         optical_scale = max(0.50, min(1.50, float(request.form.get("optical_scale", "1.0"))))
+        background_cleanup = request.form.get("background_cleanup", "false") == "true"
+        background_tolerance = max(0, min(96, int(request.form.get("background_tolerance", "28"))))
+        trim_logo = request.form.get("trim_logo", "true") == "true"
 
         station_key = str(channel.get("station_key") or normalize_station_key(channel.get("name", "")))
-        logo_rel = save_shared_logo(station_key=station_key, raw=raw, ext=ext)
+        source_rel = save_source_logo(station_key=station_key, raw=raw, ext=ext)
+        logo_rel = save_shared_logo(
+            station_key=station_key, raw=raw, ext=ext,
+            background_cleanup=background_cleanup,
+            background_tolerance=background_tolerance,
+            trim_logo=trim_logo,
+        )
 
         artwork = load_station_artwork()
         stations = artwork.setdefault("stations", {})
@@ -912,10 +1014,13 @@ def api_v2_upload_logo():
         stations[station_key] = {
             "name": channel.get("name") or station_key,
             "logo": logo_rel,
+            "source_logo": source_rel,
             "dark_to_white": dark_to_white,
             "optical_scale": optical_scale,
             "edge_cleanup": edge_cleanup,
-            "background_cleanup": False,
+            "background_cleanup": background_cleanup,
+            "background_tolerance": background_tolerance,
+            "trim_logo": trim_logo,
             "targets": sorted(targets),
             "updated_at": int(time.time()),
         }
@@ -941,6 +1046,9 @@ def api_v2_logo_settings():
         dark_to_white=bool(channel.get("dark_to_white", False)),
         optical_scale=float(channel.get("optical_scale", 1.0) or 1.0),
         edge_cleanup=bool(channel.get("edge_cleanup", False)),
+        background_cleanup=bool(channel.get("background_cleanup", False)),
+        background_tolerance=int(channel.get("background_tolerance", 28) or 28),
+        trim_logo=bool(channel.get("trim_logo", True)),
     )
 
 
@@ -952,19 +1060,32 @@ def api_v2_edit_preview():
         if not channel or not channel.get("_has_curated_logo") or not channel.get("logo"):
             raise ValueError("Vybrané vlastné logo sa nenašlo.")
 
-        path = (ROOT / str(channel["logo"])).resolve()
+        station_key = str(channel.get("station_key") or normalize_station_key(channel.get("name", "")))
+        artwork = load_station_artwork()
+        current = (artwork.get("stations") or {}).get(station_key) or {}
+        source_value = current.get("source_logo") or channel.get("logo")
+        path = (ROOT / str(source_value)).resolve()
         if not path.is_file():
-            raise ValueError("Súbor loga sa nenašiel.")
+            raise ValueError("Zdrojový súbor loga sa nenašiel.")
 
         raw = path.read_bytes()
         ext = path.suffix.lower()
         dark_to_white = request.form.get("dark_to_white", "false") == "true"
         edge_cleanup = request.form.get("edge_cleanup") == "on"
-        optical_scale = float(request.form.get("optical_scale", "1.0"))
+        optical_scale = max(0.50, min(1.50, float(request.form.get("optical_scale", "1.0"))))
+        background_cleanup = request.form.get("background_cleanup", "false") == "true"
+        background_tolerance = max(0, min(96, int(request.form.get("background_tolerance", "28"))))
+        trim_logo = request.form.get("trim_logo", "true") == "true"
+        processed = processed_logo_png(
+            raw=raw, ext=ext,
+            background_cleanup=background_cleanup,
+            background_tolerance=background_tolerance,
+            trim_logo=trim_logo,
+        )
 
         png = legacy.render_preview_png(
-            raw=raw,
-            ext=ext,
+            raw=processed,
+            ext=".png",
             dark_to_white=dark_to_white,
             optical_scale=optical_scale,
             edge_cleanup=edge_cleanup,
@@ -989,11 +1110,29 @@ def api_v2_edit_save():
         if not current.get("logo"):
             current["logo"] = channel.get("logo")
 
+        source_value = current.get("source_logo") or current.get("logo") or channel.get("logo")
+        source_path = (ROOT / str(source_value)).resolve()
+        if not source_path.is_file():
+            raise ValueError("Zdrojový súbor loga sa nenašiel.")
+
+        background_cleanup = request.form.get("background_cleanup", "false") == "true"
+        background_tolerance = max(0, min(96, int(request.form.get("background_tolerance", "28"))))
+        trim_logo = request.form.get("trim_logo", "true") == "true"
+        current["logo"] = save_shared_logo(
+            station_key=station_key,
+            raw=source_path.read_bytes(),
+            ext=source_path.suffix.lower(),
+            background_cleanup=background_cleanup,
+            background_tolerance=background_tolerance,
+            trim_logo=trim_logo,
+        )
         current["name"] = channel.get("name") or station_key
         current["dark_to_white"] = request.form.get("dark_to_white", "false") == "true"
         current["optical_scale"] = max(0.50, min(1.50, float(request.form.get("optical_scale", "1.0"))))
         current["edge_cleanup"] = request.form.get("edge_cleanup") == "on"
-        current["background_cleanup"] = False
+        current["background_cleanup"] = background_cleanup
+        current["background_tolerance"] = background_tolerance
+        current["trim_logo"] = trim_logo
         targets = set(str(x) for x in current.get("targets", []) or [])
         targets.add(identity)
         current["targets"] = sorted(targets)
