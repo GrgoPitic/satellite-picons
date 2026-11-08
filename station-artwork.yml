@@ -630,3 +630,87 @@ stations:
     - sat:skylink-sk:3397_C9D_3_EB0000
     - sat:skylink-sk:7D7_9E98_16E_A00000
     updated_at: 1794167442
+  joj-24:
+    name: JOJ 24
+    logo: assets/logos/stations/joj-24.png
+    source_logo: assets/source-logos/stations/joj-24.svg
+    dark_to_white: false
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: false
+    background_tolerance: 28
+    trim_logo: true
+    render_preset: original
+    targets:
+    - sat:skylink-sk:33A0_C9D_3_EB0000
+    - sat:skylink-sk:492_76C0_16E_A00000
+    updated_at: 1794167382
+  viasat-epic-drama:
+    name: Viasat Epic Drama
+    logo: assets/logos/stations/viasat-epic-drama.png
+    source_logo: assets/source-logos/stations/viasat-epic-drama.svg
+    dark_to_white: false
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: false
+    background_tolerance: 28
+    trim_logo: true
+    render_preset: original
+    targets:
+    - sat:skylink-sk:1BC8_17D4_13E_820000
+    - sat:skylink-sk:3700_C8C_3_EB0000
+    - sat:skylink-sk:4290_2BC0_13E_820000
+    updated_at: 1794167456
+  viasat-history:
+    name: Viasat History
+    logo: assets/logos/stations/viasat-history.png
+    source_logo: assets/source-logos/stations/viasat-history.svg
+    dark_to_white: false
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: false
+    background_tolerance: 28
+    trim_logo: true
+    render_preset: original
+    targets:
+    - sat:skylink-sk:260_2774_13E_820000
+    - sat:skylink-sk:3CF0_C95_3_EB0000
+    - sat:skylink-sk:44F_526C_16E_A00000
+    - sat:skylink-sk:452_526C_16E_A00000
+    - sat:skylink-sk:45B_4_AA_5A0000
+    - sat:skylink-sk:45C_526C_16E_A00000
+    - sat:skylink-sk:4E9E_CA4_3_EB0000
+    - sat:skylink-sk:79_251C_D5_820000
+    updated_at: 1794167654
+  markiza-klasik:
+    name: Markiza Klasik
+    logo: assets/logos/stations/markiza-klasik.png
+    source_logo: assets/source-logos/stations/markiza-klasik.svg
+    dark_to_white: false
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: false
+    background_tolerance: 28
+    trim_logo: true
+    render_preset: original
+    targets:
+    - sat:skylink-sk:3C2B_C90_3_EB0000
+    - sat:skylink-sk:4B4_76C1_16E_A00000
+    updated_at: 1794167715
+  viasat-true-crime:
+    name: Viasat True Crime
+    logo: assets/logos/stations/viasat-true-crime.png
+    source_logo: assets/source-logos/stations/viasat-true-crime.svg
+    dark_to_white: false
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: false
+    background_tolerance: 28
+    trim_logo: true
+    render_preset: original
+    targets:
+    - sat:skylink-sk:131_2648_D5_820000
+    - sat:skylink-sk:13FD_5DC_13E_820000
+    - sat:skylink-sk:1BBF_17D4_13E_820000
+    - sat:skylink-sk:36F3_C8C_3_EB0000
+    updated_at: 1794167776
