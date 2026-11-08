@@ -20,7 +20,9 @@ def _inside(root: Path, relative: str) -> Path:
 
 
 def sync_curated_artwork(source_root: Path, target_root: Path) -> list[str]:
-    source_root, target_root = Path(source_root), Path(target_root)
+    # macOS exposes /var as /private/var; normalize both paths before
+    # comparing them and before staging files for Git.
+    source_root, target_root = Path(source_root).resolve(), Path(target_root).resolve()
     source_yml = source_root / "station-artwork.yml"
     target_yml = target_root / "station-artwork.yml"
     source = yaml.safe_load(source_yml.read_text(encoding="utf-8")) or {}
