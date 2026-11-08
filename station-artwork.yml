@@ -55,3 +55,53 @@ stations:
     - sat:antik-sat-sk:45A_526C_16E_A00000
     - sat:skylink-sk:3CF1_C95_3_EB0000
     updated_at: 1792004778
+  joj-family:
+    name: JOJ Family
+    logo: assets/logos/stations/joj-family.png
+    dark_to_white: true
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: false
+    targets:
+    - sat:skylink-sk:3350_C93_3_EB0000
+    updated_at: 1794137859
+  amc:
+    name: AMC HD
+    logo: assets/logos/stations/amc.png
+    dark_to_white: false
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: false
+    targets:
+    - sat:antik-sat-sk:47F_76C0_16E_A00000
+    updated_at: 1794138293
+  amc-sk:
+    name: AMC SK
+    logo: assets/logos/stations/amc-sk.png
+    dark_to_white: false
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: false
+    targets:
+    - sat:skylink-sk:372B_C8E_3_EB0000
+    updated_at: 1794138308
+  canal-plus-crime:
+    name: CANAL+ Crime
+    logo: assets/logos/stations/canal-plus-crime.png
+    dark_to_white: false
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: false
+    targets:
+    - sat:skylink-sk:52B3_C99_3_EB0000
+    updated_at: 1794139225
+  canal-plus-drama:
+    name: CANAL+ Drama
+    logo: assets/logos/stations/canal-plus-drama.png
+    dark_to_white: false
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: false
+    targets:
+    - sat:skylink-sk:3CFA_C95_3_EB0000
+    updated_at: 1794139278
