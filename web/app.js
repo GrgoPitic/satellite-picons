@@ -1,13 +1,14 @@
 (async () => {
+  try {
   // Always read the current deployment instead of a cached older catalogue.
   const cacheToken = Date.now();
-  const [index, version, orbitCatalog, skylinkCatalog] = await Promise.all([
+  const [index, version, orbitCatalog, operatorCatalog] = await Promise.all([
     fetch('index.json?v=' + cacheToken, { cache: 'no-store' }).then(r => r.json()),
     fetch('version.json?v=' + cacheToken, { cache: 'no-store' }).then(r => r.json()),
     fetch('orbits.json?v=' + cacheToken, { cache: 'no-store' })
       .then(r => r.ok ? r.json() : { orbits: [] })
       .catch(() => ({ orbits: [] })),
-    fetch('skylink.json?v=' + cacheToken, { cache: 'no-store' })
+    fetch('operators.json?v=' + cacheToken, { cache: 'no-store' })
       .then(r => r.ok ? r.json() : { providers: [] })
       .catch(() => ({ providers: [] }))
   ]);
@@ -42,8 +43,8 @@
     new Date(index.generated_at).toLocaleDateString('sk-SK');
 
   const orbitProviders = (orbitCatalog.orbits || []).map(p => ({...p, group: 'orbit'}));
-  const skylinkProviders = (skylinkCatalog.providers || []).map(p => ({...p, group: 'skylink'}));
-  const providers = [...orbitProviders, ...skylinkProviders];
+  const operatorProviders = (operatorCatalog.providers || []).map(p => ({...p, group: 'operator'}));
+  const providers = [...orbitProviders, ...operatorProviders];
   const providerById = new Map(providers.map(provider => [provider.id, provider]));
 
   let activeProviderId = providers.find(p => Number(p.curated_channel_count || 0) > 0)?.id || providers[0]?.id || null;
@@ -56,7 +57,7 @@
 
   function providerChannels(providerId) {
     const selected = providerById.get(providerId);
-    if (selected?.group === 'skylink' || selected?.group === 'orbit') {
+    if (selected?.group === 'operator' || selected?.group === 'orbit') {
       // Orbit and operator catalogues list EVERY channel, even without a logo.
       // Never imply an uncurated service has a downloadable picon.
       return selected.channels || [];
@@ -86,7 +87,7 @@
     operatorList.innerHTML = providers.map((provider, index) => {
       const previous = providers[index - 1];
       const heading = index === 0 || previous.group !== provider.group
-        ? '<p class="sidebar-section-title">' + (provider.group === 'skylink' ? 'SKYLINK · FASTSCAN' : 'ORBITÁLNE POZÍCIE') + '</p>'
+        ? '<p class="sidebar-section-title">' + (provider.group === 'operator' ? 'OPERÁTORI · OVERENÉ ZOZNAMY' : 'ORBITÁLNE POZÍCIE') + '</p>'
         : '';
       const { expected, curated, complete } = providerProgress(provider);
       const state = complete ? 'complete' : (curated > 0 ? 'progress' : '');
@@ -115,7 +116,7 @@
   }
 
   function renderPackage(provider) {
-    const { expected, curated, complete } = providerProgress(provider);
+    const { expected, curated } = providerProgress(provider);
 
     if (curated > 0 && provider.package) {
       operatorPackageArea.innerHTML =
@@ -172,8 +173,8 @@
     if (!rows.length) {
       logoGrid.innerHTML = '';
       operatorEmpty.textContent = needle
-        ? 'Pre toto vyhľadávanie sa nenašlo žiadne logo.'
-        : 'Tento operátor zatiaľ nemá žiadne hotové logá.';
+        ? 'Pre toto vyhľadávanie sa nenašla žiadna stanica.'
+        : 'Táto kategória zatiaľ neobsahuje žiadne overené služby.';
       return;
     }
 
@@ -232,7 +233,7 @@
     modalTitle.textContent = channel.name || '';
     modalRef.textContent = channel.service_reference || '';
     const active = providerById.get(activeProviderId);
-    modalGroup.textContent = active?.group === 'skylink'
+    modalGroup.textContent = active?.group === 'operator'
       ? active.name + ' · ' + (channel.position || '')
       : channel.satellite_position || '';
 
@@ -316,4 +317,16 @@
     })
     .catch(() => { changeStatus.textContent = 'História aktualizácií momentálne nie je dostupná.'; });
 
+  } catch (error) {
+    console.error('Picon Hub: verejný katalóg sa nepodarilo načítať', error);
+    const list = document.querySelector('#operatorList');
+    const empty = document.querySelector('#operatorEmpty');
+    const grid = document.querySelector('#logoGrid');
+    if (list) list.textContent = 'Katalóg sa nepodarilo načítať. Obnov stránku alebo to skús neskôr.';
+    if (grid) grid.replaceChildren();
+    if (empty) {
+      empty.textContent = 'Dátové súbory sú dočasne nedostupné; žiadne neoverené picony nezobrazujeme.';
+      empty.hidden = false;
+    }
+  }
 })();
