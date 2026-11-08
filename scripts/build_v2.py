@@ -34,18 +34,30 @@ def enrich_artwork(channel: dict) -> dict:
     item["station_key"] = station_key
     identity = channel_identity(item, provider_id)
 
-    artwork = (load_station_artwork().get("stations") or {}).get(station_key)
+    stations = load_station_artwork().get("stations") or {}
+    artwork = stations.get(station_key)
+
+    # An explicit service assignment takes precedence over name variations.
+    # This is the same rule used by the administrator when sharing artwork
+    # across operators (for example Skylink and ANTIK Sat).
+    if not (isinstance(artwork, dict) and (
+        not artwork.get("targets") or identity in {str(x) for x in artwork.get("targets", [])}
+    )):
+        artwork = next(
+            (candidate for candidate in stations.values()
+             if isinstance(candidate, dict)
+             and identity in {str(x) for x in candidate.get("targets", []) or []}),
+            None,
+        )
+
     if isinstance(artwork, dict):
-        targets = {str(x) for x in artwork.get("targets", []) or []}
-        selected_for_channel = not targets or identity in targets
-        if selected_for_channel:
-            provider_override = (artwork.get("provider_overrides") or {}).get(provider_id)
-            selected = provider_override if isinstance(provider_override, dict) else artwork
-            if selected.get("logo"):
-                item["logo"] = selected.get("logo")
-            for field in ("dark_to_white", "optical_scale", "edge_cleanup", "background_cleanup"):
-                if field in selected:
-                    item[field] = selected[field]
+        provider_override = (artwork.get("provider_overrides") or {}).get(provider_id)
+        selected = provider_override if isinstance(provider_override, dict) else artwork
+        if selected.get("logo"):
+            item["logo"] = selected.get("logo")
+        for field in ("dark_to_white", "optical_scale", "edge_cleanup", "background_cleanup"):
+            if field in selected:
+                item[field] = selected[field]
 
     # Legacy renderer expects a service_reference. IPTV gets a deterministic
     # internal reference only for build/index purposes; it is not an Enigma2
