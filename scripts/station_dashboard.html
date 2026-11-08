@@ -1,4 +1,72 @@
 <style>
+/* Focused sidebar navigation: only rearranges existing admin actions. */
+.app{grid-template-columns:308px minmax(0,1fr)}
+.sidebar{
+  padding:26px 18px 20px;gap:18px;
+  overflow-y:auto;overscroll-behavior:contain;
+  scrollbar-width:thin;scrollbar-color:#344457 transparent
+}
+.sidebar .brand{padding:3px 8px 12px}
+.sidebar .brand strong{font-size:21px;letter-spacing:-.025em}
+.sidebar .brand span{font-size:12px;line-height:1.5}
+.sidebar .channel-picker{padding:15px;border-radius:14px}
+.sidebar .channel-picker label{font-size:12px;margin:0 0 9px}
+.sidebar .channel-picker select{font-size:13px;padding:11px}
+.sidebar .channel-picker .status{font-size:11px;line-height:1.55}
+.sidebar .nav{display:flex;flex-direction:column;gap:5px;min-width:0}
+.sidebar .nav-group-label{
+  margin:14px 10px 7px;padding:0;
+  font-size:10px;font-weight:850;letter-spacing:.13em;
+  text-transform:uppercase;color:#778da3
+}
+.sidebar .nav-group-label:first-child{margin-top:2px}
+.sidebar .nav button{
+  display:block;width:100%;min-height:58px;
+  padding:11px 13px;border:1px solid transparent;
+  border-radius:11px;background:transparent;
+  color:#d2dce7;font-size:14px;line-height:1.35;
+  font-weight:730;white-space:normal;
+  transition:background .15s,border-color .15s
+}
+.sidebar .nav button small{
+  font-size:11px;margin-top:4px;line-height:1.35;
+  color:#8799aa;font-weight:450
+}
+.sidebar .nav button.active{
+  border-color:#48647c;background:#182839;color:#fff;
+  box-shadow:inset 3px 0 0 #92b5d1
+}
+.sidebar .nav button:focus-visible,
+.sidebar .nav details summary:focus-visible{
+  outline:2px solid #91b6db;outline-offset:2px
+}
+.sidebar .nav details{
+  margin-top:12px;border-top:1px solid #283746;
+  padding-top:13px;min-width:0
+}
+.sidebar .nav details summary{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;padding:12px;border:1px solid #2b3c4e;
+  border-radius:11px;background:#121d2a;
+  color:#c9d8e7;font-size:13px;font-weight:750;cursor:pointer;
+  list-style:none
+}
+.sidebar .nav details summary::-webkit-details-marker{display:none}
+.sidebar .nav details summary::after{content:"+";font-size:20px;line-height:1}
+.sidebar .nav details[open] summary::after{content:"−"}
+.sidebar .nav details button:first-of-type{margin-top:9px}
+.sidebar .nav details button{font-size:13px;min-height:52px}
+.sidebar .sidebar-foot{font-size:11px;line-height:1.5}
+@media(max-width:900px){
+  .app{grid-template-columns:1fr}
+  .sidebar{position:relative;height:auto;max-height:none;overflow:visible;padding:20px}
+  .sidebar .nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+  .sidebar .nav-group-label,.sidebar .nav details{grid-column:1/-1}
+}
+@media(max-width:540px){
+  .sidebar .nav{grid-template-columns:1fr}
+}
+
 .station-tools{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0}.station-tools input{flex:2;min-width:180px}.station-tools select{flex:1;min-width:160px}.station-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(245px,1fr));gap:16px}.station-tile{border:1px solid #2b3d50;border-radius:16px;padding:18px;background:#101923}.station-image{height:105px;display:flex;align-items:center;justify-content:center;background:#080d13;border-radius:10px;margin-bottom:14px;color:#91a1b4}.station-image img{width:150px;height:90px;object-fit:contain}.station-tile h3{margin:0 0 8px}.station-tile p{color:#a9b8c9;font-size:13px;line-height:1.6}.station-tile button{margin-top:8px}.station-empty{padding:30px;color:#acb9c8}.station-status{color:#b6d9bf;font-size:13px}.station-help{padding:16px;background:#152333;border-radius:12px;line-height:1.7}
 .change-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px;margin:18px 0}
 .change-stat{padding:14px;border:1px solid #2b3d50;border-radius:12px;background:#101923}
@@ -189,10 +257,39 @@
  provider.addEventListener('change',()=>{stationLimit=100;render();});
  operator.addEventListener('change',()=>{stationLimit=100;render();});
  render();renderMissing();
+ // Keep every existing function, but display the daily workflow first.
  const nav=document.querySelector('.nav');
- const details=document.createElement('details');
- const summary=document.createElement('summary');summary.textContent='Ďalšie nástroje';details.append(summary);
- nav.querySelectorAll('[data-panel]').forEach(b=>{if(!['stations','missing','vhannibal','changes','publish'].includes(b.dataset.panel))details.append(b);});nav.append(details);
+ const buttons=[...nav.querySelectorAll('[data-panel]')];
+ const byPanel=new Map(buttons.map(button=>[button.dataset.panel,button]));
+ const heading=text=>{const el=document.createElement('p');el.className='nav-group-label';el.textContent=text;return el;};
+ nav.replaceChildren();
+ nav.append(heading('Stanice a logá'));
+ for(const id of ['stations','missing','upload','edit','library']){
+   const button=byPanel.get(id);
+   if(button)nav.append(button);
+ }
+ nav.append(heading('Publikovanie'));
+ if(byPanel.has('publish'))nav.append(byPanel.get('publish'));
+ const extra=[...byPanel.keys()].filter(id=>!['stations','missing','upload','edit','library','publish'].includes(id));
+ if(extra.length){
+   const details=document.createElement('details');
+   const summary=document.createElement('summary');
+   summary.textContent='Pokročilé nástroje';
+   details.append(summary);
+   for(const id of ['vhannibal','changes','overview','channel','manage']){
+     if(byPanel.has(id))details.append(byPanel.get(id));
+   }
+   for(const id of extra){
+     if(!['vhannibal','changes','overview','channel','manage'].includes(id))details.append(byPanel.get(id));
+   }
+   nav.append(details);
+   const update=()=>{
+     const active=details.querySelector('button.active');
+     if(active)details.open=true;
+   };
+   nav.addEventListener('click',update);
+   update();
+ }
  const vhTs=document.querySelector('#vhannibalSyncedAt');
  if(vhTs&&vhTs.dataset.ts){const d=new Date(Number(vhTs.dataset.ts)*1000);if(!Number.isNaN(d.getTime()))vhTs.textContent=d.toLocaleString('sk-SK');}
  // Keep existing editing panels reachable, with the station list as the entry point.
