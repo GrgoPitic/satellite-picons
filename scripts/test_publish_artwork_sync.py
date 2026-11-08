@@ -86,6 +86,15 @@ class PublishArtworkTests(unittest.TestCase):
             sync_curated_artwork(self.src, self.dst)
         self.assertEqual(set(self.published()), {"existing"})
 
+    def test_symlinked_worktree_path_on_macos(self):
+        # macOS /var is a symlink to /private/var. Copying to the resolved
+        # destination previously failed when computing git-relative paths.
+        alias = Path(self.tmp.name) / "worktree-alias"
+        alias.symlink_to(self.dst, target_is_directory=True)
+        paths = sync_curated_artwork(self.src, alias)
+        self.assertIn("assets/logos/stations/tv-joj.png", paths)
+        self.assertEqual((self.dst / "assets/logos/stations/tv-joj.png").read_bytes(), b"NEW JOJ")
+
     def test_existing_targets_are_retained(self):
         main = {"old-logo": {
             **self.local["old-logo"], "updated_at": 10,
