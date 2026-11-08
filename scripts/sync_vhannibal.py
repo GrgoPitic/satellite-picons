@@ -19,6 +19,8 @@ from catalog_common import (
 ROOT = Path(__file__).resolve().parents[1]
 URL = 'https://www.vhannibal.net/download_setting.php?action=download&id=6'
 DEST = ROOT / 'provider-data/skylink-sk.json'
+STATE_DIR = ROOT / '.admin-state'
+CHANGE_REPORT = STATE_DIR / 'vhannibal-changes.json'
 
 
 def parse(blob):
@@ -58,6 +60,100 @@ def parse(blob):
         return list(rows.values()),candidates[0][0]
 
 
+def _identity_map(rows):
+    return {channel_identity(row, str(row.get("provider_group") or "skylink-sk")): row for row in rows}
+
+
+def _unique_station_map(rows):
+    grouped = {}
+    for row in rows:
+        grouped.setdefault(str(row.get("station_key") or normalize_station_key(row.get("name", ""))), []).append(row)
+    return {key: values[0] for key, values in grouped.items() if len(values) == 1}
+
+
+def build_change_report(old_rows, new_rows, *, source, sha256, migrated_artwork=0):
+    old_by_id = _identity_map(old_rows)
+    new_by_id = _identity_map(new_rows)
+    old_station = _unique_station_map(old_rows)
+    new_station = _unique_station_map(new_rows)
+
+    renamed = []
+    metadata_changed = []
+    for identity in sorted(set(old_by_id) & set(new_by_id)):
+        old = old_by_id[identity]
+        new = new_by_id[identity]
+        if str(old.get("name") or "") != str(new.get("name") or ""):
+            renamed.append({
+                "identity": identity,
+                "old_name": old.get("name"),
+                "new_name": new.get("name"),
+            })
+        changed_fields = []
+        for field in ("satellite_position", "variant_types"):
+            if old.get(field) != new.get(field):
+                changed_fields.append(field)
+        if changed_fields:
+            metadata_changed.append({
+                "identity": identity,
+                "name": new.get("name") or old.get("name"),
+                "fields": changed_fields,
+            })
+
+    tuning_changed = []
+    moved_old_ids = set()
+    moved_new_ids = set()
+    for station_key in sorted(set(old_station) & set(new_station)):
+        old = old_station[station_key]
+        new = new_station[station_key]
+        old_id = channel_identity(old, str(old.get("provider_group") or "skylink-sk"))
+        new_id = channel_identity(new, str(new.get("provider_group") or "skylink-sk"))
+        if old_id != new_id:
+            moved_old_ids.add(old_id)
+            moved_new_ids.add(new_id)
+            tuning_changed.append({
+                "station_key": station_key,
+                "name": new.get("name") or old.get("name"),
+                "old_identity": old_id,
+                "new_identity": new_id,
+                "old_reference": old.get("service_reference"),
+                "new_reference": new.get("service_reference"),
+            })
+
+    added = [
+        {"identity": identity, "name": new_by_id[identity].get("name")}
+        for identity in sorted(set(new_by_id) - set(old_by_id) - moved_new_ids)
+    ]
+    removed = [
+        {"identity": identity, "name": old_by_id[identity].get("name")}
+        for identity in sorted(set(old_by_id) - set(new_by_id) - moved_old_ids)
+    ]
+
+    report = {
+        "synced_at": __import__("time").time_ns() // 1_000_000_000,
+        "source": source,
+        "sha256": sha256,
+        "previous_channels": len(old_rows),
+        "current_channels": len(new_rows),
+        "changed": bool(added or removed or renamed or tuning_changed or metadata_changed),
+        "counts": {
+            "added": len(added),
+            "removed": len(removed),
+            "renamed": len(renamed),
+            "tuning_changed": len(tuning_changed),
+            "metadata_changed": len(metadata_changed),
+            "artwork_assignments_updated": int(migrated_artwork),
+        },
+        "added": added,
+        "removed": removed,
+        "renamed": renamed,
+        "tuning_changed": tuning_changed,
+        "metadata_changed": metadata_changed,
+    }
+    STATE_DIR.mkdir(parents=True, exist_ok=True)
+    CHANGE_REPORT.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return report
+
+
 def sync(blob=None):
     if blob is None:
         with requests.get(URL,timeout=(10,45),stream=True) as response:
@@ -80,31 +176,32 @@ def sync(blob=None):
         new_by_station.setdefault(key, []).append(row)
 
     artwork_changed = False
+    artwork_assignments_updated = 0
     for station_key, art in stations.items():
         if not isinstance(art, dict):
             continue
         targets = [str(x) for x in art.get("targets", []) or []]
-        skylink_targets = [
-            x for x in targets
-            if x.startswith("sat:skylink-sk:") or x.startswith("sat:skylink-cz:")
-        ]
-        if not skylink_targets:
-            continue
-
         candidates = new_by_station.get(str(station_key), [])
-        if len(candidates) != 1:
-            # Ambiguous or missing upstream match: preserve old assignment.
+        if not candidates:
             continue
 
-        new_identity = channel_identity(candidates[0], "skylink-sk")
+        # Every exact station_key match gets the existing curated artwork.
+        # Old Skylink identities are dropped when tuning changes, while targets
+        # belonging to other operators are preserved.
+        new_identities = {
+            channel_identity(candidate, "skylink-sk")
+            for candidate in candidates
+        }
         preserved = [
             x for x in targets
             if not (x.startswith("sat:skylink-sk:") or x.startswith("sat:skylink-cz:"))
         ]
-        migrated = sorted(set(preserved + [new_identity]))
-        if migrated != sorted(set(targets)):
+        migrated = sorted(set(preserved) | new_identities)
+        before = set(targets)
+        if set(migrated) != before:
             art["targets"] = migrated
             artwork_changed = True
+            artwork_assignments_updated += len(set(migrated) - before)
 
     if artwork_changed:
         save_station_artwork(artwork)
@@ -113,8 +210,21 @@ def sync(blob=None):
         for field in ("logo", "dark_to_white", "optical_scale", "edge_cleanup", "background_cleanup"):
             row.pop(field, None)
 
+    old_rows = []
+    if DEST.exists():
+        try:
+            old_rows = (json.loads(DEST.read_text(encoding="utf-8")) or {}).get("channels", []) or []
+        except Exception:
+            old_rows = []
+
+    digest = hashlib.sha256(blob).hexdigest()
+    build_change_report(
+        old_rows, rows, source=source, sha256=digest,
+        migrated_artwork=artwork_assignments_updated,
+    )
+
     payload={'provider':'skylink-sk','provider_name':'Skylink SK + CZ','source':{
-        'type':'vhannibal','url':URL,'settings':source,'sha256':hashlib.sha256(blob).hexdigest(),
+        'type':'vhannibal','url':URL,'settings':source,'sha256':digest,
         'artwork_mode':'manual','upstream_logos_imported':False},
         'stats':{'channels_parsed':len(rows),'upstream_logos_imported':0},'channels':rows}
     text=json.dumps(payload,ensure_ascii=False,indent=2)+'\n'
