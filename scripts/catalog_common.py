@@ -13,6 +13,34 @@ IPTV_PROVIDERS_CONFIG = ROOT / "iptv-providers.yml"
 ARTWORK_CONFIG = ROOT / "station-artwork.yml"
 
 
+
+# Technical placeholders are present in some Vhannibal lamedb/bouquets.
+# Do not treat those entries as broadcast channels or logo upload targets.
+_TECHNICAL_SID_NAME = re.compile(
+    r"^\\s*\\d{4,6}\\s*[HV]\\s+SID\\s+0x[0-9a-f]+\\s*$",
+    re.IGNORECASE,
+)
+_DOTTED_SEPARATOR = re.compile(r"^\\s*\\.\\s*\\d+\\s*\\.\\s*$")
+
+
+def is_real_station_name(name: str) -> bool:
+    """Reject known service-list separators, not genuine numeric brand names.
+
+    Conservatively preserve titles such as '1+1', '123.live', '24Kitchen',
+    '3sat', and even a purely numeric station name.
+    """
+    value = str(name or "").strip()
+    if not value:
+        return False
+    if not any(ch.isalnum() for ch in value):
+        return False
+    if _DOTTED_SEPARATOR.fullmatch(value):
+        return False
+    if _TECHNICAL_SID_NAME.fullmatch(value):
+        return False
+    return True
+
+
 def normalize_station_key(name: str) -> str:
     """Return a conservative canonical key shared across SAT/IPTV providers.
 
