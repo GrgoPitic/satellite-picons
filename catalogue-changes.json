@@ -2,13 +2,4805 @@
   "schema": 1,
   "events": [
     {
-      "provider": "antik-sat-sk",
-      "kind": "catalogue_added",
-      "name": "ANTIK Sat (SK)",
-      "count": 78,
-      "provider_name": "ANTIK Sat (SK)",
-      "at": "2026-11-08T14:16:51.320512+00:00"
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "BVN",
+      "reference": "1:0:16:1005:451:35:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "AB3",
+      "reference": "1:0:16:1006:451:35:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "INPLUS.",
+      "reference": "1:0:16:1009:451:35:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "INPLUS",
+      "reference": "1:0:16:100A:451:35:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Hustler TV",
+      "reference": "1:0:16:100B:451:35:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Hustler TV CZ",
+      "reference": "1:0:16:100D:451:35:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Kabelio Sky News",
+      "reference": "1:0:19:100:2C24:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Bergblick",
+      "reference": "1:0:16:1013:451:35:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Prime Video Sportsbar",
+      "reference": "1:0:19:1016:15E0:FBFF:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "cielo",
+      "reference": "1:0:19:1018:1A90:FBFF:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "cielo",
+      "reference": "1:0:19:1019:1A90:FBFF:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "CANAL+ Action",
+      "reference": "1:0:19:101C:451:35:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Canal+ Action B2B",
+      "reference": "1:0:1F:101F:451:35:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Kabelio TV8 Italia",
+      "reference": "1:0:19:101:2C24:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Sport Bundesliga 9",
+      "reference": "1:0:19:101:B:85:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Crime",
+      "reference": "1:0:19:1020:2260:FBFF:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "CANAL+ Golf",
+      "reference": "1:0:19:1020:451:35:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Sport 9",
+      "reference": "1:0:19:102:B:85:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Sport Austria 4",
+      "reference": "1:0:19:103:B:85:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "STAR PLUS TV",
+      "reference": "1:0:16:1040:50DC:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Classica",
+      "reference": "1:0:19:104A:19C8:FBFF:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "E-Kids",
+      "reference": "1:0:16:104:25E4:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "wedo Movies",
+      "reference": "1:0:19:104:2C24:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "IEPG data 1",
+      "reference": "1:0:1:105D:7D4:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Cinemax 2",
+      "reference": "1:0:16:105:25E4:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "wedo Sports",
+      "reference": "1:0:19:105:2C24:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Sport Austria 7",
+      "reference": "1:0:19:105:C:85:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "IEPG Data",
+      "reference": "1:0:1:1063:1A90:FBFF:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Cinema Uno",
+      "reference": "1:0:19:106A:15E0:FBFF:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SkySp F1 HD",
+      "reference": "1:0:19:106A:7ED:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Cinema Uno",
+      "reference": "1:0:19:106B:15E0:FBFF:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Jurassic World Collection",
+      "reference": "1:0:19:106C:2260:FBFF:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Cinema Action",
+      "reference": "1:0:19:106E:2008:FBFF:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Euronews Bulgaria",
+      "reference": "1:0:16:106:25E4:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "wedo Big Stories",
+      "reference": "1:0:19:106:2C24:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Sport Austria 8",
+      "reference": "1:0:19:106:6:85:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SkySp News",
+      "reference": "1:0:1:1073:7E4:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Sport",
+      "reference": "1:0:19:1089:1A90:FBFF:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SkySp Golf",
+      "reference": "1:0:1:1089:7E4:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Sport",
+      "reference": "1:0:19:108A:1A90:FBFF:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SkySp Golf HD",
+      "reference": "1:0:19:108A:7EB:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TV Trwam",
+      "reference": "1:0:19:1090:3EE:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Calcio Overlay HD",
+      "reference": "1:0:19:1092:2008:FBFF:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "La 7 HD",
+      "reference": "1:0:1F:109A:3EE:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TV-3 Cataluna HD",
+      "reference": "1:0:1F:109B:3EE:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Telemadrid",
+      "reference": "1:0:1F:109C:3EE:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Television Canaria",
+      "reference": "1:0:1F:109D:3EE:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "CMM",
+      "reference": "1:0:1F:109E:3EE:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SkySpMainEv",
+      "reference": "1:0:1:109F:7E4:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "България 24",
+      "reference": "1:0:16:109:25E4:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "The Voice",
+      "reference": "1:0:16:10A:25E4:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Magic TV",
+      "reference": "1:0:16:10B:25E4:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Sport Bundesliga 1",
+      "reference": "1:0:19:10B:6:85:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "IEPG Data",
+      "reference": "1:0:1:10CA:2008:FBFF:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SPORTDIGITAL FUSSBALL HD",
+      "reference": "1:0:19:10CC:418:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "RTSH Shqip",
+      "reference": "1:0:16:10CC:51A4:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sportdigital1+",
+      "reference": "1:0:19:10CD:418:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "eSportsOne",
+      "reference": "1:0:19:10CE:418:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "sportdigital EDGE",
+      "reference": "1:0:19:10CF:418:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TV8 Int.",
+      "reference": "1:0:16:10C:25E4:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Sport 1",
+      "reference": "1:0:19:10C:6:85:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "WAIDWERK",
+      "reference": "1:0:19:10D0:418:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "ClipMyHorse.TV",
+      "reference": "1:0:19:10D1:418:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Discovery Poland HD",
+      "reference": "1:0:19:10DD:3E8:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TLC HD",
+      "reference": "1:0:19:10DE:3E8:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Historia Poland",
+      "reference": "1:0:16:10DF:3E8:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "History HD",
+      "reference": "1:0:19:10D:25E4:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Sport 10",
+      "reference": "1:0:19:10D:B:85:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Discovery Life",
+      "reference": "1:0:19:10E0:3E8:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Meteo24",
+      "reference": "1:0:1:10E1:2008:FBFF:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Discovery Turbo Italy",
+      "reference": "1:0:19:10E1:3E8:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Giallo HD",
+      "reference": "1:0:19:10E2:3E8:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Nove HD",
+      "reference": "1:0:19:10E3:3E8:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Cartoonito Poland HD",
+      "reference": "1:0:19:10E4:3E8:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Cartoon Network Poland HD",
+      "reference": "1:0:19:10E5:3E8:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TG24PrimoPiano",
+      "reference": "1:0:1:10E8:19C8:FBFF:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TVN24 BiS HD",
+      "reference": "1:0:19:10EA:3E8:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "HGTV HD",
+      "reference": "1:0:19:10EB:3E8:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "HGTV Italy HD",
+      "reference": "1:0:19:10EE:3E8:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Nicktoons",
+      "reference": "1:0:16:10E:25E4:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Kanal 10",
+      "reference": "1:0:16:10F4:51A4:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Caccia e PESCA",
+      "reference": "1:0:1:10FE:2260:FBFF:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Rodina TV",
+      "reference": "1:0:16:10F:25E4:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Sport Bundesliga 10",
+      "reference": "1:0:19:10F:B:85:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Polsat Comedy Central Extra",
+      "reference": "1:0:1:10:1964:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "GIALLO",
+      "reference": "1:0:19:10:204:1D:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "RING",
+      "reference": "1:0:1:10:2580:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Dukagjini",
+      "reference": "1:0:16:1108:50DC:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Vivid TV",
+      "reference": "1:0:16:110:25E4:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Alsat M",
+      "reference": "1:0:16:111C:51A4:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "CANAL+ 360",
+      "reference": "1:0:1:1131:2AF8:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "RTS Klasika",
+      "reference": "1:0:1:1131:9CA4:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "RTS Kolo",
+      "reference": "1:0:1:1132:9CA4:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "BBC FIRST",
+      "reference": "1:0:1:1133:2AF8:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "RTS Muzika",
+      "reference": "1:0:1:1133:9CA4:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "BBC Earth HD",
+      "reference": "1:0:1:1134:2AF8:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "RTS Poletarac",
+      "reference": "1:0:1:1134:9CA4:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "RTS Trezor",
+      "reference": "1:0:1:1135:9CA4:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "CANAL+ EXTRA 1",
+      "reference": "1:0:1:1136:2AF8:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Adria TV",
+      "reference": "1:0:1:1136:9CA4:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "CANAL+ EXTRA 2",
+      "reference": "1:0:1:1137:2AF8:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TVP HD",
+      "reference": "1:0:1:1138:2AF8:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TVP INFO HD",
+      "reference": "1:0:1:1139:2AF8:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "CANAL+ DOMO HD",
+      "reference": "1:0:1:113D:2AF8:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "CANAL+ KUCHNIA",
+      "reference": "1:0:1:113E:2AF8:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TVP SERIALE",
+      "reference": "1:0:1:1142:2AF8:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Sport Bundesliga 2",
+      "reference": "1:0:19:115:2:85:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "CANAL+ 360",
+      "reference": "1:0:1:1163:2AF8:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "CANAL+ EXTRA 1",
+      "reference": "1:0:1:1168:2AF8:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "CANAL+ EXTRA 2",
+      "reference": "1:0:1:1169:2AF8:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "STAR Movies",
+      "reference": "1:0:16:116C:50DC:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "CANAL+ 360",
+      "reference": "1:0:1:116D:2AF8:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "CANAL+ DOMO HD",
+      "reference": "1:0:1:116F:2AF8:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Sport 2",
+      "reference": "1:0:19:116:2:85:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "CANAL+ KUCHNIA",
+      "reference": "1:0:1:1170:2AF8:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "CANAL+ 360",
+      "reference": "1:0:1:1177:2AF8:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "DATA",
+      "reference": "1:0:1:118F:2AF8:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Arena Premium 2 HD",
+      "reference": "1:0:1:1195:A028:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Arena Premium 5 HD",
+      "reference": "1:0:1:1196:A028:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Arena Sport 2 HD",
+      "reference": "1:0:1:1197:A028:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Arena Sport 5 HD",
+      "reference": "1:0:1:1198:A028:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Arena Sport 8 HD",
+      "reference": "1:0:1:1199:A028:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Arena Sport Adrenalin HD",
+      "reference": "1:0:1:119A:A028:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Agro TV HD",
+      "reference": "1:0:1:119B:A028:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "BBC Earth",
+      "reference": "1:0:1:119C:A028:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Arena Esport SRB",
+      "reference": "1:0:1:119D:A028:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Bloomberg Adria",
+      "reference": "1:0:1:119E:A028:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SkySp NFL",
+      "reference": "1:0:1:119F:7E4:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Newsmax Balkans",
+      "reference": "1:0:1:119F:A028:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Superstar 2 TV",
+      "reference": "1:0:1:11A0:A028:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Hype TV",
+      "reference": "1:0:1:11A1:A028:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Toxic Rap",
+      "reference": "1:0:1:11A2:A028:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Studio B",
+      "reference": "1:0:1:11A3:A028:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Turizam Plus",
+      "reference": "1:0:1:11A4:A028:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Prva MAX SD",
+      "reference": "1:0:1:11A5:A028:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "RTL 2 CRO",
+      "reference": "1:0:1:11A6:A028:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "RTL Croatia World",
+      "reference": "1:0:1:11A7:A028:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TravelXP 4K",
+      "reference": "1:0:1F:11FB:2B5C:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Museum 4K",
+      "reference": "1:0:1:11FC:2B5C:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "MyZen 4K",
+      "reference": "1:0:1:11FD:2B5C:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Simay Azadi HD",
+      "reference": "1:0:19:11FE:2B5C:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "APEX",
+      "reference": "1:0:1:11FF:2B5C:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Sport Bundesliga 3",
+      "reference": "1:0:19:11F:C:85:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Sport F1",
+      "reference": "1:0:19:11:6:85:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TVR 2 HD",
+      "reference": "1:0:1:11:C8:1:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "DAYSTAR HD",
+      "reference": "1:0:19:1200:2B5C:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "ZED TV",
+      "reference": "1:0:16:1201:2B5C:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Greater Love",
+      "reference": "1:0:1:1203:2B5C:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Sport 3",
+      "reference": "1:0:19:120:C:85:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Top Radio TV",
+      "reference": "1:0:19:1216:5014:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "RTL HD.",
+      "reference": "1:0:16:123:3:40:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Animal Planet HD",
+      "reference": "1:0:19:125C:51A4:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "RTL2.",
+      "reference": "1:0:16:125:3:40:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": ".1.",
+      "reference": "1:0:1:126E:417:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": ".2.",
+      "reference": "1:0:1:126F:417:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Doma TV.",
+      "reference": "1:0:16:126:3:40:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": ".3.",
+      "reference": "1:0:1:1270:417:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": ".4.",
+      "reference": "1:0:1:1271:417:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "HRT1 HD.",
+      "reference": "1:0:16:127:2:40:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "M1.",
+      "reference": "1:0:16:128:3:40:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Sport Bundesliga 4",
+      "reference": "1:0:19:129:4:85:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "AMC.",
+      "reference": "1:0:16:12A:3:40:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Sport 4",
+      "reference": "1:0:19:12A:4:85:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TRC Modena",
+      "reference": "1:0:1:12C1:48E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TRC Bologna",
+      "reference": "1:0:1:12C2:48E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Telereggio",
+      "reference": "1:0:1:12C3:48E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "12 TV Parma HD",
+      "reference": "1:0:1:12C4:48E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TV QUI HD",
+      "reference": "1:0:19:12C5:48E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Teleromagna HD",
+      "reference": "1:0:1:12C6:48E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TR 24",
+      "reference": "1:0:1:12C7:48E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Telestense",
+      "reference": "1:0:1:12C9:48E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Teletricolore",
+      "reference": "1:0:16:12CA:48E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "7G",
+      "reference": "1:0:1:12CB:48E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "RADIO BRUNO Emilia Romagna",
+      "reference": "1:0:19:12CC:48E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "CANALE ITALIA",
+      "reference": "1:0:1:12CD:48E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Icaro TV",
+      "reference": "1:0:1:12CE:48E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "VR",
+      "reference": "1:0:19:12CF:48E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "RADIO STUDIO DELTA",
+      "reference": "1:0:1:12D0:48E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "E TV RETE 7",
+      "reference": "1:0:1:12D1:48E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Telestense",
+      "reference": "1:0:1:12D2:48E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "RTL HD",
+      "reference": "1:0:19:12D:1EDC:9C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Mini TV.",
+      "reference": "1:0:16:12D:3:40:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "MagentaSport3League",
+      "reference": "1:0:1:12E:157C:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "VOX HD",
+      "reference": "1:0:19:12E:1EDC:9C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "CI Network",
+      "reference": "1:0:16:12E:25E4:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "MagentaSport1League",
+      "reference": "1:0:1:12F:157C:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SAT.1 HD",
+      "reference": "1:0:19:12F:1EDC:9C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TVR INFO",
+      "reference": "1:0:1:12:C8:1:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Vizion Plus HD",
+      "reference": "1:0:19:1306:51A4:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "MagentaSport2League",
+      "reference": "1:0:1:130:157C:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "ProSieben HD",
+      "reference": "1:0:19:130:1EDC:9C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Diema Sport HD",
+      "reference": "1:0:19:130:2648:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Viasat True Crime",
+      "reference": "1:0:16:131:2648:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Film Autor HD",
+      "reference": "1:0:19:1324:5014:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "KBS WORLD",
+      "reference": "1:0:1:1325:33F4:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "CNBC HD",
+      "reference": "1:0:1:1326:33F4:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Al Karma TV-ME",
+      "reference": "1:0:1:1328:33F4:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sender Neu Jerusalem",
+      "reference": "1:0:1:132E:33F4:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SkySp News",
+      "reference": "1:0:1:132E:7E4:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "ORF1 HD",
+      "reference": "1:0:19:132F:3EF:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "NITRO HD",
+      "reference": "1:0:19:132:1EDC:9C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "ORF2W HD",
+      "reference": "1:0:19:1330:3EF:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "ServusTV HD Oesterreich",
+      "reference": "1:0:19:1331:3EF:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "DF1 HD",
+      "reference": "1:0:19:1332:3EF:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "ORF2N HD",
+      "reference": "1:0:19:1334:3EF:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "ORF HITRADIO OE3 VISUAL",
+      "reference": "1:0:19:1335:3EF:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "ntv HD",
+      "reference": "1:0:19:133:1EDC:9C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Sport Bundesliga 5",
+      "reference": "1:0:19:133:4:85:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "RiC NEU",
+      "reference": "1:0:16:1342:3EF:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Film Komedi HD",
+      "reference": "1:0:19:1342:4F4C:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "ANT1 HD",
+      "reference": "1:0:1:134:157C:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "VOXup SD",
+      "reference": "1:0:16:134:1EDC:9C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SkyShowtime 1",
+      "reference": "1:0:16:134:2648:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Sport 5",
+      "reference": "1:0:19:134:4:85:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SkyShowtime 2",
+      "reference": "1:0:16:135:2648:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Tring Sport News",
+      "reference": "1:0:19:1360:50DC:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Canale Italia 83",
+      "reference": "1:0:1:1361:33F4:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Canale Italia 84",
+      "reference": "1:0:1:1362:33F4:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Canale Italia",
+      "reference": "1:0:1:1364:33F4:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Canale Italia 2",
+      "reference": "1:0:1:1366:33F4:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "DM Sat",
+      "reference": "1:0:16:136:25E4:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "HGTV HD",
+      "reference": "1:0:19:137:2648:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Arte Investimenti",
+      "reference": "1:0:1:1381:33F4:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Telecupole",
+      "reference": "1:0:1:1382:33F4:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Solo Calcio",
+      "reference": "1:0:1:1384:33F4:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Travel EMEA HD",
+      "reference": "1:0:19:1388:C3AA:9E:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TV 1",
+      "reference": "1:0:16:1389:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "BBC News",
+      "reference": "1:0:1:1389:3EA:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "RTV38 HD",
+      "reference": "1:0:1:1389:50E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "MAX Sport 4 HD",
+      "reference": "1:0:19:138A:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Toscana TV",
+      "reference": "1:0:1:138A:50E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "CNN",
+      "reference": "1:0:16:138B:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "NOItv",
+      "reference": "1:0:19:138B:50E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "BeIN Movies Turk",
+      "reference": "1:0:16:138C:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TV9",
+      "reference": "1:0:1:138C:50E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Show Turk",
+      "reference": "1:0:16:138D:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TVL",
+      "reference": "1:0:19:138D:50E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "GRANDUCATO TV",
+      "reference": "1:0:19:138E:50E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "VIVACOM Arena HD",
+      "reference": "1:0:19:138F:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TELETRURIA",
+      "reference": "1:0:19:138F:50E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "БНТ 3",
+      "reference": "1:0:16:138:2648:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Mediaset",
+      "reference": "1:0:16:1390:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TVR Teleitalia 7Gold",
+      "reference": "1:0:1:1390:50E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "50 CANALE HD",
+      "reference": "1:0:19:1391:50E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Nick Junior",
+      "reference": "1:0:16:1392:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "ITALIA 7",
+      "reference": "1:0:19:1392:50E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Da Vinci",
+      "reference": "1:0:16:1393:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "English Club",
+      "reference": "1:0:16:1394:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TELEREGIONE TOSCANA",
+      "reference": "1:0:1:1394:50E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Crime HD",
+      "reference": "1:0:19:1394:7E9:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TSD HD",
+      "reference": "1:0:19:1395:50E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "FREEДОМ",
+      "reference": "1:0:16:1396:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "CANALE 88",
+      "reference": "1:0:19:1396:50E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "XY Plus",
+      "reference": "1:0:16:1397:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "C3T",
+      "reference": "1:0:16:1397:50E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Cine TV Plus",
+      "reference": "1:0:16:1398:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "БГ+",
+      "reference": "1:0:16:139A:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "CANALE ITALIA extra",
+      "reference": "1:0:1:139A:50E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Фен Фолк",
+      "reference": "1:0:16:139B:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "RADIO BRUNO Toscana",
+      "reference": "1:0:16:139B:50E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "BG Music Channel",
+      "reference": "1:0:16:139C:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Dorcel TV HD",
+      "reference": "1:0:19:139C:4F4C:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "BBC Earth",
+      "reference": "1:0:16:139D:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "NHK WORLD-JPN",
+      "reference": "1:0:19:139D:3EA:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Travel TV",
+      "reference": "1:0:16:139E:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Code Health",
+      "reference": "1:0:16:139F:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "ERT COSMOS",
+      "reference": "1:0:1:139:157C:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "MAX Sport 3 HD",
+      "reference": "1:0:19:139:2648:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Dorcel TV",
+      "reference": "1:0:16:13A0:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Hitmix",
+      "reference": "1:0:16:13A1:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Dorcel TV HD",
+      "reference": "1:0:19:13A1:4F4C:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Virgin One+1",
+      "reference": "1:0:1:13A1:7E7:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "WNESS TV",
+      "reference": "1:0:16:13A3:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "FILMBOX+ emotion",
+      "reference": "1:0:16:13A4:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Love Nature",
+      "reference": "1:0:16:13A5:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Antena 3",
+      "reference": "1:0:16:13A6:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Al Jazeera English HD",
+      "reference": "1:0:19:13A7:3EA:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Private TV",
+      "reference": "1:0:16:13A8:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky One HD",
+      "reference": "1:0:19:13A8:7ED:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "FILMBOX+ one",
+      "reference": "1:0:16:13A9:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TV 21",
+      "reference": "1:0:16:13AA:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "RTL",
+      "reference": "1:0:16:13AB:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "MAX Sport 1 HD",
+      "reference": "1:0:19:13AC:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "MAX Sport 2 HD",
+      "reference": "1:0:19:13AD:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "KANAL 7 Avrupa",
+      "reference": "1:0:16:13AE:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Show Max",
+      "reference": "1:0:16:13AF:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "MagentaSport4League",
+      "reference": "1:0:1:13A:157C:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "HABERTURK",
+      "reference": "1:0:16:13B0:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Yaban TV",
+      "reference": "1:0:16:13B1:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Current Time",
+      "reference": "1:0:16:13B2:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Discovery Channel",
+      "reference": "1:0:16:13B3:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Mate Kitchen",
+      "reference": "1:0:16:13B4:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Virgin Four HD",
+      "reference": "1:0:19:13B4:7F2:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Daystar",
+      "reference": "1:0:16:13B5:2710:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "5047",
+      "reference": "1:0:19:13B7:7ED:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Nature HD",
+      "reference": "1:0:19:13B8:7E0:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SkySp Golf HD",
+      "reference": "1:0:19:13B9:7EB:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Aragon TV",
+      "reference": "1:0:1F:13BA:3EA:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Tring Sport 1 HD",
+      "reference": "1:0:19:13BA:5014:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "IB3",
+      "reference": "1:0:1F:13BB:3EA:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "La 7 Castillaleon",
+      "reference": "1:0:1F:13BC:3EA:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Mix HD",
+      "reference": "1:0:19:13BC:7E8:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Extremadura TV",
+      "reference": "1:0:1F:13BD:3EA:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TVG1",
+      "reference": "1:0:1F:13BE:3EA:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "nova MAD GREEKZ",
+      "reference": "1:0:1:13B:157C:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "NG Wild HD",
+      "reference": "1:0:19:13B:2648:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Nat Geo HD",
+      "reference": "1:0:19:13C:2648:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "E4 HD",
+      "reference": "1:0:19:13D4:7EB:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Klan Kosova HD",
+      "reference": "1:0:19:13D8:51A4:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Планета HD",
+      "reference": "1:0:19:13D:2648:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Sport Bundesliga 6",
+      "reference": "1:0:19:13D:6:85:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "CNBC HD",
+      "reference": "1:0:19:13E0:7E8:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SkySp Mix",
+      "reference": "1:0:1:13E3:7E7:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "HGTV Central Europe HD",
+      "reference": "1:0:19:13EC:C3AA:9E:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "MEGA HD",
+      "reference": "1:0:1:13E:157C:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "bTV HD",
+      "reference": "1:0:19:13E:2648:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Sport 6",
+      "reference": "1:0:19:13E:6:85:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TV PULS HD",
+      "reference": "1:0:1:13F1:5DC:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Puls 2 HD",
+      "reference": "1:0:1:13F2:5DC:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "WP",
+      "reference": "1:0:1:13F3:5DC:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "HBO2 HD",
+      "reference": "1:0:1:13F4:5DC:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "BB VIP Kosova 1",
+      "reference": "1:0:19:13F6:51A4:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "National Geographic Wild HD",
+      "reference": "1:0:1:13F6:5DC:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TVP 3",
+      "reference": "1:0:1:13F7:5DC:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "HBO3 HD",
+      "reference": "1:0:1:13F9:5DC:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TeenNick",
+      "reference": "1:0:1:13FC:5DC:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Viasat True Crime",
+      "reference": "1:0:1:13FD:5DC:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "AXN SPIN HD",
+      "reference": "1:0:1:13FE:5DC:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Active Family",
+      "reference": "1:0:1:13FF:5DC:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Βουλή",
+      "reference": "1:0:1:13F:157C:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "bTV Action HD",
+      "reference": "1:0:19:13F:2648:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TVR CULTURAL",
+      "reference": "1:0:1:13:C8:1:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "AMC",
+      "reference": "1:0:1:1401:5DC:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Motowizja HD",
+      "reference": "1:0:1:1402:5DC:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TVS",
+      "reference": "1:0:1:1403:5DC:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TVP ABC",
+      "reference": "1:0:1:1404:5DC:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TVP Historia",
+      "reference": "1:0:1:1405:5DC:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SkyDocumntrs",
+      "reference": "1:0:1:1407:7E7:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "ADVENTURE HD",
+      "reference": "1:0:1:140B:5DC:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "ANTENA",
+      "reference": "1:0:1:140C:5DC:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "RING HD",
+      "reference": "1:0:19:140:2648:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SZLAGIER TV",
+      "reference": "1:0:1:1411:5DC:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TVC",
+      "reference": "1:0:1:1412:5DC:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TVC SUPER",
+      "reference": "1:0:1:1413:5DC:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "BB VIP Kosova 2",
+      "reference": "1:0:19:1414:51A4:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Comedy HD",
+      "reference": "1:0:19:1418:7E5:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Kids HD",
+      "reference": "1:0:19:141B:7E0:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "RTÉ2+1",
+      "reference": "1:0:1:1426:7E7:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "STV HD",
+      "reference": "1:0:19:1430:7E8:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Belarus Tomorrow",
+      "reference": "1:0:19:1437:CA2:3:EB0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Comedy",
+      "reference": "1:0:1:1439:7E7:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TBN Ukraine",
+      "reference": "1:0:1:143C:CA2:3:EB0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Disney Jr HD",
+      "reference": "1:0:19:143F:7E9:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Novasports5HD",
+      "reference": "1:0:1:143:157C:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TV Rain",
+      "reference": "1:0:1:1446:CA2:3:EB0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Disney+CineHD",
+      "reference": "1:0:19:1447:7EE:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Nature",
+      "reference": "1:0:1:144A:7E7:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "DATA",
+      "reference": "1:0:1:144F:5DC:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TLC Balkans HD",
+      "reference": "1:0:19:1450:C3AA:9E:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Channel 4 South & East HD",
+      "reference": "1:0:19:1452:7F2:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SES_LCN2",
+      "reference": "1:0:1:1455:C98:3:EB0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Crime",
+      "reference": "1:0:1:1457:7E4:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Crime HD",
+      "reference": "1:0:19:145C:7E5:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Channel 4 Midlands HD",
+      "reference": "1:0:19:145D:7E8:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "M1_SID325",
+      "reference": "1:0:1:145:157C:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Diema Sport 3 HD",
+      "reference": "1:0:19:145:2648:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "5221",
+      "reference": "1:0:1F:1465:7F0:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Chamber TV HD",
+      "reference": "1:0:1:1469:C98:3:EB0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Tring Sport 2 HD",
+      "reference": "1:0:19:146E:5014:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Domashniy",
+      "reference": "1:0:16:146:2648:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Sport Austria 5",
+      "reference": "1:0:19:146:B:85:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "RTL Tele Letzebuerg 23.5",
+      "reference": "1:0:1:1478:C98:3:EB0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Channel 4 HD",
+      "reference": "1:0:19:147E:7EB:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "M1_SID327",
+      "reference": "1:0:1:147:157C:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "CTC Kids",
+      "reference": "1:0:16:147:2648:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Sport Bundesliga 7",
+      "reference": "1:0:19:147:C:85:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Channel 4 Scotland HD",
+      "reference": "1:0:19:1480:7F2:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Channel 4 North HD",
+      "reference": "1:0:19:1481:7E8:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Channel 4 HD",
+      "reference": "1:0:19:1482:7E5:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "RTÉ KIDSjr",
+      "reference": "1:0:1:1488:7E7:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Oireachtas TV",
+      "reference": "1:0:1:1489:7E7:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Tring Sport 3 HD",
+      "reference": "1:0:19:148C:5014:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Novasports5HD Cy",
+      "reference": "1:0:1:148:157C:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Sport 7",
+      "reference": "1:0:19:148:C:85:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "RTÉ2 HD",
+      "reference": "1:0:19:1496:7F2:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "MAK TV HD",
+      "reference": "1:0:1:149:157C:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Sport Austria 2",
+      "reference": "1:0:19:149:D:85:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "LX9SES",
+      "reference": "1:0:1:14A2:C98:3:EB0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SkySp Tennis HD",
+      "reference": "1:0:19:14A4:7E9:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SBN International",
+      "reference": "1:0:1:14A6:C98:3:EB0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Tring Sport 4 HD",
+      "reference": "1:0:19:14AA:51A4:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Diema Sport 2 HD",
+      "reference": "1:0:19:14A:2648:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SAT.1 HD Austria",
+      "reference": "1:0:19:14B4:407:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Discovery Central Europe HD",
+      "reference": "1:0:19:14B4:C3AA:9E:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "ProSieben HD Austria",
+      "reference": "1:0:19:14B5:407:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SkySp Cricket",
+      "reference": "1:0:1:14B6:7E4:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "PULS 4 HD Austria",
+      "reference": "1:0:19:14B7:407:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "PULS 24 HD",
+      "reference": "1:0:19:14B8:407:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "4mediathek",
+      "reference": "1:0:19:14B9:407:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "sixx AUSTRIA",
+      "reference": "1:0:16:14BD:407:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SAT.1 Gold Österreich",
+      "reference": "1:0:16:14BE:407:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Pro7 MAXX Austria",
+      "reference": "1:0:16:14BF:407:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Novasports3HD Cy",
+      "reference": "1:0:1:14B:157C:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "MAX One HD",
+      "reference": "1:0:19:14B:2648:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "kabel1 Doku austria",
+      "reference": "1:0:16:14C0:407:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SkySp News",
+      "reference": "1:0:1:14C7:7E4:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Tring Sport 5 HD",
+      "reference": "1:0:19:14C8:51A4:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SkySp Golf",
+      "reference": "1:0:1:14CC:7E4:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "M1_SID332 Cy",
+      "reference": "1:0:1:14C:157C:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TNTUltimateUHD",
+      "reference": "1:0:1F:14D8:7EA:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TNTUltimateUHD",
+      "reference": "1:0:1F:14D9:7EA:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Tring Sport 6 HD",
+      "reference": "1:0:19:14E6:50DC:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SkySp Tennis HD",
+      "reference": "1:0:19:14F2:7E9:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SkySp Tennis",
+      "reference": "1:0:1:14F3:7E4:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "RTL Living.",
+      "reference": "1:0:16:14:1:40:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Food Network",
+      "reference": "1:0:19:14:204:1D:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "NOVE",
+      "reference": "1:0:19:14:7918:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Tring Sport 7 HD",
+      "reference": "1:0:19:1504:50DC:16E:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Novasports3HD",
+      "reference": "1:0:1:150:157C:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "sonnenklar.TV HD",
+      "reference": "1:0:19:1518:455:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky One HD",
+      "reference": "1:0:19:1518:7E9:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Animal Planet Europe HD",
+      "reference": "1:0:19:1518:C3AA:9E:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TELE 5 HD",
+      "reference": "1:0:19:1519:455:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "DMAX HD",
+      "reference": "1:0:19:151A:455:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky One",
+      "reference": "1:0:1:151A:7E7:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Juwelo HD",
+      "reference": "1:0:19:151B:455:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky One",
+      "reference": "1:0:1:151B:7E7:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "pearl.tv HD Shop",
+      "reference": "1:0:19:151C:455:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Sport Bundesliga 8",
+      "reference": "1:0:19:151:10:85:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "ALPHA HD",
+      "reference": "1:0:1:151:157C:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": ".",
+      "reference": "1:0:16:1523:455:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": ".",
+      "reference": "1:0:16:1524:455:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Premier 1 HD",
+      "reference": "1:0:19:1524:7E9:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Premier 2 HD",
+      "reference": "1:0:19:1526:7E9:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Christmas24",
+      "reference": "1:0:1:152C:7E7:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TELE 5 HD Austria",
+      "reference": "1:0:19:152D:455:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "DMAX HD Austria",
+      "reference": "1:0:19:152E:455:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Sport 8",
+      "reference": "1:0:19:152:10:85:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Sport Austria 3",
+      "reference": "1:0:19:153:2:85:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Prime Sportsbar",
+      "reference": "1:0:19:155:4:85:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Sport Austria 6",
+      "reference": "1:0:19:156:10:85:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Disney Channel HD",
+      "reference": "1:0:19:157C:41F:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "ID Pan Regional HD",
+      "reference": "1:0:19:157C:C3AA:9E:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "HSE Extra HD",
+      "reference": "1:0:19:157D:41F:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "123.live",
+      "reference": "1:0:19:157E:41F:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Deluxe Music HD",
+      "reference": "1:0:19:157F:41F:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "QVC ZWEI HD",
+      "reference": "1:0:19:1580:41F:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SPORT1 HD",
+      "reference": "1:0:19:1581:41F:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Sci-Fi",
+      "reference": "1:0:1:1581:7E7:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Disney Channel HD Austria",
+      "reference": "1:0:19:1586:41F:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Deluxe Music HD Austria",
+      "reference": "1:0:19:1589:41F:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TLC Hungary HD",
+      "reference": "1:0:19:15E0:C3AA:9E:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TELE CONGO HD",
+      "reference": "1:0:1:15F:19C8:9E:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Discovery HD",
+      "reference": "1:0:1:15F:1C84:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "RTL Kockica.",
+      "reference": "1:0:16:15:1:40:A00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "RTL 102.5",
+      "reference": "1:0:19:15:204:1D:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "STAR Life",
+      "reference": "1:0:1:15:2580:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Premier 2 HD",
+      "reference": "1:0:19:1603:7E9:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "BabyTV",
+      "reference": "1:0:1:160D:7E7:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Naftemporiki TV HD",
+      "reference": "1:0:1:160:1C84:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "PHOENIX INFO NEWS",
+      "reference": "1:0:1:161:19C8:9E:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SID_353",
+      "reference": "1:0:1:161:1C84:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "ORTM",
+      "reference": "1:0:16:162:19C8:9E:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Novasports4HD",
+      "reference": "1:0:1:162:1C84:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Novasports4HD Cy",
+      "reference": "1:0:1:163:1C84:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "DW English HD",
+      "reference": "1:0:1:1644:42C:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Science Europe HD",
+      "reference": "1:0:19:1644:C3AA:9E:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TVMonaco",
+      "reference": "1:0:1:1645:42C:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Cubavision Internacional",
+      "reference": "1:0:19:1647:42C:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "CNN Int.",
+      "reference": "1:0:1:164E:42C:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "CGTN HD",
+      "reference": "1:0:19:164F:42C:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SID_356",
+      "reference": "1:0:1:164:1C84:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "CGTN DOCUMENTARY HD",
+      "reference": "1:0:19:1650:42C:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "CGTN FRANCAIS HD",
+      "reference": "1:0:19:1651:42C:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "MagentaSport3",
+      "reference": "1:0:1:165:1C84:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "OPEN BEYOND HD",
+      "reference": "1:0:1:166:1C84:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "BNT 4",
+      "reference": "1:0:1:168:157C:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Novasportsextra1HD",
+      "reference": "1:0:1:169:1C84:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "a.tv HD",
+      "reference": "1:0:19:16A8:3FF:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Food Network EMEA HD",
+      "reference": "1:0:19:16A8:C3AA:9E:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "münchen.tv HD",
+      "reference": "1:0:19:16A9:3FF:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "rfo Regional Fernsehen Oberbayern HD",
+      "reference": "1:0:19:16AA:3FF:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "a.tv HD .",
+      "reference": "1:0:19:16AB:3FF:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "tv.ingolstadt HD",
+      "reference": "1:0:19:16AC:3FF:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "RTÉ News",
+      "reference": "1:0:1:16AC:7E7:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Lokal-TV-Portal HD",
+      "reference": "1:0:1:16AD:3FF:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Nat Geo",
+      "reference": "1:0:1:16AE:7E4:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "NIEDERBAYERN TV HD",
+      "reference": "1:0:19:16AF:3FF:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "The HISTORY Channel HD",
+      "reference": "1:0:1:16A:1C84:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "OTVA HD",
+      "reference": "1:0:19:16B0:3FF:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Franken Plus HD",
+      "reference": "1:0:19:16B1:3FF:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "WOTSCH",
+      "reference": "1:0:1:16B2:3FF:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Kontra Channel",
+      "reference": "1:0:1:16B:1C84:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SkySp+",
+      "reference": "1:0:1:16CF:7E7:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Nat Geo Wild",
+      "reference": "1:0:1:16D7:7E7:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Novacinema4HD",
+      "reference": "1:0:1:16E:1C84:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Virgin One HD",
+      "reference": "1:0:1:16F9:7EB:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Novacinema4HD Cy",
+      "reference": "1:0:1:16F:1C84:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Discovery",
+      "reference": "1:0:19:16:204:1D:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "STAR Crime",
+      "reference": "1:0:1:16:2580:D5:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Heimatkanal",
+      "reference": "1:0:16:16:2:85:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TLC Pan Regional HD",
+      "reference": "1:0:19:170C:C3AA:9E:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "NOVALIFE HD",
+      "reference": "1:0:1:170:1C84:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "NOVALIFE Cy",
+      "reference": "1:0:1:171:1C84:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Da Vinci HD",
+      "reference": "1:0:1:172:1C84:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SkySp+ HD",
+      "reference": "1:0:1:1734:7EB:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Action24",
+      "reference": "1:0:1:175:1C84:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TV CENTRO MARCHE",
+      "reference": "1:0:19:1771:60E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "VERA TV",
+      "reference": "1:0:19:1772:60E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "e'TV MARCHE",
+      "reference": "1:0:1:1773:60E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TVRS",
+      "reference": "1:0:19:1774:60E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "CANALE ITALIA extra",
+      "reference": "1:0:1:1775:60E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Discovery HD",
+      "reference": "1:0:19:1775:7ED:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "7 GOLD MARCHE",
+      "reference": "1:0:1:1776:60E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "FANO TV",
+      "reference": "1:0:1:1777:60E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SkySpMainEvHD",
+      "reference": "1:0:19:1777:7EB:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "INFO 2000",
+      "reference": "1:0:1:1778:60E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "ROSSINI TV",
+      "reference": "1:0:19:1779:60E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "e'TV +",
+      "reference": "1:0:1:177E:60E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Action HD",
+      "reference": "1:0:19:177E:7EE:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Family HD",
+      "reference": "1:0:19:1782:7EE:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Christmas HD",
+      "reference": "1:0:19:1784:7EE:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SkyPremiereHD",
+      "reference": "1:0:19:1785:7EE:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "CANALE ITALIA extra",
+      "reference": "1:0:1:1789:60E1:217C:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Star Channel",
+      "reference": "1:0:16:178E:C82:3:EB0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Novasportsextra3HD Cy",
+      "reference": "1:0:1:178:1C84:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Bourne HD",
+      "reference": "1:0:19:1791:7EE:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TG4 HD",
+      "reference": "1:0:19:1792:7F2:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "MAD T.V",
+      "reference": "1:0:1:179:1C84:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "HDTest2",
+      "reference": "1:0:19:17A0:7D3:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky News HD",
+      "reference": "1:0:19:17A4:7E0:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Crime",
+      "reference": "1:0:1:17A8:7E7:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Thriller HD",
+      "reference": "1:0:19:17AE:7EE:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "ΕΡΤ1 HD",
+      "reference": "1:0:1:17A:1C84:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Disney Channel",
+      "reference": "1:0:16:17B1:C82:3:EB0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "ONS",
+      "reference": "1:0:16:17B3:C82:3:EB0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "ESPN 4 HD",
+      "reference": "1:0:19:17B4:C82:3:EB0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Sci-Fi HD",
+      "reference": "1:0:19:17BA:7F2:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "NPO2 HD",
+      "reference": "1:0:19:17C0:C82:3:EB0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SBS6 HD",
+      "reference": "1:0:19:17CA:C82:3:EB0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "ESPN HD",
+      "reference": "1:0:19:17CC:C82:3:EB0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "FILMBOX+ One",
+      "reference": "1:0:19:17CE:C82:3:EB0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "CANAL+ Action",
+      "reference": "1:0:19:17CF:C82:3:EB0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Cartoon Network Central Europe HD",
+      "reference": "1:0:19:17D4:C3BE:9E:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "CNN Int.",
+      "reference": "1:0:1:17D5:42A:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TVGE Internacional",
+      "reference": "1:0:1:17D8:C91:3:EB0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Novasportsextra3HD",
+      "reference": "1:0:1:17D:1C84:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "CD Infokanaal",
+      "reference": "1:0:16:17E0:C82:3:EB0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TVV Infokanaal",
+      "reference": "1:0:16:17E1:C82:3:EB0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "FIGHTBOX",
+      "reference": "1:0:16:17EA:C82:3:EB0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SkyDocmntrsHD",
+      "reference": "1:0:19:17F8:7E0:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SKAI HD",
+      "reference": "1:0:1:17F:1C84:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "RTB TV",
+      "reference": "1:0:16:17:170C:9E:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Discovery",
+      "reference": "1:0:19:17:204:1D:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Krimi",
+      "reference": "1:0:19:17:4:85:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Comedy",
+      "reference": "1:0:1:1802:7E4:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Premier 1 HD",
+      "reference": "1:0:19:180A:7E9:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "M2_SID384",
+      "reference": "1:0:1:180:1C84:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "STV HD",
+      "reference": "1:0:19:1817:7E5:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "STV HD",
+      "reference": "1:0:19:181A:7ED:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Nickelodeon",
+      "reference": "1:0:1:182:1C84:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Discovery Hungary HD",
+      "reference": "1:0:19:1838:C3BE:9E:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Challenge",
+      "reference": "1:0:1:183B:7E4:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Pro7Sat.1 UHD",
+      "reference": "1:0:1F:183D:40B:1:C00000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "EPT3 HD",
+      "reference": "1:0:1:183:1C84:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "QUEST+1",
+      "reference": "1:0:1:1847:7F3:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Arts",
+      "reference": "1:0:1:1855:7E7:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SkyDocumntrs",
+      "reference": "1:0:1:1856:7E7:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "TLC",
+      "reference": "1:0:1:1859:7F3:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "ΕΡΤ2 ΣΠΟΡ",
+      "reference": "1:0:1:185:1C84:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Da Vinci HD UG",
+      "reference": "1:0:1:186:1C84:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SkySp Tennis",
+      "reference": "1:0:1:188D:7E4:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Discovery Central Europe Clean HD",
+      "reference": "1:0:19:189C:C3BE:9E:5A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Test 1",
+      "reference": "1:0:16:189D:C97:3:EB0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Test 2",
+      "reference": "1:0:16:189E:C97:3:EB0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Test 3",
+      "reference": "1:0:16:189F:C97:3:EB0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Test 4",
+      "reference": "1:0:19:18A0:C97:3:EB0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Test 5",
+      "reference": "1:0:16:18A1:C97:3:EB0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SkySp F1",
+      "reference": "1:0:1:18A2:7E7:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Test 6",
+      "reference": "1:0:16:18A2:C97:3:EB0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Test 7",
+      "reference": "1:0:16:18A3:C97:3:EB0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "BBC Parl HD",
+      "reference": "1:0:19:18A4:7FD:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Test 8",
+      "reference": "1:0:1:18A4:C97:3:EB0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SkySpMainEv",
+      "reference": "1:0:1:18A5:7E4:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Test 9",
+      "reference": "1:0:1:18A5:C97:3:EB0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Test 10",
+      "reference": "1:0:1:18A6:C97:3:EB0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "BBC One NE HD",
+      "reference": "1:0:19:18A7:7FD:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Test 11",
+      "reference": "1:0:1:18A7:C97:3:EB0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "BBC Two NI HD",
+      "reference": "1:0:19:18A8:7FD:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Test 12",
+      "reference": "1:0:1:18A8:C97:3:EB0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Test 13",
+      "reference": "1:0:19:18A9:C97:3:EB0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SkySp News",
+      "reference": "1:0:1:18AA:7E4:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Test 14",
+      "reference": "1:0:19:18AA:C97:3:EB0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Test 15",
+      "reference": "1:0:16:18AB:C97:3:EB0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Test 16",
+      "reference": "1:0:16:18AC:C97:3:EB0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Novasportsextra1HD Cy",
+      "reference": "1:0:1:18A:1C84:13E:820000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "BBC One NW HD",
+      "reference": "1:0:19:18BB:7FD:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "BBC Two NI HD",
+      "reference": "1:0:19:18BC:7FD:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "SkySp NFL",
+      "reference": "1:0:1:18BD:7E4:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
+    },
+    {
+      "provider": "skylink-sk",
+      "kind": "added",
+      "name": "Sky Witness",
+      "reference": "1:0:1:18BE:7E4:2:11A0000:0:0:0:",
+      "provider_name": "Vhannibal SAT",
+      "at": "2026-11-08T14:25:07.136725+00:00"
     }
   ],
-  "last_change_at": "2026-11-08T14:16:51.320512+00:00"
+  "last_change_at": "2026-11-08T14:25:07.136725+00:00"
 }
