@@ -642,9 +642,10 @@ stations:
     trim_logo: true
     render_preset: original
     targets:
+    - sat:antik-sat-sk:492_76C0_16E_A00000
     - sat:skylink-sk:33A0_C9D_3_EB0000
     - sat:skylink-sk:492_76C0_16E_A00000
-    updated_at: 1794167382
+    updated_at: 1794176206
   viasat-epic-drama:
     name: Viasat Epic Drama
     logo: assets/logos/stations/viasat-epic-drama.png
@@ -673,6 +674,7 @@ stations:
     trim_logo: true
     render_preset: original
     targets:
+    - sat:antik-sat-sk:45C_526C_16E_A00000
     - sat:skylink-sk:260_2774_13E_820000
     - sat:skylink-sk:3CF0_C95_3_EB0000
     - sat:skylink-sk:44F_526C_16E_A00000
@@ -681,7 +683,7 @@ stations:
     - sat:skylink-sk:45C_526C_16E_A00000
     - sat:skylink-sk:4E9E_CA4_3_EB0000
     - sat:skylink-sk:79_251C_D5_820000
-    updated_at: 1794167654
+    updated_at: 1794176206
   markiza-klasik:
     name: Markiza Klasik
     logo: assets/logos/stations/markiza-klasik.png
@@ -694,9 +696,10 @@ stations:
     trim_logo: true
     render_preset: original
     targets:
+    - sat:antik-sat-sk:4B4_76C1_16E_A00000
     - sat:skylink-sk:3C2B_C90_3_EB0000
     - sat:skylink-sk:4B4_76C1_16E_A00000
-    updated_at: 1794167715
+    updated_at: 1794176206
   viasat-true-crime:
     name: Viasat True Crime
     logo: assets/logos/stations/viasat-true-crime.png
