@@ -15,11 +15,11 @@
 <div class="station-help">Vhannibal je jediným zdrojom kanálov. Synchronizácia sa spúšťa každých šesť hodín. Logá a ich úpravy zostávajú tvoje.</div>
 <p id="stationCount" role="status"></p><div id="stationGrid" class="station-grid"></div><button type="button" class="action secondary" id="stationMore" style="display:none;margin-top:16px">Zobraziť ďalších 100 staníc</button>
 </section>
-<section class="panel" data-panel-view="missing"><h1>Chýbajúce logá</h1><p class="sub">Stanice, ktorým chýba logo aspoň u jedného operátora. Pri existujúcom logu otvor priradenia.</p><div id="missingGrid" class="station-grid"></div><button type="button" class="action secondary" id="missingMore" style="display:none;margin-top:16px">Zobraziť ďalších 100 chýbajúcich</button></section>
+<section class="panel" data-panel-view="missing"><h1>Chýbajúce logá</h1><p class="sub">Stanice bez hotového loga pre všetky ich service reference. Pri existujúcom logu otvor priradenia.</p><div id="missingGrid" class="station-grid"></div><button type="button" class="action secondary" id="missingMore" style="display:none;margin-top:16px">Zobraziť ďalších 100 chýbajúcich</button></section>
 
 <section class="panel" data-panel-view="vhannibal">
 <h1>Zmeny Vhannibal</h1>
-<p class="sub">Posledná automatická synchronizácia Skylink SK + CZ. Tu vidíš, čo sa oproti predchádzajúcemu katalógu zmenilo.</p>
+<p class="sub">Posledná automatická synchronizácia Vhannibal. Tu vidíš, čo sa oproti predchádzajúcemu katalógu zmenilo.</p>
 {% if vhannibal_report.error %}
   <div class="change-empty">{{ vhannibal_report.error }}</div>
 {% else %}
@@ -85,7 +85,7 @@
 {% endif %}
 </section>
 <section class="panel" data-panel-view="changes">
-<h1>Zmeny operátorov</h1>
+<h1>História synchronizácie</h1>
 <p class="sub">Zmeny oproti poslednému úspešne načítanému katalógu. Nedostupnosť zdroja nie je odstránenie stanice.</p>
 <p id="catalogueChangeStatus" role="status" class="station-help">Načítavam históriu aktualizácií…</p>
 <div class="station-tools"><select id="catalogueChangeOperator" aria-label="Filtrovať zmeny podľa operátora"><option value="">Všetci operátori</option></select></div>
@@ -150,7 +150,7 @@
    tile.append(picture,title,operators,status);
    const button=(text,fn)=>{const b=document.createElement('button');b.type='button';b.className='action secondary';b.textContent=text;b.onclick=fn;tile.append(b);};
    button(source._has_curated_logo?'Vymeniť logo':'Nahrať logo',()=>select(source,'upload'));
-   if(source._has_curated_logo){button('Upraviť vzhľad',()=>select(source,'edit'));button('Priradiť operátorom',()=>{select(source,'upload');openPanel('library');});}
+   if(source._has_curated_logo){button('Upraviť vzhľad',()=>select(source,'edit'));button('Priradiť službám',()=>{select(source,'upload');openPanel('library');});}
    return tile;
  }
  let stationLimit=100, missingLimit=100;
