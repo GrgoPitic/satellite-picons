@@ -6,6 +6,19 @@
   <meta name="description" content="Picon Hub — profesionálne kurátorované picony pre Enigma2.">
   <title>Picon Hub</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .change-history{max-width:1400px;margin:28px auto 36px;padding:22px;border:1px solid #314254;border-radius:18px;background:#101a26}
+    .change-history-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px}
+    .change-history-header h2{margin:6px 0 8px;font-size:23px}
+    .change-history-header p{color:#adbbca;font-size:14px}
+    .change-history select{padding:10px 12px;border-radius:10px;background:#0b1420;color:#f1f5f9;border:1px solid #405369}
+    .change-history-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(275px,1fr));gap:12px}
+    .change-history-entry{padding:13px 16px;border:1px solid #2d3d4f;border-radius:12px;background:#0c1520}
+    .change-history-entry strong{display:block;font-size:14px;margin:5px 0;color:#f2f6fb}
+    .change-history-entry span,.change-history-entry time{color:#a7b6c7;font-size:12px}
+    #publicChangeStatus{color:#a7b6c7;font-size:13px}
+  </style>
+
 </head>
 <body>
   <main class="site-shell">
@@ -66,6 +79,16 @@
       </section>
     </div>
 
+    <section class="change-history" aria-labelledby="changeHistoryTitle">
+      <div class="change-history-header">
+        <div><p class="eyebrow">AUTOMATICKÉ AKTUALIZÁCIE</p><h2 id="changeHistoryTitle">Čo sa zmenilo u operátorov</h2>
+          <p>Nové stanice, odstránené služby, zmeny názvov a naladenia oproti posledným úspešným synchronizáciám.</p></div>
+        <select id="publicChangeProvider" aria-label="Operátor v histórii zmien"><option value="">Všetci operátori</option></select>
+      </div>
+      <p id="publicChangeStatus" role="status">Načítavam históriu aktualizácií…</p>
+      <div id="publicChangeList" class="change-history-list"></div>
+    </section>
+
     <div id="logoModal" class="modal" hidden>
       <button class="modal-backdrop" type="button" aria-label="Zavrieť náhľad"></button>
       <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
@@ -85,6 +108,6 @@
       <span>Vhannibal metadata · vlastný artwork</span>
     </footer>
   </main>
-  <script src="app.js?v=20261108-catalogue-fix"></script>
+  <script src="app.js?v=20261108-change-history"></script>
 </body>
 </html>
