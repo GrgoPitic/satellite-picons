@@ -126,6 +126,20 @@ def station_picon():
     return send_file(io.BytesIO(png), mimetype="image/png")
 
 
+@hub.legacy.app.get("/api/catalogue-changes")
+def catalogue_changes():
+    import json
+    from flask import jsonify
+    report = ROOT / "catalogue-changes.json"
+    try:
+        data = json.loads(report.read_text(encoding="utf-8")) if report.is_file() else {"schema": 1, "events": []}
+    except (OSError, ValueError):
+        data = {"schema": 1, "events": []}
+    response = jsonify(data)
+    response.headers["Cache-Control"] = "no-store"
+    return response
+
+
 from vhannibal_check import register
 register(hub.legacy.app, load_curated_channels)
 
