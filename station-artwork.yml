@@ -537,3 +537,17 @@ stations:
     - sat:skylink-sk:37BC_44C_13E_820000
     - sat:skylink-sk:AA3_9DD0_16E_A00000
     updated_at: 1794165326
+  filmbox-plus-love-and-crime:
+    name: FILMBOX+ Love and Crime
+    logo: assets/logos/stations/filmbox-plus-love-and-crime.png
+    source_logo: assets/source-logos/stations/filmbox-plus-love-and-crime.svg
+    dark_to_white: false
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: false
+    background_tolerance: 28
+    trim_logo: true
+    render_preset: original
+    targets:
+    - sat:skylink-sk:3CF9_C95_3_EB0000
+    updated_at: 1794165963
