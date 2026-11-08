@@ -136,9 +136,10 @@ def main() -> None:
             event["at"] = now
             new_events.append(event)
 
-    if new_events:
+    if new_events or not REPORT.is_file():
         history["events"] = (new_events + history.get("events", []))[:LIMIT]
-        history["last_change_at"] = now
+        if new_events:
+            history["last_change_at"] = now
         history["schema"] = 1
         REPORT.write_text(json.dumps(history, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({"catalogues": len(new), "new_events": len(new_events),
