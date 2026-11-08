@@ -517,3 +517,23 @@ stations:
     targets:
     - sat:skylink-sk:7D4_9E98_16E_A00000
     updated_at: 1794163766
+  filmbox-plus-one:
+    name: FILMBOX+ one
+    logo: assets/logos/stations/filmbox-plus-one.png
+    source_logo: assets/source-logos/stations/filmbox-plus-one.svg
+    dark_to_white: false
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: false
+    background_tolerance: 28
+    trim_logo: true
+    render_preset: original
+    targets:
+    - sat:skylink-sk:13A9_2710_D5_820000
+    - sat:skylink-sk:17CE_C82_3_EB0000
+    - sat:skylink-sk:36E9_C8C_3_EB0000
+    - sat:skylink-sk:36F2_C8C_3_EB0000
+    - sat:skylink-sk:378A_44C_13E_820000
+    - sat:skylink-sk:37BC_44C_13E_820000
+    - sat:skylink-sk:AA3_9DD0_16E_A00000
+    updated_at: 1794165326
