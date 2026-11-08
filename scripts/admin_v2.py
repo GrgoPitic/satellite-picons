@@ -14,6 +14,7 @@ from flask import jsonify, redirect, render_template_string, request, send_file,
 from werkzeug.utils import secure_filename
 
 import admin as legacy
+from logo_presets import apply_preset
 from catalog_common import (
     ARTWORK_CONFIG,
     channel_identity,
@@ -321,7 +322,7 @@ def save_source_logo(*, station_key: str, raw: bytes, ext: str) -> str:
     return str(destination.relative_to(ROOT))
 
 
-def process_logo_image(*, raw: bytes, ext: str, background_cleanup: bool, background_tolerance: int, trim_logo: bool):
+def process_logo_image(*, raw: bytes, ext: str, background_cleanup: bool, background_tolerance: int, trim_logo: bool, render_preset: str = "original"):
     if ext not in legacy.SUPPORTED:
         raise ValueError("Nepodporovaný formát loga.")
     try:
@@ -330,6 +331,7 @@ def process_logo_image(*, raw: bytes, ext: str, background_cleanup: bool, backgr
         if ext == ".svg":
             raise ValueError("SVG sa na Macu nepodarilo spracovať. Použi PNG alebo oprav lokálny SVG renderer.") from exc
         raise
+    image = apply_preset(image, render_preset)
     if background_cleanup:
         image = legacy.remove_corner_connected_background(
             image, tolerance=max(0, min(96, int(background_tolerance)))
@@ -339,12 +341,13 @@ def process_logo_image(*, raw: bytes, ext: str, background_cleanup: bool, backgr
     return image
 
 
-def processed_logo_png(*, raw: bytes, ext: str, background_cleanup: bool, background_tolerance: int, trim_logo: bool) -> bytes:
+def processed_logo_png(*, raw: bytes, ext: str, background_cleanup: bool, background_tolerance: int, trim_logo: bool, render_preset: str = "original") -> bytes:
     image = process_logo_image(
         raw=raw, ext=ext,
         background_cleanup=background_cleanup,
         background_tolerance=background_tolerance,
         trim_logo=trim_logo,
+        render_preset=render_preset,
     )
     out = io.BytesIO()
     image.save(out, format="PNG", optimize=True)
@@ -352,13 +355,14 @@ def processed_logo_png(*, raw: bytes, ext: str, background_cleanup: bool, backgr
 
 
 def save_shared_logo(*, station_key: str, raw: bytes, ext: str, background_cleanup: bool = False,
-                     background_tolerance: int = 28, trim_logo: bool = True) -> str:
+                     background_tolerance: int = 28, trim_logo: bool = True, render_preset: str = "original") -> str:
     STATION_LOGOS.mkdir(parents=True, exist_ok=True)
     png = processed_logo_png(
         raw=raw, ext=ext,
         background_cleanup=background_cleanup,
         background_tolerance=background_tolerance,
         trim_logo=trim_logo,
+        render_preset=render_preset,
     )
     destination = STATION_LOGOS / f"{station_key}.png"
     destination.write_bytes(png)
@@ -556,6 +560,13 @@ def PAGE_V2() -> str:
               <div class="range-row"><input id="uploadBackgroundTolerance" type="range" min="0" max="96" step="1" value="28"><input id="uploadBackgroundToleranceValue" type="number" min="0" max="96" step="1" value="28"></div>
               <div class="preview-note">Vyššia tolerancia odstráni aj jemne gradientné pozadie. Nižšia je bezpečnejšia pri detailných logách.</div>
             </div>
+            <label>Predvoľba čistenia SVG / PNG</label>
+            <select id="uploadRenderPreset">
+              <option value="original">Originál – bez zásahov do segmentov</option>
+              <option value="segmented">Segmentované logo (Cartoon Network) – odstrániť veľké prázdne pásy</option>
+              <option value="light-text">Svetlý text na tmavom pozadí (AMC) – transparentné pozadie</option>
+            </select>
+            <p class="preview-note">Výsledok skontroluj v náhľade. Zdrojové SVG zostáva uložené bez úprav.</p>
             <label class="check"><input id="uploadEdgeCleanup" type="checkbox">Vyčistiť biely lem po okrajoch výsledného loga</label>
 
             <div id="simpleUploadStatus" class="status"></div>
@@ -791,6 +802,7 @@ const uploadBackgroundCleanup=document.querySelector('#uploadBackgroundCleanup')
 const uploadBackgroundTolerance=document.querySelector('#uploadBackgroundTolerance');
 const uploadBackgroundToleranceValue=document.querySelector('#uploadBackgroundToleranceValue');
 const uploadTrimLogo=document.querySelector('#uploadTrimLogo');
+const uploadRenderPreset=document.querySelector('#uploadRenderPreset');
 let uploadPreviewValid=false;
 let uploadPreviewUrl=null;
 
@@ -816,6 +828,7 @@ async function previewNewLogo(){
     fd.append('background_cleanup',uploadBackgroundCleanup?.value||'false');
     fd.append('background_tolerance',uploadBackgroundToleranceValue?.value||'28');
     fd.append('trim_logo',uploadTrimLogo?.value||'true');
+    fd.append('render_preset',uploadRenderPreset?.value||'original');
     if(uploadEdgeCleanup.checked) fd.append('edge_cleanup','on');
 
     const r=await fetch('/api/v2/upload-preview',{method:'POST',body:fd});
@@ -858,7 +871,7 @@ if(simpleUploadChannel) simpleUploadChannel.addEventListener('change',()=>{
   const file=simpleUploadFile&&simpleUploadFile.files&&simpleUploadFile.files[0];
   if(file) previewNewLogo();
 });
-[uploadDarkToWhite,uploadOpticalScale,uploadEdgeCleanup,uploadBackgroundCleanup,uploadBackgroundTolerance,uploadBackgroundToleranceValue,uploadTrimLogo].forEach(el=>{
+[uploadDarkToWhite,uploadOpticalScale,uploadEdgeCleanup,uploadBackgroundCleanup,uploadBackgroundTolerance,uploadBackgroundToleranceValue,uploadTrimLogo,uploadRenderPreset].forEach(el=>{
   if(!el) return;
   el.addEventListener(el.tagName==='SELECT'||el.type==='checkbox'?'change':'input',()=>{
     invalidateUploadPreview();
@@ -883,6 +896,10 @@ if(simpleUploadBtn){
       fd.append('logo',file);
       fd.append('dark_to_white',uploadDarkToWhite.value);
       fd.append('optical_scale',uploadOpticalScale.value);
+      fd.append('background_cleanup',uploadBackgroundCleanup?.value||'false');
+      fd.append('background_tolerance',uploadBackgroundToleranceValue?.value||'28');
+      fd.append('trim_logo',uploadTrimLogo?.value||'true');
+      fd.append('render_preset',uploadRenderPreset?.value||'original');
       if(uploadEdgeCleanup.checked) fd.append('edge_cleanup','on');
 
       const r=await fetch('/api/v2/upload-logo',{method:'POST',body:fd});
@@ -1027,11 +1044,13 @@ def api_v2_upload_preview():
         background_cleanup = request.form.get("background_cleanup", "false") == "true"
         background_tolerance = max(0, min(96, int(request.form.get("background_tolerance", "28"))))
         trim_logo = request.form.get("trim_logo", "true") == "true"
+        render_preset = request.form.get("render_preset", "original")
         processed = processed_logo_png(
             raw=raw, ext=ext,
             background_cleanup=background_cleanup,
             background_tolerance=background_tolerance,
             trim_logo=trim_logo,
+            render_preset=render_preset,
         )
 
         png = legacy.render_preview_png(
@@ -1070,6 +1089,7 @@ def api_v2_upload_logo():
         background_cleanup = request.form.get("background_cleanup", "false") == "true"
         background_tolerance = max(0, min(96, int(request.form.get("background_tolerance", "28"))))
         trim_logo = request.form.get("trim_logo", "true") == "true"
+        render_preset = request.form.get("render_preset", "original")
 
         station_key = str(channel.get("station_key") or normalize_station_key(channel.get("name", "")))
         source_rel = save_source_logo(station_key=station_key, raw=raw, ext=ext)
@@ -1078,6 +1098,7 @@ def api_v2_upload_logo():
             background_cleanup=background_cleanup,
             background_tolerance=background_tolerance,
             trim_logo=trim_logo,
+            render_preset=render_preset,
         )
 
         artwork = load_station_artwork()
@@ -1100,6 +1121,7 @@ def api_v2_upload_logo():
             "background_cleanup": background_cleanup,
             "background_tolerance": background_tolerance,
             "trim_logo": trim_logo,
+            "render_preset": render_preset,
             "targets": sorted(targets),
             "updated_at": int(time.time()),
         }
