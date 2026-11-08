@@ -139,10 +139,19 @@ jobs:
 
           for provider in providers["providers"]:
               assert provider.get("delivery") in {"satellite", "iptv"}, provider
-              if provider.get("available"):
-                  package = provider.get("package")
+              expected = int(provider.get("channel_count") or 0)
+              curated = int(provider.get("curated_channel_count") or 0)
+              complete = bool(provider.get("complete"))
+              package = provider.get("package")
+
+              assert complete == (expected > 0 and curated == expected), provider
+              assert bool(provider.get("available")) == complete, provider
+
+              if complete:
                   assert package, provider
                   assert (Path("public") / package).is_file(), package
+              else:
+                  assert package is None, provider
           PY
 
       - uses: actions/configure-pages@v5
