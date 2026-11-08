@@ -35,7 +35,9 @@ def load_curated_channels() -> tuple[list[dict], dict]:
     # Only stations currently present in Vhannibal are active; preserve all
     # historical artwork and archived operator catalogues on disk.
     rows = [row for row in rows if row.get("provider_group") == "skylink-sk"
-            and row.get("_generated")]
+            and row.get("_generated")
+            # Vhannibal bouquet separators such as "•" are not stations.
+            and any(ch.isalnum() for ch in str(row.get("name") or ""))]
     hidden_imported = 0
     local_logos = 0
 
@@ -103,7 +105,7 @@ def page_curated() -> str:
     page = page.replace("Odstrániť override", "Odstrániť vlastnú úpravu")
     page = page.replace(
         '<h1>Prehľad</h1><p class="sub">Vyber vľavo, čo chceš práve riešiť. Ostatné nástroje sa skryjú.</p>',
-        '<h1>Moje picony</h1><p class="sub">1. Vyber kanál vľavo. 2. Nahraj a ulož logo. 3. V Knižnici log ho priraď ďalším operátorom. 4. Skontroluj náhľad a publikuj.</p>'
+        '<h1>Moje picony</h1><p class="sub">1. Vyber stanicu. 2. Nahraj a skontroluj logo. 3. Priraď ho ďalším service reference. 4. Publikuj po schválení.</p>'
     )
     page = page.replace(
         '<h2>Publikovanie</h2>',
