@@ -118,24 +118,27 @@ def build(index: dict, source_rows: list[dict], snapshot: dict) -> dict:
         package_files = set()
         for station in catalogue:
             matches = by_name.get((normalize_station_key(station["name"]), station["position"]), [])
-            # A duplicate name on the same orbit is ambiguous. Never guess DVB identity.
-            if len(matches) != 1:
-                status = "unresolved" if not matches else "ambiguous"
-                ch = None
+            # Vhannibal may contain several feeds with the same display name
+            # on one orbit. Resolve the transponder BEFORE checking uniqueness.
+            # Do not attach artwork to an unverified or different frequency.
+            verified = [
+                row for row in matches
+                if row.get("frequency_mhz") is not None
+                and abs(int(row["frequency_mhz"]) - int(station["frequency_mhz"])) <= 2
+            ]
+            if len(verified) == 1:
+                ch = verified[0]
+                status = "missing_logo"
             else:
-                possible = matches[0]
-                frequency = possible.get("frequency_mhz")
-                if frequency is None:
-                    # Cached older Vhannibal data lacks frequency: never
-                    # publish an operator mapping based on a name alone.
-                    ch = None
+                ch = None
+                if len(verified) > 1:
+                    status = "ambiguous"
+                elif not matches:
+                    status = "unresolved"
+                elif all(row.get("frequency_mhz") is None for row in matches):
                     status = "unverified_frequency"
-                elif abs(int(frequency) - int(station["frequency_mhz"])) > 2:
-                    ch = None
-                    status = "frequency_mismatch"
                 else:
-                    ch = possible
-                    status = "missing_logo"
+                    status = "frequency_mismatch"
             published = ready_by_ref.get(str(ch.get("service_reference") or "").upper()) if ch else None
             files = published.get("files", []) if published else []
             if files:
