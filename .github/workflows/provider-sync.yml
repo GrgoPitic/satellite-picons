@@ -11,7 +11,7 @@ on:
       - providers.yml
       - .github/workflows/provider-sync.yml
   schedule:
-    - cron: '20 3 * * *'
+    - cron: '20 */6 * * *'
   workflow_dispatch:
 
 permissions:
@@ -44,6 +44,11 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements.txt
+
+      - name: Snapshot current catalogues for change detection
+        run: |
+          mkdir -p "${RUNNER_TEMP}/provider-before"
+          cp provider-data/*.json "${RUNNER_TEMP}/provider-before/" 2>/dev/null || true
 
       - name: Synchronize all provider metadata
         shell: bash
@@ -152,7 +157,10 @@ jobs:
           [ -f provider-data/antik-sat-sk.json ] && rm -f provider-data/antik.json
 
       - name: Update Skylink from Vhannibal
-        run: python scripts/sync_vhannibal.py
+        run: |
+          if ! python scripts/sync_vhannibal.py; then
+            echo "::warning::Vhannibal unavailable or invalid. Keeping previous Skylink catalogue."
+          fi
 
       - name: Normalize catalogues to metadata only
         run: |
@@ -182,6 +190,9 @@ jobs:
               path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n")
               print("normalized", path)
           PY
+
+      - name: Record station changes across all operators
+        run: python scripts/catalogue_changes.py --before "${RUNNER_TEMP}/provider-before"
 
       - name: Assign uploaded logos to newly imported operator services
         run: python scripts/assign_station_artwork.py
@@ -249,7 +260,7 @@ jobs:
           BRANCH="${GITHUB_REF_NAME}"
           git config user.name "JohnyWick"
           git config user.email "42406628+GrgoPitic@users.noreply.github.com"
-          git add -A provider-data station-artwork.yml
+          git add -A provider-data station-artwork.yml catalogue-changes.json
 
           if git diff --cached --quiet; then
             echo "Provider metadata is already current."
