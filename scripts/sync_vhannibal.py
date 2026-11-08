@@ -8,7 +8,13 @@ from pathlib import Path
 import tempfile
 import zipfile
 import requests
-from catalog_common import normalize_station_key, service_identity
+from catalog_common import (
+    channel_identity,
+    load_station_artwork,
+    normalize_station_key,
+    save_station_artwork,
+    service_identity,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 URL = 'https://www.vhannibal.net/download_setting.php?action=download&id=6'
@@ -62,21 +68,51 @@ def sync(blob=None):
                 chunks.append(chunk)
             blob=b''.join(chunks)
     rows,source=parse(blob)
-    import yaml
-    import build_v2
-    cfg=yaml.safe_load((ROOT/'channels.yml').read_text())
-    old,_=build_v2.merged_channels_v2(cfg)
-    fields=['logo','dark_to_white','optical_scale','edge_cleanup']
-    by_ref={};by_name={}
-    for ch in old:
-        if ch.get('provider_group') not in {'skylink-sk','skylink-cz'} or not ch.get('logo'):continue
-        style={k:ch[k] for k in fields if k in ch}
-        by_ref.setdefault(service_identity(ch.get('service_reference','')),[]).append(style)
-        by_name.setdefault(normalize_station_key(ch['name']),[]).append(style)
+    # Provider data is metadata-only. User logos and render settings live
+    # exclusively in station-artwork.yml / assets/logos and are never copied
+    # into synchronized upstream catalogues.
+    artwork = load_station_artwork()
+    stations = artwork.get("stations") or {}
+
+    new_by_station = {}
     for row in rows:
-        choices=by_ref.get(service_identity(row['service_reference'])) or by_name.get(row['station_key'],[])
-        unique={json.dumps(v,sort_keys=True):v for v in choices}
-        if len(unique)==1: row.update(next(iter(unique.values())))
+        key = str(row.get("station_key") or normalize_station_key(row.get("name", "")))
+        new_by_station.setdefault(key, []).append(row)
+
+    artwork_changed = False
+    for station_key, art in stations.items():
+        if not isinstance(art, dict):
+            continue
+        targets = [str(x) for x in art.get("targets", []) or []]
+        skylink_targets = [
+            x for x in targets
+            if x.startswith("sat:skylink-sk:") or x.startswith("sat:skylink-cz:")
+        ]
+        if not skylink_targets:
+            continue
+
+        candidates = new_by_station.get(str(station_key), [])
+        if len(candidates) != 1:
+            # Ambiguous or missing upstream match: preserve old assignment.
+            continue
+
+        new_identity = channel_identity(candidates[0], "skylink-sk")
+        preserved = [
+            x for x in targets
+            if not (x.startswith("sat:skylink-sk:") or x.startswith("sat:skylink-cz:"))
+        ]
+        migrated = sorted(set(preserved + [new_identity]))
+        if migrated != sorted(set(targets)):
+            art["targets"] = migrated
+            artwork_changed = True
+
+    if artwork_changed:
+        save_station_artwork(artwork)
+
+    for row in rows:
+        for field in ("logo", "dark_to_white", "optical_scale", "edge_cleanup", "background_cleanup"):
+            row.pop(field, None)
+
     payload={'provider':'skylink-sk','provider_name':'Skylink SK + CZ','source':{
         'type':'vhannibal','url':URL,'settings':source,'sha256':hashlib.sha256(blob).hexdigest(),
         'artwork_mode':'manual','upstream_logos_imported':False},
