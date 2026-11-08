@@ -4,6 +4,8 @@ from catalog_common import current_manual_channels
 
 import json
 import re
+import zipfile
+from collections import defaultdict
 from pathlib import Path
 
 import yaml
@@ -216,6 +218,57 @@ def postprocess_public() -> None:
         index_path.write_text(json.dumps(index, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
+def build_orbit_catalogue() -> None:
+    """Generate per-orbit metadata and partial packs from Vhannibal data only."""
+    catalogue_file = ROOT / "provider-data" / "skylink-sk.json"
+    source = json.loads(catalogue_file.read_text(encoding="utf-8"))
+    public = ROOT / "public"
+    index = json.loads((public / "index.json").read_text(encoding="utf-8"))
+    expected = defaultdict(int)
+    for channel in source.get("channels", []):
+        position = str(channel.get("satellite_position") or "").strip()
+        if position:
+            expected[position] += 1
+
+    grouped = defaultdict(list)
+    for channel in index.get("channels", []):
+        position = str(channel.get("satellite_position") or "").strip()
+        if position:
+            grouped[position].append(channel)
+
+    packages_dir = public / "packages"
+    packages_dir.mkdir(exist_ok=True)
+    orbits = []
+    for position in sorted(expected):
+        channels = grouped.get(position, [])
+        token = re.sub(r"[^a-z0-9]+", "-", position.lower()).strip("-")
+        package = None
+        files = sorted({filename for channel in channels
+                        for filename in channel.get("files", [])})
+        if files:
+            package = f"packages/vhannibal-{token}-curated.zip"
+            with zipfile.ZipFile(public / package, "w", compression=zipfile.ZIP_DEFLATED,
+                                 compresslevel=9) as archive:
+                for filename in files:
+                    logo = public / "picons" / filename
+                    if not logo.is_file():
+                        raise FileNotFoundError(logo)
+                    archive.write(logo, arcname=filename)
+        orbits.append({
+            "id": position, "name": position, "positions": [position],
+            "channel_count": expected[position],
+            "curated_channel_count": len(channels),
+            "picon_count": len(files),
+            "package": package,
+            "complete": len(channels) == expected[position],
+            "available": bool(files),
+            "description": "Vhannibal · orbitálna pozícia " + position,
+        })
+    (public / "orbits.json").write_text(json.dumps({
+        "schema": 1, "source": "Vhannibal", "orbits": orbits,
+    }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
 def copy_catalogue_change_history() -> None:
     """Expose the same public change history as the administrator."""
     history = ROOT / "catalogue-changes.json"
@@ -234,6 +287,7 @@ def main() -> int:
     if rc == 0:
         postprocess_public()
         copy_catalogue_change_history()
+        build_orbit_catalogue()
     return rc
 
 
