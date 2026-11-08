@@ -443,3 +443,18 @@ stations:
     targets:
     - sat:skylink-sk:4B5_76C1_16E_A00000
     updated_at: 1794149694
+  penthouse-gold:
+    name: Penthouse Gold
+    logo: assets/logos/stations/penthouse-gold.png
+    source_logo: assets/source-logos/stations/penthouse-gold.svg
+    dark_to_white: false
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: false
+    background_tolerance: 28
+    trim_logo: true
+    render_preset: original
+    targets:
+    - sat:skylink-sk:1BFE_C88_3_EB0000
+    - sat:skylink-sk:1C0C_C88_3_EB0000
+    updated_at: 1794162961
