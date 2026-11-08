@@ -13,11 +13,13 @@ import re
 from pathlib import Path
 
 import requests
+import yaml
 from bs4 import BeautifulSoup
 from catalog_common import normalize_station_key
 
 ROOT = Path(__file__).resolve().parents[1]
 SNAPSHOT = ROOT / "skylink-lineups.json"
+REGISTRY = ROOT / "operators.yml"
 URLS = {
     "skylink-sk": "https://www.satelitnatv.sk/frekvencie/skylink-sk/",
     "skylink-cz": "https://www.satelitnatv.sk/frekvencie/skylink-cz/",
@@ -86,10 +88,32 @@ def build(index: dict, source_rows: list[dict], snapshot: dict) -> dict:
         by_name.setdefault(key, []).append(ch)
 
     import zipfile
-    result = {"schema": 1, "source": "SatelitnaTV.sk FastScan + Vhannibal service references",
-              "source_urls": URLS, "providers": []}
-    for ident, display in (("skylink-sk", "Skylink SK"), ("skylink-cz", "Skylink CZ")):
-        catalogue = snapshot.get("providers", {}).get(ident, [])
+    config = yaml.safe_load(REGISTRY.read_text(encoding="utf-8")) or {}
+    operators = sorted(
+        (op for op in config.get("operators", []) if op.get("enabled", False)),
+        key=lambda op: (int(op.get("order", 999)), op["id"]),
+    )
+    ids = [str(op["id"]) for op in operators]
+    if len(set(ids)) != len(ids):
+        raise ValueError("Duplicate operator ids in operators.yml")
+    result = {
+        "schema": 2,
+        "source": "Verified operator lineups + Vhannibal DVB references",
+        "providers": [],
+    }
+    for op in operators:
+        ident, display = str(op["id"]), str(op["name"])
+        if op.get("source_type") != "fastscan":
+            raise ValueError(f"{ident}: unsupported operator source_type")
+        source_file = ROOT / str(op.get("snapshot") or "")
+        if source_file != SNAPSHOT:
+            if not source_file.is_file():
+                raise FileNotFoundError(f"{ident}: missing operator lineup {source_file}")
+            source_data = json.loads(source_file.read_text(encoding="utf-8"))
+        else:
+            source_data = snapshot
+        source_id = str(op.get("source_id") or ident)
+        catalogue = source_data.get("providers", {}).get(source_id, [])
         entries = []
         package_files = set()
         for station in catalogue:
@@ -142,16 +166,21 @@ def build(index: dict, source_rows: list[dict], snapshot: dict) -> dict:
             "curated_channel_count": sum(e["status"] == "ready" for e in entries),
             "matched_channel_count": sum(e["service_reference"] is not None for e in entries),
             "package": package,
-            "source_url": URLS[ident],
+            "source_url": op.get("source_url"),
+            "source_type": "fastscan",
             "complete": bool(entries) and all(e["status"] == "ready" for e in entries),
             "channels": entries,
         })
+    (public / "operators.json").write_text(
+        json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
+    # Backwards compatibility while older clients use skylink.json.
     (public / "skylink.json").write_text(
         json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
     for item in result["providers"]:
         unresolved = sum(entry["status"] != "ready" for entry in item["channels"])
-        print(f'Skylink {item["name"]}: {item["channel_count"]} FastScan entries, '
+        print(f'Operator {item["name"]}: {item["channel_count"]} FastScan entries, '
               f'{item["matched_channel_count"]} verified DVB services, '
               f'{item["curated_channel_count"]} ready picons, {unresolved} not ready')
     return result
