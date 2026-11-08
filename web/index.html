@@ -3,88 +3,66 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Picon Hub — profesionálne kurátorované picony pre Enigma2, SAT a IPTV.">
+  <meta name="description" content="Picon Hub — profesionálne kurátorované picony pre Enigma2.">
   <title>Picon Hub</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main class="site-shell">
-    <header class="hero">
-      <div class="hero-badge">PICON HUB · ENIGMA2</div>
-      <div class="hero-layout">
-        <div class="hero-copy">
-          <h1>Čisté picony.<br><span>Bez kompromisov.</span></h1>
-          <p class="lead">Ručne kurátorované logá, aktuálne DVB údaje a jednotný profesionálny výstup 150 × 90 px. Skylink je synchronizovaný podľa Vhannibal.</p>
-        </div>
-        <div class="hero-panel">
-          <p>Aktuálny stav knižnice</p>
-          <div class="hero-metric"><strong id="channels">—</strong><span>hotových staníc</span></div>
-          <div class="hero-metric"><strong id="picons">—</strong><span>vygenerovaných piconov</span></div>
-          <div class="hero-update">Aktualizované <strong id="updated">—</strong></div>
-        </div>
+    <header class="topbar">
+      <div>
+        <div class="brand">PICON HUB</div>
+        <p>Kurátorované picony pre Enigma2 · Vhannibal metadata · 150 × 90 px</p>
+      </div>
+      <div class="top-stats">
+        <span><strong id="channels">—</strong> staníc</span>
+        <span><strong id="picons">—</strong> piconov</span>
+        <span>aktualizované <strong id="updated">—</strong></span>
       </div>
     </header>
 
-    <section class="providers section-block">
-      <div class="section-heading">
-        <div>
-          <p class="section-kicker">OPERÁTORI</p>
-          <h2>Balíky podľa operátora</h2>
+    <div class="workspace">
+      <aside class="operator-sidebar">
+        <div class="sidebar-head">
+          <p>OPERÁTORI</p>
+          <h1>Vyber operátora</h1>
         </div>
-        <p>Kompletný ZIP sa sprístupní až vtedy, keď je hotových 100 % staníc aktuálneho katalógu operátora.</p>
-      </div>
-      <div id="providerDeliveryFilters" class="filters provider-filters" aria-label="Typ platformy"></div>
-      <div id="providerGrid" class="provider-grid" aria-live="polite"></div>
-    </section>
+        <div id="operatorList" class="operator-list" aria-label="Zoznam operátorov"></div>
+      </aside>
 
-    <section class="catalog section-block">
-      <div class="section-heading">
-        <div>
-          <p class="section-kicker">KATALÓG</p>
-          <h2>Hotové picony</h2>
-        </div>
-        <p>Tu sú iba picony, ktoré už prešli naším rendererom a sú pripravené na použitie.</p>
-      </div>
-
-      <div class="catalog-tools">
-        <div class="search-wrap">
-          <span>⌕</span>
-          <input id="search" type="search" placeholder="Hľadať stanicu, operátora alebo service reference…" autocomplete="off">
-        </div>
-        <div id="filters" class="filters" aria-label="Filtrovanie piconov"></div>
-      </div>
-
-      <div id="grid" class="grid"></div>
-    </section>
-
-    <div id="providerModal" class="modal" hidden>
-      <button class="modal-backdrop" type="button" aria-label="Zavrieť možnosti platformy"></button>
-      <section class="modal-card provider-modal-card" role="dialog" aria-modal="true" aria-labelledby="providerModalTitle">
-        <button id="providerModalClose" class="modal-close" type="button" aria-label="Zavrieť">×</button>
-        <div class="provider-modal-copy">
-          <p class="section-kicker">OPERÁTOR</p>
-          <h2 id="providerModalTitle"></h2>
-          <p id="providerModalDescription" class="provider-modal-description"></p>
-          <div id="providerModalStats" class="provider-modal-stats"></div>
-          <div id="providerPackageStatus" class="package-status"></div>
-
-          <div class="provider-choice-grid">
-            <a id="providerFullPackage" class="provider-choice provider-choice-primary" href="#" download hidden>
-              <span class="choice-icon">ZIP</span>
-              <strong>Stiahnuť kompletný balík</strong>
-              <span>Obsahuje všetky hotové picony aktuálneho katalógu tohto operátora.</span>
-            </a>
-
-            <button id="providerBouquetButton" class="provider-choice" type="button">
-              <span class="choice-icon">E2</span>
-              <strong>Len moje kanály</strong>
-              <span>Vyber Enigma2 bouquet a vytvor si ZIP iba z piconov, ktoré už máme hotové.</span>
-            </button>
+      <section class="operator-content">
+        <div class="operator-header">
+          <div class="operator-title-row">
+            <div>
+              <p class="eyebrow">VYBRANÝ OPERÁTOR</p>
+              <h2 id="operatorTitle">—</h2>
+              <p id="operatorDescription" class="operator-description"></p>
+            </div>
+            <div id="operatorProgressBadge" class="progress-badge">—</div>
           </div>
 
-          <input id="bouquetFiles" class="visually-hidden" type="file" accept=".tv,.radio,text/plain" multiple>
-          <div id="bouquetResult" class="bouquet-result" hidden></div>
+          <div class="operator-toolbar">
+            <div class="search-box">
+              <span>⌕</span>
+              <input id="operatorSearch" type="search" placeholder="Hľadať logo v tomto operátorovi…" autocomplete="off">
+            </div>
+            <div id="operatorPackageArea" class="package-area"></div>
+          </div>
+
+          <div class="operator-progress">
+            <div class="progress-line">
+              <span>Hotové logá</span>
+              <strong id="operatorProgressText">—</strong>
+            </div>
+            <div class="progress-track"><div id="operatorProgressFill" class="progress-fill"></div></div>
+          </div>
         </div>
+
+        <div id="operatorEmpty" class="empty-state" hidden>
+          Tento operátor zatiaľ nemá žiadne hotové logá.
+        </div>
+
+        <div id="logoGrid" class="logo-grid" aria-live="polite"></div>
       </section>
     </div>
 
@@ -94,7 +72,7 @@
         <button id="modalClose" class="modal-close" type="button" aria-label="Zavrieť">×</button>
         <div class="modal-preview"><img id="modalImage" alt=""></div>
         <div class="modal-copy">
-          <p id="modalGroup" class="section-kicker"></p>
+          <p id="modalGroup" class="eyebrow"></p>
           <h2 id="modalTitle"></h2>
           <code id="modalRef"></code>
           <div id="modalDownloads" class="modal-downloads"></div>
@@ -103,8 +81,8 @@
     </div>
 
     <footer>
-      <div><strong>Picon Hub</strong><span>Curated picons for Enigma2</span></div>
-      <span>Vhannibal metadata · vlastný artwork · 150 × 90 px</span>
+      <span><strong>Picon Hub</strong> · profesionálne picony bez zbytočných grafických prvkov</span>
+      <span>Vhannibal metadata · vlastný artwork</span>
     </footer>
   </main>
   <script src="app.js"></script>
