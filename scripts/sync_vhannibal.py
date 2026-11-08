@@ -4,6 +4,7 @@ import hashlib
 import io
 import json
 import os
+import re
 from pathlib import Path
 import tempfile
 import zipfile
@@ -30,6 +31,27 @@ def parse(blob):
         if len(dbs)!=1: raise ValueError('Expected one lamedb')
         lines=z.read(dbs[0]).decode('utf-8-sig').splitlines()
         if lines[0]!='eDVB services /4/': raise ValueError('Unsupported lamedb version')
+        # Extract physical transponder frequencies from Enigma2 lamedb v4.
+        # The FastScan list is independent; compare it against this frequency
+        # before assigning a Skylink-specific service reference.
+        transponders = {}
+        try:
+            first = lines.index('transponders') + 1
+            last = lines.index('end', first)
+            current = None
+            for line in lines[first:last]:
+                clean = line.strip()
+                pieces = clean.split(':')
+                if len(pieces) == 3 and all(re.fullmatch(r'[0-9a-fA-F]+', part) for part in pieces):
+                    current = tuple(int(part, 16) for part in pieces)
+                elif current is not None and clean.lower().startswith('s '):
+                    raw_freq = clean[2:].split(':', 1)[0]
+                    if raw_freq.isdigit():
+                        frequency = round(int(raw_freq) / 1000)
+                        if 10000 <= frequency <= 14000:
+                            transponders[current] = frequency
+        except ValueError:
+            pass
         start=lines.index('services')+1; end=lines.index('end',start); services={}
         if (end-start)%3: raise ValueError('Incomplete services section')
         for i in range(start,end,3):
@@ -89,6 +111,7 @@ def parse(blob):
                         'delivery': 'satellite',
                         'variant_types': list(dict.fromkeys([parts[2].upper(), '1', '16', '19'])),
                         'satellite_position': position,
+                        'frequency_mhz': transponders.get((key[3], key[1], key[2])),
                     }
         if len(rows) < 50 or len(rows) > 15000:
             raise ValueError(f'Unexpected Vhannibal catalogue size: {len(rows)}; previous catalogue retained')
