@@ -211,3 +211,16 @@ stations:
     targets:
     - sat:skylink-sk:1F53_CA1_3_EB0000
     updated_at: 1794144188
+  cinemax2:
+    name: Cinemax2 HD
+    logo: assets/logos/stations/cinemax2.png
+    source_logo: assets/source-logos/stations/cinemax2.svg
+    dark_to_white: true
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: false
+    background_tolerance: 28
+    trim_logo: true
+    targets:
+    - sat:skylink-sk:3CF6_C95_3_EB0000
+    updated_at: 1794144275
