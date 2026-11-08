@@ -223,56 +223,93 @@ def postprocess_public() -> None:
 
 
 def build_orbit_catalogue() -> None:
-    """Generate per-orbit metadata and partial packs from Vhannibal data only."""
+    """Build complete Vhannibal orbital service lists and curated-only ZIP packs.
+
+    Every valid DVB service is listed even without artwork. ZIP archives contain
+    only real, rendered picon files. No duplicate service reference is allowed.
+    """
     catalogue_file = ROOT / "provider-data" / "skylink-sk.json"
     source = json.loads(catalogue_file.read_text(encoding="utf-8"))
     public = ROOT / "public"
     index = json.loads((public / "index.json").read_text(encoding="utf-8"))
-    expected = defaultdict(int)
+
+    ready_by_identity = {}
+    for rendered in index.get("channels", []):
+        identity = channel_identity(rendered, "skylink-sk")
+        if identity in ready_by_identity:
+            raise ValueError(f"Duplicate rendered DVB identity: {identity}")
+        ready_by_identity[identity] = rendered
+
+    services_by_orbit = defaultdict(list)
+    seen = set()
     for channel in source.get("channels", []):
         if not is_real_station_name(channel.get("name") or ""):
             continue
         position = str(channel.get("satellite_position") or "").strip()
-        if position:
-            expected[position] += 1
+        if not re.fullmatch(r"(?:[0-9]+(?:\\.[0-9]+)?)[EW]", position):
+            raise ValueError(f"Invalid orbital position: {position!r}")
+        identity = channel_identity(channel, "skylink-sk")
+        if identity in seen:
+            raise ValueError(f"Duplicate Vhannibal DVB identity: {identity}")
+        seen.add(identity)
+        rendered = ready_by_identity.get(identity)
+        if rendered is not None and str(rendered.get("satellite_position")) != position:
+            raise ValueError(f"Orbit mismatch for {identity}: {position} != {rendered.get('satellite_position')}")
+        files = list(rendered.get("files", [])) if rendered else []
+        services_by_orbit[position].append({
+            "name": channel["name"],
+            "station_key": normalize_station_key(channel["name"]),
+            "satellite_position": position,
+            "service_reference": channel["service_reference"],
+            "frequency_mhz": channel.get("frequency_mhz"),
+            "status": "ready" if files else "missing_logo",
+            "files": files,
+        })
 
-    grouped = defaultdict(list)
-    for channel in index.get("channels", []):
-        position = str(channel.get("satellite_position") or "").strip()
-        if position:
-            grouped[position].append(channel)
+    # Rendered channels without a matching source identity are unsafe to publish.
+    unknown = set(ready_by_identity) - seen
+    if unknown:
+        raise ValueError(f"Rendered services not present in Vhannibal: {sorted(unknown)[:3]}")
 
     packages_dir = public / "packages"
     packages_dir.mkdir(exist_ok=True)
     orbits = []
-    for position in sorted(expected):
-        channels = grouped.get(position, [])
+    for position in sorted(services_by_orbit, key=lambda v: (
+        v[-1] == "W", float(v[:-1])
+    )):
+        services = sorted(services_by_orbit[position],
+                          key=lambda ch: (ch["name"].casefold(), ch["service_reference"]))
+        files = sorted({file for ch in services for file in ch["files"]})
+        count_ready = sum(bool(ch["files"]) for ch in services)
         token = re.sub(r"[^a-z0-9]+", "-", position.lower()).strip("-")
         package = None
-        files = sorted({filename for channel in channels
-                        for filename in channel.get("files", [])})
         if files:
             package = f"packages/vhannibal-{token}-curated.zip"
             with zipfile.ZipFile(public / package, "w", compression=zipfile.ZIP_DEFLATED,
                                  compresslevel=9) as archive:
                 for filename in files:
-                    logo = public / "picons" / filename
-                    if not logo.is_file():
-                        raise FileNotFoundError(logo)
-                    archive.write(logo, arcname=filename)
+                    picon = public / "picons" / filename
+                    if not picon.is_file():
+                        raise FileNotFoundError(picon)
+                    archive.write(picon, arcname=filename)
         orbits.append({
             "id": position, "name": position, "positions": [position],
-            "channel_count": expected[position],
-            "curated_channel_count": len(channels),
+            "channel_count": len(services),
+            "curated_channel_count": count_ready,
             "picon_count": len(files),
             "package": package,
-            "complete": len(channels) == expected[position],
+            "complete": bool(services) and count_ready == len(services),
             "available": bool(files),
-            "description": "Vhannibal · orbitálna pozícia " + position,
+            "description": "Vhannibal · kompletný zoznam DVB služieb na orbite " + position
+                           + " · picony dopĺňame postupne",
+            "channels": services,
         })
+
     (public / "orbits.json").write_text(json.dumps({
-        "schema": 1, "source": "Vhannibal", "orbits": orbits,
+        "schema": 2, "source": "Vhannibal", "orbits": orbits,
     }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
 
 
 def copy_catalogue_change_history() -> None:
