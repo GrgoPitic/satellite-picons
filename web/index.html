@@ -3,51 +3,57 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Picon Hub — kurátorovaná databáza piconov pre satelitných aj IPTV providerov.">
+  <meta name="description" content="Picon Hub — profesionálne kurátorované picony pre Enigma2, SAT a IPTV.">
   <title>Picon Hub</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main>
+  <main class="site-shell">
     <header class="hero">
-      <div class="hero-copy">
-        <p class="eyebrow">SAT + IPTV PICON DATABASE</p>
-        <h1>Picon Hub</h1>
-        <p class="lead">Jedna databáza vlastných piconov pre satelitné aj IPTV platformy, s balíkmi podľa operátora.</p>
+      <div class="hero-badge">PICON HUB · ENIGMA2</div>
+      <div class="hero-layout">
+        <div class="hero-copy">
+          <h1>Čisté picony.<br><span>Bez kompromisov.</span></h1>
+          <p class="lead">Ručne kurátorované logá, aktuálne DVB údaje a jednotný profesionálny výstup 150 × 90 px. Skylink je synchronizovaný podľa Vhannibal.</p>
+        </div>
+        <div class="hero-panel">
+          <p>Aktuálny stav knižnice</p>
+          <div class="hero-metric"><strong id="channels">—</strong><span>hotových staníc</span></div>
+          <div class="hero-metric"><strong id="picons">—</strong><span>vygenerovaných piconov</span></div>
+          <div class="hero-update">Aktualizované <strong id="updated">—</strong></div>
+        </div>
       </div>
-      <a class="button primary" id="package" href="#">Stiahnuť všetky picony</a>
     </header>
 
-    <section class="stats">
-      <div><strong id="channels">—</strong><span>hotových kanálov</span></div>
-      <div><strong id="picons">—</strong><span>vygenerovaných piconov</span></div>
-      <div><strong id="updated">—</strong><span>posledná aktualizácia</span></div>
-    </section>
-
-    <section class="providers">
-      <div class="catalog-head">
+    <section class="providers section-block">
+      <div class="section-heading">
         <div>
-          <p class="section-kicker">PLATFORMY</p>
+          <p class="section-kicker">OPERÁTORI</p>
           <h2>Balíky podľa operátora</h2>
         </div>
-        <p>Satelit a IPTV sú v jednom katalógu. Balík sa sprístupní, keď má provider aspoň jeden náš hotový picon.</p>
+        <p>Kompletný ZIP sa sprístupní až vtedy, keď je hotových 100 % staníc aktuálneho katalógu operátora.</p>
       </div>
-      <div id="providerDeliveryFilters" class="filters" aria-label="Typ platformy"></div>
+      <div id="providerDeliveryFilters" class="filters provider-filters" aria-label="Typ platformy"></div>
       <div id="providerGrid" class="provider-grid" aria-live="polite"></div>
     </section>
 
-    <section class="catalog">
-      <div class="catalog-head">
+    <section class="catalog section-block">
+      <div class="section-heading">
         <div>
           <p class="section-kicker">KATALÓG</p>
-          <h2>Picony</h2>
+          <h2>Hotové picony</h2>
         </div>
-        <p>Kliknutím na picon otvoríš detail a možnosti stiahnutia.</p>
+        <p>Tu sú iba picony, ktoré už prešli naším rendererom a sú pripravené na použitie.</p>
       </div>
+
       <div class="catalog-tools">
-        <input id="search" type="search" placeholder="Hľadať kanál, provider, tvg-id alebo service reference…" autocomplete="off">
+        <div class="search-wrap">
+          <span>⌕</span>
+          <input id="search" type="search" placeholder="Hľadať stanicu, operátora alebo service reference…" autocomplete="off">
+        </div>
         <div id="filters" class="filters" aria-label="Filtrovanie piconov"></div>
       </div>
+
       <div id="grid" class="grid"></div>
     </section>
 
@@ -56,20 +62,23 @@
       <section class="modal-card provider-modal-card" role="dialog" aria-modal="true" aria-labelledby="providerModalTitle">
         <button id="providerModalClose" class="modal-close" type="button" aria-label="Zavrieť">×</button>
         <div class="provider-modal-copy">
-          <p class="section-kicker">PLATFORMA</p>
+          <p class="section-kicker">OPERÁTOR</p>
           <h2 id="providerModalTitle"></h2>
           <p id="providerModalDescription" class="provider-modal-description"></p>
           <div id="providerModalStats" class="provider-modal-stats"></div>
+          <div id="providerPackageStatus" class="package-status"></div>
 
           <div class="provider-choice-grid">
-            <a id="providerFullPackage" class="provider-choice" href="#" download>
-              <strong>Celý balík platformy</strong>
-              <span>Stiahne kompletný ZIP so všetkými dostupnými piconmi tejto platformy.</span>
+            <a id="providerFullPackage" class="provider-choice provider-choice-primary" href="#" download hidden>
+              <span class="choice-icon">ZIP</span>
+              <strong>Stiahnuť kompletný balík</strong>
+              <span>Obsahuje všetky hotové picony aktuálneho katalógu tohto operátora.</span>
             </a>
 
             <button id="providerBouquetButton" class="provider-choice" type="button">
+              <span class="choice-icon">E2</span>
               <strong>Len moje kanály</strong>
-              <span>Vyber userbouquet súbory z Enigma2 a stránka vytvorí vlastný ZIP iba pre tvoje kanály.</span>
+              <span>Vyber Enigma2 bouquet a vytvor si ZIP iba z piconov, ktoré už máme hotové.</span>
             </button>
           </div>
 
@@ -94,8 +103,8 @@
     </div>
 
     <footer>
-      <strong>Picon Hub</strong>
-      <span>SAT + IPTV picon database.</span>
+      <div><strong>Picon Hub</strong><span>Curated picons for Enigma2</span></div>
+      <span>Vhannibal metadata · vlastný artwork · 150 × 90 px</span>
     </footer>
   </main>
   <script src="app.js"></script>
