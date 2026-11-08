@@ -308,10 +308,8 @@ def main() -> int:
             parser.error("--output cannot be used with provider=all")
 
         DEFAULT_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-        valid_names = {"%s.json" % provider_id for provider_id in provider_ids}
-        for path in DEFAULT_OUTPUT_DIR.glob("*.json"):
-            if path.name not in valid_names:
-                path.unlink()
+        # Preserve Vhannibal and any other catalogues not managed by this
+        # SatelitnaTV sync. Importing providers must never delete Skylink data.
 
         failed: list[tuple[str, str]] = []
         for provider_id in provider_ids:
