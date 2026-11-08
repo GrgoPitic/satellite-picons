@@ -86,6 +86,18 @@ def page_curated() -> str:
         "const logo=ch.logo || 'bez vlastného loga';",
     )
 
+    page = page.replace("ručných override", "vlastných úprav")
+    page = page.replace("providerov", "operátorov")
+    page = page.replace("GitHub commit a push", "odoslať uložené zmeny na web")
+    page = page.replace("Odstrániť override", "Odstrániť vlastnú úpravu")
+    page = page.replace(
+        '<h1>Prehľad</h1><p class="sub">Vyber vľavo, čo chceš práve riešiť. Ostatné nástroje sa skryjú.</p>',
+        '<h1>Moje picony</h1><p class="sub">1. Vyber kanál vľavo. 2. Nahraj a ulož logo. 3. V Knižnici log ho priraď ďalším operátorom. 4. Skontroluj náhľad a publikuj.</p>'
+    )
+    page = page.replace(
+        '<h2>Publikovanie</h2>',
+        '<h2>Odoslať picony na web</h2><p>Uložiť znamená uložiť do tohto počítača. Publikovanie odošle zmeny do repozitára. Po úspešnom zostavení a nasadení vetvy main sa nový balík sprístupní na webe aj prijímaču OpenPLi.</p>'
+    )
     return page
 
 

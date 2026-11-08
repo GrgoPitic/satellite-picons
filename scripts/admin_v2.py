@@ -312,7 +312,7 @@ def PAGE_V2() -> str:
         </style>"""
     )
     page = page.replace(
-        '<button type="button" data-panel="upload">Nahrať logo<small>nový obrázok alebo kopírovanie</small></button>',
+        '<button type="button" data-panel="upload">Nahrať logo<small>nový obrázok</small></button>',
         '<button type="button" data-panel="upload">Nahrať logo<small>nový obrázok</small></button>\n      <button type="button" data-panel="library">Knižnica log<small>kde sú použité a kam ich pridať</small></button>'
     )
     page = page.replace(
@@ -1202,7 +1202,9 @@ def index_v2():
                 raise ValueError("Logo je prázdne.")
             logo_rel = save_shared_logo(station_key=station_key, raw=raw, ext=ext or ".png")
             artwork = load_station_artwork()
-            targets = {identity}
+            previous = artwork.setdefault("stations", {}).get(station_key) or {}
+            targets = set(previous.get("targets") or [])
+            targets.add(identity)
             artwork.setdefault("stations", {})[station_key] = {
                 "name": name,
                 "logo": logo_rel,

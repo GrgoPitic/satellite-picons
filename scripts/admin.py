@@ -1035,64 +1035,20 @@ def render_preview_png(
     if ext not in SUPPORTED:
         raise ValueError("Nepodporovaný formát loga.")
 
-    im = load_uploaded_logo(raw, ext)
-    if edge_cleanup:
-        # Same edge cleanup principle as the build: remove near-white pixels
-        # connected to the outer edge.
-        px = im.load()
-        w, h = im.size
-        seen = set()
-        stack = []
-        for x in range(w):
-            stack.extend([(x, 0), (x, h - 1)])
-        for y in range(h):
-            stack.extend([(0, y), (w - 1, y)])
-        while stack:
-            x, y = stack.pop()
-            if (x, y) in seen or not (0 <= x < w and 0 <= y < h):
-                continue
-            seen.add((x, y))
-            r, g, b, a = px[x, y]
-            if not (a > 0 and r >= 245 and g >= 245 and b >= 245):
-                continue
-            px[x, y] = (r, g, b, 0)
-            stack.extend(((x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)))
+    # Preview and published packages deliberately use the same renderer/template.
+    import tempfile
+    import build as renderer
 
-    # Never run automatic corner flood cleanup here. It can destroy artwork
-    # (notably compact/dark logos such as AMC). Pixel removal is explicit only.
-    im = trim_transparent(im)
-
-    if dark_to_white:
-        data = list(im.getdata())
-        out = []
-        for r, g, b, a in data:
-            if a == 0:
-                out.append((r, g, b, a))
-                continue
-            mx, mn = max(r, g, b), min(r, g, b)
-            if mx <= 105 and (mx - mn) <= 28:
-                lum = (r + g + b) / 3
-                v = int(230 + (105 - lum) / 105 * 25)
-                v = max(230, min(255, v))
-                out.append((v, v, v, a))
-            else:
-                out.append((r, g, b, a))
-        im.putdata(out)
-
-    optical_scale = max(0.50, min(1.50, float(optical_scale)))
-    max_w, max_h = 148, 86
-    w, h = im.size
-    scale = min(max_w / w, max_h / h) * optical_scale
-    new_w = max(1, int(round(w * scale)))
-    new_h = max(1, int(round(h * scale)))
-    if new_w > max_w or new_h > max_h:
-        cap = min(max_w / new_w, max_h / new_h)
-        new_w = max(1, int(round(new_w * cap)))
-        new_h = max(1, int(round(new_h * cap)))
-    im = im.resize((new_w, new_h), Image.Resampling.LANCZOS)
-
-    canvas = Image.new("RGBA", (150, 90), (0, 0, 0, 0))
-    canvas.alpha_composite(im, ((150 - new_w) // 2, (90 - new_h) // 2))
+    with tempfile.TemporaryDirectory(prefix="picon-preview-") as temporary:
+        source = Path(temporary) / ("logo" + ext)
+        source.write_bytes(raw)
+        with Image.open(renderer.TEMPLATE) as background:
+            if background.size != renderer.CANVAS:
+                raise ValueError("Šablóna piconu musí mať rozmer 150 × 90 px.")
+            canvas = renderer.render_logo(
+                source, background.convert("RGBA"), dark_to_white,
+                optical_scale, edge_cleanup,
+            )
     out = io.BytesIO()
     canvas.save(out, format="PNG", optimize=True)
     return out.getvalue()
@@ -1347,8 +1303,7 @@ def delete_channel(channel_id: str):
             encoding="utf-8",
         )
 
-        message = publish_pending_changes()
-        return jsonify(ok=True, message=message)
+        return jsonify(ok=True, message="Zmena je uložená. Na web ju odošli v sekcii Publikovanie.")
     except Exception as exc:
         return jsonify(error=str(exc)), 500
 
