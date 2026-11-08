@@ -32,6 +32,20 @@ class OperatorMembershipTests(unittest.TestCase):
         self.channel["satellite_position"] = "16E"
         self.assertEqual(build_operator_membership([self.channel], self.snapshot), {})
 
+    def test_canal_action_different_frequency_feeds_resolve(self):
+        correct = dict(self.channel,
+                       name="CANAL+ Action", frequency_mhz=11973,
+                       service_reference="1:0:19:3736:C8E:3:EB0000:0:0:0:")
+        other = dict(correct,
+                     frequency_mhz=11739,
+                     service_reference="1:0:19:101C:451:35:C00000:0:0:0:")
+        slot = {"name": "CANAL+ Action", "position": "23.5E",
+                "frequency_mhz": 11973, "fastscan": 7}
+        snapshot = {"providers": {"skylink-sk": [slot], "skylink-cz": [slot]}}
+        result = build_operator_membership([correct, other], snapshot)
+        self.assertEqual(len(result[correct["service_reference"].upper()]), 2)
+        self.assertNotIn(other["service_reference"].upper(), result)
+
     def test_ambiguous_service_names_are_not_assigned(self):
         other = dict(self.channel, service_reference="1:0:19:3C3F:C90:3:EB0000:0:0:0:")
         self.assertEqual(build_operator_membership([self.channel, other], self.snapshot), {})
