@@ -17,11 +17,10 @@ ARTWORK_CONFIG = ROOT / "station-artwork.yml"
 # Technical placeholders are present in some Vhannibal lamedb/bouquets.
 # Do not treat those entries as broadcast channels or logo upload targets.
 _TECHNICAL_SID_NAME = re.compile(
-    r"^\\s*\\d{4,6}\\s*[HV]\\s+SID\\s+0x[0-9a-f]+\\s*$",
+    r"^\s*\d{4,6}\s*[HV]\s+SID\s+0x[0-9a-f]+\s*$",
     re.IGNORECASE,
 )
-_DOTTED_SEPARATOR = re.compile(r"^\\s*\\.\\s*\\d+\\s*\\.\\s*$")
-
+_DOTTED_SEPARATOR = re.compile(r"^\s*\.\s*\d+\s*\.\s*$")
 
 def is_real_station_name(name: str) -> bool:
     """Reject known service-list separators, not genuine numeric brand names.
