@@ -7,6 +7,7 @@ on:
       - feature/provider-picon-packs
     paths:
       - scripts/sync_provider.py
+      - scripts/sync_vhannibal.py
       - providers.yml
       - .github/workflows/provider-sync.yml
   schedule:
@@ -149,6 +150,9 @@ jobs:
 
           [ -f provider-data/skylink-sk.json ] && rm -f provider-data/skylink.json
           [ -f provider-data/antik-sat-sk.json ] && rm -f provider-data/antik.json
+
+      - name: Update Skylink from Vhannibal
+        run: python scripts/sync_vhannibal.py
 
       - name: Normalize catalogues to metadata only
         run: |

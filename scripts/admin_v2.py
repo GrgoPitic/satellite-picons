@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from __future__ import annotations
+from catalog_common import current_manual_channels
 
 import io
 import json
@@ -62,7 +63,7 @@ def load_admin_channels_v2() -> tuple[list[dict], dict]:
                 merged[key] = item
                 generated_count += 1
 
-    for channel in cfg.get("channels", []) or []:
+    for channel in current_manual_channels(cfg):
         item = dict(channel)
         provider_id = str(item.get("provider_group") or "").strip().lower()
         item["delivery"] = str(item.get("delivery") or defs.get(provider_id, {}).get("delivery") or "satellite")
@@ -257,7 +258,7 @@ def save_shared_logo(*, station_key: str, raw: bytes, ext: str) -> str:
 
 
 def publish_v2() -> str:
-    stage = legacy.run_git("add", "-A", "station-artwork.yml", "iptv-providers.yml")
+    stage = legacy.run_git("add", "-A", "station-artwork.yml", "iptv-providers.yml", "provider-data/skylink-sk.json")
     if stage.returncode != 0:
         raise RuntimeError(stage.stderr.strip() or "Nepodarilo sa pridať Picon Hub dáta do commitu.")
     return ORIGINAL_PUBLISH()

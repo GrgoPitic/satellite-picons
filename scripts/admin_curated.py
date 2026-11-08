@@ -131,6 +131,11 @@ register(hub.legacy.app, load_curated_channels)
 
 
 def main() -> None:
+    from sync_vhannibal import sync
+    try:
+        print("Vhannibal: aktualizovaných", sync(), "kanálov Skylinku.")
+    except Exception as exc:
+        print("Vhannibal nedostupný; používam posledný uložený katalóg:", exc)
     hub.main()
 
 

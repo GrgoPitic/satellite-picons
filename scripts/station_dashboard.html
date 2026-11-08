@@ -5,19 +5,13 @@
 <h1>Moje stanice</h1><p class="sub">Vyber stanicu, skontroluj picon a uprav jej logo.</p>
 <div class="station-help">Jednotný vzhľad: <strong>piconblack · 150 × 90 px</strong>. Najprv schváľ náhľad, potom ulož logo. Uložené zmeny odošli na web cez Publikovanie.</div>
 <div class="station-tools"><input id="stationSearch" type="search" aria-label="Vyhľadať stanicu" placeholder="Hľadať stanicu…"><select id="stationProvider" aria-label="Operátor"><option value="skylink">Skylink SK + CZ</option><option value="">Všetci operátori</option></select></div>
-<details class="station-help"><summary>Skontrolovať Skylink podľa Vhannibal</summary><p>Stiahni aktuálny Enigma2 settings ZIP s pozíciou 23,5°E z <a href="https://www.vhannibal.net/" target="_blank" rel="noopener">Vhannibal</a>. Kontrola porovná identifikátory; logá ani naladenie nemení.</p><input id="vhZip" type="file" accept=".zip" aria-label="Vhannibal settings ZIP"><button type="button" id="vhCheck">Porovnať settings</button><div id="vhResult" role="status"></div></details>
+<div class="station-help">Skylink SK + CZ sa aktualizuje z Vhannibal automaticky pri spustení administrácie. Na GitHube je pripravená denná synchronizácia. Logá zostávajú tvoje, naladenie určuje Vhannibal.</div>
 <p id="stationCount" role="status"></p><div id="stationGrid" class="station-grid"></div>
 </section>
 <section class="panel" data-panel-view="missing"><h1>Chýbajúce logá</h1><p class="sub">Stanice, ktorým chýba logo aspoň u jedného operátora. Pri existujúcom logu otvor priradenia.</p><div id="missingGrid" class="station-grid"></div></section>
 <!-- SCRIPT -->
 <script>
 (()=>{
- document.querySelector('#vhCheck').addEventListener('click',async()=>{
- const file=document.querySelector('#vhZip').files[0],out=document.querySelector('#vhResult'),button=document.querySelector('#vhCheck');
- if(!file){out.textContent='Vyber ZIP súbor.';return;}
- button.disabled=true;out.textContent='Porovnávam…';
- try{const form=new FormData();form.append('settings',file);const r=await fetch('/api/vhannibal/check',{method:'POST',body:form});const data=await r.json();if(!r.ok)throw Error(data.error||'Kontrola zlyhala');out.replaceChildren();const summary=document.createElement('p');summary.textContent=`${data.source}: zhodných ${data.matched} z ${data.channels.length} záznamov Skylinku.`;out.append(summary);const missing=data.channels.filter(c=>c.status!=='zhoda');missing.forEach(c=>{const p=document.createElement('p');p.textContent=`Nenájdené: ${c.name} (${c.provider}). Vyžaduje kontrolu, logo zostalo zachované.`;out.append(p);});}catch(e){out.textContent=e.message;}finally{button.disabled=false;}
- });
  const grouped=new Map();
  adminChannels.forEach(ch=>{const key=ch.station_key||ch.name; if(!grouped.has(key))grouped.set(key,[]);grouped.get(key).push(ch);});
  const stations=[...grouped.values()].sort((a,b)=>a[0].name.localeCompare(b[0].name,'sk'));

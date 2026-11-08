@@ -33,3 +33,13 @@ Ak má prijímač zapnutý cron, cez `crontab -e` pridaj napríklad dennú kontr
 Over umiestnenie Pythonu cez `command -v python3`. Prijímač musí byť zapnutý a pripojený na internet. Kontroluje sa zverejnená verzia z webu projektu, nie každý commit v repozitári. Aktualizátor nahrádza jednotlivé súbory až po ich úplnom rozbalení. Celý balík nie je jedna transakcia; pri prerušení sa ďalší beh pokúsi dokončiť aktualizáciu. Staré názvy piconov automaticky nemaže.
 
 Inštaláciu a cron treba overiť na konkrétnom prijímači. Táto úprava bola testovaná lokálne so simulovaným sťahovaním.
+
+## Automatický kompletný Skylink podľa Vhannibal
+
+Pri spustení `admin.command` sa stiahne najnovší Vhannibal Multi settings ZIP. Z `lamedb` a celého bouquetu s českou a slovenskou sekciou sa prevezmú všetky TV služby bez jazykového filtra vrátane maďarských a ostatných sekcií. Tento bouquet sa vo Vhannibal aktuálne volá Canal+. Ide o obsah zdrojového bouquetu, nie overenie predplatiteľskej ponuky operátora.
+
+Ručné triedenie ani nahrávanie ZIP-u nie je potrebné. Po výpadku zdroja zostáva posledný platný katalóg. Pri neznámom formáte alebo nejednoznačnom bouquete sa aktualizácia zastaví. Existujúce zdrojové logá zostanú zachované. Nové stanice bez jednoznačne priradeného vlastného loga sa zobrazia medzi chýbajúcimi logami.
+
+Na GitHube workflow `Synchronize provider catalogues` aktualizuje tento zdroj a zostaví balíky. Denné spúšťanie GitHub Actions je aktívne až po začlenení workflow do predvolenej vetvy repozitára. Pracovná vetva vykoná synchronizáciu pri zmene skriptu a umožňuje ručné spustenie workflow.
+
+Katalóg sa naďalej identifikuje ako `skylink-sk`, aby existujúce prijímače zachovali kompatibilitu; zobrazený názov je Skylink SK + CZ. Vhannibal ZIP sa v repozitári neukladá.

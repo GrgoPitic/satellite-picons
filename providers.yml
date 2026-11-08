@@ -2,24 +2,13 @@
 schema: 1
 providers:
   - id: skylink-sk
-    name: Skylink (SK)
-    description: Kompletný balík piconov pre slovenskú ponuku Skylink.
-    countries: [SK]
+    name: Skylink SK + CZ
+    description: Kompletný príslušný bouquet Vhannibal vrátane všetkých jazykových sekcií.
+    countries: [SK, CZ]
     sort_order: 10
     source:
-      type: satelitnatv
-      operator_url: https://www.satelitnatv.sk/frekvencie/skylink-sk/
-      logo_repository: picons/picons
-
-  - id: skylink-cz
-    name: Skylink (CZ)
-    description: Kompletný balík piconov pre českú ponuku Skylink.
-    countries: [CZ]
-    sort_order: 20
-    source:
-      type: satelitnatv
-      operator_url: https://www.satelitnatv.sk/frekvencie/skylink-cz/
-      logo_repository: picons/picons
+      type: vhannibal
+      settings_url: https://www.vhannibal.net/download_setting.php?action=download&id=6
 
   - id: magio-sat-sk
     name: Magio Sat (SK)

@@ -95,3 +95,23 @@ def artwork_for_channel(channel: dict) -> tuple[str, dict | None]:
     data = load_station_artwork()
     artwork = (data.get("stations") or {}).get(key)
     return key, dict(artwork) if isinstance(artwork, dict) else None
+
+
+def current_manual_channels(cfg):
+    """Keep artwork overrides, but use Vhannibal's current Skylink service mapping."""
+    import json
+    path=ROOT/'provider-data/skylink-sk.json'
+    if not path.exists(): return cfg.get('channels',[]) or []
+    data=json.loads(path.read_text())
+    if data.get('source',{}).get('type')!='vhannibal':return cfg.get('channels',[]) or []
+    live={service_identity(c['service_reference']):c for c in data['channels']}
+    result=[]
+    for row in cfg.get('channels',[]) or []:
+        if row.get('provider_group') not in {'skylink-sk','skylink-cz'}:
+            result.append(row);continue
+        current=live.get(service_identity(row.get('service_reference','')))
+        if current:
+            item=dict(row);item['provider_group']='skylink-sk'
+            for key in ('service_reference','variant_types','satellite_position'):item[key]=current[key]
+            result.append(item)
+    return result

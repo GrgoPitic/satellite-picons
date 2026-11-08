@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from __future__ import annotations
+from catalog_common import current_manual_channels
 
 import json
 import re
@@ -67,7 +68,7 @@ def merged_channels_v2(cfg: dict) -> tuple[list[dict], dict[str, dict]]:
         if provider_id:
             merged[channel_identity(channel, provider_id)] = dict(channel)
 
-    for channel in cfg.get("channels", []) or []:
+    for channel in current_manual_channels(cfg):
         provider_id = str(channel.get("provider_group") or "").strip().lower()
         key = channel_identity(channel, provider_id)
         base = dict(merged.get(key, {}))
@@ -107,7 +108,7 @@ def manual_iptv_catalogue() -> tuple[dict[str, int], dict[tuple[str, str], dict]
     details: dict[tuple[str, str], dict] = {}
     defs = provider_definitions()
 
-    for channel in cfg.get("channels", []) or []:
+    for channel in current_manual_channels(cfg):
         provider_id = str(channel.get("provider_group") or "").strip().lower()
         delivery = str(channel.get("delivery") or defs.get(provider_id, {}).get("delivery") or "satellite").lower()
         if delivery != "iptv" or not provider_id:
