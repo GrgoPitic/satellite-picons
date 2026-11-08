@@ -38,9 +38,9 @@ jobs:
 
       - name: Syntax check
         run: |
-          python -m py_compile scripts/build.py scripts/build_v2.py scripts/admin.py scripts/admin_v2.py scripts/admin_curated.py scripts/catalog_common.py scripts/operator_membership.py scripts/add_channel.py scripts/catalogue_changes.py scripts/logo_presets.py scripts/sync_vhannibal.py receiver/update_picons.py receiver/plugin/Plugins/Extensions/SatellitePicons/plugin.py
+          python -m py_compile scripts/build.py scripts/build_v2.py scripts/admin.py scripts/admin_v2.py scripts/admin_curated.py scripts/catalog_common.py scripts/publish_artwork_sync.py scripts/operator_membership.py scripts/add_channel.py scripts/catalogue_changes.py scripts/logo_presets.py scripts/sync_vhannibal.py receiver/update_picons.py receiver/plugin/Plugins/Extensions/SatellitePicons/plugin.py
           python receiver/update_picons.py --help >/dev/null
-          PYTHONPATH=scripts python -m unittest -v test_station_names test_skylink_lineups test_operator_membership
+          PYTHONPATH=scripts python -m unittest -v test_station_names test_skylink_lineups test_operator_membership test_publish_artwork_sync
           node --check web/app.js
 
       - name: Admin curated artwork smoke test
