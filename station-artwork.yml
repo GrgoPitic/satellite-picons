@@ -566,3 +566,21 @@ stations:
     - sat:skylink-sk:3732_C8E_3_EB0000
     - sat:skylink-sk:7D5_9E98_16E_A00000
     updated_at: 1794166061
+  hustler-tv:
+    name: Hustler TV
+    logo: assets/logos/stations/hustler-tv.png
+    source_logo: assets/source-logos/stations/hustler-tv.svg
+    dark_to_white: false
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: false
+    background_tolerance: 28
+    trim_logo: true
+    render_preset: original
+    targets:
+    - sat:skylink-sk:100B_451_35_C00000
+    - sat:skylink-sk:100D_451_35_C00000
+    - sat:skylink-sk:411_5_AA_5A0000
+    - sat:skylink-sk:4EDA_C9C_3_EB0000
+    - sat:skylink-sk:712_C5A8_16E_A00000
+    updated_at: 1794166369
