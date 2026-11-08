@@ -1,11 +1,17 @@
 (async () => {
+  // Always read the current deployment instead of a cached older catalogue.
+  const cacheToken = Date.now();
   const [index, version, providerCatalog] = await Promise.all([
-    fetch('index.json').then(r => r.json()),
-    fetch('version.json').then(r => r.json()),
-    fetch('providers.json')
+    fetch('index.json?v=' + cacheToken, { cache: 'no-store' }).then(r => r.json()),
+    fetch('version.json?v=' + cacheToken, { cache: 'no-store' }).then(r => r.json()),
+    fetch('providers.json?v=' + cacheToken, { cache: 'no-store' })
       .then(r => r.ok ? r.json() : { providers: [] })
       .catch(() => ({ providers: [] }))
   ]);
+
+  // A picon filename stays the same when the logo is replaced.
+  // Tie its URL to this build so the browser fetches the updated image.
+  const piconVersion = encodeURIComponent(index.generated_at || String(cacheToken));
 
   const operatorList = document.querySelector('#operatorList');
   const operatorTitle = document.querySelector('#operatorTitle');
@@ -170,7 +176,7 @@
         '<article class="logo-card" tabindex="0" role="button" '+
           'aria-label="Otvoriť '+escapeHtml(channel.name)+'">'+
           '<div class="logo-preview">'+
-            '<img src="picons/'+encodeURIComponent(primary)+'" '+
+            '<img src="picons/'+encodeURIComponent(primary)+'?v='+piconVersion+'" '+
               'alt="'+escapeHtml(channel.name)+'" loading="lazy">'+
           '</div>'+
           '<div class="logo-meta">'+
@@ -199,7 +205,7 @@
     const primary = primaryFile(channel);
     if (!primary) return;
 
-    modalImage.src = 'picons/' + encodeURIComponent(primary);
+    modalImage.src = 'picons/' + encodeURIComponent(primary) + '?v=' + piconVersion;
     modalImage.alt = channel.name || '';
     modalTitle.textContent = channel.name || '';
     modalRef.textContent = channel.service_reference || '';
