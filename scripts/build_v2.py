@@ -191,6 +191,16 @@ def postprocess_public() -> None:
         index_path.write_text(json.dumps(index, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
+def copy_catalogue_change_history() -> None:
+    """Expose the same public change history as the administrator."""
+    history = ROOT / "catalogue-changes.json"
+    destination = ROOT / "public" / "catalogue-changes.json"
+    if history.is_file():
+        destination.write_bytes(history.read_bytes())
+    else:
+        destination.write_text('{"schema":1,"events":[]}\n', encoding="utf-8")
+
+
 def main() -> int:
     legacy.merged_channels = merged_channels_v2
     legacy.resolve_channel_logo = resolve_local_only
@@ -198,6 +208,7 @@ def main() -> int:
     rc = legacy.main()
     if rc == 0:
         postprocess_public()
+        copy_catalogue_change_history()
     return rc
 
 
