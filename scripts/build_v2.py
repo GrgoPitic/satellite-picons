@@ -27,7 +27,7 @@ def safe_token(value: str) -> str:
     return value or "channel"
 
 
-def enrich_artwork(channel: dict) -> dict:
+def enrich_artwork(channel: dict, stations: dict | None = None) -> dict:
     item = dict(channel)
     provider_id = str(item.get("provider_group") or "").strip().lower()
     provider = provider_definitions().get(provider_id, {})
@@ -36,7 +36,8 @@ def enrich_artwork(channel: dict) -> dict:
     item["station_key"] = station_key
     identity = channel_identity(item, provider_id)
 
-    stations = load_station_artwork().get("stations") or {}
+    if stations is None:
+        stations = load_station_artwork().get("stations") or {}
     artwork = stations.get(station_key)
 
     # An explicit service assignment takes precedence over name variations.
@@ -102,7 +103,8 @@ def merged_channels_v2(cfg: dict) -> tuple[list[dict], dict[str, dict]]:
                 base[field] = channel[field]
         merged[key] = base
 
-    rows = [enrich_artwork(item) for item in merged.values()]
+    artwork_stations = load_station_artwork().get("stations") or {}
+    rows = [enrich_artwork(item, artwork_stations) for item in merged.values()]
     rows.sort(key=lambda ch: (
         str(ch.get("delivery") or ""),
         str(ch.get("provider_group") or ""),
