@@ -28,6 +28,7 @@ DB = ROOT / "channels.yml"
 PROVIDER_DATA_DIR = ROOT / "provider-data"
 STATION_LOGOS = ROOT / "assets" / "logos" / "stations"
 SOURCE_STATION_LOGOS = ROOT / "assets" / "source-logos" / "stations"
+VHANNIBAL_REPORT = ROOT / ".admin-state" / "vhannibal-changes.json"
 
 
 def provider_groups_v2() -> list[tuple[str, str]]:
@@ -205,6 +206,34 @@ def logo_library_v2() -> list[dict]:
 
     cards.sort(key=lambda card: str(card.get("name") or "").lower())
     return cards
+
+def matching_target_identities(station_key: str) -> list[str]:
+    rows, _ = load_admin_channels_v2()
+    wanted = str(station_key or "").strip()
+    return sorted({
+        str(row.get("_identity") or "")
+        for row in rows
+        if str(row.get("station_key") or "") == wanted and row.get("_identity")
+    })
+
+
+def load_vhannibal_report() -> dict:
+    if not VHANNIBAL_REPORT.exists():
+        return {
+            "changed": False,
+            "counts": {},
+            "added": [],
+            "removed": [],
+            "renamed": [],
+            "tuning_changed": [],
+            "metadata_changed": [],
+        }
+    try:
+        payload = json.loads(VHANNIBAL_REPORT.read_text(encoding="utf-8"))
+        return payload if isinstance(payload, dict) else {}
+    except Exception:
+        return {"error": "Report zmien Vhannibal sa nepodarilo načítať."}
+
 
 def matching_channels(name: str, exclude_identity: str = "") -> list[dict]:
     station_key = normalize_station_key(name)
@@ -1009,6 +1038,7 @@ def api_v2_upload_logo():
         # IMPORTANT: replacing the station artwork must never lose assignments.
         # Keep every SAT/IPTV identity that already used this station logo.
         targets = set(str(x) for x in current.get("targets", []) or [])
+        targets.update(matching_target_identities(station_key))
         targets.add(identity)
 
         stations[station_key] = {
@@ -1247,6 +1277,7 @@ def index_v2():
             branch=legacy.git_branch(),
             preview_ready=legacy.local_preview_ready(),
             logo_library=logo_library_v2(),
+            vhannibal_report=load_vhannibal_report(),
         )
 
     try:
