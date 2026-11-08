@@ -56,14 +56,12 @@
 
   function providerChannels(providerId) {
     const selected = providerById.get(providerId);
-    if (selected?.group === 'skylink') {
+    if (selected?.group === 'skylink' || selected?.group === 'orbit') {
+      // Orbit and operator catalogues list EVERY channel, even without a logo.
+      // Never imply an uncurated service has a downloadable picon.
       return selected.channels || [];
     }
-    return index.channels.filter(
-      channel =>
-        String(channel.satellite_position || '').toLowerCase() ===
-        String(providerId || '').toLowerCase()
-    );
+    return [];
   }
 
   function primaryFile(channel) {
