@@ -1,0 +1,160 @@
+{
+  "schema": 1,
+  "events": [
+    {
+      "provider": "antik-sat-sk",
+      "kind": "renamed",
+      "name": ":24",
+      "old_name": "24",
+      "reference": "1:0:19:4B5:76C1:16E:A00000:0:0:0:",
+      "provider_name": "ANTIK Sat (SK)",
+      "at": "2026-11-08T14:20:24.473879+00:00"
+    },
+    {
+      "provider": "antik-sat-sk",
+      "kind": "renamed",
+      "name": ":Sport HD",
+      "old_name": "Sport HD",
+      "reference": "1:0:19:4C8:76C1:16E:A00000:0:0:0:",
+      "provider_name": "ANTIK Sat (SK)",
+      "at": "2026-11-08T14:20:24.473879+00:00"
+    },
+    {
+      "provider": "canal-plus-pl",
+      "kind": "catalogue_added",
+      "name": "Canal+ (PL)",
+      "count": 397,
+      "provider_name": "Canal+ (PL)",
+      "at": "2026-11-08T14:20:24.473879+00:00"
+    },
+    {
+      "provider": "digi-tv-hu",
+      "kind": "catalogue_added",
+      "name": "DIGI TV (HU)",
+      "count": 136,
+      "provider_name": "DIGI TV (HU)",
+      "at": "2026-11-08T14:20:24.473879+00:00"
+    },
+    {
+      "provider": "digi-tv-ro",
+      "kind": "catalogue_added",
+      "name": "DIGI TV (RO)",
+      "count": 139,
+      "provider_name": "DIGI TV (RO)",
+      "at": "2026-11-08T14:20:24.473879+00:00"
+    },
+    {
+      "provider": "digi-tv-sk",
+      "kind": "catalogue_added",
+      "name": "DIGI TV (SK)",
+      "count": 137,
+      "provider_name": "DIGI TV (SK)",
+      "at": "2026-11-08T14:20:24.473879+00:00"
+    },
+    {
+      "provider": "direct-one-hu",
+      "kind": "catalogue_added",
+      "name": "Direct One (HU)",
+      "count": 129,
+      "provider_name": "Direct One (HU)",
+      "at": "2026-11-08T14:20:24.473879+00:00"
+    },
+    {
+      "provider": "focus-sat-ro",
+      "kind": "catalogue_added",
+      "name": "Focus SAT (RO)",
+      "count": 154,
+      "provider_name": "Focus SAT (RO)",
+      "at": "2026-11-08T14:20:24.473879+00:00"
+    },
+    {
+      "provider": "freesat-cz",
+      "kind": "catalogue_added",
+      "name": "freeSAT (CZ)",
+      "count": 88,
+      "provider_name": "freeSAT (CZ)",
+      "at": "2026-11-08T14:20:24.473879+00:00"
+    },
+    {
+      "provider": "freesat-sk",
+      "kind": "catalogue_added",
+      "name": "freeSAT (SK)",
+      "count": 103,
+      "provider_name": "freeSAT (SK)",
+      "at": "2026-11-08T14:20:24.473879+00:00"
+    },
+    {
+      "provider": "magenta-tv-sat-cz",
+      "kind": "catalogue_added",
+      "name": "Magenta TV Sat (CZ)",
+      "count": 107,
+      "provider_name": "Magenta TV Sat (CZ)",
+      "at": "2026-11-08T14:20:24.473879+00:00"
+    },
+    {
+      "provider": "magio-sat-sk",
+      "kind": "catalogue_added",
+      "name": "Magio Sat (SK)",
+      "count": 137,
+      "provider_name": "Magio Sat (SK)",
+      "at": "2026-11-08T14:20:24.473879+00:00"
+    },
+    {
+      "provider": "mts-bosna",
+      "kind": "catalogue_added",
+      "name": "MTS Bosna a Hercegovina",
+      "count": 195,
+      "provider_name": "MTS Bosna a Hercegovina",
+      "at": "2026-11-08T14:20:24.473879+00:00"
+    },
+    {
+      "provider": "mts-srbija",
+      "kind": "catalogue_added",
+      "name": "MTS Srbija",
+      "count": 238,
+      "provider_name": "MTS Srbija",
+      "at": "2026-11-08T14:20:24.473879+00:00"
+    },
+    {
+      "provider": "orange-tv-sat",
+      "kind": "catalogue_added",
+      "name": "Orange TV Sat",
+      "count": 308,
+      "provider_name": "Orange TV Sat",
+      "at": "2026-11-08T14:20:24.473879+00:00"
+    },
+    {
+      "provider": "polsat-box-pl",
+      "kind": "catalogue_added",
+      "name": "Polsat Box (PL)",
+      "count": 296,
+      "provider_name": "Polsat Box (PL)",
+      "at": "2026-11-08T14:20:24.473879+00:00"
+    },
+    {
+      "provider": "simplitv-at",
+      "kind": "catalogue_added",
+      "name": "SimpliTV (AT)",
+      "count": 96,
+      "provider_name": "SimpliTV (AT)",
+      "at": "2026-11-08T14:20:24.473879+00:00"
+    },
+    {
+      "provider": "telly-cz",
+      "kind": "catalogue_added",
+      "name": "Telly (CZ)",
+      "count": 88,
+      "provider_name": "Telly (CZ)",
+      "at": "2026-11-08T14:20:24.473879+00:00"
+    },
+    {
+      "provider": "tivusat-it",
+      "kind": "catalogue_added",
+      "name": "Tivùsat (IT)",
+      "count": 188,
+      "provider_name": "Tivùsat (IT)",
+      "at": "2026-11-08T14:20:24.473879+00:00"
+    }
+  ],
+  "last_change_at": "2026-11-08T14:20:24.473879+00:00"
+}
