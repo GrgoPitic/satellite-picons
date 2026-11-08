@@ -455,3 +455,76 @@ stations:
     - sat:antik-sat-sk:4B5_76C1_16E_A00000
     - sat:skylink-sk:4B5_76C1_16E_A00000
     updated_at: 1794162505
+  penthouse-gold:
+    name: Penthouse Gold
+    logo: assets/logos/stations/penthouse-gold.png
+    source_logo: assets/source-logos/stations/penthouse-gold.svg
+    dark_to_white: false
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: false
+    background_tolerance: 28
+    trim_logo: true
+    render_preset: original
+    targets:
+    - sat:skylink-sk:1BFE_C88_3_EB0000
+    - sat:skylink-sk:1C0C_C88_3_EB0000
+    updated_at: 1794162961
+  jednotka:
+    name: Jednotka HD
+    logo: assets/logos/stations/jednotka.png
+    source_logo: assets/source-logos/stations/jednotka.svg
+    dark_to_white: false
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: false
+    background_tolerance: 28
+    trim_logo: true
+    render_preset: original
+    targets:
+    - sat:skylink-sk:3C3C_C90_3_EB0000
+    - sat:skylink-sk:7D1_9E98_16E_A00000
+    updated_at: 1794163141
+  dvojka:
+    name: Dvojka HD
+    logo: assets/logos/stations/dvojka.png
+    source_logo: assets/source-logos/stations/dvojka.svg
+    dark_to_white: false
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: false
+    background_tolerance: 28
+    trim_logo: true
+    render_preset: original
+    targets:
+    - sat:skylink-sk:3C3D_C90_3_EB0000
+    - sat:skylink-sk:7D2_9E98_16E_A00000
+    updated_at: 1794163158
+  tv-joj:
+    name: TV JOJ HD
+    logo: assets/logos/stations/tv-joj.png
+    source_logo: assets/source-logos/stations/tv-joj.svg
+    dark_to_white: false
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: false
+    background_tolerance: 28
+    trim_logo: true
+    render_preset: original
+    targets:
+    - sat:skylink-sk:3398_C9D_3_EB0000
+    updated_at: 1794163438
+  joj:
+    name: JOJ HD
+    logo: assets/logos/stations/joj.png
+    source_logo: assets/source-logos/stations/joj.svg
+    dark_to_white: false
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: false
+    background_tolerance: 28
+    trim_logo: true
+    render_preset: original
+    targets:
+    - sat:skylink-sk:7D4_9E98_16E_A00000
+    updated_at: 1794163766
