@@ -99,8 +99,19 @@ def build(index: dict, source_rows: list[dict], snapshot: dict) -> dict:
                 status = "unresolved" if not matches else "ambiguous"
                 ch = None
             else:
-                ch = matches[0]
-                status = "missing_logo"
+                possible = matches[0]
+                frequency = possible.get("frequency_mhz")
+                if frequency is None:
+                    # Cached older Vhannibal data lacks frequency: never
+                    # publish an operator mapping based on a name alone.
+                    ch = None
+                    status = "unverified_frequency"
+                elif abs(int(frequency) - int(station["frequency_mhz"])) > 2:
+                    ch = None
+                    status = "frequency_mismatch"
+                else:
+                    ch = possible
+                    status = "missing_logo"
             published = ready_by_ref.get(str(ch.get("service_reference") or "").upper()) if ch else None
             files = published.get("files", []) if published else []
             if files:
@@ -138,6 +149,11 @@ def build(index: dict, source_rows: list[dict], snapshot: dict) -> dict:
     (public / "skylink.json").write_text(
         json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
+    for item in result["providers"]:
+        unresolved = sum(entry["status"] != "ready" for entry in item["channels"])
+        print(f'Skylink {item["name"]}: {item["channel_count"]} FastScan entries, '
+              f'{item["matched_channel_count"]} verified DVB services, '
+              f'{item["curated_channel_count"]} ready picons, {unresolved} not ready')
     return result
 
 
