@@ -599,3 +599,18 @@ stations:
     - sat:skylink-sk:3E26_2EE0_13E_820000
     - sat:skylink-sk:3E44_2EE0_13E_820000
     updated_at: 1794166732
+  dajto:
+    name: DAJTO HD
+    logo: assets/logos/stations/dajto.png
+    source_logo: assets/source-logos/stations/dajto.svg
+    dark_to_white: false
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: false
+    background_tolerance: 28
+    trim_logo: true
+    render_preset: original
+    targets:
+    - sat:skylink-sk:3397_C9D_3_EB0000
+    - sat:skylink-sk:7D7_9E98_16E_A00000
+    updated_at: 1794166976
