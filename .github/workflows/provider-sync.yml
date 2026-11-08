@@ -52,7 +52,7 @@ jobs:
       - name: Record changes and assign curated artwork
         if: env.SYNC_OK == 'true'
         run: |
-          python scripts/catalogue_changes.py --before "${RUNNER_TEMP}/provider-before"
+          python scripts/catalogue_changes.py --before "${RUNNER_TEMP}/provider-before" --provider skylink-sk
           python scripts/assign_station_artwork.py
       - name: Validate source without touching user logos
         if: env.SYNC_OK == 'true'
