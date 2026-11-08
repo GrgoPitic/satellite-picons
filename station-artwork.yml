@@ -9,8 +9,10 @@ stations:
     background_cleanup: true
     targets:
     - sat:antik-sat-sk:7DB_9E98_16E_A00000
+    - sat:freesat-sk:7AAD_2CC_600_E080000
+    - sat:orange-tv-sat:339E_C9D_3_EB0000
     - sat:skylink-sk:339E_C9D_3_EB0000
-    updated_at: 1792004727
+    updated_at: 1794145675
   joj-cinema:
     name: JOJ Cinema
     logo: assets/logos/joj-cinema.png
@@ -20,8 +22,15 @@ stations:
     background_cleanup: true
     targets:
     - sat:antik-sat-sk:4C5_76C1_16E_A00000
+    - sat:digi-tv-sk:1789_AF6_BB_E080000
+    - sat:freesat-cz:1789_AF6_BB_E080000
+    - sat:freesat-sk:1789_AF6_BB_E080000
+    - sat:magenta-tv-sat-cz:1789_AF6_BB_E080000
+    - sat:magio-sat-sk:1789_AF6_BB_E080000
+    - sat:orange-tv-sat:3359_C93_3_EB0000
     - sat:skylink-sk:3359_C93_3_EB0000
-    updated_at: 1792004735
+    - sat:telly-cz:1789_AF6_BB_E080000
+    updated_at: 1794145675
   viasat-explore:
     name: Viasat Explore
     logo: assets/logos/viasat-explore.png
@@ -31,8 +40,18 @@ stations:
     background_cleanup: true
     targets:
     - sat:antik-sat-sk:45B_526C_16E_A00000
+    - sat:digi-tv-hu:A28_5_1_E080000
+    - sat:digi-tv-ro:78CA_2C5_600_E080000
+    - sat:digi-tv-sk:FB6_AF4_BB_E080000
+    - sat:direct-one-hu:A28_5_1_E080000
+    - sat:magenta-tv-sat-cz:FB6_AF4_BB_E080000
+    - sat:magio-sat-sk:FB6_AF4_BB_E080000
+    - sat:mts-bosna:4E9F_CA4_3_EB0000
+    - sat:mts-srbija:4E9F_CA4_3_EB0000
+    - sat:orange-tv-sat:3C2F_C90_3_EB0000
     - sat:skylink-sk:3C2F_C90_3_EB0000
-    updated_at: 1792004753
+    - sat:telly-cz:FB6_AF4_BB_E080000
+    updated_at: 1794145675
   markiza-krimi:
     name: Markiza Krimi HD
     logo: assets/logos/markiza-krimi-hd-85db4865d2.png
@@ -42,8 +61,11 @@ stations:
     background_cleanup: true
     targets:
     - sat:antik-sat-sk:7D9_9E98_16E_A00000
+    - sat:digi-tv-sk:FAD_AF4_BB_E080000
+    - sat:magio-sat-sk:FAD_AF4_BB_E080000
+    - sat:orange-tv-sat:339F_C9D_3_EB0000
     - sat:skylink-sk:339F_C9D_3_EB0000
-    updated_at: 1792004757
+    updated_at: 1794145675
   viasat-nature:
     name: Viasat Nature
     logo: assets/logos/viasat-nature.svg
@@ -53,8 +75,22 @@ stations:
     background_cleanup: true
     targets:
     - sat:antik-sat-sk:45A_526C_16E_A00000
+    - sat:digi-tv-hu:622_3_1_E080000
+    - sat:digi-tv-ro:177C_AF6_BB_E080000
+    - sat:digi-tv-ro:622_3_1_E080000
+    - sat:digi-tv-sk:177C_AF6_BB_E080000
+    - sat:direct-one-hu:622_3_1_E080000
+    - sat:focus-sat-ro:75B9_2BD_600_E080000
+    - sat:freesat-cz:75B9_2BD_600_E080000
+    - sat:freesat-sk:75B9_2BD_600_E080000
+    - sat:magenta-tv-sat-cz:177C_AF6_BB_E080000
+    - sat:magio-sat-sk:177C_AF6_BB_E080000
+    - sat:mts-bosna:4E3C_CA7_3_EB0000
+    - sat:mts-srbija:4E3C_CA7_3_EB0000
+    - sat:orange-tv-sat:3CF1_C95_3_EB0000
     - sat:skylink-sk:3CF1_C95_3_EB0000
-    updated_at: 1792004778
+    - sat:telly-cz:177C_AF6_BB_E080000
+    updated_at: 1794145675
   joj-family:
     name: JOJ Family
     logo: assets/logos/stations/joj-family.png
@@ -63,8 +99,11 @@ stations:
     edge_cleanup: false
     background_cleanup: false
     targets:
+    - sat:freesat-cz:1781_AF6_BB_E080000
+    - sat:magenta-tv-sat-cz:1781_AF6_BB_E080000
     - sat:skylink-sk:3350_C93_3_EB0000
-    updated_at: 1794137859
+    - sat:telly-cz:1781_AF6_BB_E080000
+    updated_at: 1794145675
   amc:
     name: AMC HD
     logo: assets/logos/stations/amc.png
@@ -74,7 +113,15 @@ stations:
     background_cleanup: false
     targets:
     - sat:antik-sat-sk:47F_76C0_16E_A00000
-    updated_at: 1794138293
+    - sat:canal-plus-pl:1401_5DC_13E_820000
+    - sat:digi-tv-hu:7996_2C7_600_E080000
+    - sat:magenta-tv-sat-cz:177E_AF6_BB_E080000
+    - sat:mts-bosna:4E5A_C9C_3_EB0000
+    - sat:mts-srbija:4E5A_C9C_3_EB0000
+    - sat:polsat-box-pl:1401_5DC_13E_820000
+    - sat:skylink-sk:36FB_C8C_3_EB0000
+    - sat:telly-cz:177E_AF6_BB_E080000
+    updated_at: 1794145675
   amc-sk:
     name: AMC SK
     logo: assets/logos/stations/amc-sk.png
@@ -83,8 +130,14 @@ stations:
     edge_cleanup: false
     background_cleanup: false
     targets:
+    - sat:digi-tv-sk:FBE_AF4_BB_E080000
+    - sat:freesat-sk:FBE_AF4_BB_E080000
+    - sat:magio-sat-sk:FBE_AF4_BB_E080000
+    - sat:orange-tv-sat:372B_C8E_3_EB0000
     - sat:skylink-sk:372B_C8E_3_EB0000
-    updated_at: 1794138308
+    updated_at: 1794145868
+    background_tolerance: 28
+    trim_logo: true
   canal-plus-crime:
     name: CANAL+ Crime
     logo: assets/logos/stations/canal-plus-crime.png
@@ -93,8 +146,9 @@ stations:
     edge_cleanup: false
     background_cleanup: false
     targets:
+    - sat:orange-tv-sat:52B3_C99_3_EB0000
     - sat:skylink-sk:52B3_C99_3_EB0000
-    updated_at: 1794139225
+    updated_at: 1794145675
   canal-plus-drama:
     name: CANAL+ Drama
     logo: assets/logos/stations/canal-plus-drama.png
@@ -103,8 +157,9 @@ stations:
     edge_cleanup: false
     background_cleanup: false
     targets:
+    - sat:orange-tv-sat:3CFA_C95_3_EB0000
     - sat:skylink-sk:3CFA_C95_3_EB0000
-    updated_at: 1794139278
+    updated_at: 1794145675
   axn-black-central-europe:
     name: AXN Black Central Europe
     logo: assets/logos/stations/axn-black-central-europe.png
@@ -113,8 +168,9 @@ stations:
     edge_cleanup: false
     background_cleanup: false
     targets:
+    - sat:orange-tv-sat:3D00_C95_3_EB0000
     - sat:skylink-sk:3D00_C95_3_EB0000
-    updated_at: 1794139647
+    updated_at: 1794145675
   axn-cz:
     name: AXN CZ
     logo: assets/logos/stations/axn-cz.png
@@ -123,8 +179,17 @@ stations:
     edge_cleanup: false
     background_cleanup: false
     targets:
+    - sat:antik-sat-sk:4EA_76C1_16E_A00000
+    - sat:canal-plus-pl:C25_1E78_71_820000
+    - sat:digi-tv-hu:78D4_2C5_600_E080000
+    - sat:freesat-cz:798F_2C7_600_E080000
+    - sat:freesat-sk:798F_2C7_600_E080000
+    - sat:orange-tv-sat:315_C94_3_EB0000
+    - sat:polsat-box-pl:1C96_1CE8_71_820000
+    - sat:polsat-box-pl:C25_1E78_71_820000
+    - sat:polsat-box-pl:C2A_1E78_71_820000
     - sat:skylink-sk:315_C94_3_EB0000
-    updated_at: 1794139698
+    updated_at: 1794145675
   axn-white-central-europe:
     name: AXN White Central Europe
     logo: assets/logos/stations/axn-white-central-europe.png
@@ -133,8 +198,9 @@ stations:
     edge_cleanup: false
     background_cleanup: false
     targets:
+    - sat:orange-tv-sat:3D01_C95_3_EB0000
     - sat:skylink-sk:3D01_C95_3_EB0000
-    updated_at: 1794139786
+    updated_at: 1794145675
   barrandov-krimi:
     name: Barrandov Krimi
     logo: assets/logos/stations/barrandov-krimi.png
@@ -143,8 +209,13 @@ stations:
     edge_cleanup: false
     background_cleanup: false
     targets:
+    - sat:digi-tv-sk:FAE_AF4_BB_E080000
+    - sat:magenta-tv-sat-cz:FAE_AF4_BB_E080000
+    - sat:magio-sat-sk:FAE_AF4_BB_E080000
+    - sat:orange-tv-sat:31E_C94_3_EB0000
     - sat:skylink-sk:31E_C94_3_EB0000
-    updated_at: 1794140024
+    - sat:telly-cz:FAE_AF4_BB_E080000
+    updated_at: 1794145675
   cartoonito:
     name: Cartoonito
     logo: assets/logos/stations/cartoonito.png
@@ -156,8 +227,18 @@ stations:
     background_tolerance: 28
     trim_logo: true
     targets:
+    - sat:digi-tv-hu:7804_2C3_600_E080000
+    - sat:digi-tv-ro:7804_2C3_600_E080000
+    - sat:direct-one-hu:77F6_2C3_600_E080000
+    - sat:focus-sat-ro:77F6_2C3_600_E080000
+    - sat:freesat-cz:77F6_2C3_600_E080000
+    - sat:freesat-sk:77F6_2C3_600_E080000
+    - sat:mts-bosna:4EC9_C9C_3_EB0000
+    - sat:mts-srbija:4EC9_C9C_3_EB0000
+    - sat:orange-tv-sat:30B_C94_3_EB0000
     - sat:skylink-sk:30B_C94_3_EB0000
-    updated_at: 1794143011
+    - sat:tivusat-it:85_4B0_110_820000
+    updated_at: 1794145675
   cinemax:
     name: Cinemax HD
     logo: assets/logos/stations/cinemax.png
@@ -170,8 +251,22 @@ stations:
     trim_logo: true
     targets:
     - sat:antik-sat-sk:79A_C6D4_16E_A00000
+    - sat:digi-tv-hu:44C_1_1_E080000
+    - sat:digi-tv-ro:44C_1_1_E080000
+    - sat:digi-tv-sk:1B65_AF7_BB_E080000
+    - sat:direct-one-hu:44C_1_1_E080000
+    - sat:focus-sat-ro:77F5_2C3_600_E080000
+    - sat:freesat-cz:77F5_2C3_600_E080000
+    - sat:freesat-sk:77F5_2C3_600_E080000
+    - sat:magenta-tv-sat-cz:1B65_AF7_BB_E080000
+    - sat:magio-sat-sk:1B65_AF7_BB_E080000
+    - sat:mts-bosna:4E69_CA8_3_EB0000
+    - sat:mts-srbija:4E69_CA8_3_EB0000
+    - sat:orange-tv-sat:3C2C_C90_3_EB0000
+    - sat:polsat-box-pl:3A9F_514_13E_820000
     - sat:skylink-sk:3C2C_C90_3_EB0000
-    updated_at: 1794143036
+    - sat:telly-cz:1B65_AF7_BB_E080000
+    updated_at: 1794145675
   canal-plus-action:
     name: CANAL+ Action
     logo: assets/logos/stations/canal-plus-action.png
@@ -183,8 +278,16 @@ stations:
     background_tolerance: 28
     trim_logo: true
     targets:
+    - sat:digi-tv-hu:79E8_2C8_600_E080000
+    - sat:digi-tv-hu:7A57_2CB_600_E080000
+    - sat:digi-tv-sk:2346_AF9_BB_E080000
+    - sat:direct-one-hu:79E2_2C8_600_E080000
+    - sat:direct-one-hu:7A57_2CB_600_E080000
+    - sat:magenta-tv-sat-cz:2346_AF9_BB_E080000
+    - sat:magio-sat-sk:2346_AF9_BB_E080000
+    - sat:orange-tv-sat:3736_C8E_3_EB0000
     - sat:skylink-sk:3736_C8E_3_EB0000
-    updated_at: 1794143857
+    updated_at: 1794145675
   canal-plus:
     name: CANAL+
     logo: assets/logos/stations/canal-plus.png
@@ -196,8 +299,9 @@ stations:
     background_tolerance: 28
     trim_logo: true
     targets:
+    - sat:orange-tv-sat:334C_C93_3_EB0000
     - sat:skylink-sk:334C_C93_3_EB0000
-    updated_at: 1794144087
+    updated_at: 1794145675
   canal-plus-classics:
     name: CANAL+ Classics
     logo: assets/logos/stations/canal-plus-classics.png
@@ -209,8 +313,9 @@ stations:
     background_tolerance: 28
     trim_logo: true
     targets:
+    - sat:orange-tv-sat:1F53_CA1_3_EB0000
     - sat:skylink-sk:1F53_CA1_3_EB0000
-    updated_at: 1794144188
+    updated_at: 1794145675
   cinemax2:
     name: Cinemax2 HD
     logo: assets/logos/stations/cinemax2.png
@@ -222,5 +327,64 @@ stations:
     background_tolerance: 28
     trim_logo: true
     targets:
+    - sat:focus-sat-ro:78C2_2C5_600_E080000
+    - sat:freesat-cz:78C2_2C5_600_E080000
+    - sat:freesat-sk:78C2_2C5_600_E080000
+    - sat:orange-tv-sat:3CF6_C95_3_EB0000
     - sat:skylink-sk:3CF6_C95_3_EB0000
-    updated_at: 1794144275
+    updated_at: 1794145675
+  cnn-prima-news:
+    name: CNN Prima News HD
+    logo: assets/logos/stations/cnn-prima-news.png
+    source_logo: assets/source-logos/stations/cnn-prima-news.webp
+    dark_to_white: false
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: false
+    background_tolerance: 28
+    trim_logo: true
+    targets:
+    - sat:digi-tv-sk:FBD_AF4_BB_E080000
+    - sat:freesat-cz:7A4D_2CB_600_E080000
+    - sat:freesat-sk:7A4D_2CB_600_E080000
+    - sat:magenta-tv-sat-cz:FBD_AF4_BB_E080000
+    - sat:magio-sat-sk:FBD_AF4_BB_E080000
+    - sat:orange-tv-sat:36FF_C8C_3_EB0000
+    - sat:skylink-sk:36FF_C8C_3_EB0000
+    - sat:telly-cz:FBD_AF4_BB_E080000
+    updated_at: 1794145411
+  automotorsport:
+    name: AutoMotorSport HD
+    logo: assets/logos/stations/automotorsport.png
+    source_logo: assets/source-logos/stations/automotorsport.svg
+    dark_to_white: false
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: false
+    background_tolerance: 28
+    trim_logo: true
+    targets:
+    - sat:antik-sat-sk:491_76C0_16E_A00000
+    - sat:orange-tv-sat:17D0_C82_3_EB0000
+    - sat:skylink-sk:17D0_C82_3_EB0000
+    updated_at: 1794145632
+  canal-plus-sport-cz:
+    name: CANAL+ Sport (CZ)
+    logo: assets/logos/stations/canal-plus-sport-cz.png
+    source_logo: assets/source-logos/stations/canal-plus-sport-cz.svg
+    dark_to_white: false
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: false
+    background_tolerance: 28
+    trim_logo: true
+    targets:
+    - sat:canal-plus-pl:32DE_190_13E_820000
+    - sat:canal-plus-pl:32FC_190_13E_820000
+    - sat:canal-plus-pl:3324_190_13E_820000
+    - sat:digi-tv-sk:1B67_AF7_BB_E080000
+    - sat:magio-sat-sk:1B67_AF7_BB_E080000
+    - sat:orange-tv-sat:3734_C8E_3_EB0000
+    - sat:skylink-sk:3733_C8E_3_EB0000
+    - sat:skylink-sk:3734_C8E_3_EB0000
+    updated_at: 1794145694
