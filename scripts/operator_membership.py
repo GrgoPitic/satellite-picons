@@ -45,9 +45,17 @@ def build_operator_membership(channels: list[dict], snapshot: dict) -> dict[str,
     for op in active_operators():
         operator_id = str(op["id"])
         source_id = str(op.get("source_id") or operator_id)
-        if op.get("snapshot", "skylink-lineups.json") != "skylink-lineups.json":
-            continue  # Other snapshots are loaded separately by the exporter.
-        for slot in providers.get(source_id, []) or []:
+        source_file = ROOT / str(op.get("snapshot") or "skylink-lineups.json")
+        if source_file == SNAPSHOT:
+            source = snapshot
+        else:
+            if not source_file.is_file():
+                continue  # No verified operator evidence: never infer membership.
+            try:
+                source = json.loads(source_file.read_text(encoding="utf-8"))
+            except (OSError, ValueError):
+                continue
+        for slot in (source.get("providers") or {}).get(source_id, []) or []:
             key = (normalize_station_key(slot.get("name") or ""), str(slot.get("position") or ""))
             candidates = by_station.get(key, [])
             # Duplicate station names on the orbit are ambiguous; refuse to guess.
