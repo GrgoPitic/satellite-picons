@@ -11,6 +11,7 @@ from pathlib import Path
 import yaml
 
 import build as legacy
+from station_aliases import unique_family_artwork
 from catalog_common import (
     channel_identity,
     is_real_station_name,
@@ -53,6 +54,11 @@ def enrich_artwork(channel: dict, stations: dict | None = None) -> dict:
              and identity in {str(x) for x in candidate.get("targets", []) or []}),
             None,
         )
+
+    if not isinstance(artwork, dict):
+        alias_match = unique_family_artwork(item.get("name", ""), stations)
+        if alias_match:
+            _, artwork = alias_match
 
     if isinstance(artwork, dict):
         provider_override = (artwork.get("provider_overrides") or {}).get(provider_id)
