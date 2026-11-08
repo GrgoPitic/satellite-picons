@@ -11,8 +11,8 @@
 <section class="panel" data-panel-view="stations">
 <h1>Moje stanice</h1><p class="sub">Vyber stanicu, skontroluj picon a uprav jej logo.</p>
 <div class="station-help">Jednotný vzhľad: <strong>piconblack · 150 × 90 px</strong>. Najprv schváľ náhľad, potom ulož logo. Uložené zmeny odošli na web cez Publikovanie.</div>
-<div class="station-tools"><input id="stationSearch" type="search" aria-label="Vyhľadať stanicu" placeholder="Hľadať stanicu…"><select id="stationProvider" aria-label="Orbitálna pozícia"><option value="">Všetky orbitálne pozície</option></select></div>
-<div class="station-help">Vhannibal je jediným zdrojom kanálov. Synchronizácia sa spúšťa každých šesť hodín. Logá a ich úpravy zostávajú tvoje.</div>
+<div class="station-tools"><input id="stationSearch" type="search" aria-label="Vyhľadať stanicu" placeholder="Hľadať stanicu…"><select id="stationProvider" aria-label="Orbitálna pozícia"><option value="">Všetky orbitálne pozície</option></select><select id="stationOperator" aria-label="Skutočné členstvo v operátorovi"><option value="">Všetky služby Vhannibal</option><option value="skylink-sk">Skylink SK – overené služby</option><option value="skylink-cz">Skylink CZ – overené služby</option></select></div>
+<div class="station-help">Vhannibal určuje služby podľa orbity; Skylink SK/CZ filtrujeme nezávisle podľa FastScan, orbity a frekvencie. Neoverené stanice sa do operátora nezaradia. Logá zostávajú tvoje.</div>
 <p id="stationCount" role="status"></p><div id="stationGrid" class="station-grid"></div><button type="button" class="action secondary" id="stationMore" style="display:none;margin-top:16px">Zobraziť ďalších 100 staníc</button>
 </section>
 <section class="panel" data-panel-view="missing"><h1>Chýbajúce logá</h1><p class="sub">Stanice bez hotového loga pre všetky ich service reference. Pri existujúcom logu otvor priradenia.</p><div id="missingGrid" class="station-grid"></div><button type="button" class="action secondary" id="missingMore" style="display:none;margin-top:16px">Zobraziť ďalších 100 chýbajúcich</button></section>
@@ -128,7 +128,7 @@
  const grouped=new Map();
  adminChannels.forEach(ch=>{const key=ch.station_key||ch.name; if(!grouped.has(key))grouped.set(key,[]);grouped.get(key).push(ch);});
  const stations=[...grouped.values()].sort((a,b)=>a[0].name.localeCompare(b[0].name,'sk'));
- const search=document.querySelector('#stationSearch'),provider=document.querySelector('#stationProvider');
+ const search=document.querySelector('#stationSearch'),provider=document.querySelector('#stationProvider'),operator=document.querySelector('#stationOperator');
  const label=id=>(providerMeta[id]||{}).name||id||'Bez operátora';
  [...new Set(adminChannels.map(c=>c.satellite_position).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'sk')).forEach(position=>provider.add(new Option(position,position)));
  const normalize=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
@@ -145,7 +145,7 @@
    const picture=document.createElement('div');picture.className='station-image';
    if(source._has_curated_logo){const img=document.createElement('img');img.loading='lazy';img.alt=source.name;img.src='/api/station-picon?identity='+encodeURIComponent(source._identity);picture.append(img);}else picture.textContent='Zatiaľ bez loga';
    const title=document.createElement('h3');title.textContent=source.name;
-   const operators=document.createElement('p');operators.textContent=[...new Set(rows.map(c=>c.satellite_position).filter(Boolean))].join(' · ');
+   const operators=document.createElement('p');const orbits=[...new Set(rows.map(c=>c.satellite_position).filter(Boolean))].join(' · ');const verified=[...new Set(rows.flatMap(c=>c._operators||[]))].map(o=>o==='skylink-sk'?'Skylink SK':o==='skylink-cz'?'Skylink CZ':o);operators.textContent=orbits+' · '+(verified.length?verified.join(' / '):'Len Vhannibal, operátor neoverený');
    const status=document.createElement('div');status.className='station-status';status.textContent=`Logo má ${rows.filter(c=>c._has_curated_logo).length} z ${rows.length} výskytov stanice`;
    tile.append(picture,title,operators,status);
    const button=(text,fn)=>{const b=document.createElement('button');b.type='button';b.className='action secondary';b.textContent=text;b.onclick=fn;tile.append(b);};
@@ -161,7 +161,8 @@
    const grid=document.querySelector('#stationGrid');grid.replaceChildren();
    const term=normalize(search.value.trim());
    const visible=stations.filter(rows=>rows.some(c=>normalize(c.name).includes(term)) &&
-       (!provider.value || rows.some(c=>c.satellite_position===provider.value)));
+       (!provider.value || rows.some(c=>c.satellite_position===provider.value)) &&
+       (!operator.value || rows.some(c=>(c._operators||[]).includes(operator.value))));
    visible.slice(0,stationLimit).forEach(rows=>grid.append(card(rows)));
    document.querySelector('#stationCount').textContent=
      `Zobrazené stanice: ${Math.min(visible.length,stationLimit)} z ${visible.length} · celkom ${stations.length}`;
@@ -178,6 +179,7 @@
  missingMore.addEventListener('click',()=>{missingLimit+=100;renderMissing();});
  search.addEventListener('input',()=>{stationLimit=100;render();});
  provider.addEventListener('change',()=>{stationLimit=100;render();});
+ operator.addEventListener('change',()=>{stationLimit=100;render();});
  render();renderMissing();
  const nav=document.querySelector('.nav');
  const details=document.createElement('details');
