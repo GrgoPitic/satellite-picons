@@ -562,4 +562,59 @@
   renderProviders();
   renderFilters();
   render();
+  // The public and administrator views use the same durable history file.
+  const changeList = document.querySelector('#publicChangeList');
+  const changeStatus = document.querySelector('#publicChangeStatus');
+  const changeProvider = document.querySelector('#publicChangeProvider');
+  const changeLabels = {
+    added: 'Nová stanica',
+    removed: 'Odstránená služba',
+    renamed: 'Premenovanie',
+    tuning_changed: 'Zmena naladenia',
+    metadata_changed: 'Zmena parametrov',
+    catalogue_added: 'Prvý import katalógu'
+  };
+  fetch('catalogue-changes.json?v=' + cacheToken, { cache: 'no-store' })
+    .then(response => {
+      if (!response.ok) throw new Error('História nie je dostupná');
+      return response.json();
+    })
+    .then(data => {
+      const events = Array.isArray(data.events) ? data.events : [];
+      const providerNames = new Map(events.map(event =>
+        [event.provider, event.provider_name || event.provider]));
+      [...providerNames].sort((a,b)=>String(a[1]).localeCompare(String(b[1]), 'sk'))
+        .forEach(([id, name]) => changeProvider.add(new Option(name, id)));
+      function renderHistory() {
+        const filtered = events.filter(event =>
+          !changeProvider.value || event.provider === changeProvider.value);
+        changeStatus.textContent = filtered.length
+          ? filtered.length + ' zmien · najnovšie záznamy navrchu'
+          : 'Zatiaľ nie sú zaznamenané zmeny oproti predchádzajúcej úspešnej synchronizácii.';
+        changeList.replaceChildren();
+        filtered.slice(0, 60).forEach(event => {
+          const card = document.createElement('article');
+          card.className = 'change-history-entry';
+          const kind = document.createElement('span');
+          kind.textContent = changeLabels[event.kind] || event.kind;
+          const heading = document.createElement('strong');
+          heading.textContent = event.name || 'Stanica';
+          const provider = document.createElement('span');
+          provider.textContent = event.provider_name || event.provider || '';
+          const detail = document.createElement('p');
+          detail.textContent = event.kind === 'renamed' ? 'Pôvodne: ' + (event.old_name || '')
+            : event.kind === 'catalogue_added' ? 'Načítaných staníc: ' + (event.count || 0)
+            : event.kind === 'tuning_changed' ? 'Aktualizovaná service reference'
+            : '';
+          const time = document.createElement('time');
+          time.textContent = event.at ? new Date(event.at).toLocaleString('sk-SK') : '';
+          card.append(kind, heading, provider, detail, time);
+          changeList.append(card);
+        });
+      }
+      changeProvider.addEventListener('change', renderHistory);
+      renderHistory();
+    })
+    .catch(() => { changeStatus.textContent = 'História aktualizácií momentálne nie je dostupná.'; });
+
 })();
