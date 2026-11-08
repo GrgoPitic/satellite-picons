@@ -1,14 +1,89 @@
 <style>
 .station-tools{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0}.station-tools input{flex:2;min-width:180px}.station-tools select{flex:1;min-width:160px}.station-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(245px,1fr));gap:16px}.station-tile{border:1px solid #2b3d50;border-radius:16px;padding:18px;background:#101923}.station-image{height:105px;display:flex;align-items:center;justify-content:center;background:#080d13;border-radius:10px;margin-bottom:14px;color:#91a1b4}.station-image img{width:150px;height:90px;object-fit:contain}.station-tile h3{margin:0 0 8px}.station-tile p{color:#a9b8c9;font-size:13px;line-height:1.6}.station-tile button{margin-top:8px}.station-empty{padding:30px;color:#acb9c8}.station-status{color:#b6d9bf;font-size:13px}.station-help{padding:16px;background:#152333;border-radius:12px;line-height:1.7}
+.change-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px;margin:18px 0}
+.change-stat{padding:14px;border:1px solid #2b3d50;border-radius:12px;background:#101923}
+.change-stat strong{display:block;font-size:24px;margin-bottom:4px}.change-stat span{font-size:12px;color:#9fb0c2}
+.change-list{display:grid;gap:10px;margin-top:12px}.change-item{padding:12px 14px;border:1px solid #263748;border-radius:11px;background:#0d151e}
+.change-item strong{display:block;margin-bottom:5px}.change-item small{color:#91a1b4;line-height:1.5;word-break:break-word}
+.change-section{margin-top:22px}.change-section h3{margin-bottom:8px}
+.change-empty{padding:22px;border:1px dashed #2b3d50;border-radius:12px;color:#9fb0c2}
 </style>
 <section class="panel" data-panel-view="stations">
 <h1>Moje stanice</h1><p class="sub">Vyber stanicu, skontroluj picon a uprav jej logo.</p>
 <div class="station-help">Jednotný vzhľad: <strong>piconblack · 150 × 90 px</strong>. Najprv schváľ náhľad, potom ulož logo. Uložené zmeny odošli na web cez Publikovanie.</div>
 <div class="station-tools"><input id="stationSearch" type="search" aria-label="Vyhľadať stanicu" placeholder="Hľadať stanicu…"><select id="stationProvider" aria-label="Orbitálna pozícia"><option value="">Všetky orbitálne pozície</option></select></div>
-<div class="station-help">Jediným zdrojom staníc je Vhannibal. GitHub kontroluje aktualizácie každých šesť hodín. Orbitálne pozície vznikajú iba z reálnych referencií. Tvoje vlastné logá zostávajú zachované.</div>
+<div class="station-help">Vhannibal je jediným zdrojom kanálov. Synchronizácia sa spúšťa každých šesť hodín. Logá a ich úpravy zostávajú tvoje.</div>
 <p id="stationCount" role="status"></p><div id="stationGrid" class="station-grid"></div>
 </section>
 <section class="panel" data-panel-view="missing"><h1>Chýbajúce logá</h1><p class="sub">Stanice, ktorým chýba logo aspoň u jedného operátora. Pri existujúcom logu otvor priradenia.</p><div id="missingGrid" class="station-grid"></div></section>
+
+<section class="panel" data-panel-view="vhannibal">
+<h1>Zmeny Vhannibal</h1>
+<p class="sub">Posledná automatická synchronizácia Skylink SK + CZ. Tu vidíš, čo sa oproti predchádzajúcemu katalógu zmenilo.</p>
+{% if vhannibal_report.error %}
+  <div class="change-empty">{{ vhannibal_report.error }}</div>
+{% else %}
+  <div class="station-help">
+    <strong>Posledná synchronizácia:</strong>
+    <span id="vhannibalSyncedAt" data-ts="{{ vhannibal_report.synced_at or '' }}">—</span><br>
+    Predtým: {{ vhannibal_report.previous_channels or 0 }} služieb · teraz: {{ vhannibal_report.current_channels or 0 }} služieb.
+    {% if vhannibal_report.counts and vhannibal_report.counts.artwork_assignments_updated %}
+      Automaticky bolo doplnených {{ vhannibal_report.counts.artwork_assignments_updated }} priradení existujúceho loga.
+    {% endif %}
+  </div>
+  <div class="change-summary">
+    <div class="change-stat"><strong>{{ vhannibal_report.counts.added or 0 }}</strong><span>nové služby</span></div>
+    <div class="change-stat"><strong>{{ vhannibal_report.counts.removed or 0 }}</strong><span>odstránené služby</span></div>
+    <div class="change-stat"><strong>{{ vhannibal_report.counts.renamed or 0 }}</strong><span>premenovania</span></div>
+    <div class="change-stat"><strong>{{ vhannibal_report.counts.tuning_changed or 0 }}</strong><span>zmeny ladenia</span></div>
+    <div class="change-stat"><strong>{{ vhannibal_report.counts.metadata_changed or 0 }}</strong><span>iné zmeny</span></div>
+  </div>
+
+  {% if not vhannibal_report.changed %}
+    <div class="change-empty">Od posledného uloženého katalógu sa nič podstatné nezmenilo.</div>
+  {% endif %}
+
+  {% if vhannibal_report.tuning_changed %}
+  <div class="change-section"><h3>Zmenené ladenie / service reference</h3><div class="change-list">
+    {% for item in vhannibal_report.tuning_changed %}
+    <div class="change-item"><strong>{{ item.name }}</strong><small>Predtým: {{ item.old_reference }}<br>Teraz: {{ item.new_reference }}</small></div>
+    {% endfor %}
+  </div></div>
+  {% endif %}
+
+  {% if vhannibal_report.added %}
+  <div class="change-section"><h3>Nové služby</h3><div class="change-list">
+    {% for item in vhannibal_report.added %}
+    <div class="change-item"><strong>{{ item.name }}</strong><small>{{ item.identity }}</small></div>
+    {% endfor %}
+  </div></div>
+  {% endif %}
+
+  {% if vhannibal_report.removed %}
+  <div class="change-section"><h3>Odstránené služby</h3><div class="change-list">
+    {% for item in vhannibal_report.removed %}
+    <div class="change-item"><strong>{{ item.name }}</strong><small>{{ item.identity }}</small></div>
+    {% endfor %}
+  </div></div>
+  {% endif %}
+
+  {% if vhannibal_report.renamed %}
+  <div class="change-section"><h3>Premenované služby</h3><div class="change-list">
+    {% for item in vhannibal_report.renamed %}
+    <div class="change-item"><strong>{{ item.old_name }} → {{ item.new_name }}</strong><small>{{ item.identity }}</small></div>
+    {% endfor %}
+  </div></div>
+  {% endif %}
+
+  {% if vhannibal_report.metadata_changed %}
+  <div class="change-section"><h3>Ostatné zmeny</h3><div class="change-list">
+    {% for item in vhannibal_report.metadata_changed %}
+    <div class="change-item"><strong>{{ item.name }}</strong><small>Zmenené polia: {{ item.fields|join(', ') }}</small></div>
+    {% endfor %}
+  </div></div>
+  {% endif %}
+{% endif %}
+</section>
 <section class="panel" data-panel-view="changes">
 <h1>Zmeny operátorov</h1>
 <p class="sub">Zmeny oproti poslednému úspešne načítanému katalógu. Nedostupnosť zdroja nie je odstránenie stanice.</p>
@@ -90,7 +165,9 @@
  const nav=document.querySelector('.nav');
  const details=document.createElement('details');
  const summary=document.createElement('summary');summary.textContent='Ďalšie nástroje';details.append(summary);
- nav.querySelectorAll('[data-panel]').forEach(b=>{if(!['stations','missing','changes','publish'].includes(b.dataset.panel))details.append(b);});nav.append(details);
+ nav.querySelectorAll('[data-panel]').forEach(b=>{if(!['stations','missing','vhannibal','changes','publish'].includes(b.dataset.panel))details.append(b);});nav.append(details);
+ const vhTs=document.querySelector('#vhannibalSyncedAt');
+ if(vhTs&&vhTs.dataset.ts){const d=new Date(Number(vhTs.dataset.ts)*1000);if(!Number.isNaN(d.getTime()))vhTs.textContent=d.toLocaleString('sk-SK');}
  // Keep existing editing panels reachable, with the station list as the entry point.
  openPanel('stations');
 })();
