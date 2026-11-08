@@ -126,6 +126,10 @@ def station_picon():
     return send_file(io.BytesIO(png), mimetype="image/png")
 
 
+from vhannibal_check import register
+register(hub.legacy.app, load_curated_channels)
+
+
 def main() -> None:
     hub.main()
 
