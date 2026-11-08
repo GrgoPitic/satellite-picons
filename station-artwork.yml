@@ -172,3 +172,16 @@ stations:
     - sat:antik-sat-sk:79A_C6D4_16E_A00000
     - sat:skylink-sk:3C2C_C90_3_EB0000
     updated_at: 1794143036
+  canal-plus-action:
+    name: CANAL+ Action
+    logo: assets/logos/stations/canal-plus-action.png
+    source_logo: assets/source-logos/stations/canal-plus-action.svg
+    dark_to_white: false
+    optical_scale: 1.0
+    edge_cleanup: false
+    background_cleanup: false
+    background_tolerance: 28
+    trim_logo: true
+    targets:
+    - sat:skylink-sk:3736_C8E_3_EB0000
+    updated_at: 1794143857
