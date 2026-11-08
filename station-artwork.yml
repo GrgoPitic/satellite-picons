@@ -319,6 +319,7 @@ stations:
     background_cleanup: false
     background_tolerance: 28
     trim_logo: true
+    render_preset: original
     targets:
     - sat:digi-tv-hu:79E8_2C8_600_E080000
     - sat:digi-tv-hu:7A57_2CB_600_E080000
@@ -331,7 +332,7 @@ stations:
     - sat:skylink-sk:101C_451_35_C00000
     - sat:skylink-sk:17CF_C82_3_EB0000
     - sat:skylink-sk:3736_C8E_3_EB0000
-    updated_at: 1794147907
+    updated_at: 1794163594
   canal-plus:
     name: CANAL+
     logo: assets/logos/stations/canal-plus.png
