@@ -1107,9 +1107,14 @@ def api_v2_upload_logo():
 
         replaced = bool(current.get("logo"))
         action = "nahradené novou verziou" if replaced else "uložené"
+        auto_count = max(0, len(targets) - 1)
         return jsonify(
             ok=True,
-            message=f"{channel.get('name')}: logo {action}. Existujúce priradenia providerov zostali zachované.",
+            message=(
+                f"{channel.get('name')}: logo {action}. "
+                f"Automaticky je priradené k {len(targets)} službám"
+                + (f" naprieč operátormi." if auto_count else ".")
+            ),
         )
     except Exception as exc:
         return jsonify(error=str(exc)), 400
