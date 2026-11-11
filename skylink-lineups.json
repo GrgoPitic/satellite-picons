@@ -7,13 +7,13 @@
   "providers": {
     "skylink-sk": [
       {
-        "name": "Jednotka HD",
+        "name": "JEDNOTKA",
         "position": "23.5E",
         "frequency_mhz": 12012,
         "fastscan": 1
       },
       {
-        "name": "Dvojka HD",
+        "name": "DVOJKA",
         "position": "23.5E",
         "frequency_mhz": 12012,
         "fastscan": 2
@@ -115,7 +115,7 @@
         "fastscan": 19
       },
       {
-        "name": "RTVS 24 HD",
+        "name": "STVR 24",
         "position": "23.5E",
         "frequency_mhz": 12012,
         "fastscan": 21
@@ -505,7 +505,7 @@
         "fastscan": 106
       },
       {
-        "name": "RTVS SPORT HD",
+        "name": "STVR Sport",
         "position": "23.5E",
         "frequency_mhz": 12012,
         "fastscan": 107
@@ -2127,13 +2127,13 @@
         "fastscan": 51
       },
       {
-        "name": "Jednotka HD",
+        "name": "JEDNOTKA",
         "position": "23.5E",
         "frequency_mhz": 12012,
         "fastscan": 52
       },
       {
-        "name": "Dvojka HD",
+        "name": "DVOJKA",
         "position": "23.5E",
         "frequency_mhz": 12012,
         "fastscan": 53
@@ -2151,7 +2151,7 @@
         "fastscan": 55
       },
       {
-        "name": "RTVS 24 HD",
+        "name": "STVR 24",
         "position": "23.5E",
         "frequency_mhz": 12012,
         "fastscan": 56
