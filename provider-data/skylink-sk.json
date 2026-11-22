@@ -5,12 +5,12 @@
     "type": "vhannibal",
     "url": "https://www.vhannibal.net/download_setting.php?action=download&id=6",
     "settings": "Vhannibal TV bouquets (72 files)",
-    "sha256": "6abec43ef9278860d6e9c25efc1b3526be87603b060d7847e7ad77a2750553cb",
+    "sha256": "84e626c3067af0b4ae68249ee1cadb419b0bbaade2892489b5c6576237e3967f",
     "artwork_mode": "manual",
     "upstream_logos_imported": false
   },
   "stats": {
-    "channels_parsed": 4506,
+    "channels_parsed": 4504,
     "upstream_logos_imported": 0
   },
   "channels": [
@@ -1083,7 +1083,7 @@
     },
     {
       "id": "travelxp-11fb",
-      "name": "TRAVELXP 4K",
+      "name": "TravelXP 4K",
       "station_key": "travelxp",
       "service_reference": "1:0:1F:11FB:2B5C:13E:820000:0:0:0:",
       "provider_group": "skylink-sk",
@@ -1388,12 +1388,12 @@
       "id": "super-4233",
       "name": "Super!",
       "station_key": "super",
-      "service_reference": "1:0:1:4233:2F44:13E:820000:0:0:0:",
+      "service_reference": "1:0:16:4233:2F44:13E:820000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
       "variant_types": [
-        "1",
         "16",
+        "1",
         "19"
       ],
       "satellite_position": "13E",
@@ -1925,6 +1925,21 @@
       "frequency_mhz": 11179
     },
     {
+      "id": "trm-h24-421a",
+      "name": "TRM h24",
+      "station_key": "trm-h24",
+      "service_reference": "1:0:1:421A:3DB8:13E:820000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "1",
+        "16",
+        "19"
+      ],
+      "satellite_position": "13E",
+      "frequency_mhz": 11662
+    },
+    {
       "id": "telesardegna-50",
       "name": "TELESARDEGNA",
       "station_key": "telesardegna",
@@ -2285,9 +2300,9 @@
       "frequency_mhz": 12034
     },
     {
-      "id": "john-wick-collection-106c",
-      "name": "John Wick Collection",
-      "station_key": "john-wick-collection",
+      "id": "guardie-ladri-collection-106c",
+      "name": "Guardie & Ladri Collection",
+      "station_key": "guardie-ladri-collection",
       "service_reference": "1:0:19:106C:2260:FBFF:820000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -5126,10 +5141,11 @@
       "id": "la-trois-378c",
       "name": "La Trois",
       "station_key": "la-trois",
-      "service_reference": "1:0:1:378C:44C:13E:820000:0:0:0:",
+      "service_reference": "1:0:1F:378C:44C:13E:820000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
       "variant_types": [
+        "1F",
         "1",
         "16",
         "19"
@@ -6699,7 +6715,7 @@
     },
     {
       "id": "prosieben-austria-14b5",
-      "name": "ProSieben HD Austria",
+      "name": "ProSieben HD AUSTRIA",
       "station_key": "prosieben-austria",
       "service_reference": "1:0:19:14B5:407:1:C00000:0:0:0:",
       "provider_group": "skylink-sk",
@@ -6789,7 +6805,7 @@
     },
     {
       "id": "sat-1-austria-14b4",
-      "name": "SAT.1 HD Austria",
+      "name": "SAT.1 HD AUSTRIA",
       "station_key": "sat-1-austria",
       "service_reference": "1:0:19:14B4:407:1:C00000:0:0:0:",
       "provider_group": "skylink-sk",
@@ -7655,13 +7671,13 @@
       "id": "cubavision-internacional-1647",
       "name": "Cubavision Internacional",
       "station_key": "cubavision-internacional",
-      "service_reference": "1:0:1:1647:42C:1:C00000:0:0:0:",
+      "service_reference": "1:0:19:1647:42C:1:C00000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
       "variant_types": [
+        "19",
         "1",
-        "16",
-        "19"
+        "16"
       ],
       "satellite_position": "19.2E",
       "frequency_mhz": 11778
@@ -8311,21 +8327,6 @@
       ],
       "satellite_position": "13E",
       "frequency_mhz": 12169
-    },
-    {
-      "id": "novasummerhd-3c8e",
-      "name": "NovasummerHD",
-      "station_key": "novasummerhd",
-      "service_reference": "1:0:1:3C8E:1BBC:13E:820000:0:0:0:",
-      "provider_group": "skylink-sk",
-      "delivery": "satellite",
-      "variant_types": [
-        "1",
-        "16",
-        "19"
-      ],
-      "satellite_position": "13E",
-      "frequency_mhz": 12130
     },
     {
       "id": "btv-cinema-4",
@@ -9080,9 +9081,9 @@
       "frequency_mhz": 10818
     },
     {
-      "id": "m-plus-terror-7885",
-      "name": "M+ TERROR",
-      "station_key": "m-plus-terror",
+      "id": "m-plus-navidad-7885",
+      "name": "M+ NAVIDAD",
+      "station_key": "m-plus-navidad",
       "service_reference": "1:0:1:7885:414:1:C00000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -9125,9 +9126,9 @@
       "frequency_mhz": 10818
     },
     {
-      "id": "m-plus-romance-7696",
-      "name": "M+ ROMANCE",
-      "station_key": "m-plus-romance",
+      "id": "m-plus-thriller-7696",
+      "name": "M+ THRILLER",
+      "station_key": "m-plus-thriller",
       "service_reference": "1:0:1:7696:41E:1:C00000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -11106,9 +11107,9 @@
       "frequency_mhz": 12673
     },
     {
-      "id": "vivacom-arena-138f",
-      "name": "VIVACOM Arena HD",
-      "station_key": "vivacom-arena",
+      "id": "arena-plus-138f",
+      "name": "Arena Plus HD",
+      "station_key": "arena-plus",
       "service_reference": "1:0:19:138F:2710:D5:820000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -17846,6 +17847,21 @@
       "frequency_mhz": 12207
     },
     {
+      "id": "nfl-network-3f6",
+      "name": "NFL Network",
+      "station_key": "nfl-network",
+      "service_reference": "1:0:1:3F6:2:AA:5A0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "1",
+        "16",
+        "19"
+      ],
+      "satellite_position": "9E",
+      "frequency_mhz": 12054
+    },
+    {
       "id": "nautical-channel-471",
       "name": "Nautical Channel HD",
       "station_key": "nautical-channel",
@@ -18373,7 +18389,7 @@
     },
     {
       "id": "stvr-sport-3c3f",
-      "name": "STVR Sport",
+      "name": "STVR SPORT",
       "station_key": "stvr-sport",
       "service_reference": "1:0:19:3C3F:C90:3:EB0000:0:0:0:",
       "provider_group": "skylink-sk",
@@ -28889,6 +28905,21 @@
       "frequency_mhz": 12285
     },
     {
+      "id": "we-ukraine-1e5f",
+      "name": "WE-UKRAINE",
+      "station_key": "we-ukraine",
+      "service_reference": "1:0:16:1E5F:C9E:3:EB0000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "16",
+        "1",
+        "19"
+      ],
+      "satellite_position": "23.5E",
+      "frequency_mhz": 12285
+    },
+    {
       "id": "ictv-1e64",
       "name": "ICTV",
       "station_key": "ictv",
@@ -29294,21 +29325,6 @@
       "frequency_mhz": 12285
     },
     {
-      "id": "test-1-189d",
-      "name": "Test 1",
-      "station_key": "test-1",
-      "service_reference": "1:0:16:189D:C97:3:EB0000:0:0:0:",
-      "provider_group": "skylink-sk",
-      "delivery": "satellite",
-      "variant_types": [
-        "16",
-        "1",
-        "19"
-      ],
-      "satellite_position": "23.5E",
-      "frequency_mhz": 12148
-    },
-    {
       "id": "test-2-189e",
       "name": "Test 2",
       "station_key": "test-2",
@@ -29349,21 +29365,6 @@
         "19",
         "1",
         "16"
-      ],
-      "satellite_position": "23.5E",
-      "frequency_mhz": 12148
-    },
-    {
-      "id": "test-5-18a1",
-      "name": "Test 5",
-      "station_key": "test-5",
-      "service_reference": "1:0:16:18A1:C97:3:EB0000:0:0:0:",
-      "provider_group": "skylink-sk",
-      "delivery": "satellite",
-      "variant_types": [
-        "16",
-        "1",
-        "19"
       ],
       "satellite_position": "23.5E",
       "frequency_mhz": 12148
@@ -31996,9 +31997,9 @@
       "frequency_mhz": 12285
     },
     {
-      "id": "sky-m-i-1791",
-      "name": "Sky M:I HD",
-      "station_key": "sky-m-i",
+      "id": "mockingjayhd-1791",
+      "name": "MockingjayHD",
+      "station_key": "mockingjayhd",
       "service_reference": "1:0:19:1791:7EE:2:11A0000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -33543,9 +33544,9 @@
       "frequency_mhz": 11494
     },
     {
-      "id": "clubland-tv-c4b0",
-      "name": "Clubland TV",
-      "station_key": "clubland-tv",
+      "id": "now-xmas-c4b0",
+      "name": "NOW XMAS",
+      "station_key": "now-xmas",
       "service_reference": "1:0:1:C4B0:811:2:11A0000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -37552,7 +37553,7 @@
     },
     {
       "id": "h1test-2330",
-      "name": "H1Test",
+      "name": "H1test",
       "station_key": "h1test",
       "service_reference": "1:0:19:2330:7E0:2:11A0000:0:0:0:",
       "provider_group": "skylink-sk",
@@ -37564,21 +37565,6 @@
       ],
       "satellite_position": "28.2E",
       "frequency_mhz": 12012
-    },
-    {
-      "id": "hdtest2-17a0",
-      "name": "HDTest2",
-      "station_key": "hdtest2",
-      "service_reference": "1:0:19:17A0:7D3:2:11A0000:0:0:0:",
-      "provider_group": "skylink-sk",
-      "delivery": "satellite",
-      "variant_types": [
-        "19",
-        "1",
-        "16"
-      ],
-      "satellite_position": "28.2E",
-      "frequency_mhz": 11758
     },
     {
       "id": "help-and-support-208b",
@@ -42795,6 +42781,21 @@
       "frequency_mhz": 11823
     },
     {
+      "id": "novasummerhd-3c8e",
+      "name": "NovasummerHD",
+      "station_key": "novasummerhd",
+      "service_reference": "1:0:1:3C8E:1BBC:13E:820000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "1",
+        "16",
+        "19"
+      ],
+      "satellite_position": "13E",
+      "frequency_mhz": 12130
+    },
+    {
       "id": "p-test-1a9",
       "name": "P_TEST",
       "station_key": "p-test",
@@ -43408,21 +43409,6 @@
       ],
       "satellite_position": "13E",
       "frequency_mhz": 11137
-    },
-    {
-      "id": "kentron-tv-232f",
-      "name": "KENTRON TV",
-      "station_key": "kentron-tv",
-      "service_reference": "1:0:1:232F:2328:13E:820000:0:0:0:",
-      "provider_group": "skylink-sk",
-      "delivery": "satellite",
-      "variant_types": [
-        "1",
-        "16",
-        "19"
-      ],
-      "satellite_position": "13E",
-      "frequency_mhz": 12520
     },
     {
       "id": "cbc-azerbaijan-89a",
@@ -44445,6 +44431,21 @@
       "frequency_mhz": 12149
     },
     {
+      "id": "glorious-tv-1c8e",
+      "name": "Glorious TV",
+      "station_key": "glorious-tv",
+      "service_reference": "1:0:1:1C8E:332C:13E:820000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "1",
+        "16",
+        "19"
+      ],
+      "satellite_position": "13E",
+      "frequency_mhz": 11137
+    },
+    {
       "id": "gnc-656",
       "name": "GNC HD",
       "station_key": "gnc",
@@ -44808,7 +44809,7 @@
       "id": "service-ip-mac-notification-320",
       "name": "SERVICE IP/MAC NOTIFICATION",
       "station_key": "service-ip-mac-notification",
-      "service_reference": "1:0:1:320:3E8:2:820000:0:0:0:",
+      "service_reference": "1:0:1:320:3E9:1:820000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
       "variant_types": [
@@ -44820,10 +44821,10 @@
       "frequency_mhz": 11219
     },
     {
-      "id": "dn2-sgp-basic-7d0",
-      "name": "dn2-sgp-BASIC",
-      "station_key": "dn2-sgp-basic",
-      "service_reference": "1:0:C:7D0:3E8:2:820000:0:0:0:",
+      "id": "dn1-sgb-hvs1-3e9",
+      "name": "dn1-sgb-HVS1",
+      "station_key": "dn1-sgb-hvs1",
+      "service_reference": "1:0:C:3E9:3E9:1:820000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
       "variant_types": [
@@ -44851,9 +44852,9 @@
       "frequency_mhz": 11316
     },
     {
-      "id": "basicdr-1",
-      "name": "BasicDR",
-      "station_key": "basicdr",
+      "id": "basicdr-bck-1",
+      "name": "BasicDR-bck",
+      "station_key": "basicdr-bck",
       "service_reference": "1:0:C:1:BB8:1:820000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
@@ -44870,7 +44871,7 @@
       "id": "service-ip-mac-notification-320",
       "name": "SERVICE IP/MAC NOTIFICATION",
       "station_key": "service-ip-mac-notification",
-      "service_reference": "1:0:1:320:3EA:2:820000:0:0:0:",
+      "service_reference": "1:0:1:320:3EA:1:820000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
       "variant_types": [
@@ -44882,10 +44883,10 @@
       "frequency_mhz": 11470
     },
     {
-      "id": "dn2-sgp-hvs2-sgp6-7d2",
-      "name": "dn2-sgp-HVS2 (SGP6)",
-      "station_key": "dn2-sgp-hvs2-sgp6",
-      "service_reference": "1:0:C:7D2:3EA:2:820000:0:0:0:",
+      "id": "dn1-sgp-hvs-2-3ea",
+      "name": "dn1-sgp-HVS-2",
+      "station_key": "dn1-sgp-hvs-2",
+      "service_reference": "1:0:C:3EA:3EA:1:820000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
       "variant_types": [
@@ -51714,6 +51715,21 @@
       "frequency_mhz": 11231
     },
     {
+      "id": "nova-s-6e4",
+      "name": "Nova S HD",
+      "station_key": "nova-s",
+      "service_reference": "1:0:1:6E4:C544:16E:A00000:0:0:0:",
+      "provider_group": "skylink-sk",
+      "delivery": "satellite",
+      "variant_types": [
+        "1",
+        "16",
+        "19"
+      ],
+      "satellite_position": "16E",
+      "frequency_mhz": 11554
+    },
+    {
       "id": "n1-5ba",
       "name": "N1 HD",
       "station_key": "n1",
@@ -53902,21 +53918,6 @@
       ],
       "satellite_position": "16E",
       "frequency_mhz": 11471
-    },
-    {
-      "id": "nova-s-6e4",
-      "name": "Nova S HD",
-      "station_key": "nova-s",
-      "service_reference": "1:0:1:6E4:C544:16E:A00000:0:0:0:",
-      "provider_group": "skylink-sk",
-      "delivery": "satellite",
-      "variant_types": [
-        "1",
-        "16",
-        "19"
-      ],
-      "satellite_position": "16E",
-      "frequency_mhz": 11554
     },
     {
       "id": "rts-drama-7b",
@@ -58890,21 +58891,6 @@
       "name": "CANALE 122",
       "station_key": "canale-122",
       "service_reference": "1:0:19:1C03:384:110:5A0000:0:0:0:",
-      "provider_group": "skylink-sk",
-      "delivery": "satellite",
-      "variant_types": [
-        "19",
-        "1",
-        "16"
-      ],
-      "satellite_position": "9E",
-      "frequency_mhz": 12111
-    },
-    {
-      "id": "cusano-news-7-1bfe",
-      "name": "CUSANO NEWS 7",
-      "station_key": "cusano-news-7",
-      "service_reference": "1:0:19:1BFE:384:110:5A0000:0:0:0:",
       "provider_group": "skylink-sk",
       "delivery": "satellite",
       "variant_types": [
@@ -66802,21 +66788,6 @@
       ],
       "satellite_position": "9E",
       "frequency_mhz": 12284
-    },
-    {
-      "id": "test-22-3f6",
-      "name": "TEST 22",
-      "station_key": "test-22",
-      "service_reference": "1:0:1:3F6:2:AA:5A0000:0:0:0:",
-      "provider_group": "skylink-sk",
-      "delivery": "satellite",
-      "variant_types": [
-        "1",
-        "16",
-        "19"
-      ],
-      "satellite_position": "9E",
-      "frequency_mhz": 12054
     },
     {
       "id": "test-biss-421",
