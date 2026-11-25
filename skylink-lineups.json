@@ -1167,7 +1167,7 @@
       {
         "name": "CNN Int.",
         "position": "19.2E",
-        "frequency_mhz": 11739,
+        "frequency_mhz": 12343,
         "fastscan": 468
       },
       {
@@ -1231,9 +1231,9 @@
         "fastscan": 479
       },
       {
-        "name": "CNBC HD",
+        "name": "CNBC Europe",
         "position": "19.2E",
-        "frequency_mhz": 11376,
+        "frequency_mhz": 11067,
         "fastscan": 480
       },
       {
@@ -1243,9 +1243,9 @@
         "fastscan": 481
       },
       {
-        "name": "CGTN Documentary",
+        "name": "CGTN DOCUMENTARY HD",
         "position": "19.2E",
-        "frequency_mhz": 11376,
+        "frequency_mhz": 11778,
         "fastscan": 482
       },
       {
@@ -1811,12 +1811,6 @@
         "position": "19.2E",
         "frequency_mhz": 11053,
         "fastscan": 891
-      },
-      {
-        "name": "BR Schlager",
-        "position": "19.2E",
-        "frequency_mhz": 11053,
-        "fastscan": 892
       },
       {
         "name": "BR-Heimat",
@@ -3041,7 +3035,7 @@
       {
         "name": "CNN Int.",
         "position": "19.2E",
-        "frequency_mhz": 11739,
+        "frequency_mhz": 12343,
         "fastscan": 468
       },
       {
@@ -3105,9 +3099,9 @@
         "fastscan": 479
       },
       {
-        "name": "CNBC HD",
+        "name": "CNBC Europe",
         "position": "19.2E",
-        "frequency_mhz": 11376,
+        "frequency_mhz": 11067,
         "fastscan": 480
       },
       {
@@ -3117,9 +3111,9 @@
         "fastscan": 481
       },
       {
-        "name": "CGTN Documentary",
+        "name": "CGTN DOCUMENTARY HD",
         "position": "19.2E",
-        "frequency_mhz": 11376,
+        "frequency_mhz": 11778,
         "fastscan": 482
       },
       {
@@ -3691,12 +3685,6 @@
         "position": "19.2E",
         "frequency_mhz": 11053,
         "fastscan": 891
-      },
-      {
-        "name": "BR Schlager",
-        "position": "19.2E",
-        "frequency_mhz": 11053,
-        "fastscan": 892
       },
       {
         "name": "BR-Heimat",
